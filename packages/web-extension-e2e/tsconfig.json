@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["ESNext", "DOM"],
+    "paths": {
+      "~/*": ["./*"]
+    }
+  },
+  "include": ["e2e/**/*.ts", "lib/**/*.ts"]
+}

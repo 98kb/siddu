@@ -1,0 +1,21 @@
+# web-extension-e2e
+
+[![npm version][npm-version-src]][npm-version-href]
+[![npm downloads][npm-downloads-src]][npm-downloads-href]
+[![bundle][bundle-src]][bundle-href]
+[![Codecov][codecov-src]][codecov-href]
+
+
+
+Published under [MIT License](./LICENSE).
+
+<!-- Badges -->
+
+[npm-version-src]: https://img.shields.io/npm/v/web-extension-e2e?style=flat&colorA=18181B&colorB=F0DB4F
+[npm-version-href]: https://npmjs.com/package/web-extension-e2e
+[npm-downloads-src]: https://img.shields.io/npm/dm/web-extension-e2e?style=flat&colorA=18181B&colorB=F0DB4F
+[npm-downloads-href]: https://npmjs.com/package/web-extension-e2e
+[codecov-src]: https://img.shields.io/codecov/c/gh/unjs/web-extension-e2e/main?style=flat&colorA=18181B&colorB=F0DB4F
+[codecov-href]: https://codecov.io/gh/unjs/web-extension-e2e
+[bundle-src]: https://img.shields.io/bundlephobia/minzip/web-extension-e2e?style=flat&colorA=18181B&colorB=F0DB4F
+[bundle-href]: https://bundlephobia.com/result?p=web-extension-e2e
