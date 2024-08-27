@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "noEmit": true
+  },
+  "include": ["vite.config.ts"],
+  "references": [{ "path": "./tsconfig.base.json" }]
+}
