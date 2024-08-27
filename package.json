@@ -3,5 +3,9 @@
   "version": "0.0.0",
   "description": "",
   "author": "",
-  "sideEffects": false
+  "sideEffects": false,
+  "scripts": {
+    "pree2e": "pnpm --filter web-extension build",
+    "e2e": "pnpm --filter web-extension-e2e e2e:ui"
+  }
 }
