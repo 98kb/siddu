@@ -3,16 +3,22 @@
   import {element} from "../stores/element";
   import {isModalOpen} from "../stores/isModalOpen";
 
+  let portal: HTMLDivElement;
+
   $: {
     if($isModalOpen === false && $element) {
       $element.focus();
-      $element.value = `${$element?.value} ${Math.random()} \r\n`;
+      $element.value = [$element?.value, Math.random()].join(" ");
       $element = undefined;
     }
   }
 </script>
 
-<Dialog.Root bind:open={$isModalOpen}>
+<Dialog.Root
+  {portal}
+  bind:open={$isModalOpen}
+  closeOnOutsideClick={false}
+>
   <Dialog.Content>
     <Dialog.Header>
       <Dialog.Title>Are you sure absolutely sure?</Dialog.Title>
@@ -23,3 +29,5 @@
     </Dialog.Header>
   </Dialog.Content>
 </Dialog.Root>
+
+<div bind:this={portal} class="fixed z-[999999]"></div>

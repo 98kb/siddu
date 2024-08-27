@@ -3,22 +3,18 @@ import {SearchModal} from "@repo/search-modal";
 
 export default defineContentScript({
   matches: ["<all_urls>"],
-  main(ctx) {
-    const ui = createIntegratedUi(ctx, {
-      position: "inline",
+  cssInjectionMode: "ui",
+  async main(ctx) {
+    const ui = await createShadowRootUi(ctx, {
+      name: "search-modal",
+      position: "modal",
       onMount: container => {
-        // Create the Svelte app inside the UI container
-        return new SearchModal({
-          target: container,
-        });
+        return new SearchModal({target: container});
       },
       onRemove: app => {
-        // Destroy the app when the UI is removed
         app?.$destroy();
       },
     });
-
-    // Call mount to add the UI to the DOM
     ui.mount();
   },
 });

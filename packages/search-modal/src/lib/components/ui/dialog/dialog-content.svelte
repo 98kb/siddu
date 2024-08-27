@@ -14,7 +14,7 @@
 	export { className as class };
 </script>
 
-<Dialog.Portal>
+<Dialog.Portal asChild>
 	<Dialog.Overlay />
 	<DialogPrimitive.Content
 		{transition}
