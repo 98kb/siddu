@@ -73,7 +73,8 @@
     @apply border-border;
   }
   html {
-    z-index: 999999;
+    @apply antialiased;
+    @apply relative;
   }
   body {
     @apply bg-background text-foreground;

@@ -27,6 +27,7 @@
     "@sveltejs/vite-plugin-svelte": "^3.1.1",
     "@tailwindcss/typography": "^0.5.14",
     "@tsconfig/svelte": "^5.0.4",
+    "@types/chrome": "^0.0.270",
     "autoprefixer": "^10.4.20",
     "storybook": "^8.2.9",
     "svelte": "^4.2.18",
@@ -37,8 +38,10 @@
     "vite": "^5.4.1"
   },
   "dependencies": {
+    "@repo/notes-db": "workspace:*",
     "bits-ui": "^0.21.13",
     "clsx": "^2.1.1",
+    "cmdk-sv": "^0.0.18",
     "svelte-radix": "^1.1.1",
     "tailwind-merge": "^2.5.2",
     "tailwind-variants": "^0.2.1"

@@ -1,0 +1,42 @@
+{
+  "name": "@repo/notes-db",
+  "version": "0.0.0",
+  "description": "",
+  "author": "",
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "dev": "vitest dev",
+    "lint": "eslint --cache --ext .ts,.js,.mjs,.cjs . && prettier -c src tests",
+    "lint:fix": "eslint --cache --ext .ts,.js,.mjs,.cjs . --fix && prettier -c src test -w",
+    "test": "pnpm lint && pnpm test:types && vitest run --coverage --dir tests",
+    "test:types": "tsc --noEmit --skipLibCheck"
+  },
+  "devDependencies": {
+    "@types/node": "^20.5.4",
+    "@vitest/coverage-v8": "^0.34.2",
+    "eslint": "^8.47.0",
+    "eslint-config-dsfx3d": "^0.1.2",
+    "prettier": "^3.0.2",
+    "typescript": "^5.1.6",
+    "unbuild": "^2.0.0",
+    "vitest": "^0.34.2"
+  },
+  "dependencies": {
+    "dexie": "^4.0.8"
+  }
+}

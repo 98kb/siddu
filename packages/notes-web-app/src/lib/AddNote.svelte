@@ -1,16 +1,10 @@
 <script lang="ts">
+  import { db } from '@repo/notes-db';
   let input: HTMLInputElement;
-  let notes: string[] = [];
 
-  function addNote() {
-    notes.push(input.value);
+  async function addNote() {
+    await db.notes.add({content: input.value});
     input.value = "";
-    notes = notes;
-  }
-
-  function removeNote(index: number) {
-    notes.splice(index, 1);
-    notes = notes;
   }
 </script>
 
@@ -22,12 +16,3 @@
   placeholder="Start typing..."
   />
 </form>
-
-<div class="grid grid-flow-row grid-cols-3 gap-7">
-  {#each notes as note, i}
-    <div>
-      <p>#{i} {note}</p>
-      <button on:click={() => removeNote(i)}>[x]</button>
-    </div>
-  {/each}
-</div>
