@@ -1,5 +1,6 @@
 <script lang="ts">
   import { db, liveQuery } from '@repo/notes-db';
+  import NotesGridItem from './NotesGridItem.svelte';
   let input: HTMLInputElement;
 
   const notes = liveQuery(() => db.notes.toArray());
@@ -9,13 +10,15 @@
   }
 </script>
 
-<div class="grid grid-flow-row grid-cols-3 gap-7">
+<div class="columns-2 lg:columns-5 w-4/5">
   {#if $notes}
     {#each $notes as note (note.id)}
-      <div>
-        <p>{note.content}</p>
-        <button on:click={() => removeNote(note.id)}>[x]</button>
-      </div>
+      <NotesGridItem>
+        {note.content}
+        <div slot="footer">
+          <button on:click={() => removeNote(note.id)}>[x]</button>
+        </div>
+      </NotesGridItem>
     {/each}
   {/if}
 </div>
