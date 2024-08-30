@@ -1,5 +1,5 @@
 {
-  "name": "@repo/notes-db",
+  "name": "@repo/facts-db",
   "version": "0.0.0",
   "description": "",
   "author": "",
@@ -32,11 +32,15 @@
     "eslint": "^8.47.0",
     "eslint-config-dsfx3d": "^0.1.2",
     "prettier": "^3.0.2",
+    "type-fest": "^4.26.0",
     "typescript": "^5.1.6",
     "unbuild": "^2.0.0",
     "vitest": "^0.34.2"
   },
   "dependencies": {
-    "dexie": "^4.0.8"
+    "dexie": "^4.0.8",
+    "fp-ts": "^2.16.9",
+    "nanoid": "^5.0.7",
+    "rxjs": "^7.8.1"
   }
 }

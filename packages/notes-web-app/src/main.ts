@@ -1,11 +1,11 @@
-import { Notes, NotesDummy } from '@repo/notes-db'
+import { FactsDb, LocalAdapter } from '@repo/facts-db';
 import './app.css'
 import App from './App.svelte'
 
 const app = new App({
   target: document.getElementById('app')!,
   props: {
-    notes: new Notes(),
+    db: new FactsDb(new LocalAdapter("notes")),
   }
 })
 

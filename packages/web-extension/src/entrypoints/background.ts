@@ -1,4 +1,4 @@
-import {Note, db} from "@repo/notes-db";
+import {Fact, db} from "@repo/facts-db";
 
 type Message =
   | {
@@ -15,7 +15,7 @@ const handlers: Record<Message["type"], Handler> = {
     db.notes.toArray().then(notes => sendResponse(notes));
   },
   search: (message, sendResponse) => {
-    const filterNotes = (note: Note) => note.content.includes(message.query);
+    const filterNotes = (note: Fact) => note.content.includes(message.query);
     db.notes
       .filter(note => filterNotes(note))
       .toArray()

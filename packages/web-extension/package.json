@@ -14,7 +14,7 @@
     "postinstall": "wxt prepare"
   },
   "dependencies": {
-    "@repo/notes-db": "workspace:*",
+    "@repo/facts-db": "workspace:*",
     "@repo/notes-web-app": "workspace:*",
     "@repo/search-modal": "workspace:*"
   },
