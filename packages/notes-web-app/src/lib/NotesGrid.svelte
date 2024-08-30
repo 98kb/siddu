@@ -1,22 +1,18 @@
 <script lang="ts">
-  import { db, liveQuery } from '@repo/notes-db';
+  import { liveQuery, type DAO, type Note } from '@repo/notes-db';
   import NotesGridItem from './NotesGridItem.svelte';
-  let input: HTMLInputElement;
 
-  const notes = liveQuery(() => db.notes.toArray());
-
-  async function removeNote(id: string) {
-    db.notes.delete(id);
-  }
+  export let notes: DAO<Note>;
+  const notes$ = liveQuery(() => notes.getAll());
 </script>
 
 <div class="columns-2 lg:columns-5 w-4/5">
-  {#if $notes}
-    {#each $notes as note (note.id)}
+  {#if $notes$}
+    {#each $notes$ as note (note.id)}
       <NotesGridItem>
         {note.content}
         <div slot="footer">
-          <button on:click={() => removeNote(note.id)}>[x]</button>
+          <button on:click={() => notes.softDelete(note.id)}>[x]</button>
         </div>
       </NotesGridItem>
     {/each}

@@ -5,30 +5,35 @@
   import SearchBar from "$lib/SearchBar.svelte";
   import { onMount } from "svelte";
 
-  const inputs = document.querySelectorAll("input");
-  const textareas = document.querySelectorAll("textarea");
-
-  console.log('inputs', inputs);
-
+  let inputs: NodeListOf<HTMLInputElement>;
+  let textareas: NodeListOf<HTMLTextAreaElement>;
 
   const openModal = (e: KeyboardEvent) => {
-    console.log('keypress');
-
     if (e.ctrlKey && e.key === ".") {
       isModalOpen.set(true);
       element.set(e.target as InputElement);
     }
   };
 
-  for (const input of inputs) {
-    input.addEventListener("keydown", openModal);
-  }
+  const addListeners = () => {
+    console.log('adding listeners');
+    inputs = document.querySelectorAll("input");
+    textareas = document.querySelectorAll("textarea");
 
-  for (const textarea of textareas) {
-    textarea.addEventListener("keydown", openModal);
-  }
+    for (const input of inputs) {
+      input.addEventListener("keydown", openModal);
+    }
+
+    for (const textarea of textareas) {
+      textarea.addEventListener("keydown", openModal);
+    }
+  };
 
   onMount(() => {
+    document.addEventListener("load", () => {
+      console.log('loaded');
+    });
+    setTimeout(addListeners, 5000);
     return () => {
       for (const input of inputs) {
         input.removeEventListener("keydown", openModal);

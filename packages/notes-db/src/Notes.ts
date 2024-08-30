@@ -11,7 +11,7 @@ export class Notes implements DAO<Note> {
     return db.notes.delete(id);
   }
 
-  async add(note: Note): Promise<void> {
+  async add(note: Pick<Note, "content">): Promise<void> {
     await db.notes.add(note);
   }
 

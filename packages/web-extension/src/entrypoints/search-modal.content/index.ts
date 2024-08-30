@@ -7,7 +7,6 @@ export default defineContentScript({
   matches: ["<all_urls>"],
   cssInjectionMode: "ui",
   async main(ctx) {
-    console.log("here");
     const ui = await createShadowRootUi(ctx, {
       name: "search-modal",
       position: "modal",

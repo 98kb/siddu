@@ -1,10 +1,13 @@
 <script lang="ts">
-  import { db } from '@repo/notes-db';
+  import { type DAO, type Note } from '@repo/notes-db';
   import Input from './components/ui/input/input.svelte';
+
+  export let notes: DAO<Note>;
+
   let value: string;
 
   async function addNote() {
-    await db.notes.add({content: value});
+    await notes.add({content: value});
     value = "";
   }
 </script>
