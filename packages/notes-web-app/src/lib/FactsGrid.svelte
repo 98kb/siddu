@@ -5,11 +5,6 @@
   export let db: FactsDb;
   const facts = db.toObservable(() => db.objects.getAll());
   const deleteOne = (id: string) => db.objects.deleteOne(id);
-  $: {
-    (async () => {
-      console.log('here', await db.objects.getAll());
-    })();
-  };
 </script>
 
 <div class="columns-2 lg:columns-5 w-4/5">

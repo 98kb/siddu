@@ -16,7 +16,7 @@ export class LocalAdapter implements DAO<Fact> {
     const subject = new ReplaySubject<R>();
     this.subjects.push([subject, fn]);
     fn().then((res: R) => subject.next(res));
-    return subject.asObservable() as unknown as Observable<Awaited<R>>;
+    return subject.asObservable() as unknown as Observable<R>;
   }
 
   async addOne(partial: Omit<Fact, "id">): Promise<void> {
@@ -47,11 +47,13 @@ export class LocalAdapter implements DAO<Fact> {
     return note ? JSON.parse(note) : undefined;
   }
 
-  async getAll(): Promise<Fact[]> {
+  getAll(): Promise<Fact[]> {
     const index = localStorage.getItem(this.key) || "[]";
-    return JSON.parse(index)
-      .map((id: string) => this.getOne(id))
-      .filter(Boolean) as Fact[];
+    return Promise.all(
+      JSON.parse(index)
+        .map((id: string) => this.getOne(id))
+        .filter(Boolean),
+    );
   }
 
   async filter(predicate: Reader<Fact, boolean>): Promise<Fact[]> {
