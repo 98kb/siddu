@@ -1,6 +1,9 @@
-import {Fact} from "@repo/facts-db";
+import {Reader} from "fp-ts/lib/Reader";
+import type {Fact} from "@repo/facts-db";
 
-export type Messages = {
+// TODO: Use higher-kinded types when TypeScript supports them
+// Ugly and verbose, but it works
+export type Requests = {
   addOne: {
     payload: Omit<Fact, "id">;
     result: void;
@@ -10,7 +13,7 @@ export type Messages = {
     result: Fact | undefined;
   };
   getAll: {
-    payload: never;
+    payload: any;
     result: Fact[];
   };
   updateOne: {
@@ -22,7 +25,7 @@ export type Messages = {
     result: void;
   };
   filter: {
-    payload: (fact: Fact) => boolean;
+    payload: {predicate: Reader<Fact, boolean>};
     result: Fact[];
   };
 };

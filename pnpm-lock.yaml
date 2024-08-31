@@ -105,6 +105,9 @@ importers:
       '@repo/facts-db':
         specifier: workspace:*
         version: link:../facts-db
+      fp-ts:
+        specifier: ^2.16.9
+        version: 2.16.9
     devDependencies:
       '@types/chrome':
         specifier: ^0.0.270

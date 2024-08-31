@@ -26,7 +26,8 @@
     "test:types": "tsc --noEmit --skipLibCheck"
   },
   "dependencies": {
-    "@repo/facts-db": "workspace:*"
+    "@repo/facts-db": "workspace:*",
+    "fp-ts": "^2.16.9"
   },
   "devDependencies": {
     "@types/chrome": "^0.0.270",
