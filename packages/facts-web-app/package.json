@@ -1,9 +1,9 @@
 {
-  "name": "@repo/notes-web-app",
+  "name": "@repo/facts-web-app",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "main": "dist/notes-web-app.es.js",
+  "main": "dist/facts-web-app.es.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "dev": "vite",

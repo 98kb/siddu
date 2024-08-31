@@ -3,21 +3,22 @@ import { defineConfig } from "file:///Users/yashodhansingh/Code/github/98/node_m
 import { svelte } from "file:///Users/yashodhansingh/Code/github/98/node_modules/.pnpm/@sveltejs+vite-plugin-svelte@3.1.2_svelte@4.2.19_vite@5.4.2_@types+node@22.5.0_/node_modules/@sveltejs/vite-plugin-svelte/src/index.js";
 import typescript from "file:///Users/yashodhansingh/Code/github/98/node_modules/.pnpm/@rollup+plugin-typescript@11.1.6_rollup@4.21.0_tslib@2.7.0_typescript@5.5.4/node_modules/@rollup/plugin-typescript/dist/es/index.js";
 import path from "path";
-var __vite_injected_original_dirname = "/Users/yashodhansingh/Code/github/98/packages/notes-web-app";
+var __vite_injected_original_dirname =
+  "/Users/yashodhansingh/Code/github/98/packages/facts-web-app";
 var vite_config_default = defineConfig({
   plugins: [svelte(), typescript()],
   build: {
     lib: {
       entry: path.resolve(__vite_injected_original_dirname, "src/index.ts"),
       name: "NotesWebApp",
-      fileName: (format) => `notes-web-app.${format}.js`
-    }
+      fileName: (format) => `facts-web-app.${format}.js`,
+    },
   },
   resolve: {
     alias: {
-      $lib: path.resolve("./src/lib")
-    }
-  }
+      $lib: path.resolve("./src/lib"),
+    },
+  },
 });
 export {
   vite_config_default as default

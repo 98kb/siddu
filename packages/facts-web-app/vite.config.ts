@@ -11,7 +11,7 @@ export default defineConfig({
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
       name: 'NotesWebApp',
-      fileName: (format) => `notes-web-app.${format}.js`,
+      fileName: (format) => `facts-web-app.${format}.js`,
     }
   },
   resolve: {

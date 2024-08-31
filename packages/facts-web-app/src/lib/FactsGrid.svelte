@@ -1,6 +1,6 @@
 <script lang="ts">
   import { type FactsDb } from '@repo/facts-db';
-  import NotesGridItem from './NotesGridItem.svelte';
+  import Fact from './Fact.svelte';
 
   export let db: FactsDb;
   const facts = db.toObservable(() => db.objects.getAll());
@@ -10,12 +10,12 @@
 <div class="columns-2 lg:columns-5 w-4/5">
   {#if $facts}
     {#each $facts as fact (fact.id)}
-      <NotesGridItem>
+      <Fact>
         {fact.content}
         <div slot="footer">
           <button on:click={() => deleteOne(fact.id)}>[x]</button>
         </div>
-      </NotesGridItem>
+      </Fact>
     {/each}
   {/if}
 </div>
