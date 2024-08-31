@@ -16,6 +16,7 @@
   "dependencies": {
     "@repo/facts-db": "workspace:*",
     "@repo/facts-web-app": "workspace:*",
+    "@repo/runtime-messaging": "workspace:*",
     "@repo/search-modal": "workspace:*"
   },
   "devDependencies": {
