@@ -7,6 +7,7 @@ import path from "path";
 export default defineConfig({
   plugins: [svelte(), typescript()],
   build: {
+    sourcemap: true,
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
       name: 'NotesWebApp',
