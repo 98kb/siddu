@@ -26,8 +26,8 @@ export function createRequestHandlers(db: FactsORM): Handlers {
       await db.objects.deleteOne(payload.id);
       sendResponse();
     },
-    async filter(payload, sendResponse) {
-      sendResponse(await db.objects.filter(payload));
+    async filter({predicate}, sendResponse) {
+      sendResponse(await db.objects.filter(predicate));
     },
   };
 }
