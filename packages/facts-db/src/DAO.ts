@@ -1,12 +1,9 @@
+import {BaseObject} from "./BaseObject";
 import {Observable} from "dexie";
 import {Reader} from "fp-ts/lib/Reader";
 import {Task} from "fp-ts/lib/Task";
 
-interface O {
-  id: string;
-}
-
-export interface DAO<T extends O> {
+export interface DAO<T extends BaseObject> {
   addOne(note: Omit<T, "id">): Promise<void>;
   getOne(id: string): Promise<T | undefined>;
   getAll(): Promise<T[]>;

@@ -1,3 +1,4 @@
+export * from "./BaseObject";
 export * from "./createFactsDB";
 export * from "./createFactsORM";
 export * from "./DAO";
@@ -7,4 +8,5 @@ export * from "./FactsDB";
 export * from "./FactsDbSchema";
 export * from "./FactsORM";
 export * from "./LocalAdapter";
+export * from "./ObservableDAO";
 export * from "./schema";
