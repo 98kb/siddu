@@ -1,13 +1,14 @@
+import {FactsORM} from "@repo/facts-db";
+import {IO} from "fp-ts/lib/IO";
+import {RuntimeAdapter} from "./RuntimeAdapter";
 import {createRequestHandlers} from "./createRequestHandlers";
-import type {FactsORM} from "@repo/facts-db";
-import type {Reader} from "fp-ts/lib/Reader";
 import type {Router} from "./Router";
 
-export const createRouter: Reader<FactsORM, Router> = db => {
+export const createRouter: IO<Router> = () => {
+  const db = new FactsORM(new RuntimeAdapter());
   const handlers = createRequestHandlers(db);
   return (message, sendResponse) => {
     const handler = handlers[message.type];
-    const payload = message.payload as Parameters<typeof handler>[0];
-    handler?.(payload, sendResponse);
+    handler?.(message.payload, sendResponse);
   };
 };
