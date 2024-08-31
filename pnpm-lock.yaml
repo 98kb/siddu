@@ -51,7 +51,7 @@ importers:
         specifier: ^0.34.2
         version: 0.34.6(playwright@1.46.1)
 
-  packages/notes-web-app:
+  packages/facts-web-app:
     dependencies:
       '@repo/facts-db':
         specifier: workspace:*
@@ -196,9 +196,9 @@ importers:
       '@repo/facts-db':
         specifier: workspace:*
         version: link:../facts-db
-      '@repo/notes-web-app':
+      '@repo/facts-web-app':
         specifier: workspace:*
-        version: link:../notes-web-app
+        version: link:../facts-web-app
       '@repo/search-modal':
         specifier: workspace:*
         version: link:../search-modal

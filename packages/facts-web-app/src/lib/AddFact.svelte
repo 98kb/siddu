@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { type FactsDb } from '@repo/facts-db';
+  import { type FactsORM } from '@repo/facts-db';
   import Input from './components/ui/input/input.svelte';
 
-  export let db: FactsDb;
+  export let db: FactsORM;
 
   let value: string;
 

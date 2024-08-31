@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { type FactsDb } from '@repo/facts-db';
+  import { type FactsORM } from '@repo/facts-db';
   import Fact from './Fact.svelte';
 
-  export let db: FactsDb;
+  export let db: FactsORM;
   const facts = db.toObservable(() => db.objects.getAll());
   const deleteOne = (id: string) => db.objects.deleteOne(id);
 </script>

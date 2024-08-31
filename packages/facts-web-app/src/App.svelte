@@ -1,10 +1,10 @@
 <script lang="ts">
-  import type {FactsDb} from "@repo/facts-db";
+  import type {FactsORM} from "@repo/facts-db";
   import AddFact from "$lib/AddFact.svelte";
   import FactsGrid from "$lib/FactsGrid.svelte";
   import "./app.css";
 
-  export let db: FactsDb;
+  export let db: FactsORM;
 </script>
 
 <main class="flex w-full h-full">

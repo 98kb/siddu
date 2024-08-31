@@ -1,7 +1,9 @@
-import {DexieAdapter} from "./DexieAdapter";
-import {FactsDb} from "./FactsDb";
-import {createDexieDb} from "./createDexieDb";
+import {FactsDB} from "./FactsDB";
+import {schema} from "./schema";
+import Dexie from "dexie";
 
-export function createFactsDb() {
-  return new FactsDb(new DexieAdapter(createDexieDb()));
+export function createFactsDB(name: string): FactsDB {
+  const db = new Dexie(name) as FactsDB;
+  db.version(1).stores(schema);
+  return db;
 }

@@ -1,11 +1,11 @@
 import "@repo/facts-web-app/dist/style.css";
-import {FactDao} from "@repo/facts-db";
-import {NotesApp} from "@repo/facts-web-app";
+import {FactsApp} from "@repo/facts-web-app";
+import {createFactsORM} from "@repo/facts-db";
 
-const app = new NotesApp({
+const app = new FactsApp({
   target: document.querySelector("#app")!,
   props: {
-    notes: new FactDao(),
+    db: createFactsORM("facts"),
   },
 });
 

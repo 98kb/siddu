@@ -1,12 +1,12 @@
 import {DAO} from "./DAO";
-import {DexieDb} from "./DexieDb";
 import {Fact} from "./Fact";
+import {FactsDB} from "./FactsDB";
 import {Observable, liveQuery} from "dexie";
 import {Reader} from "fp-ts/lib/Reader";
 import {Task} from "fp-ts/lib/Task";
 
 export class DexieAdapter implements DAO<Fact> {
-  constructor(private db: DexieDb) {}
+  constructor(private db: FactsDB) {}
   toObservable<R>(fn: Task<R>): Observable<R> {
     return liveQuery(() => fn()) as Observable<Awaited<R>>;
   }

@@ -1,1 +1,1 @@
-export {default as NotesApp} from "./App.svelte";
+export {default as FactsApp} from "./App.svelte";
