@@ -4,9 +4,13 @@
   import {element, type InputElement} from './stores/element';
   import SearchBar from "$lib/SearchBar.svelte";
   import { onMount } from "svelte";
+  import { repeat } from "$lib/repeat";
+  import type { FactsORM } from "@repo/facts-db";
 
-  let inputs: NodeListOf<HTMLInputElement>;
-  let textareas: NodeListOf<HTMLTextAreaElement>;
+  export let db: FactsORM;
+
+  let inputs: HTMLInputElement[] = [];
+  let textareas: HTMLTextAreaElement[] = [];
 
   const openModal = (e: KeyboardEvent) => {
     if (e.ctrlKey && e.key === ".") {
@@ -15,35 +19,30 @@
     }
   };
 
-  const addListeners = () => {
-    console.log('adding listeners');
-    inputs = document.querySelectorAll("input");
-    textareas = document.querySelectorAll("textarea");
+  const removeListeners = () => {
+    for (const input of inputs) {
+      input.removeEventListener("keydown", openModal);
+    }
+    for (const textarea of textareas) {
+      textarea.removeEventListener("keydown", openModal);
+    }
+  };
 
+  const addListeners = () => {
+    inputs = Array.from(document.querySelectorAll("input") ?? []);
+    textareas = Array.from(document.querySelectorAll("textarea") ?? []);
     for (const input of inputs) {
       input.addEventListener("keydown", openModal);
     }
-
     for (const textarea of textareas) {
       textarea.addEventListener("keydown", openModal);
     }
   };
 
   onMount(() => {
-    document.addEventListener("load", () => {
-      console.log('loaded');
-    });
-    setTimeout(addListeners, 5000);
-    return () => {
-      for (const input of inputs) {
-        input.removeEventListener("keydown", openModal);
-      }
-
-      for (const textarea of textareas) {
-        textarea.removeEventListener("keydown", openModal);
-      }
-    };
+    addListeners();
+    return removeListeners;
   });
 </script>
 
-<SearchBar />
+<SearchBar {db} />

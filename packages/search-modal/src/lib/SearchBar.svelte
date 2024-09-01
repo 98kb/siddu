@@ -1,11 +1,15 @@
 <script lang="ts">
   import * as Command from "$lib/components/ui/command";
+  import type {FactsORM, Fact} from "@repo/facts-db";
   import { element } from '../stores/element';
   import { isModalOpen } from "../stores/isModalOpen";
 
-  $: notes = chrome.runtime.sendMessage({ type: "getAll" });
-  const handleSelect = (note: { content: string }) => {
-    const text = note.content;
+  export let db: FactsORM;
+
+  const facts = db.toObservable(() => db.objects.getAll());
+
+  const handleSelect = (fact: Fact) => {
+    const text = fact.content;
     isModalOpen.set(false);
     if($element) {
       $element.value = [$element?.value, text].join(" ");
@@ -14,18 +18,13 @@
   };
 </script>
 
-<Command.Dialog
-  portal={null}
-  bind:open={$isModalOpen}
->
+<Command.Dialog portal={null} bind:open={$isModalOpen}>
   <Command.Input placeholder="Type to search..." />
   <Command.List>
-    {#await notes then notes}
-      {#each notes as note}
-        <Command.Item
-          onSelect={() => handleSelect(note)}
-        >{note.content}</Command.Item>
-      {/each}
-    {/await}
+    {#each $facts as fact (fact.id)}
+      <Command.Item onSelect={() => handleSelect(fact)}>
+        {fact.content}
+      </Command.Item>
+    {/each}
   </Command.List>
 </Command.Dialog>

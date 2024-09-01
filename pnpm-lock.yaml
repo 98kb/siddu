@@ -142,6 +142,9 @@ importers:
       '@repo/facts-db':
         specifier: workspace:*
         version: link:../facts-db
+      '@repo/runtime-messaging':
+        specifier: workspace:*
+        version: link:../runtime-messaging
       bits-ui:
         specifier: ^0.21.13
         version: 0.21.13(svelte@4.2.19)
@@ -236,6 +239,9 @@ importers:
       '@repo/facts-web-app':
         specifier: workspace:*
         version: link:../facts-web-app
+      '@repo/runtime-messaging':
+        specifier: workspace:*
+        version: link:../runtime-messaging
       '@repo/search-modal':
         specifier: workspace:*
         version: link:../search-modal
