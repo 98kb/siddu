@@ -137,7 +137,7 @@ importers:
         specifier: ^0.34.6
         version: 0.34.6(playwright@1.46.1)
 
-  packages/search-modal:
+  packages/fact-composer:
     dependencies:
       '@repo/facts-db':
         specifier: workspace:*
@@ -242,9 +242,9 @@ importers:
       '@repo/runtime-messaging':
         specifier: workspace:*
         version: link:../runtime-messaging
-      '@repo/search-modal':
+      '@repo/fact-composer':
         specifier: workspace:*
-        version: link:../search-modal
+        version: link:../fact-composer
     devDependencies:
       '@tsconfig/svelte':
         specifier: ^5.0.4

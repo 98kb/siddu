@@ -1,9 +1,9 @@
 {
-  "name": "@repo/search-modal",
+  "name": "@repo/fact-composer",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "main": "./dist/search-modal.es.js",
+  "main": "./dist/fact-composer.es.js",
   "types": "./dist/index.d.ts",
   "scripts": {
     "dev": "vite",

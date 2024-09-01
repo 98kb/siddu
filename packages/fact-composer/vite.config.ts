@@ -10,7 +10,7 @@ export default defineConfig({
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
       name: 'SearchModal',
-      fileName: (format) => `search-modal.${format}.js`,
+      fileName: (format) => `fact-composer.${format}.js`,
     }
   },
   resolve: {

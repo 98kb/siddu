@@ -17,7 +17,7 @@
     "@repo/facts-db": "workspace:*",
     "@repo/facts-web-app": "workspace:*",
     "@repo/runtime-messaging": "workspace:*",
-    "@repo/search-modal": "workspace:*"
+    "@repo/fact-composer": "workspace:*"
   },
   "devDependencies": {
     "@tsconfig/svelte": "^5.0.4",
