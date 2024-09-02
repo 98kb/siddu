@@ -8,6 +8,97 @@ importers:
 
   .: {}
 
+  packages/fact-composer:
+    dependencies:
+      '@repo/facts-db':
+        specifier: workspace:*
+        version: link:../facts-db
+      bits-ui:
+        specifier: ^0.21.13
+        version: 0.21.13(svelte@4.2.19)
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
+      cmdk-sv:
+        specifier: ^0.0.18
+        version: 0.0.18(svelte@4.2.19)
+      svelte-radix:
+        specifier: ^1.1.1
+        version: 1.1.1(svelte@4.2.19)
+      tailwind-merge:
+        specifier: ^2.5.2
+        version: 2.5.2
+      tailwind-variants:
+        specifier: ^0.2.1
+        version: 0.2.1(tailwindcss@3.4.10(ts-node@10.9.2(@types/node@22.5.1)(typescript@5.5.4)))
+    devDependencies:
+      '@chromatic-com/storybook':
+        specifier: ^1.7.0
+        version: 1.7.0(react@18.3.1)
+      '@rollup/plugin-typescript':
+        specifier: ^11.1.6
+        version: 11.1.6(rollup@4.21.0)(tslib@2.7.0)(typescript@5.5.4)
+      '@storybook/addon-essentials':
+        specifier: ^8.2.9
+        version: 8.2.9(storybook@8.2.9(@babel/preset-env@7.25.4(@babel/core@7.25.2)))
+      '@storybook/addon-interactions':
+        specifier: ^8.2.9
+        version: 8.2.9(storybook@8.2.9(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(vitest@0.34.6(playwright@1.46.1))
+      '@storybook/addon-links':
+        specifier: ^8.2.9
+        version: 8.2.9(react@18.3.1)(storybook@8.2.9(@babel/preset-env@7.25.4(@babel/core@7.25.2)))
+      '@storybook/addon-svelte-csf':
+        specifier: ^4.1.6
+        version: 4.1.6(@storybook/svelte@8.2.9(storybook@8.2.9(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(svelte@4.2.19))(@sveltejs/vite-plugin-svelte@3.1.2(svelte@4.2.19)(vite@5.4.2(@types/node@22.5.1)))(storybook@8.2.9(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(svelte@4.2.19)(vite@5.4.2(@types/node@22.5.1))
+      '@storybook/blocks':
+        specifier: ^8.2.9
+        version: 8.2.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.2.9(@babel/preset-env@7.25.4(@babel/core@7.25.2)))
+      '@storybook/svelte':
+        specifier: ^8.2.9
+        version: 8.2.9(storybook@8.2.9(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(svelte@4.2.19)
+      '@storybook/svelte-vite':
+        specifier: ^8.2.9
+        version: 8.2.9(@babel/core@7.25.2)(@sveltejs/vite-plugin-svelte@3.1.2(svelte@4.2.19)(vite@5.4.2(@types/node@22.5.1)))(postcss-load-config@4.0.2(postcss@8.4.41)(ts-node@10.9.2(@types/node@22.5.1)(typescript@5.5.4)))(postcss@8.4.41)(storybook@8.2.9(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(svelte@4.2.19)(typescript@5.5.4)(vite@5.4.2(@types/node@22.5.1))
+      '@storybook/test':
+        specifier: ^8.2.9
+        version: 8.2.9(storybook@8.2.9(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(vitest@0.34.6(playwright@1.46.1))
+      '@sveltejs/vite-plugin-svelte':
+        specifier: ^3.1.1
+        version: 3.1.2(svelte@4.2.19)(vite@5.4.2(@types/node@22.5.1))
+      '@tailwindcss/typography':
+        specifier: ^0.5.14
+        version: 0.5.14(tailwindcss@3.4.10(ts-node@10.9.2(@types/node@22.5.1)(typescript@5.5.4)))
+      '@tsconfig/svelte':
+        specifier: ^5.0.4
+        version: 5.0.4
+      '@types/chrome':
+        specifier: ^0.0.270
+        version: 0.0.270
+      autoprefixer:
+        specifier: ^10.4.20
+        version: 10.4.20(postcss@8.4.41)
+      storybook:
+        specifier: ^8.2.9
+        version: 8.2.9(@babel/preset-env@7.25.4(@babel/core@7.25.2))
+      svelte:
+        specifier: ^4.2.18
+        version: 4.2.19
+      svelte-check:
+        specifier: ^3.8.5
+        version: 3.8.6(@babel/core@7.25.2)(postcss-load-config@4.0.2(postcss@8.4.41)(ts-node@10.9.2(@types/node@22.5.1)(typescript@5.5.4)))(postcss@8.4.41)(svelte@4.2.19)
+      tailwindcss:
+        specifier: ^3.4.9
+        version: 3.4.10(ts-node@10.9.2(@types/node@22.5.1)(typescript@5.5.4))
+      tslib:
+        specifier: ^2.6.3
+        version: 2.7.0
+      typescript:
+        specifier: ^5.5.3
+        version: 5.5.4
+      vite:
+        specifier: ^5.4.1
+        version: 5.4.2(@types/node@22.5.1)
+
   packages/facts-db:
     dependencies:
       dexie:
@@ -137,102 +228,11 @@ importers:
         specifier: ^0.34.6
         version: 0.34.6(playwright@1.46.1)
 
-  packages/fact-composer:
-    dependencies:
-      '@repo/facts-db':
-        specifier: workspace:*
-        version: link:../facts-db
-      '@repo/runtime-messaging':
-        specifier: workspace:*
-        version: link:../runtime-messaging
-      bits-ui:
-        specifier: ^0.21.13
-        version: 0.21.13(svelte@4.2.19)
-      clsx:
-        specifier: ^2.1.1
-        version: 2.1.1
-      cmdk-sv:
-        specifier: ^0.0.18
-        version: 0.0.18(svelte@4.2.19)
-      svelte-radix:
-        specifier: ^1.1.1
-        version: 1.1.1(svelte@4.2.19)
-      tailwind-merge:
-        specifier: ^2.5.2
-        version: 2.5.2
-      tailwind-variants:
-        specifier: ^0.2.1
-        version: 0.2.1(tailwindcss@3.4.10(ts-node@10.9.2(@types/node@22.5.1)(typescript@5.5.4)))
-    devDependencies:
-      '@chromatic-com/storybook':
-        specifier: ^1.7.0
-        version: 1.7.0(react@18.3.1)
-      '@rollup/plugin-typescript':
-        specifier: ^11.1.6
-        version: 11.1.6(rollup@4.21.0)(tslib@2.7.0)(typescript@5.5.4)
-      '@storybook/addon-essentials':
-        specifier: ^8.2.9
-        version: 8.2.9(storybook@8.2.9(@babel/preset-env@7.25.4(@babel/core@7.25.2)))
-      '@storybook/addon-interactions':
-        specifier: ^8.2.9
-        version: 8.2.9(storybook@8.2.9(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(vitest@0.34.6(playwright@1.46.1))
-      '@storybook/addon-links':
-        specifier: ^8.2.9
-        version: 8.2.9(react@18.3.1)(storybook@8.2.9(@babel/preset-env@7.25.4(@babel/core@7.25.2)))
-      '@storybook/addon-svelte-csf':
-        specifier: ^4.1.6
-        version: 4.1.6(@storybook/svelte@8.2.9(storybook@8.2.9(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(svelte@4.2.19))(@sveltejs/vite-plugin-svelte@3.1.2(svelte@4.2.19)(vite@5.4.2(@types/node@22.5.1)))(storybook@8.2.9(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(svelte@4.2.19)(vite@5.4.2(@types/node@22.5.1))
-      '@storybook/blocks':
-        specifier: ^8.2.9
-        version: 8.2.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.2.9(@babel/preset-env@7.25.4(@babel/core@7.25.2)))
-      '@storybook/svelte':
-        specifier: ^8.2.9
-        version: 8.2.9(storybook@8.2.9(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(svelte@4.2.19)
-      '@storybook/svelte-vite':
-        specifier: ^8.2.9
-        version: 8.2.9(@babel/core@7.25.2)(@sveltejs/vite-plugin-svelte@3.1.2(svelte@4.2.19)(vite@5.4.2(@types/node@22.5.1)))(postcss-load-config@4.0.2(postcss@8.4.41)(ts-node@10.9.2(@types/node@22.5.1)(typescript@5.5.4)))(postcss@8.4.41)(storybook@8.2.9(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(svelte@4.2.19)(typescript@5.5.4)(vite@5.4.2(@types/node@22.5.1))
-      '@storybook/test':
-        specifier: ^8.2.9
-        version: 8.2.9(storybook@8.2.9(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(vitest@0.34.6(playwright@1.46.1))
-      '@sveltejs/vite-plugin-svelte':
-        specifier: ^3.1.1
-        version: 3.1.2(svelte@4.2.19)(vite@5.4.2(@types/node@22.5.1))
-      '@tailwindcss/typography':
-        specifier: ^0.5.14
-        version: 0.5.14(tailwindcss@3.4.10(ts-node@10.9.2(@types/node@22.5.1)(typescript@5.5.4)))
-      '@tsconfig/svelte':
-        specifier: ^5.0.4
-        version: 5.0.4
-      '@types/chrome':
-        specifier: ^0.0.270
-        version: 0.0.270
-      autoprefixer:
-        specifier: ^10.4.20
-        version: 10.4.20(postcss@8.4.41)
-      storybook:
-        specifier: ^8.2.9
-        version: 8.2.9(@babel/preset-env@7.25.4(@babel/core@7.25.2))
-      svelte:
-        specifier: ^4.2.18
-        version: 4.2.19
-      svelte-check:
-        specifier: ^3.8.5
-        version: 3.8.6(@babel/core@7.25.2)(postcss-load-config@4.0.2(postcss@8.4.41)(ts-node@10.9.2(@types/node@22.5.1)(typescript@5.5.4)))(postcss@8.4.41)(svelte@4.2.19)
-      tailwindcss:
-        specifier: ^3.4.9
-        version: 3.4.10(ts-node@10.9.2(@types/node@22.5.1)(typescript@5.5.4))
-      tslib:
-        specifier: ^2.6.3
-        version: 2.7.0
-      typescript:
-        specifier: ^5.5.3
-        version: 5.5.4
-      vite:
-        specifier: ^5.4.1
-        version: 5.4.2(@types/node@22.5.1)
-
   packages/web-extension:
     dependencies:
+      '@repo/fact-composer':
+        specifier: workspace:*
+        version: link:../fact-composer
       '@repo/facts-db':
         specifier: workspace:*
         version: link:../facts-db
@@ -242,9 +242,6 @@ importers:
       '@repo/runtime-messaging':
         specifier: workspace:*
         version: link:../runtime-messaging
-      '@repo/fact-composer':
-        specifier: workspace:*
-        version: link:../fact-composer
     devDependencies:
       '@tsconfig/svelte':
         specifier: ^5.0.4

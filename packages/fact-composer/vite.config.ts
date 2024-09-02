@@ -1,5 +1,5 @@
-import {defineConfig} from 'vite'
-import {svelte} from '@sveltejs/vite-plugin-svelte'
+import { defineConfig } from 'vite'
+import { svelte } from '@sveltejs/vite-plugin-svelte'
 import typescript from '@rollup/plugin-typescript';
 import path from 'path';
 
@@ -7,6 +7,7 @@ import path from 'path';
 export default defineConfig({
   plugins: [svelte(), typescript()],
   build: {
+    sourcemap: true,
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
       name: 'SearchModal',

@@ -7,6 +7,8 @@
   export let db: FactsORM;
 
   const facts = db.toObservable(() => db.objects.getAll());
+  $: console.log('here', $facts);
+
 
   const handleSelect = (fact: Fact) => {
     const text = fact.content;
@@ -18,13 +20,11 @@
   };
 </script>
 
-<Command.Dialog portal={null} bind:open={$isModalOpen}>
-  <Command.Input placeholder="Type to search..." />
-  <Command.List>
-    {#each $facts as fact (fact.id)}
-      <Command.Item onSelect={() => handleSelect(fact)}>
-        {fact.content}
-      </Command.Item>
-    {/each}
-  </Command.List>
-</Command.Dialog>
+<Command.Input placeholder="Type to search..." />
+<Command.List>
+  {#each $facts as fact (fact.id)}
+    <Command.Item onSelect={() => handleSelect(fact)}>
+      {fact.content}
+    </Command.Item>
+  {/each}
+</Command.List>
