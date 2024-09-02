@@ -3,11 +3,10 @@ import {DAO} from "../src/DAO";
 import {Fact} from "../src/Fact";
 import {FactsORM} from "../src/FactsORM";
 import {beforeEach, describe, expect, it} from "vitest";
-import {subscriptions} from "./subscriptions";
-import {withDone} from "./withDone";
 
 /* eslint-disable max-statements */
 export const describeFactsORM = (adapter: DAO<Fact>) => {
+  // eslint-disable-next-line sonarjs/cognitive-complexity
   describe(adapter.constructor.name, () => {
     let orm: FactsORM;
     beforeEach(async () => {
@@ -121,30 +120,74 @@ export const describeFactsORM = (adapter: DAO<Fact>) => {
     });
 
     describe(adapter.toObservable.name, () => {
-      it.only(
-        "returns an observable",
-        withDone(async done => {
-          const allObjs$ = orm.objects.toObservable(() => orm.objects.getAll()); // #0
-          subscriptions(allObjs$, [
-            // subscribed to #0
-            facts => {
-              expect(facts).toBeDefined();
-              expect(facts).toHaveLength(0);
-            },
-            // subscribed to #1
-            facts => {
-              expect(facts).toHaveLength(1);
-            },
-            // subscribed to #2
-            facts => {
-              expect(facts).toHaveLength(0);
-              done();
-            },
-          ]);
-          const {id} = await orm.objects.addOne({content: "test"}); // #1
-          orm.objects.deleteOne(id); // #2
-        }),
-      );
+      it("returns an observable that emits on subscription", () =>
+        new Promise<void>(resolve => {
+          const allObjs$ = orm.toObservable(() => orm.objects.getAll());
+          const sub = allObjs$.subscribe(async facts => {
+            expect(facts).toHaveLength(0);
+            sub.unsubscribe();
+            resolve();
+          });
+        }));
+
+      it("returns an observable that emits on addOne", () =>
+        new Promise<void>(resolve => {
+          const allObjs$ = orm.toObservable(() => orm.objects.getAll());
+          orm.objects.addOne({content: "test"}).then(() => {});
+          const sub = allObjs$.subscribe(async facts => {
+            const addOneHasEmitted = facts.length === 1;
+            if (addOneHasEmitted) {
+              sub.unsubscribe();
+              resolve();
+            }
+          });
+        }));
+
+      it("returns an observable that emits on updateOne", () =>
+        // eslint-disable-next-line no-async-promise-executor
+        new Promise<void>(async resolve => {
+          const allObjs$ = orm.toObservable(() => orm.objects.getAll());
+          const {id} = await orm.objects.addOne({content: "test"});
+          orm.objects.updateOne(id, {content: "test2"});
+          const sub = allObjs$.subscribe(async facts => {
+            const updateOneHasEmitted =
+              facts.length === 1 && facts[0].content === "test2";
+            if (updateOneHasEmitted) {
+              sub.unsubscribe();
+              resolve();
+            }
+          });
+        }));
+
+      it("returns an observable that emits on deleteOne", () =>
+        // eslint-disable-next-line no-async-promise-executor
+        new Promise<void>(async resolve => {
+          const allObjs$ = orm.toObservable(() => orm.objects.getAll());
+          const {id} = await orm.objects.addOne({content: "test"});
+          orm.objects.deleteOne(id);
+          const sub = allObjs$.subscribe(async facts => {
+            const deleteOneHasEmitted = facts.length === 0;
+            if (deleteOneHasEmitted) {
+              sub.unsubscribe();
+              resolve();
+            }
+          });
+        }));
+
+      it("returns an observable that emits on deleteAll", () =>
+        // eslint-disable-next-line no-async-promise-executor
+        new Promise<void>(async resolve => {
+          const allObjs$ = orm.toObservable(() => orm.objects.getAll());
+          await orm.objects.addOne({content: "test"});
+          orm.objects.deleteAll();
+          const sub = allObjs$.subscribe(async facts => {
+            const deleteAllHasEmitted = facts.length === 0;
+            if (deleteAllHasEmitted) {
+              sub.unsubscribe();
+              resolve();
+            }
+          });
+        }));
     });
   });
 };

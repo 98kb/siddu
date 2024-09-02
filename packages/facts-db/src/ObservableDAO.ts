@@ -2,15 +2,15 @@ import {BaseObject} from "./BaseObject";
 import {DAO} from "./DAO";
 import {Observable} from "dexie";
 import {Reader} from "fp-ts/lib/Reader";
-import {ReplaySubject} from "rxjs/internal/ReplaySubject";
+import {Subject} from "rxjs/internal/Subject";
 import {Task} from "fp-ts/lib/Task";
 
 // TODO: add decorator for sync
 export abstract class ObservableDAO<T extends BaseObject> implements DAO<T> {
-  private subjects: [ReplaySubject<any>, Task<any>][] = [];
+  private subjects: [Subject<any>, Task<any>][] = [];
 
   toObservable<R>(fn: Task<R>): Observable<R> {
-    const subject = new ReplaySubject<R>(1);
+    const subject = new Subject<R>();
     this.subjects.push([subject, fn]);
     this.publish(fn, subject);
     return subject.asObservable() as unknown as Observable<R>;
@@ -51,10 +51,7 @@ export abstract class ObservableDAO<T extends BaseObject> implements DAO<T> {
     }
   }
 
-  private async publish<R>(
-    fn: Task<R>,
-    subject: ReplaySubject<R>,
-  ): Promise<void> {
+  private async publish<R>(fn: Task<R>, subject: Subject<R>): Promise<void> {
     const res = await fn();
     subject.next(res);
   }
