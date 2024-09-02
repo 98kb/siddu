@@ -11,7 +11,7 @@ import {describeDAO} from "./describeDAO";
 
 const adapters: IO<DAO<Fact>>[] = [
   () => new LocalAdapter("test"),
-  // () => new DexieAdapter(createFactsDB("test")),
+  () => new DexieAdapter(createFactsDB("test")),
 ];
 for (const createAdapter of adapters) {
   const adapter = createAdapter();
