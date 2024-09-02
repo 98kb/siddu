@@ -5,6 +5,7 @@ import {Reader} from "fp-ts/lib/Reader";
 import {ReplaySubject} from "rxjs/internal/ReplaySubject";
 import {Task} from "fp-ts/lib/Task";
 
+// TODO: add decorator for sync
 export abstract class ObservableDAO<T extends BaseObject> implements DAO<T> {
   private subjects: [ReplaySubject<any>, Task<any>][] = [];
 
@@ -15,9 +16,10 @@ export abstract class ObservableDAO<T extends BaseObject> implements DAO<T> {
     return subject.asObservable() as unknown as Observable<R>;
   }
 
-  async addOne(obj: Omit<T, "id">): Promise<void> {
-    await this.addObj(obj);
+  async addOne(obj: Omit<T, "id">): Promise<T> {
+    const savedObj = await this.addObj(obj);
     this.sync();
+    return savedObj;
   }
 
   async updateOne(id: string, note: Partial<T>): Promise<void> {
@@ -30,12 +32,18 @@ export abstract class ObservableDAO<T extends BaseObject> implements DAO<T> {
     this.sync();
   }
 
+  async deleteAll(): Promise<void> {
+    await this.deleteAllObj();
+    this.sync();
+  }
+
   abstract getOne(id: string): Promise<T | undefined>;
   abstract getAll(): Promise<T[]>;
   abstract filter(predicate: Reader<T, boolean>): Promise<T[]>;
-  protected abstract addObj(obj: Omit<T, "id">): Promise<void>;
+  protected abstract addObj(obj: Omit<T, "id">): Promise<T>;
   protected abstract updateObj(id: string, note: Partial<T>): Promise<void>;
   protected abstract deleteObj(id: string): Promise<void>;
+  protected abstract deleteAllObj(): Promise<void>;
 
   private async sync(): Promise<void> {
     for (const [subject, fn] of this.subjects) {

@@ -1,18 +1,23 @@
 import {DAO} from "./DAO";
 import {Fact} from "./Fact";
 import {FactsDB} from "./FactsDB";
-import {Observable, liveQuery} from "dexie";
 import {Reader} from "fp-ts/lib/Reader";
-import {Task} from "fp-ts/lib/Task";
+import {liveQuery} from "dexie";
 
 export class DexieAdapter implements DAO<Fact> {
   constructor(private db: FactsDB) {}
-  toObservable<R>(fn: Task<R>): Observable<R> {
-    return liveQuery(() => fn()) as Observable<Awaited<R>>;
+
+  toObservable = liveQuery;
+
+  deleteAll(): Promise<void> {
+    return this.db.facts.clear();
   }
 
-  async addOne(fact: Fact): Promise<void> {
-    await this.db.facts.add(fact);
+  async addOne(fact: Fact): Promise<Fact> {
+    // spread to avoid mutation of fact object in argument
+    const payload = {...fact};
+    const id = await this.db.facts.add(payload);
+    return {...fact, id};
   }
 
   getOne(id: string): Promise<Fact | undefined> {

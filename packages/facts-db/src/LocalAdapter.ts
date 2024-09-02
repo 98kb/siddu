@@ -1,19 +1,19 @@
-import {Fact} from "./Fact";
+import {BaseObject} from "./BaseObject";
 import {ObservableDAO} from "./ObservableDAO";
 import {Reader} from "fp-ts/lib/Reader";
 import {nanoid} from "nanoid";
 
-export class LocalAdapter extends ObservableDAO<Fact> {
+export class LocalAdapter<T extends BaseObject> extends ObservableDAO<T> {
   constructor(private key: string) {
     super();
   }
 
-  async getOne(id: string): Promise<Fact | undefined> {
-    const note = localStorage.getItem(this.toPath(id));
-    return note ? JSON.parse(note) : undefined;
+  async getOne(id: string): Promise<T | undefined> {
+    const obj = localStorage.getItem(this.toPath(id));
+    return obj ? JSON.parse(obj) : undefined;
   }
 
-  getAll(): Promise<Fact[]> {
+  getAll(): Promise<T[]> {
     const index = localStorage.getItem(this.key) || "[]";
     return Promise.all(
       JSON.parse(index)
@@ -22,29 +22,36 @@ export class LocalAdapter extends ObservableDAO<Fact> {
     );
   }
 
-  async filter(predicate: Reader<Fact, boolean>): Promise<Fact[]> {
-    const facts = await this.getAll();
-    return facts.filter(fact => predicate(fact));
+  async filter(predicate: Reader<T, boolean>): Promise<T[]> {
+    const obj = await this.getAll();
+    return obj.filter(fact => predicate(fact));
   }
 
-  protected async addObj(partial: Omit<Fact, "id">): Promise<void> {
+  protected async addObj(partial: Omit<T, "id">): Promise<T> {
     const id = nanoid();
-    const note = {...partial, id};
-    localStorage.setItem(this.toPath(note.id), JSON.stringify(note));
-    this.addToIndex(note.id);
+    const obj = {...partial, id} as T;
+    localStorage.setItem(this.toPath(obj.id), JSON.stringify(obj));
+    this.addToIndex(obj.id);
+    return obj;
   }
 
-  protected async updateObj(id: string, partial: Partial<Fact>): Promise<void> {
-    const fact = await this.getOne(id);
-    localStorage.setItem(
-      this.toPath(id),
-      JSON.stringify({...fact, ...partial}),
-    );
+  protected async updateObj(id: string, partial: Partial<T>): Promise<void> {
+    const obj = await this.getOne(id);
+    localStorage.setItem(this.toPath(id), JSON.stringify({...obj, ...partial}));
   }
 
   protected async deleteObj(id: string): Promise<void> {
     localStorage.removeItem(this.toPath(id));
     this.removeFromIndex(id);
+  }
+
+  protected async deleteAllObj(): Promise<void> {
+    const index = localStorage.getItem(this.key) || "[]";
+    const ids = JSON.parse(index);
+    for (const id of ids) {
+      localStorage.removeItem(this.toPath(id));
+    }
+    localStorage.setItem(this.key, "[]");
   }
 
   private toPath(id: string): string {
