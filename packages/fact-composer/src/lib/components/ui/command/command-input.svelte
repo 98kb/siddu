@@ -19,5 +19,6 @@
 		)}
 		{...$$restProps}
 		bind:value
+    on:input
 	/>
 </div>

@@ -4,7 +4,6 @@
   import SearchBar from "$lib/SearchBar.svelte";
   import { onMount } from "svelte";
   import type { FactsORM } from "@repo/facts-db";
-  import { Textarea } from "./components/ui/textarea";
 
   export let db: FactsORM;
 
@@ -43,7 +42,5 @@
     return removeListeners;
   });
 </script>
-<div class="flex">
-  <SearchBar {db} />
-  <Textarea />
-</div>
+
+<SearchBar {db} />
