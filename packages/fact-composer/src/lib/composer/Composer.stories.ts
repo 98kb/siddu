@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/svelte';
-import Composer from './SearchBar.svelte';
+import Composer from './Composer.svelte';
 import { FactsORM, LocalAdapter, type Fact } from '@repo/facts-db';
 
 const meta = {

@@ -2,6 +2,7 @@ import {BaseObject} from "./BaseObject";
 import {DAO} from "./DAO";
 import {Observable} from "dexie";
 import {Reader} from "fp-ts/lib/Reader";
+import {ReplaySubject} from "rxjs";
 import {Subject} from "rxjs/internal/Subject";
 import {Task} from "fp-ts/lib/Task";
 
@@ -10,7 +11,7 @@ export abstract class ObservableDAO<T extends BaseObject> implements DAO<T> {
   private subjects: [Subject<any>, Task<any>][] = [];
 
   toObservable<R>(fn: Task<R>): Observable<R> {
-    const subject = new Subject<R>();
+    const subject = new ReplaySubject<R>();
     this.subjects.push([subject, fn]);
     this.publish(fn, subject);
     return subject.asObservable() as unknown as Observable<R>;

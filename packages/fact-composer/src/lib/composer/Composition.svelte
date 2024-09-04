@@ -1,11 +1,12 @@
 <script lang="ts">
   import * as Command from "$lib/components/ui/command";
   import type {FactsORM, Fact} from "@repo/facts-db";
-  import { Textarea } from "./components/ui/textarea";
+  import { Textarea } from "$lib/components/ui/textarea";
+  import CompositionEditor from "./CompositionEditor.svelte";
 
+  export let placeholder = "";
   export let db: FactsORM;
   let query = "";
-  let placeholder = "";
   let value = "";
 
   const facts = db.toObservable(() => db.objects.getAll());
@@ -16,11 +17,8 @@
   };
 </script>
 
-<div class="flex gap-2 w-full min-h-[300px] max-w-[66vw] min-w-[66vw]">
-  <Command.Dialog
-    class="max-h-[400px] w-full"
-    bind:value={placeholder}
-  >
+<div class="flex gap-4 w-full min-h-[300px] max-h-[300px] max-w-[66vw] min-w-[66vw]">
+  <div class="min-w-[33vw]">
     <Command.Input
       placeholder="Type to search..."
       autofocus
@@ -31,17 +29,16 @@
         No facts found.
       </Command.Empty>
       {#if $facts}
-        {#each $facts as fact (fact.id)}
-          <Command.Item onSelect={() => handleSelect(fact)}>
-            {fact.content}
-          </Command.Item>
-        {/each}
+      {#each $facts as fact (fact.id)}
+      <Command.Item onSelect={() => handleSelect(fact)}>
+        {fact.content}
+      </Command.Item>
+      {/each}
       {/if}
     </Command.List>
-  </Command.Dialog>
-  <Textarea
-    class="w-full min-h-[200px]"
-    bind:placeholder
-    bind:value
+  </div>
+  <CompositionEditor
+    placeholder={placeholder}
+    bind:value={value}
   />
 </div>

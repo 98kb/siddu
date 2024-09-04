@@ -1,18 +1,23 @@
 <script lang="ts">
-  import {isModalOpen} from '../stores/isModalOpen';
-  import {element, type InputElement} from '../stores/element';
-  import SearchBar from "$lib/SearchBar.svelte";
+  import "../../app.css";
+  import {isModalOpen} from '$stores/isModalOpen';
+  import {element, type InputElement} from '$stores/element';
   import { onMount } from "svelte";
-  import type { FactsORM } from "@repo/facts-db";
+  import CommandDialog from '$lib/components/ui/command/command-dialog.svelte';
+  import Composition from './Composition.svelte';
+  import type { FactsORM } from '@repo/facts-db';
 
   export let db: FactsORM;
 
+  let open = false;
+  let placeholder = "";
   let inputs: HTMLInputElement[] = [];
   let textareas: HTMLTextAreaElement[] = [];
 
   const openModal = (e: KeyboardEvent) => {
     if (e.ctrlKey && e.key === ".") {
       isModalOpen.set(true);
+      open = true;
       element.set(e.target as InputElement);
     }
   };
@@ -43,4 +48,11 @@
   });
 </script>
 
-<SearchBar {db} />
+
+<CommandDialog
+  class="min-w-[66vw]"
+  bind:value={placeholder}
+  bind:open
+>
+  <Composition {db} {placeholder} />
+</CommandDialog>
