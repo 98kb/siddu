@@ -1,8 +1,8 @@
 <script lang="ts">
   import * as Command from "$lib/components/ui/command";
   import type {FactsORM, Fact} from "@repo/facts-db";
-  import { Textarea } from "$lib/components/ui/textarea";
   import CompositionEditor from "./CompositionEditor.svelte";
+  import Button from "$lib/components/ui/button/button.svelte";
 
   export let placeholder = "";
   export let db: FactsORM;
@@ -11,9 +11,21 @@
 
   const facts = db.toObservable(() => db.objects.getAll());
 
+  const concatValue = (newValue: string) => {
+    value = [value, newValue].filter(Boolean).join("\n");
+  };
+
   const handleSelect = (fact: Fact) => {
-    value = [value, fact.content].filter(Boolean).join("\n");
+    concatValue(fact.content);
     query = "";
+  };
+
+  const addFact = async () => {
+    if (query) {
+      await db.objects.addOne({content: query});
+      concatValue(query);
+      query = "";
+    }
   };
 </script>
 
@@ -25,8 +37,12 @@
       bind:value={query}
     />
     <Command.List>
-      <Command.Empty>
-        No facts found.
+      <Command.Empty class="p-0">
+          <Button
+            variant="ghost"
+            class="w-full m-0 justify-start"
+            on:click={addFact}
+          >Add "{query}"</Button>
       </Command.Empty>
       {#if $facts}
       {#each $facts as fact (fact.id)}
