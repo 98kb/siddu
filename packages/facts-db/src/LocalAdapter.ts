@@ -2,7 +2,6 @@ import {InsertObject} from "./InsertObject";
 import {ObservableDAO} from "./ObservableDAO";
 import {Reader} from "fp-ts/lib/Reader";
 import {TableObjects} from "./TableObjects";
-import {UpdateSpec} from "dexie";
 import {nanoid} from "nanoid";
 
 export class LocalAdapter<
@@ -43,7 +42,7 @@ export class LocalAdapter<
 
   protected async updateObj(
     id: string,
-    partial: UpdateSpec<InsertObject<T>>,
+    partial: InsertObject<T>,
   ): Promise<void> {
     const obj = await this.getOne(id);
     localStorage.setItem(this.toPath(id), JSON.stringify({...obj, ...partial}));

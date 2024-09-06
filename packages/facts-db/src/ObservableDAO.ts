@@ -1,6 +1,6 @@
 import {DAO} from "./DAO";
 import {InsertObject} from "./InsertObject";
-import {Observable, UpdateSpec} from "dexie";
+import {Observable} from "dexie";
 import {Reader} from "fp-ts/lib/Reader";
 import {ReplaySubject} from "rxjs/internal/ReplaySubject";
 import {TableObjects} from "./TableObjects";
@@ -26,10 +26,7 @@ export abstract class ObservableDAO<T extends keyof TableObjects>
     return savedObj;
   }
 
-  async updateOne(
-    id: string,
-    payload: UpdateSpec<InsertObject<T>>,
-  ): Promise<void> {
+  async updateOne(id: string, payload: InsertObject<T>): Promise<void> {
     await this.updateObj(id, payload);
     this.sync();
   }
@@ -53,7 +50,7 @@ export abstract class ObservableDAO<T extends keyof TableObjects>
   protected abstract addObj(obj: InsertObject<T>): Promise<TableObjects[T]>;
   protected abstract updateObj(
     id: string,
-    payload: UpdateSpec<InsertObject<T>>,
+    payload: InsertObject<T>,
   ): Promise<void>;
 
   protected abstract deleteObj(id: string): Promise<void>;

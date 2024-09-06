@@ -19,7 +19,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "unbuild --sourcemap",
+    "build": "unbuild",
     "dev": "vitest dev",
     "lint": "eslint --cache --ext .ts,.js,.mjs,.cjs . && prettier -c src tests",
     "lint:fix": "eslint --cache --ext .ts,.js,.mjs,.cjs . --fix && prettier -c src test -w",

@@ -8,6 +8,7 @@ export * from "./FactsDB";
 export * from "./FactsDbSchema";
 export * from "./InsertObject";
 export * from "./LocalAdapter";
+export * from "./MemoryAdapter";
 export * from "./ObservableDAO";
 export * from "./ORM";
 export * from "./schema";

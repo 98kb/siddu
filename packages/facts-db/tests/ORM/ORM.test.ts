@@ -1,3 +1,4 @@
+import {MemoryAdapter} from "./../../src/MemoryAdapter";
 /* eslint-disable max-nested-callbacks */
 /* eslint-disable max-statements */
 import "fake-indexeddb/auto";
@@ -11,6 +12,7 @@ import {describeDAO} from "./describeDAO";
 const adapters: IO<DAO<"facts">>[] = [
   () => new LocalAdapter("test"),
   () => new DexieAdapter(createFactsDB("test"), "facts"),
+  () => new MemoryAdapter(),
 ];
 for (const createAdapter of adapters) {
   const adapter = createAdapter();

@@ -1,4 +1,4 @@
-import {IDType, Observable, UpdateSpec} from "dexie";
+import {IDType, Observable} from "dexie";
 import {InsertObject} from "./InsertObject";
 import {Reader} from "fp-ts/lib/Reader";
 import {TableObjects} from "./TableObjects";
@@ -20,7 +20,7 @@ export interface DAO<T extends keyof TableObjects> {
 
   updateOne(
     id: IDType<TableObjects[T], TableSchema[T]>,
-    obj: UpdateSpec<InsertObject<T>>,
+    obj: InsertObject<T>,
   ): Promise<void>;
 
   deleteOne(id: IDType<TableObjects[T], TableSchema[T]>): Promise<void>;
