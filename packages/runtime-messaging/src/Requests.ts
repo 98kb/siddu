@@ -13,19 +13,19 @@ export type Requests<T extends keyof TableObjects> = {
     result: TableObjects[T] | undefined;
   };
   getAll: {
-    payload: void;
+    payload: undefined;
     result: TableObjects[T][];
   };
   updateOne: {
-    payload: {id: string; obj: InsertObject<T>};
+    payload: {id: ID<T>; obj: InsertObject<T>};
     result: void;
   };
   deleteOne: {
-    payload: {id: string};
+    payload: {id: ID<T>};
     result: void;
   };
   deleteAll: {
-    payload: void;
+    payload: undefined;
     result: void;
   };
   filter: {
