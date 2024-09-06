@@ -1,12 +1,12 @@
 <script lang="ts">
   import "./app.css";
   import Textarea from "$lib/components/ui/textarea/textarea.svelte";
-  import Composer from "$lib/composer/ComposerModal.svelte";
-  import type { FactsORM } from "@repo/facts-db";
+  import ComposerModal from "$lib/composer/ComposerModal.svelte";
+  import type {ORM} from "@repo/facts-db";
 
-  export let db: FactsORM;
+  export let facts: ORM<"facts">;
 
 </script>
 
 <Textarea />
-<Composer {db} />
+<ComposerModal {facts} />
