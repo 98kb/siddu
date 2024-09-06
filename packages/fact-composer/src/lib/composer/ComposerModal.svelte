@@ -5,9 +5,9 @@
   import { onMount } from "svelte";
   import CommandDialog from '$lib/components/ui/command/command-dialog.svelte';
   import Composition from './Composition.svelte';
-  import type { FactsORM } from '@repo/facts-db';
+  import type { ORM } from '@repo/facts-db';
 
-  export let db: FactsORM;
+  export let facts: ORM<"facts">;
 
   let open = false;
   let placeholder = "";
@@ -51,8 +51,10 @@
 
 <CommandDialog
   class="min-w-[66vw]"
+  closeFocus={$element}
+  closeOnOutsideClick={false}
   bind:value={placeholder}
   bind:open
 >
-  <Composition {db} {placeholder} />
+  <Composition {facts} {placeholder} />
 </CommandDialog>

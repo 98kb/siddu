@@ -1,12 +1,12 @@
 <script lang="ts">
   import Command from "$lib/components/ui/command/command.svelte";
-  import type { ComponentProps } from "svelte";
   import Composition from "./Composition.svelte";
+  import type { ORM } from "@repo/facts-db";
 
-  type $$Props = ComponentProps<Composition>;
+  export let facts: ORM<"facts">;
   let placeholder = "";
 </script>
 
 <Command bind:value={placeholder}>
-  <Composition {...$$restProps} {placeholder} />
+  <Composition {facts} {placeholder} />
 </Command>
