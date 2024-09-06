@@ -1,13 +1,10 @@
 import "@repo/fact-composer/dist/style.css";
 // eslint-disable-next-line sort-imports-es6-autofix/sort-imports-es6
 import "./style.css";
-import {FactsORM} from "@repo/facts-db";
-import {RuntimeAdapter} from "@repo/runtime-messaging";
-import {SearchModal} from "@repo/fact-composer";
+import {ComposerModal} from "@repo/fact-composer";
+import {ORM} from "@repo/facts-db";
+import {RuntimeAdapter} from "@repo/facts-db-adapter";
 
-document.addEventListener("keydown", e => {
-  console.log("keydown", e);
-});
 export default defineContentScript({
   matches: ["<all_urls>"],
   cssInjectionMode: "ui",
@@ -19,10 +16,10 @@ export default defineContentScript({
       mode: "closed",
       onMount: container => {
         container.style.zIndex = "999999999";
-        return new SearchModal({
+        return new ComposerModal({
           target: container,
           props: {
-            db: new FactsORM(new RuntimeAdapter()),
+            facts: new ORM(new RuntimeAdapter()),
           },
         });
       },
