@@ -1,7 +1,7 @@
-import {FactsORM} from "../../../src/FactsORM";
+import {ORM} from "@repo/facts-db";
 import {expect, it} from "vitest";
 
-export const describeGetOne = (orm: FactsORM) => {
+export const describeGetOne = (orm: ORM<"facts">) => {
   it("returns undefined if the object does not exist", async () => {
     const retrievedFact = await orm.objects.getOne("test");
     expect(retrievedFact).toBeUndefined();

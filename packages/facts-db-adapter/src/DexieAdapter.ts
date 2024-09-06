@@ -1,9 +1,5 @@
-import {DAO} from "./DAO";
-import {Fact} from "./Fact";
-import {FactsDB} from "./FactsDB";
-import {InsertObject} from "./InsertObject";
+import {DAO, Fact, FactsDB, InsertObject, TableObjects} from "@repo/facts-db";
 import {Reader} from "fp-ts/lib/Reader";
-import {TableObjects} from "./TableObjects";
 import {liveQuery} from "dexie";
 
 export class DexieAdapter<T extends keyof TableObjects> implements DAO<T> {

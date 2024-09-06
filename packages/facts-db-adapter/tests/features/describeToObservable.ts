@@ -1,5 +1,4 @@
-import {Fact} from "../../../src/Fact";
-import {ORM} from "../../../src/ORM";
+import {Fact, ORM} from "@repo/facts-db";
 import {Reader} from "fp-ts/lib/Reader";
 import {expect, it} from "vitest";
 

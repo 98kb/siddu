@@ -1,6 +1,7 @@
 import {Requests} from "./Requests";
+import {TableObjects} from "@repo/facts-db";
 
-export type Message = {
-  type: keyof Requests;
-  payload: Requests[keyof Requests]["payload"];
+export type Message<T extends keyof TableObjects> = {
+  type: keyof Requests<T>;
+  payload: Requests<T>[keyof Requests<T>]["payload"];
 };

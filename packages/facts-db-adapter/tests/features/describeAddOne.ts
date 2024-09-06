@@ -1,7 +1,7 @@
-import {FactsORM} from "../../../src/FactsORM";
+import {ORM} from "@repo/facts-db";
 import {expect, it} from "vitest";
 
-export const describeAddOne = (orm: FactsORM) => {
+export const describeAddOne = (orm: ORM<"facts">) => {
   const fact: Parameters<typeof orm.objects.addOne>[0] = {
     content: "test",
   };

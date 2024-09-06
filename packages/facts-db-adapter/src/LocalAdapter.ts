@@ -1,7 +1,6 @@
-import {InsertObject} from "./InsertObject";
+import {InsertObject, TableObjects} from "@repo/facts-db";
 import {ObservableDAO} from "./ObservableDAO";
 import {Reader} from "fp-ts/lib/Reader";
-import {TableObjects} from "./TableObjects";
 import {nanoid} from "nanoid";
 
 export class LocalAdapter<

@@ -1,9 +1,7 @@
-import {DAO} from "./DAO";
-import {InsertObject} from "./InsertObject";
+import {DAO, InsertObject, TableObjects} from "@repo/facts-db";
 import {Observable} from "dexie";
 import {Reader} from "fp-ts/lib/Reader";
 import {ReplaySubject} from "rxjs/internal/ReplaySubject";
-import {TableObjects} from "./TableObjects";
 import {Task} from "fp-ts/lib/Task";
 import type {Subject} from "rxjs/internal/Subject";
 

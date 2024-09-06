@@ -1,8 +1,7 @@
-import {Fact} from "../../../src/Fact";
-import {FactsORM} from "../../../src/FactsORM";
+import {Fact, ORM} from "@repo/facts-db";
 import {expect, it} from "vitest";
 
-export const describeFilter = (orm: FactsORM) => {
+export const describeFilter = (orm: ORM<"facts">) => {
   it("returns the objects that match the predicate", async () => {
     const fact1: Parameters<typeof orm.objects.addOne>[0] = {
       content: "test1",

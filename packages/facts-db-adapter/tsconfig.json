@@ -7,5 +7,5 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src", "../facts-db-adapter/src/RuntimeAdapter.ts"]
+  "include": ["src", "src/RuntimeAdapter.ts"]
 }

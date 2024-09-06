@@ -1,7 +1,7 @@
-import {FactsORM} from "../../../src/FactsORM";
+import {ORM} from "@repo/facts-db";
 import {expect, it} from "vitest";
 
-export const describeGetAll = (orm: FactsORM) => {
+export const describeGetAll = (orm: ORM<"facts">) => {
   it("returns an empty array if there are no objects", async () => {
     const facts = await orm.objects.getAll();
     expect(facts).toEqual([]);

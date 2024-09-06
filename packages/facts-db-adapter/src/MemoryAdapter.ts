@@ -1,10 +1,7 @@
-import {DAO} from "./DAO";
+import {DAO, InsertObject, TableObjects, TableSchema} from "@repo/facts-db";
 import {IDType} from "dexie";
-import {InsertObject} from "./InsertObject";
 import {ObservableDAO} from "./ObservableDAO";
 import {Reader} from "fp-ts/lib/Reader";
-import {TableObjects} from "./TableObjects";
-import {TableSchema} from "./TableSchema";
 import {nanoid} from "nanoid";
 
 export class MemoryAdapter<T extends keyof TableObjects>

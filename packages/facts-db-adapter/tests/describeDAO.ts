@@ -1,5 +1,4 @@
-import {DAO} from "../../src/DAO";
-import {ORM} from "../../src/ORM";
+import {DAO, ORM} from "@repo/facts-db";
 import {Reader} from "fp-ts/lib/Reader";
 import {beforeEach, describe} from "vitest";
 import {describeAddOne} from "./features/describeAddOne";

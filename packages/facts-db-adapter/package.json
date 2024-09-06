@@ -1,5 +1,5 @@
 {
-  "name": "@repo/facts-db",
+  "name": "@repo/facts-db-adapter",
   "version": "0.0.0",
   "description": "",
   "author": "",
@@ -19,29 +19,37 @@
     "dist"
   ],
   "scripts": {
+    "bootstrap": "pnpm update && husky install",
     "build": "unbuild",
     "dev": "vitest dev",
     "lint": "eslint --cache --ext .ts,.js,.mjs,.cjs . && prettier -c src tests",
     "lint:fix": "eslint --cache --ext .ts,.js,.mjs,.cjs . --fix && prettier -c src test -w",
-    "test": "pnpm lint && pnpm test:types && pnpm test:unit",
-    "test:unit": "vitest run --coverage --dir tests",
-    "test:unit:debug": "vitest run --testTimeout 999999 --hookTimeout 999999 --dir tests ",
+    "prepack": "pnpm run build",
+    "release": "pnpm test && changelogen --release && npm publish && git push --follow-tags",
+    "test": "pnpm lint && pnpm test:types && vitest run --coverage --dir tests",
     "test:types": "tsc --noEmit --skipLibCheck"
   },
+  "dependencies": {
+    "@repo/facts-db": "workspace:*",
+    "@repo/runtime-messaging": "workspace:*",
+    "dexie": "^4.0.8",
+    "fp-ts": "^2.16.9",
+    "nanoid": "^5.0.7",
+    "rxjs": "^7.8.1"
+  },
   "devDependencies": {
+    "@types/chrome": "^0.0.270",
     "@types/node": "^20.5.4",
     "@vitest/coverage-v8": "^2.0.5",
-    "@vitest/ui": "^2.0.5",
+    "@webext-core/fake-browser": "^1.3.1",
     "eslint": "^8.47.0",
     "eslint-config-dsfx3d": "^0.1.2",
+    "fake-indexeddb": "^6.0.0",
+    "jsdom": "^25.0.0",
     "prettier": "^3.0.2",
     "typescript": "^5.1.6",
     "unbuild": "^2.0.0",
     "vite": "^5.4.1",
     "vitest": "^2.0.5"
-  },
-  "dependencies": {
-    "dexie": "^4.0.8",
-    "fp-ts": "^2.16.9"
   }
 }
