@@ -1,6 +1,5 @@
 import {DAO} from "../../src/DAO";
-import {Fact} from "../../src/Fact";
-import {FactsORM} from "../../src/FactsORM";
+import {ORM} from "../../src/ORM";
 import {Reader} from "fp-ts/lib/Reader";
 import {beforeEach, describe} from "vitest";
 import {describeAddOne} from "./features/describeAddOne";
@@ -12,17 +11,20 @@ import {describeGetOne} from "./features/describeGetOne";
 import {describeToObservable} from "./features/describeToObservable";
 import {describeUpdateOne} from "./features/describeUpdateOne";
 
-type Features = Exclude<keyof FactsORM["objects"] | keyof FactsORM, "objects">;
+type Features = Exclude<
+  keyof ORM<"facts">["objects"] | keyof ORM<"facts">,
+  "objects"
+>;
 
-export const describeDAO = (adapter: DAO<Fact>) => {
+export const describeDAO = (adapter: DAO<"facts">) => {
   describe(adapter.constructor.name, () => {
-    let orm = new FactsORM(adapter);
+    let orm = new ORM(adapter);
     beforeEach(async () => {
-      orm = new FactsORM(adapter);
+      orm = new ORM(adapter);
       await orm.objects.deleteAll();
     });
 
-    const features: Record<Features, Reader<FactsORM, void>> = {
+    const features: Record<Features, Reader<ORM<"facts">, void>> = {
       addOne: describeAddOne,
       deleteAll: describeDeleteAll,
       deleteOne: describeDeleteOne,

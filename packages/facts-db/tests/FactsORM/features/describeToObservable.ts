@@ -1,15 +1,15 @@
 import {Fact} from "../../../src/Fact";
-import {FactsORM} from "../../../src/FactsORM";
+import {ORM} from "../../../src/ORM";
 import {Reader} from "fp-ts/lib/Reader";
 import {expect, it} from "vitest";
 
-export const describeToObservable = (orm: FactsORM) => {
+export const describeToObservable = (orm: ORM<"facts">) => {
   it("returns an observable that emits on subscription", () =>
     new Promise<void>(resolve => {
       const allFacts$ = orm.toObservable(() => orm.objects.getAll());
       const sub = allFacts$.subscribe(async facts => {
         expect(facts).toHaveLength(0);
-        sub.unsubscribe();
+        sub?.unsubscribe();
         resolve();
       });
     }));
@@ -23,7 +23,7 @@ export const describeToObservable = (orm: FactsORM) => {
       orm.objects.addOne({content});
       const sub = facts$.subscribe(async facts => {
         if (sideEffects.addOne(facts)) {
-          sub.unsubscribe();
+          sub?.unsubscribe();
           resolve();
         }
       });
@@ -37,7 +37,7 @@ export const describeToObservable = (orm: FactsORM) => {
       orm.objects.updateOne(id, {content: "test2"});
       const sub = allObjs$.subscribe(async fact => {
         if (fact?.content === "test2") {
-          sub.unsubscribe();
+          sub?.unsubscribe();
           resolve();
         }
       });
@@ -51,7 +51,7 @@ export const describeToObservable = (orm: FactsORM) => {
       orm.objects.deleteOne(id);
       const sub = allObjs$.subscribe(async facts => {
         if (sideEffects.deleteOne(facts)) {
-          sub.unsubscribe();
+          sub?.unsubscribe();
           resolve();
         }
       });

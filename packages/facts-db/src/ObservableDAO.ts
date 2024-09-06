@@ -1,13 +1,16 @@
-import {BaseObject} from "./BaseObject";
 import {DAO} from "./DAO";
-import {Observable} from "dexie";
+import {InsertObject} from "./InsertObject";
+import {Observable, UpdateSpec} from "dexie";
 import {Reader} from "fp-ts/lib/Reader";
-import {ReplaySubject} from "rxjs";
-import {Subject} from "rxjs/internal/Subject";
+import {ReplaySubject} from "rxjs/internal/ReplaySubject";
+import {TableObjects} from "./TableObjects";
 import {Task} from "fp-ts/lib/Task";
+import type {Subject} from "rxjs/internal/Subject";
 
 // TODO: add decorator for sync
-export abstract class ObservableDAO<T extends BaseObject> implements DAO<T> {
+export abstract class ObservableDAO<T extends keyof TableObjects>
+  implements DAO<T>
+{
   private subjects: [Subject<any>, Task<any>][] = [];
 
   toObservable<R>(fn: Task<R>): Observable<R> {
@@ -17,14 +20,17 @@ export abstract class ObservableDAO<T extends BaseObject> implements DAO<T> {
     return subject.asObservable() as unknown as Observable<R>;
   }
 
-  async addOne(obj: Omit<T, "id">): Promise<T> {
+  async addOne(obj: InsertObject<T>): Promise<TableObjects[T]> {
     const savedObj = await this.addObj(obj);
     this.sync();
     return savedObj;
   }
 
-  async updateOne(id: string, note: Partial<T>): Promise<void> {
-    await this.updateObj(id, note);
+  async updateOne(
+    id: string,
+    payload: UpdateSpec<InsertObject<T>>,
+  ): Promise<void> {
+    await this.updateObj(id, payload);
     this.sync();
   }
 
@@ -38,11 +44,18 @@ export abstract class ObservableDAO<T extends BaseObject> implements DAO<T> {
     this.sync();
   }
 
-  abstract getOne(id: string): Promise<T | undefined>;
-  abstract getAll(): Promise<T[]>;
-  abstract filter(predicate: Reader<T, boolean>): Promise<T[]>;
-  protected abstract addObj(obj: Omit<T, "id">): Promise<T>;
-  protected abstract updateObj(id: string, note: Partial<T>): Promise<void>;
+  abstract getOne(id: string): Promise<TableObjects[T] | undefined>;
+  abstract getAll(): Promise<TableObjects[T][]>;
+  abstract filter(
+    predicate: Reader<TableObjects[T], boolean>,
+  ): Promise<TableObjects[T][]>;
+
+  protected abstract addObj(obj: InsertObject<T>): Promise<TableObjects[T]>;
+  protected abstract updateObj(
+    id: string,
+    payload: UpdateSpec<InsertObject<T>>,
+  ): Promise<void>;
+
   protected abstract deleteObj(id: string): Promise<void>;
   protected abstract deleteAllObj(): Promise<void>;
 

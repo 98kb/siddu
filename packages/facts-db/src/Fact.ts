@@ -1,5 +1,5 @@
-export type Fact = {
-  id: string;
+import {BaseObject} from "./BaseObject";
+
+export type Fact = BaseObject & {
   content: string;
-  isDeleted?: boolean;
 };

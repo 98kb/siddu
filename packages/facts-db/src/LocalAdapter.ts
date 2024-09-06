@@ -1,19 +1,23 @@
-import {BaseObject} from "./BaseObject";
+import {InsertObject} from "./InsertObject";
 import {ObservableDAO} from "./ObservableDAO";
 import {Reader} from "fp-ts/lib/Reader";
+import {TableObjects} from "./TableObjects";
+import {UpdateSpec} from "dexie";
 import {nanoid} from "nanoid";
 
-export class LocalAdapter<T extends BaseObject> extends ObservableDAO<T> {
+export class LocalAdapter<
+  T extends keyof TableObjects,
+> extends ObservableDAO<T> {
   constructor(private key: string) {
     super();
   }
 
-  async getOne(id: string): Promise<T | undefined> {
+  async getOne(id: string): Promise<TableObjects[T] | undefined> {
     const obj = localStorage.getItem(this.toPath(id));
     return obj ? JSON.parse(obj) : undefined;
   }
 
-  getAll(): Promise<T[]> {
+  getAll(): Promise<TableObjects[T][]> {
     const index = localStorage.getItem(this.key) || "[]";
     return Promise.all(
       JSON.parse(index)
@@ -22,20 +26,25 @@ export class LocalAdapter<T extends BaseObject> extends ObservableDAO<T> {
     );
   }
 
-  async filter(predicate: Reader<T, boolean>): Promise<T[]> {
+  async filter(
+    predicate: Reader<TableObjects[T], boolean>,
+  ): Promise<TableObjects[T][]> {
     const obj = await this.getAll();
     return obj.filter(fact => predicate(fact));
   }
 
-  protected async addObj(partial: Omit<T, "id">): Promise<T> {
+  protected async addObj(partial: InsertObject<T>): Promise<TableObjects[T]> {
     const id = nanoid();
-    const obj = {...partial, id} as T;
+    const obj = {...partial, id} as TableObjects[T];
     localStorage.setItem(this.toPath(obj.id), JSON.stringify(obj));
     this.addToIndex(obj.id);
     return obj;
   }
 
-  protected async updateObj(id: string, partial: Partial<T>): Promise<void> {
+  protected async updateObj(
+    id: string,
+    partial: UpdateSpec<InsertObject<T>>,
+  ): Promise<void> {
     const obj = await this.getOne(id);
     localStorage.setItem(this.toPath(id), JSON.stringify({...obj, ...partial}));
   }
