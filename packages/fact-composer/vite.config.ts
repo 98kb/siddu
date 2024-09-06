@@ -18,6 +18,7 @@ export default defineConfig({
     alias: {
       $lib: path.resolve('./src/lib'),
       $stores: path.resolve('./src/stores'),
+      $ui: path.resolve('./src/lib/components/ui'),
     }
   }
 })
