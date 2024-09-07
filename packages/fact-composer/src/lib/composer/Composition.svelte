@@ -11,9 +11,9 @@
     change: string;
   }>();
 
-  export let placeholder = "";
   export let facts: ORM<"facts">;
-  export let value: string;
+  export let placeholder = "";
+  export let value: string = "";
 
   const facts$ = facts.toObservable(() => facts.objects.getAll());
 
