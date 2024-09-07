@@ -2,14 +2,18 @@
   import "../../app.css";
   import CommandDialog from "$lib/components/ui/command/command-dialog.svelte";
   import Composition from "./Composition.svelte";
-  import type { ORM } from "@repo/facts-db";
-  import type { Observable } from "rxjs";
-  import type { InputElement } from "$lib/InputElement";
-  import { onMount } from "svelte";
+  import {ORM} from "@repo/facts-db";
+  import type {Observable} from "rxjs";
+  import type {InputElement} from "$lib/InputElement";
+  import {setContext} from "svelte";
+  import {Context} from "./Context";
 
   export let facts: ORM<"facts">;
   export let input$: Observable<InputElement>;
 
+  setContext(Context.FactsORM, facts);
+
+  const facts$ = facts.toObservable(() => facts.objects.getAll());
   let open = false;
   let placeholder = "";
   let value: string;
@@ -19,13 +23,12 @@
     value = $input$?.value;
   }
 
-  onMount(
-    () =>
-      input$.subscribe((el) => {
-        open = true;
-        inputEl = el;
-      }).unsubscribe,
-  );
+  $: {
+    if ($input$) {
+      open = true;
+      inputEl = $input$;
+    }
+  }
 </script>
 
 <CommandDialog
@@ -36,9 +39,9 @@
   bind:open
 >
   <Composition
-    {facts}
     {placeholder}
     {value}
+    facts={$facts$}
     on:change={({ detail: newValue }) => {
       inputEl.value = newValue;
       open = false;
