@@ -9,13 +9,17 @@
   export let query = "";
 </script>
 
-<Button
-  variant="ghost"
-  class="w-full m-0 justify-start"
-  on:click={async () => {
-    if (query.length > 0) {
-      await facts.objects.addOne({content: query});
-      dispatch("added");
-    }
-  }}
->Add "{query}"</Button>
+{#if query.length > 0}
+  <Button
+    variant="ghost"
+    class="w-full m-0 justify-start"
+    on:click={async () => {
+      if (query.length > 0) {
+        await facts.objects.addOne({content: query});
+        dispatch("added");
+      }
+    }}
+  >Add "{query}"</Button>
+{:else}
+  Type to add a new fact
+{/if}

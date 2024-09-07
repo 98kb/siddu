@@ -43,3 +43,5 @@ for (const workExperience of workExperiences) {
 }
 
 export const _Composer: Story = {args: {facts}};
+
+export const NoFacts: Story = {args: {facts: new ORM(new MemoryAdapter())}};

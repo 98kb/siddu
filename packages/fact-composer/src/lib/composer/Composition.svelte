@@ -32,12 +32,15 @@
 </script>
 
 <CompositionLayout>
-  <svelte:fragment slot="sidebar">
+  <svelte:fragment slot="search">
     <Command.Input
       placeholder="Type to search..."
       autofocus
       bind:value={query}
     />
+  </svelte:fragment>
+
+  <svelte:fragment slot="sidebar">
     <Command.List>
       <Command.Empty class="p-0">
         <FactPlaceHolder {query} on:added={() => append(query)} />
@@ -50,14 +53,13 @@
     </Command.List>
   </svelte:fragment>
 
-  <div class="flex justify-end">
-    <Button on:click={copyValue}>Copy</Button>
-    <Button on:click={emitValue}>OK</Button>
-  </div>
-
   <UnstyledTextarea
     class="w-full h-full"
     {placeholder}
     bind:value={composition}
   />
+  <div class="flex justify-end">
+    <Button on:click={copyValue}>Copy</Button>
+    <Button on:click={emitValue}>OK</Button>
+  </div>
 </CompositionLayout>
