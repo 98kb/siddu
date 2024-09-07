@@ -5,21 +5,27 @@
   import type { ORM } from '@repo/facts-db';
   import type { Observable } from "rxjs";
   import type {InputElement} from "$lib/InputElement";
-  import { concat } from "$lib/concat";
+  import { appendToInput } from "$lib/appendToInput";
+  import { onMount } from "svelte";
 
   export let facts: ORM<"facts">;
   export let hookElement$: Observable<InputElement>;
 
   let open = false;
   let placeholder = "";
-  $: $hookElement$ && (open = true);
+
+  const subscription = hookElement$.subscribe(() => {
+    open = true;
+  })
 
   const appendToHookedElement = (str: string) => {
     if ($hookElement$) {
-      $hookElement$.value = concat("\n")($hookElement$.value, str);
+      appendToInput($hookElement$, str);
       open = false;
     }
   };
+
+  onMount(() => () => subscription.unsubscribe());
 
 </script>
 
