@@ -1,38 +1,36 @@
 <script lang="ts">
   import "../../app.css";
-  import CommandDialog from '$lib/components/ui/command/command-dialog.svelte';
-  import Composition from './Composition.svelte';
-  import type { ORM } from '@repo/facts-db';
+  import CommandDialog from "$lib/components/ui/command/command-dialog.svelte";
+  import Composition from "./Composition.svelte";
+  import type { ORM } from "@repo/facts-db";
   import type { Observable } from "rxjs";
-  import type {InputElement} from "$lib/InputElement";
-  import { appendToInput } from "$lib/appendToInput";
+  import type { InputElement } from "$lib/InputElement";
   import { onMount } from "svelte";
 
   export let facts: ORM<"facts">;
-  export let hookElement$: Observable<InputElement>;
+  export let input$: Observable<InputElement>;
 
   let open = false;
   let placeholder = "";
+  let value: string;
+  let inputEl: InputElement;
 
-  const subscription = hookElement$.subscribe(() => {
-    open = true;
-  })
+  $: {
+    value = $input$?.value;
+  }
 
-  const appendToHookedElement = (str: string) => {
-    if ($hookElement$) {
-      appendToInput($hookElement$, str);
-      open = false;
-    }
-  };
-
-  onMount(() => () => subscription.unsubscribe());
-
+  onMount(
+    () =>
+      input$.subscribe((el) => {
+        open = true;
+        inputEl = el;
+      }).unsubscribe,
+  );
 </script>
-
 
 <CommandDialog
   class="min-w-[66vw]"
-  closeFocus={$hookElement$}
+  closeFocus={$input$}
   closeOnOutsideClick={false}
   bind:value={placeholder}
   bind:open
@@ -40,6 +38,10 @@
   <Composition
     {facts}
     {placeholder}
-    on:composition={({detail}) => appendToHookedElement(detail)}
+    {value}
+    on:change={({ detail: newValue }) => {
+      inputEl.value = newValue;
+      open = false;
+    }}
   />
 </CommandDialog>

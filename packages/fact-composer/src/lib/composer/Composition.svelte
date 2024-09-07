@@ -8,15 +8,22 @@
   import { createEventDispatcher } from "svelte";
 
   const dispatch = createEventDispatcher<{
-    composition: string;
+    change: string;
   }>();
 
   export let placeholder = "";
   export let facts: ORM<"facts">;
+  export let value: string;
+
+  const facts$ = facts.toObservable(() => facts.objects.getAll());
+
   let query = "";
   let composition = "";
 
-  const facts$ = facts.toObservable(() => facts.objects.getAll());
+  $: {
+    composition = value;
+  }
+
 
   const append = (str: string) => {
     composition = concat("\n")(composition, str);
@@ -36,7 +43,7 @@
   };
 
   const copyValue = () => navigator.clipboard.writeText(composition);
-  const emitValue = () => dispatch("composition", composition);
+  const emitValue = () => dispatch("change", composition);
 </script>
 
 <CompositionLayout>

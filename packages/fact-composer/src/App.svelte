@@ -10,4 +10,4 @@
 </script>
 
 <Textarea />
-<ComposerModal {facts} hookElement$={requestComposer$} />
+<ComposerModal {facts} input$={requestComposer$} />
