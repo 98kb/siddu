@@ -6,6 +6,7 @@
   import CompositionLayout from "./CompositionLayout.svelte";
   import UnstyledTextarea from "$lib/components/ui/textarea/UnstyledTextarea.svelte";
   import { createEventDispatcher } from "svelte";
+  import type { Reader } from "fp-ts/lib/Reader";
 
   const dispatch = createEventDispatcher<{
     change: string;
@@ -16,7 +17,6 @@
   export let value: string = "";
 
   const facts$ = facts.toObservable(() => facts.objects.getAll());
-
   let query = "";
   let composition = "";
 
@@ -24,26 +24,19 @@
     composition = value;
   }
 
-
   const append = (str: string) => {
     composition = concat("\n")(composition, str);
-  };
-
-  const addToComposition = (fact: Fact) => {
-    append(fact.content);
     query = "";
   };
-
+  const addToComposition: Reader<Fact, void> = fact => append(fact.content);
+  const copyValue = () => navigator.clipboard.writeText(composition);
+  const emitValue = () => dispatch("change", composition);
   const addFact = async () => {
     if (query) {
       await facts.objects.addOne({content: query});
       append(query);
-      query = "";
     }
   };
-
-  const copyValue = () => navigator.clipboard.writeText(composition);
-  const emitValue = () => dispatch("change", composition);
 </script>
 
 <CompositionLayout>
@@ -62,11 +55,11 @@
           >Add "{query}"</Button>
       </Command.Empty>
       {#if $facts$}
-      {#each $facts$ as fact (fact.id)}
-      <Command.Item onSelect={() => addToComposition(fact)}>
-        {fact.content}
-      </Command.Item>
-      {/each}
+        {#each $facts$ as fact (fact.id)}
+          <Command.Item onSelect={() => addToComposition(fact)}>
+            {fact.content}
+          </Command.Item>
+        {/each}
       {/if}
     </Command.List>
   </svelte:fragment>
