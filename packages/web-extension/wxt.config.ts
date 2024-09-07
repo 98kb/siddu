@@ -7,4 +7,5 @@ export default defineConfig({
   manifest: {
     permissions: ["storage", "contextMenus"],
   },
+  outDir: "dist",
 });
