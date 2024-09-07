@@ -28,6 +28,9 @@ importers:
       fp-ts:
         specifier: ^2.16.9
         version: 2.16.9
+      rxjs:
+        specifier: ^7.8.1
+        version: 7.8.1
       svelte-radix:
         specifier: ^1.1.1
         version: 1.1.1(svelte@4.2.19)
@@ -309,6 +312,12 @@ importers:
       '@repo/runtime-messaging':
         specifier: workspace:*
         version: link:../runtime-messaging
+      fp-ts:
+        specifier: ^2.16.9
+        version: 2.16.9
+      rxjs:
+        specifier: ^7.8.1
+        version: 7.8.1
     devDependencies:
       '@tsconfig/svelte':
         specifier: ^5.0.4
@@ -8842,7 +8851,7 @@ snapshots:
       pathe: 1.1.2
       sirv: 2.0.4
       tinyrainbow: 1.2.0
-      vitest: 2.0.5(@types/node@22.5.1)(@vitest/ui@2.0.5)(jsdom@25.0.0)
+      vitest: 2.0.5(@types/node@20.16.1)(@vitest/ui@2.0.5)(jsdom@25.0.0)
 
   '@vitest/utils@0.34.6':
     dependencies:
@@ -13605,6 +13614,7 @@ snapshots:
       - sugarss
       - supports-color
       - terser
+    optional: true
 
   w3c-xmlserializer@5.0.0:
     dependencies:
