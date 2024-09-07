@@ -13,6 +13,9 @@ importers:
       '@repo/facts-db':
         specifier: workspace:*
         version: link:../facts-db
+      '@repo/facts-db-adapter':
+        specifier: workspace:*
+        version: link:../facts-db-adapter
       bits-ui:
         specifier: ^0.21.13
         version: 0.21.13(svelte@4.2.19)
