@@ -5,30 +5,38 @@
   import { concat } from "$lib/concat";
   import CompositionLayout from "./CompositionLayout.svelte";
   import UnstyledTextarea from "$lib/components/ui/textarea/UnstyledTextarea.svelte";
+  import { createEventDispatcher } from "svelte";
+
+  const dispatch = createEventDispatcher<{
+    composition: string;
+  }>();
 
   export let placeholder = "";
   export let facts: ORM<"facts">;
   let query = "";
-  let value = "";
+  let composition = "";
 
   const facts$ = facts.toObservable(() => facts.objects.getAll());
 
-  const appendValue = (str: string) => {
-    value = concat("\n")(value, str);
+  const append = (str: string) => {
+    composition = concat("\n")(composition, str);
   };
 
-  const handleSelect = (fact: Fact) => {
-    appendValue(fact.content);
+  const addToComposition = (fact: Fact) => {
+    append(fact.content);
     query = "";
   };
 
   const addFact = async () => {
     if (query) {
       await facts.objects.addOne({content: query});
-      appendValue(query);
+      append(query);
       query = "";
     }
   };
+
+  const copyValue = () => navigator.clipboard.writeText(composition);
+  const emitValue = () => dispatch("composition", composition);
 </script>
 
 <CompositionLayout>
@@ -48,7 +56,7 @@
       </Command.Empty>
       {#if $facts$}
       {#each $facts$ as fact (fact.id)}
-      <Command.Item onSelect={() => handleSelect(fact)}>
+      <Command.Item onSelect={() => addToComposition(fact)}>
         {fact.content}
       </Command.Item>
       {/each}
@@ -59,10 +67,11 @@
   <UnstyledTextarea
     class="w-full"
     {placeholder}
-    bind:value
+    bind:value={composition}
   />
 
   <div class="flex justify-end">
-    <Button on:click={() => navigator.clipboard.writeText(value)}>Copy</Button>
+    <Button on:click={copyValue}>Copy</Button>
+    <Button on:click={emitValue}>OK</Button>
   </div>
 </CompositionLayout>
