@@ -3,7 +3,7 @@
   import Textarea from "$lib/components/ui/textarea/textarea.svelte";
   import ComposerModal from "$lib/composer/ComposerModal.svelte";
   import type {ORM} from "@repo/facts-db";
-  import { requestComposer$ } from "$lib/requestComposer$";
+  import { requestComposer$ } from "$lib/composer/requestComposer$";
 
   export let facts: ORM<"facts">;
 
