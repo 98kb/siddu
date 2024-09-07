@@ -1,11 +1,12 @@
 import "@repo/facts-web-app/dist/style.css";
+import {DexieAdapter} from "@repo/facts-db-adapter";
 import {FactsApp} from "@repo/facts-web-app";
-import {createFactsORM} from "@repo/facts-db";
+import {ORM, createFactsDB} from "@repo/facts-db";
 
 const app = new FactsApp({
   target: document.querySelector("#app")!,
   props: {
-    db: createFactsORM("facts"),
+    db: new ORM(new DexieAdapter(createFactsDB("facts"), "facts")),
   },
 });
 
