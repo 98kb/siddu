@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/svelte';
 import Composer from './Composer.svelte';
-import { ORM, MemoryAdapter, type InsertObject } from '@repo/facts-db';
+import { ORM, type InsertObject } from '@repo/facts-db';
+import { MemoryAdapter } from "@repo/facts-db-adapter";
 
 const meta = {
   title: 'features/Composer',
