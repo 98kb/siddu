@@ -1,4 +1,4 @@
-import {FactSchema, InsertFactSchema} from "@repo/facts-db";
+import {FactSchema, InsertFactSchema, as$} from "@repo/facts-db";
 import {FilterSchema} from "./FilterSchema";
 import {Tables} from "@repo/facts-db/dist/Tables";
 import {getItem} from "../middlewares/getItem";
@@ -6,6 +6,7 @@ import {publicProcedure, router} from "./trpc";
 
 export const createCrudRouter = <T extends keyof Tables>(table: Tables[T]) =>
   router({
+    all$: publicProcedure.subscription(() => as$(() => table.toArray())),
     create: publicProcedure
       .input(InsertFactSchema)
       .output(FactSchema)
