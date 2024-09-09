@@ -1,4 +1,4 @@
-import {FactsDbSchema} from "./FactsDbSchema";
+import {Tables} from "./Tables";
 import Dexie from "dexie";
 
-export type FactsDB = Dexie & FactsDbSchema;
+export type FactsDB = Dexie & Tables;
