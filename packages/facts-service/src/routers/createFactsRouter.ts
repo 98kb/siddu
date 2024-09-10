@@ -1,12 +1,20 @@
-import {FactSchema, InsertFactSchema, as$} from "@repo/facts-db";
-import {FilterSchema} from "./FilterSchema";
+/* eslint-disable max-nested-callbacks */
+import {Fact, FactSchema, InsertFactSchema, as$} from "@repo/facts-db";
+import {FilterSchema} from "../lib/FilterSchema";
 import {Tables} from "@repo/facts-db/dist/Tables";
 import {getItem} from "../middlewares/getItem";
-import {publicProcedure, router} from "./trpc";
+import {observable} from "@trpc/server/observable";
+import {publicProcedure, router} from "../lib/trpc";
 
-export const createCrudRouter = <T extends keyof Tables>(table: Tables[T]) =>
+export const createFactsRouter = (table: Tables["facts"]) =>
   router({
-    all$: publicProcedure.subscription(() => as$(() => table.toArray())),
+    all$: publicProcedure.subscription(function () {
+      const all$ = as$(() => table.toArray());
+      return observable<Fact[]>(observer => {
+        const sub = all$.subscribe(observer.next);
+        return () => sub.unsubscribe();
+      });
+    }),
     create: publicProcedure
       .input(InsertFactSchema)
       .output(FactSchema)
