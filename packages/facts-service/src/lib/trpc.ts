@@ -13,6 +13,8 @@ import {transformer} from "./transformer";
 import type {Context} from "./createContextInner";
 
 const t = initTRPC.context<Context>().create({
+  isServer: false,
+  allowOutsideOfServer: true,
   /**
    * @link https://trpc.io/docs/v11/data-transformers
    */
