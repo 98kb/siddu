@@ -3,12 +3,12 @@ import {Fact, InsertFactSchema, createFactsDB} from "@repo/facts-db";
 import {beforeEach, describe, expect, it} from "vitest";
 import {createCallerFactory} from "../../src/lib/trpc";
 import {createContextInner} from "../../src/lib/createContextInner";
-import {createCrudRouter} from "../../src/lib/createCrudRouter";
+import {createFactsRouter} from "../../src/routers/createFactsRouter";
 import {inferProcedureInput} from "@trpc/server";
 
 const ctx = createContextInner({});
 const db = createFactsDB("test");
-const router = createCrudRouter(db.facts);
+const router = createFactsRouter(db.facts);
 const createCaller = createCallerFactory(router);
 const caller = createCaller(ctx);
 
@@ -19,6 +19,30 @@ describe("facts/router", () => {
   beforeEach(async () => {
     await db.delete();
     await db.open();
+  });
+
+  describe("all$", () => {
+    it("subscribes to all facts", () =>
+      // eslint-disable-next-line no-async-promise-executor
+      new Promise<void>(async resolve => {
+        const addFact = {content: "test"} satisfies Input;
+        const createRequests = [
+          await caller.create(addFact),
+          await caller.create(addFact),
+          await caller.create(addFact),
+        ];
+        const facts$ = await caller.all$();
+        const subscription = facts$.subscribe({
+          next: facts => {
+            expect(facts).toHaveLength(createRequests.length);
+            for (const fact of facts) {
+              expect(fact.content).toBe(addFact.content);
+            }
+            subscription.unsubscribe();
+            resolve();
+          },
+        });
+      }));
   });
 
   describe("create", () => {
