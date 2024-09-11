@@ -1,0 +1,5 @@
+{
+  "extends": ["eslint-config-dsfx3d", "plugin:svelte/recommended"],
+  "root": true,
+  "ignorePatterns": ["node_modules/", "dist/", "coverage/"],
+}
