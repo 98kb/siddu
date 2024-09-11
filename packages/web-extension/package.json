@@ -16,7 +16,6 @@
   "dependencies": {
     "@repo/fact-composer": "workspace:*",
     "@repo/facts-db": "workspace:*",
-    "@repo/facts-db-adapter": "workspace:*",
     "@repo/facts-web-app": "workspace:*",
     "@repo/runtime-messaging": "workspace:*",
     "fp-ts": "^2.16.9",

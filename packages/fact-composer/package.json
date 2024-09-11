@@ -42,7 +42,6 @@
   },
   "dependencies": {
     "@repo/facts-db": "workspace:*",
-    "@repo/facts-db-adapter": "workspace:*",
     "@repo/facts-service": "workspace:*",
     "bits-ui": "^0.21.13",
     "clsx": "^2.1.1",
