@@ -2,49 +2,28 @@
   import "../../app.css";
   import CommandDialog from "$lib/components/ui/command/command-dialog.svelte";
   import Composition from "./Composition.svelte";
-  import {ORM} from "@repo/facts-db";
-  import type {Observable} from "rxjs";
-  import type {InputElement} from "$lib/InputElement";
-  import {setContext} from "svelte";
-  import {Context} from "./Context";
+  import {type ComponentProps} from "svelte";
+  import type {createAppRouter, FactsService} from "../../../../facts-service-trpc/dist";
 
-  export let facts: ORM<"facts">;
-  export let input$: Observable<InputElement>;
+  export let db: FactsService;
+  export let closeFocus: ComponentProps<CommandDialog>["closeFocus"];
+  export let value: string;
+  export let open = false;
 
-  setContext(Context.FactsORM, facts);
-
-  const facts$ = facts.toObservable(() => facts.objects.getAll());
-  let open = false;
   let placeholder = "";
-  let value: string;
-  let inputEl: InputElement;
-
-  $: {
-    value = $input$?.value;
-  }
-
-  $: {
-    if ($input$) {
-      open = true;
-      inputEl = $input$;
-    }
-  }
 </script>
 
 <CommandDialog
+  {open}
+  {closeFocus}
   class="min-w-[66vw]"
-  closeFocus={$input$}
   closeOnOutsideClick={false}
   bind:value={placeholder}
-  bind:open
+  on:changeOpen
 >
   <Composition
     {placeholder}
     {value}
-    facts={$facts$}
-    on:change={({ detail: newValue }) => {
-      inputEl.value = newValue;
-      open = false;
-    }}
+    on:change
   />
 </CommandDialog>
