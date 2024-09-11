@@ -1,11 +1,11 @@
 <script lang="ts">
   import Button from "$lib/components/ui/button/button.svelte";
   import { createEventDispatcher, getContext } from "svelte";
-  import { Context } from "./Context";
-  import type { ORM } from "@repo/facts-db";
+  import {type Context} from "$lib/Context";
+  import {contextKey} from "$lib/contextKey";
 
   const dispatch = createEventDispatcher<{added: void}>();
-  const facts = getContext<ORM<"facts">>(Context.FactsORM);
+  const {db} = getContext<Context>(contextKey);
   export let query = "";
 </script>
 
@@ -15,7 +15,7 @@
     class="w-full m-0 justify-start"
     on:click={async () => {
       if (query.length > 0) {
-        await facts.objects.addOne({content: query});
+        await db.facts.add({content: query});
         dispatch("added");
       }
     }}

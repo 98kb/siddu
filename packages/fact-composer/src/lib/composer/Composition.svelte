@@ -12,9 +12,9 @@
     change: string;
   }>();
 
-  export let facts: Fact[] = [];
-  export let placeholder = "";
-  export let value: string = "";
+  export let facts: Fact[];
+  export let placeholder: string;
+  export let value: string;
 
   let query = "";
   let composition = "";
