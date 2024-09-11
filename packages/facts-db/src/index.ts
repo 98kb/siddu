@@ -1,5 +1,6 @@
 export * from "./as$";
-export * from "./createFactsDB";
+export * from "./createFactsDb";
+export * from "./FactsDb";
 export * from "./fact/Fact";
 export * from "./fact/FactSchema";
 export * from "./fact/InsertFact";

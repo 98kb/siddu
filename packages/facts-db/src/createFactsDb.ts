@@ -1,4 +1,4 @@
-import {FactsDB} from "./FactsDB";
+import {FactsDB} from "./FactsDb";
 import {Tables} from "./Tables";
 import Dexie from "dexie";
 
