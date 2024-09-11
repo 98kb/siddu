@@ -1,7 +1,7 @@
 import {defineBuildConfig} from "unbuild";
 
 export default defineBuildConfig({
-  entries: ["src/"],
+  entries: ["src/index.ts"],
   sourcemap: true,
   declaration: true,
   rollup: {
