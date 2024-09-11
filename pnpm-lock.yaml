@@ -16,6 +16,9 @@ importers:
       '@repo/facts-db-adapter':
         specifier: workspace:*
         version: link:../facts-db-adapter
+      '@repo/facts-service':
+        specifier: workspace:*
+        version: link:../facts-service
       bits-ui:
         specifier: ^0.21.13
         version: 0.21.13(svelte@4.2.19)
@@ -86,6 +89,15 @@ importers:
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.41)
+      eslint:
+        specifier: ^8.57.0
+        version: 8.57.0
+      eslint-config-dsfx3d:
+        specifier: ^0.1.6
+        version: 0.1.6(eslint@8.57.0)(prettier@3.3.3)(typescript@5.5.4)
+      eslint-plugin-svelte:
+        specifier: ^2.43.0
+        version: 2.43.0(eslint@8.57.0)(svelte@4.2.19)(ts-node@10.9.2(@types/node@22.5.4)(typescript@5.5.4))
       storybook:
         specifier: ^8.2.9
         version: 8.2.9(@babel/preset-env@7.25.4(@babel/core@7.25.2))
@@ -212,54 +224,17 @@ importers:
         specifier: ^2.0.5
         version: 2.0.5(@types/node@20.16.2)(@vitest/ui@2.0.5)(jsdom@25.0.0)
 
-  packages/facts-db-service:
-    dependencies:
-      '@repo/facts-db':
-        specifier: workspace:*
-        version: link:../facts-db
-      '@trpc/client':
-        specifier: 11.0.0-rc.502
-        version: 11.0.0-rc.502(@trpc/server@11.0.0-rc.502)
-      '@trpc/server':
-        specifier: 11.0.0-rc.502
-        version: 11.0.0-rc.502
-    devDependencies:
-      '@types/node':
-        specifier: ^20.16.5
-        version: 20.16.5
-      '@vitest/coverage-v8':
-        specifier: ^0.34.6
-        version: 0.34.6(vitest@0.34.6(@vitest/ui@2.0.5)(jsdom@25.0.0)(playwright@1.46.1))
-      eslint:
-        specifier: ^8.57.0
-        version: 8.57.0
-      eslint-config-dsfx3d:
-        specifier: ^0.1.6
-        version: 0.1.6(eslint@8.57.0)(prettier@3.3.3)(typescript@5.5.4)
-      prettier:
-        specifier: ^3.3.3
-        version: 3.3.3
-      typescript:
-        specifier: ^5.5.4
-        version: 5.5.4
-      unbuild:
-        specifier: ^2.0.0
-        version: 2.0.0(typescript@5.5.4)
-      vitest:
-        specifier: ^0.34.6
-        version: 0.34.6(@vitest/ui@2.0.5)(jsdom@25.0.0)(playwright@1.46.1)
-
   packages/facts-service:
     dependencies:
       '@repo/facts-db':
         specifier: workspace:*
         version: link:../facts-db
       '@trpc/client':
-        specifier: 11.0.0-rc.502
-        version: 11.0.0-rc.502(@trpc/server@11.0.0-rc.502)
+        specifier: ^10.0.0
+        version: 10.45.2(@trpc/server@10.45.2)
       '@trpc/server':
-        specifier: 11.0.0-rc.502
-        version: 11.0.0-rc.502
+        specifier: ^10.0.0
+        version: 10.45.2
       fp-ts:
         specifier: ^2.16.9
         version: 2.16.9
@@ -392,21 +367,30 @@ importers:
       '@repo/facts-db':
         specifier: workspace:*
         version: link:../facts-db
-      '@repo/facts-db-adapter':
+      '@repo/facts-service':
         specifier: workspace:*
-        version: link:../facts-db-adapter
+        version: link:../facts-service
       '@repo/facts-web-app':
         specifier: workspace:*
         version: link:../facts-web-app
       '@repo/runtime-messaging':
         specifier: workspace:*
         version: link:../runtime-messaging
+      '@trpc/client':
+        specifier: ^10.0.0
+        version: 10.45.2(@trpc/server@10.45.2)
+      '@trpc/server':
+        specifier: ^10.0.0
+        version: 10.45.2
       fp-ts:
         specifier: ^2.16.9
         version: 2.16.9
       rxjs:
         specifier: ^7.8.1
         version: 7.8.1
+      trpc-chrome:
+        specifier: ^1.0.0
+        version: 1.0.0(@trpc/client@10.45.2(@trpc/server@10.45.2))(@trpc/server@10.45.2)
     devDependencies:
       '@tsconfig/svelte':
         specifier: ^5.0.4
@@ -2110,13 +2094,13 @@ packages:
     peerDependencies:
       '@testing-library/dom': '>=7.21.4'
 
-  '@trpc/client@11.0.0-rc.502':
-    resolution: {integrity: sha512-ysFQ3wHnjzLcAqeuwx9/B/YV+2XN/kmfAdTUG+O/SUAdP2wAwo6XbhOxlHw0HWS5pDCsTfJkxDr1nMVkuFM07Q==}
+  '@trpc/client@10.45.2':
+    resolution: {integrity: sha512-ykALM5kYWTLn1zYuUOZ2cPWlVfrXhc18HzBDyRhoPYN0jey4iQHEFSEowfnhg1RvYnrAVjNBgHNeSAXjrDbGwg==}
     peerDependencies:
-      '@trpc/server': 11.0.0-rc.502+2a8c56027
+      '@trpc/server': 10.45.2
 
-  '@trpc/server@11.0.0-rc.502':
-    resolution: {integrity: sha512-n6B8Q/UqF+hFXyCTXq9AWSn6EkXBbVo/Bs7/QzZxe5KD5CdnBomC7A1y6Qr+i0eiOWwTHJZQ0az+gJetb2fdxw==}
+  '@trpc/server@10.45.2':
+    resolution: {integrity: sha512-wOrSThNNE4HUnuhJG6PfDRp4L2009KDVxsd+2VYH8ro6o/7/jwYZ8Uu5j+VaW+mOmc8EHerHzGcdbGNQSAUPgg==}
 
   '@trysound/sax@0.2.0':
     resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}
@@ -3572,6 +3556,16 @@ packages:
     peerDependencies:
       eslint: '>=7.7.0'
 
+  eslint-plugin-svelte@2.43.0:
+    resolution: {integrity: sha512-REkxQWvg2pp7QVLxQNa+dJ97xUqRe7Y2JJbSWkHSuszu0VcblZtXkPBPckkivk99y5CdLw4slqfPylL2d/X4jQ==}
+    engines: {node: ^14.17.0 || >=16.0.0}
+    peerDependencies:
+      eslint: ^7.0.0 || ^8.0.0-0 || ^9.0.0-0
+      svelte: ^3.37.0 || ^4.0.0 || ^5.0.0-next.191
+    peerDependenciesMeta:
+      svelte:
+        optional: true
+
   eslint-plugin-unicorn@47.0.0:
     resolution: {integrity: sha512-ivB3bKk7fDIeWOUmmMm9o3Ax9zbMz1Bsza/R2qm46ufw4T6VBFBaJIR1uN3pCKSmSXm8/9Nri8V+iUut1NhQGA==}
     engines: {node: '>=16'}
@@ -4502,6 +4496,9 @@ packages:
     resolution: {integrity: sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==}
     engines: {node: '>=6'}
 
+  known-css-properties@0.34.0:
+    resolution: {integrity: sha512-tBECoUqNFbyAY4RrbqsBQqDFpGXAEbdD5QKr8kACx3+rnArmuuR22nKQWKazvp07N9yjTyDZaw/20UIH8tL9DQ==}
+
   latest-version@7.0.0:
     resolution: {integrity: sha512-KvNT4XqAMzdcL6ka6Tl3i2lYeFDgXNCuIX+xNx6ZMVR1dFq+idXd9FLKNMOIx0t9mJ9/HudyX4oZWXZQ0UJHeg==}
     engines: {node: '>=14.16'}
@@ -5244,6 +5241,18 @@ packages:
     peerDependencies:
       postcss: ^8.4.21
 
+  postcss-load-config@3.1.4:
+    resolution: {integrity: sha512-6DiM4E7v4coTE4uzA8U//WhtPwyhiim3eyjEMFCnUpzbrkK9wJHgKDT2mR+HbtSrd/NubVaYTOpSpjUl8NQeRg==}
+    engines: {node: '>= 10'}
+    peerDependencies:
+      postcss: '>=8.0.9'
+      ts-node: '>=9.0.0'
+    peerDependenciesMeta:
+      postcss:
+        optional: true
+      ts-node:
+        optional: true
+
   postcss-load-config@4.0.2:
     resolution: {integrity: sha512-bSVhyJGL00wMVoPUzAVAnbEoWyqRxkjv64tUl427SKnPrENtq6hJwUojroMz2VB+Q1edmi4IfrAPpami5VVgMQ==}
     engines: {node: '>= 14'}
@@ -5369,6 +5378,18 @@ packages:
     engines: {node: ^18.12.0 || ^20.9.0 || >=22.0}
     peerDependencies:
       postcss: ^8.4.31
+
+  postcss-safe-parser@6.0.0:
+    resolution: {integrity: sha512-FARHN8pwH+WiS2OPCxJI8FuRJpTVnn6ZNFiqAM2aeW2LwTHWWmWgIyKC6cUo0L8aeKiF/14MNvnpls6R2PBeMQ==}
+    engines: {node: '>=12.0'}
+    peerDependencies:
+      postcss: ^8.3.3
+
+  postcss-scss@4.0.9:
+    resolution: {integrity: sha512-AjKOeiwAitL/MXxQW2DliT28EKukvvbEWx3LBmJIRN8KfBGZbRTxNYW0kSqi1COiTZ57nZ9NW06S6ux//N1c9A==}
+    engines: {node: '>=12.0'}
+    peerDependencies:
+      postcss: ^8.4.29
 
   postcss-selector-parser@6.0.10:
     resolution: {integrity: sha512-IQ7TZdoaqbT+LCpShg46jnZVlhWD2w6iQYAcYXfHARZ7X1t/UGhhceQDs5X0cGqKvYlHNOuv7Oa1xmb0oQuA3w==}
@@ -6028,6 +6049,15 @@ packages:
     peerDependencies:
       svelte: ^3.55.0 || ^4.0.0-next.0 || ^4.0.0 || ^5.0.0-next.0
 
+  svelte-eslint-parser@0.41.0:
+    resolution: {integrity: sha512-L6f4hOL+AbgfBIB52Z310pg1d2QjRqm7wy3kI1W6hhdhX5bvu7+f0R6w4ykp5HoDdzq+vGhIJmsisaiJDGmVfA==}
+    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+    peerDependencies:
+      svelte: ^3.37.0 || ^4.0.0 || ^5.0.0-next.191
+    peerDependenciesMeta:
+      svelte:
+        optional: true
+
   svelte-hmr@0.16.0:
     resolution: {integrity: sha512-Gyc7cOS3VJzLlfj7wKS0ZnzDVdv3Pn2IuVeJPk9m2skfhcu5bq3wtIZyQGggr7/Iim5rH5cncyQft/kRLupcnA==}
     engines: {node: ^12.20 || ^14.13.1 || >= 16}
@@ -6214,6 +6244,12 @@ packages:
   tr46@5.0.0:
     resolution: {integrity: sha512-tk2G5R2KRwBd+ZN0zaEXpmzdKyOYksXwywulIX95MBODjSzMIuQnQ3m8JxgbhnL1LeVo7lqQKsYa1O3Htl7K5g==}
     engines: {node: '>=18'}
+
+  trpc-chrome@1.0.0:
+    resolution: {integrity: sha512-lulJIFLh37dz1m8zDCliCKhKJmrZqCTZd+kVyfL084aKkqaZVbfjzm7WqWOmhXiKvP/4pWeKSh7qIN2DhwTDUA==}
+    peerDependencies:
+      '@trpc/client': ^10.0.0
+      '@trpc/server': ^10.0.0
 
   ts-api-utils@1.3.0:
     resolution: {integrity: sha512-UQMIo7pb8WRomKR1/+MFVLTroIvDVtMX3K6OUir8ynLyzB8Jeriont2bTAtmNPa1ekAgN7YPDyf6V+ygrdU+eQ==}
@@ -6720,6 +6756,10 @@ packages:
 
   yallist@4.0.0:
     resolution: {integrity: sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==}
+
+  yaml@1.10.2:
+    resolution: {integrity: sha512-r3vXyErRCYJ7wg28yvBY5VSoAF8ZvlcW9/BwUzEtUsjvX/DKs24dIkuwjtuprwJJHsbyUbLApepYTR1BN4uHrg==}
+    engines: {node: '>= 6'}
 
   yaml@2.5.0:
     resolution: {integrity: sha512-2wWLbGbYDiSqqIKoPjar3MPgB94ErzCtrNE1FdqGuaO0pi2JGjmE8aW8TDZwzU7vuxcGRdL/4gPQwQ7hD5AMSw==}
@@ -8517,11 +8557,11 @@ snapshots:
     dependencies:
       '@testing-library/dom': 10.1.0
 
-  '@trpc/client@11.0.0-rc.502(@trpc/server@11.0.0-rc.502)':
+  '@trpc/client@10.45.2(@trpc/server@10.45.2)':
     dependencies:
-      '@trpc/server': 11.0.0-rc.502
+      '@trpc/server': 10.45.2
 
-  '@trpc/server@11.0.0-rc.502': {}
+  '@trpc/server@10.45.2': {}
 
   '@trysound/sax@0.2.0': {}
 
@@ -8999,7 +9039,7 @@ snapshots:
       pathe: 1.1.2
       sirv: 2.0.4
       tinyrainbow: 1.2.0
-      vitest: 2.0.5(@types/node@20.16.5)(@vitest/ui@2.0.5)(jsdom@25.0.0)
+      vitest: 2.0.5(@types/node@20.16.2)(@vitest/ui@2.0.5)(jsdom@25.0.0)
 
   '@vitest/utils@0.34.6':
     dependencies:
@@ -10345,6 +10385,25 @@ snapshots:
     dependencies:
       eslint: 8.57.0
 
+  eslint-plugin-svelte@2.43.0(eslint@8.57.0)(svelte@4.2.19)(ts-node@10.9.2(@types/node@22.5.4)(typescript@5.5.4)):
+    dependencies:
+      '@eslint-community/eslint-utils': 4.4.0(eslint@8.57.0)
+      '@jridgewell/sourcemap-codec': 1.5.0
+      eslint: 8.57.0
+      eslint-compat-utils: 0.5.1(eslint@8.57.0)
+      esutils: 2.0.3
+      known-css-properties: 0.34.0
+      postcss: 8.4.41
+      postcss-load-config: 3.1.4(postcss@8.4.41)(ts-node@10.9.2(@types/node@22.5.4)(typescript@5.5.4))
+      postcss-safe-parser: 6.0.0(postcss@8.4.41)
+      postcss-selector-parser: 6.1.2
+      semver: 7.6.3
+      svelte-eslint-parser: 0.41.0(svelte@4.2.19)
+    optionalDependencies:
+      svelte: 4.2.19
+    transitivePeerDependencies:
+      - ts-node
+
   eslint-plugin-unicorn@47.0.0(eslint@8.57.0):
     dependencies:
       '@babel/helper-validator-identifier': 7.24.7
@@ -11436,6 +11495,8 @@ snapshots:
 
   kleur@4.1.5: {}
 
+  known-css-properties@0.34.0: {}
+
   latest-version@7.0.0:
     dependencies:
       package-json: 8.1.1
@@ -12151,6 +12212,14 @@ snapshots:
       camelcase-css: 2.0.1
       postcss: 8.4.41
 
+  postcss-load-config@3.1.4(postcss@8.4.41)(ts-node@10.9.2(@types/node@22.5.4)(typescript@5.5.4)):
+    dependencies:
+      lilconfig: 2.1.0
+      yaml: 1.10.2
+    optionalDependencies:
+      postcss: 8.4.41
+      ts-node: 10.9.2(@types/node@22.5.4)(typescript@5.5.4)
+
   postcss-load-config@4.0.2(postcss@8.4.41)(ts-node@10.9.2(@types/node@22.5.4)(typescript@5.5.4)):
     dependencies:
       lilconfig: 3.1.2
@@ -12264,6 +12333,14 @@ snapshots:
     dependencies:
       postcss: 8.4.41
       postcss-value-parser: 4.2.0
+
+  postcss-safe-parser@6.0.0(postcss@8.4.41):
+    dependencies:
+      postcss: 8.4.41
+
+  postcss-scss@4.0.9(postcss@8.4.41):
+    dependencies:
+      postcss: 8.4.41
 
   postcss-selector-parser@6.0.10:
     dependencies:
@@ -13037,6 +13114,16 @@ snapshots:
       - stylus
       - sugarss
 
+  svelte-eslint-parser@0.41.0(svelte@4.2.19):
+    dependencies:
+      eslint-scope: 7.2.2
+      eslint-visitor-keys: 3.4.3
+      espree: 9.6.1
+      postcss: 8.4.41
+      postcss-scss: 4.0.9(postcss@8.4.41)
+    optionalDependencies:
+      svelte: 4.2.19
+
   svelte-hmr@0.16.0(svelte@4.2.19):
     dependencies:
       svelte: 4.2.19
@@ -13227,6 +13314,11 @@ snapshots:
   tr46@5.0.0:
     dependencies:
       punycode: 2.3.1
+
+  trpc-chrome@1.0.0(@trpc/client@10.45.2(@trpc/server@10.45.2))(@trpc/server@10.45.2):
+    dependencies:
+      '@trpc/client': 10.45.2(@trpc/server@10.45.2)
+      '@trpc/server': 10.45.2
 
   ts-api-utils@1.3.0(typescript@5.5.4):
     dependencies:
@@ -14061,6 +14153,8 @@ snapshots:
   yallist@3.1.1: {}
 
   yallist@4.0.0: {}
+
+  yaml@1.10.2: {}
 
   yaml@2.5.0: {}
 
