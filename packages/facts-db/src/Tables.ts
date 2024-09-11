@@ -1,6 +1,10 @@
 import {EntityTable} from "dexie";
-import {Fact} from "./fact/Fact";
+import {TableSchemas} from "./TableSchemas";
 
 export type Tables = {
-  facts: EntityTable<Fact, "id">;
+  [Table in keyof TableSchemas]: EntityTable<
+    TableSchemas[Table]["schema"],
+    "id",
+    TableSchemas[Table]["insertSchema"]
+  >;
 };
