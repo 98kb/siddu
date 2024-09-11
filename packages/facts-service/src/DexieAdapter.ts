@@ -1,6 +1,5 @@
 import {AbstractAdapter} from "./AbstractAdapter";
-import {FactsDB} from "@repo/facts-db/dist/FactsDB";
-import {TableSchemas, Tables} from "@repo/facts-db";
+import {type FactsDB, TableSchemas, Tables} from "@repo/facts-db";
 
 export class DexieAdapter<T extends keyof Tables> extends AbstractAdapter<T> {
   constructor(

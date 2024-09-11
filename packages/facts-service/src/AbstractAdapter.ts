@@ -1,30 +1,30 @@
 import {IAdapter} from "./IAdapter";
-import {Subject} from "rxjs";
+import {Subject} from "rxjs/internal/Subject";
 import {TableSchemas, Tables} from "@repo/facts-db";
 
 export abstract class AbstractAdapter<T extends keyof Tables>
   implements IAdapter<T>
 {
-  private onUpdated = new Subject<void>();
+  private mutation$ = new Subject<void>();
 
-  onUpdated$ = this.onUpdated.asObservable();
+  onMutation$ = this.mutation$.asObservable();
 
   constructor(readonly table: T) {}
 
   async add(payload: TableSchemas[T]["insertSchema"]): Promise<number> {
     const id = await this.addItem(payload);
-    this.onUpdated.next();
+    this.mutation$.next();
     return id;
   }
 
   async delete(id: number): Promise<void> {
     await this.deleteItem(id);
-    this.onUpdated.next();
+    this.mutation$.next();
   }
 
   async deleteAll(): Promise<void> {
     await this.deleteAllItems();
-    this.onUpdated.next();
+    this.mutation$.next();
   }
 
   abstract get(id: number): Promise<TableSchemas[T]["schema"] | undefined>;

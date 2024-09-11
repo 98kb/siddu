@@ -7,6 +7,7 @@ import {describeDeleteAll} from "./features/describeDeleteAll";
 import {describeDeleteOne} from "./features/describeDeleteOne";
 import {describeGet} from "./features/describeGet";
 import {describeGetAll} from "./features/describeGetAll";
+import {describeOnMutation} from "./features/describeOnMutation";
 
 type Features = keyof IAdapter<keyof Tables>;
 
@@ -24,6 +25,7 @@ export const describeAdapter = <T extends keyof Tables>(
       delete: describeDeleteOne,
       getAll: describeGetAll,
       get: describeGet,
+      onMutation$: describeOnMutation,
     };
 
     for (const [feature, test] of Object.entries(features)) {
