@@ -17,24 +17,19 @@
     "dist"
   ],
   "scripts": {
-    "bootstrap": "pnpm update && husky install",
+    "prebuild": "pnpm test",
     "build": "unbuild",
     "dev": "vitest dev",
     "lint": "eslint --cache --ext .ts,.js,.mjs,.cjs . && prettier -c src tests",
     "lint:fix": "eslint --cache --ext .ts,.js,.mjs,.cjs . --fix && prettier -c src test -w",
-    "prepack": "pnpm run build",
-    "release": "pnpm test && changelogen --release && npm publish && git push --follow-tags",
     "test:unit": "vitest run --coverage --dir tests",
     "test": "pnpm lint && pnpm test:types && pnpm test:unit",
     "test:types": "tsc --noEmit --skipLibCheck"
   },
   "dependencies": {
     "@repo/facts-db": "workspace:*",
-    "@repo/runtime-messaging": "workspace:*",
     "dexie": "^4.0.8",
-    "fp-ts": "^2.16.9",
-    "nanoid": "^5.0.7",
-    "rxjs": "^7.8.1"
+    "fp-ts": "^2.16.9"
   },
   "devDependencies": {
     "@types/chrome": "^0.0.270",

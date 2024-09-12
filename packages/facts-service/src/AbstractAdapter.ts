@@ -1,30 +1,49 @@
 import {IAdapter} from "./IAdapter";
-import {Subject} from "rxjs/internal/Subject";
+import {MutationSubscription} from "./MutationSubscription";
 import {TableSchemas, Tables} from "@repo/facts-db";
 
 export abstract class AbstractAdapter<T extends keyof Tables>
   implements IAdapter<T>
 {
-  private mutation$ = new Subject<void>();
-
-  onMutation$ = this.mutation$.asObservable();
+  private mutationListeners: (() => void)[] = [];
 
   constructor(readonly table: T) {}
 
+  onMutation(callback: () => void): MutationSubscription {
+    this.mutationListeners.push(callback);
+    return this.createSubscription(callback);
+  }
+
   async add(payload: TableSchemas[T]["insertSchema"]): Promise<number> {
     const id = await this.addItem(payload);
-    this.mutation$.next();
+    this.notifyMutation();
     return id;
   }
 
   async delete(id: number): Promise<void> {
     await this.deleteItem(id);
-    this.mutation$.next();
+    this.notifyMutation();
   }
 
   async deleteAll(): Promise<void> {
     await this.deleteAllItems();
-    this.mutation$.next();
+    this.notifyMutation();
+  }
+
+  private notifyMutation() {
+    for (const listener of this.mutationListeners) {
+      listener();
+    }
+  }
+
+  private createSubscription(listener: () => void): MutationSubscription {
+    return {
+      unsubscribe: () => {
+        this.mutationListeners = this.mutationListeners.filter(
+          l => l !== listener,
+        );
+      },
+    };
   }
 
   abstract get(id: number): Promise<TableSchemas[T]["schema"] | undefined>;

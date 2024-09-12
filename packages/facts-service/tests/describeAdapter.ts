@@ -25,7 +25,7 @@ export const describeAdapter = <T extends keyof Tables>(
       delete: describeDeleteOne,
       getAll: describeGetAll,
       get: describeGet,
-      onMutation$: describeOnMutation,
+      onMutation: describeOnMutation,
     };
 
     for (const [feature, test] of Object.entries(features)) {

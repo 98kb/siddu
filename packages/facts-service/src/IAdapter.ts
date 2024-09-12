@@ -1,4 +1,4 @@
-import {Observable} from "rxjs";
+import {MutationSubscription} from "./MutationSubscription";
 import {TableSchemas, Tables} from "@repo/facts-db";
 
 export interface IAdapter<T extends keyof Tables> {
@@ -11,5 +11,5 @@ export interface IAdapter<T extends keyof Tables> {
   /**
    * omits on every mutation (add, update, delete)
    */
-  onMutation$: Observable<void>;
+  onMutation(callback: () => void): MutationSubscription;
 }

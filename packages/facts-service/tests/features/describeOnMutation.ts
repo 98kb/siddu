@@ -7,7 +7,7 @@ export const describeOnMutation = <T extends keyof Tables>(
 ) => {
   it("emits on every mutation", async () => {
     let mutationCount = 0;
-    const sub = adapter.onMutation$.subscribe(() => mutationCount++);
+    const sub = adapter.onMutation(() => mutationCount++);
     const actions = [
       await adapter.add({content: "test"}),
       await adapter.add({content: "test"}),
