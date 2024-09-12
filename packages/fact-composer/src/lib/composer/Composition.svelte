@@ -9,7 +9,7 @@
   import FactPlaceHolder from "./FactPlaceHolder.svelte";
 
   const dispatch = createEventDispatcher<{
-    change: string;
+    "update:value": string;
   }>();
 
   export let facts: Fact[];
@@ -28,14 +28,14 @@
     query = "";
   };
   const copyValue = () => navigator.clipboard.writeText(composition);
-  const emitValue = () => dispatch("change", composition);
+  const emitValue = () => dispatch("update:value", composition);
 </script>
 
 <CompositionLayout>
   <svelte:fragment slot="search">
     <Command.Input
-      placeholder="Type to search..."
       autofocus
+      placeholder="Type to search..."
       bind:value={query}
     />
   </svelte:fragment>
