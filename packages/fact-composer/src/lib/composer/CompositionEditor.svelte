@@ -6,11 +6,12 @@
   const copyValue = () => navigator.clipboard.writeText($composition);
 </script>
 
-<UnstyledTextarea
-  bind:value={$composition}
-  class="w-full h-full"
-/>
 <div class="flex justify-end">
   <Button on:click={copyValue}>Copy</Button>
   <slot />
 </div>
+
+<UnstyledTextarea
+  bind:value={$composition}
+  class="w-full h-full"
+/>

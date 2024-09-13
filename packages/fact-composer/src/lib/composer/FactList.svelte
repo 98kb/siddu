@@ -8,7 +8,7 @@
 </script>
 
 <CommandList>
-  <CommandEmpty class="p-0">
+  <CommandEmpty class="p-0 h-full">
     <FactPlaceHolder />
   </CommandEmpty>
   {#each $facts as fact (fact.id)}

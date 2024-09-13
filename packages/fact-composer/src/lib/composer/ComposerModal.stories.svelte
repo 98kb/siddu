@@ -45,7 +45,7 @@
   name="ComposerModal"
   let:args
 >
-  <input value="Open Composer" />
+  <textarea value="Open Composer" />
   <ComposerModal {...args} {db} />
 </Story>
 
@@ -54,6 +54,6 @@
   name="Empty Composer Modal"
   let:args
 >
-  <input value="Open Composer" />
+  <textarea value="Open Composer" />
   <ComposerModal {...args} db={emptyDb} />
 </Story>
