@@ -26,9 +26,6 @@
   for (const fact of seed) {
     db.facts.add(fact);
   }
-
-  let value = "This is a test";
-  let open = false;
 </script>
 
 <Meta
@@ -37,7 +34,7 @@
   component={ComposerModal}
   tags={["autodocs"]}
   parameters={{layout: "centered"}}
-  args={{open, value, db, closeFocus: undefined}}
+  args={{db}}
 />
 
 <Story
@@ -45,9 +42,6 @@
   name="ComposerModal"
   let:args
 >
-  <ComposerModal
-    {...args}
-    on:update:open={action("update:open")}
-    on:update:value={action("update:value")}
-  />
+  <input value="Open Composer" />
+  <ComposerModal {...args} />
 </Story>
