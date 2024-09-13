@@ -5,3 +5,4 @@ export * from "./DexieAdapter";
 export * from "./FactsService";
 export * from "./IAdapter";
 export * from "./MemoryAdapter";
+export * from "./TRPCService";
