@@ -1,13 +1,21 @@
 import {AbstractAdapter} from "./AbstractAdapter";
+import {MutationSubscription} from "./MutationSubscription";
 import {TableSchemas, Tables} from "@repo/facts-db";
 import {createChromeRuntimeClient} from "@repo/facts-service-trpc";
 
+// TODO: Add tests
 export class TRPCService<T extends keyof Tables> extends AbstractAdapter<T> {
   constructor(
     readonly entity: T,
     private client: ReturnType<typeof createChromeRuntimeClient>,
   ) {
     super(entity);
+  }
+
+  onMutation(callback: () => void): MutationSubscription {
+    return this.client[this.entity].onMutation$.subscribe(undefined, {
+      onData: callback,
+    });
   }
 
   get(id: number): Promise<TableSchemas[T]["schema"] | undefined> {
