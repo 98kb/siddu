@@ -1,13 +1,12 @@
-import { ORM } from '@repo/facts-db';
-import './app.css';
-import App from './App.svelte';
-import { LocalAdapter } from '@repo/facts-db-adapter';
+import "./app.css";
+import {FactsService, createMemoryAdapter} from "@repo/facts-service";
+import App from "./App.svelte";
 
 const app = new App({
-  target: document.getElementById('app')!,
+  target: document.querySelector("#app")!,
   props: {
-    facts: new ORM(new LocalAdapter("facts")),
-  }
-})
+    db: new FactsService(createMemoryAdapter),
+  },
+});
 
-export default app
+export default app;

@@ -1,13 +1,24 @@
 <script lang="ts">
   import "./app.css";
-  import Textarea from "$lib/components/ui/textarea/textarea.svelte";
   import ComposerModal from "$lib/composer/ComposerModal.svelte";
-  import type {ORM} from "@repo/facts-db";
-  import { requestComposer$ } from "$lib/composer/requestComposer$";
+  import type { FactsService } from "@repo/facts-service";
+  import { Textarea } from "$lib/components/ui/textarea";
 
-  export let facts: ORM<"facts">;
-
+  export let db: FactsService;
+  let open = false;
+  let value = "";
+  let input: HTMLTextAreaElement | null;
 </script>
 
-<Textarea />
-<ComposerModal {facts} input$={requestComposer$} />
+<Textarea bind:value on:keydown={e => {
+  input = e.currentTarget;
+  if (e.key === "." && e.ctrlKey) {
+    open = true;
+  }
+}} />
+<ComposerModal
+  {db}
+  bind:open
+  bind:value
+  closeFocus={input}
+/>

@@ -1,3 +1,2 @@
-import "./app.css";
 export {default as ComposerModal} from "$lib/composer/ComposerModal.svelte";
-export { requestComposer$ } from "$lib/composer/requestComposer$";
+export {requestComposer$} from "$lib/composer/requestComposer$";

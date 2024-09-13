@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { cn } from "$lib/utils";
+  import {cn} from "$lib/utils";
 </script>
 
 <div class="flex flex-col w-full min-h-[500px] max-h-[800px] max-w-[66vw] min-w-[66vw] border">
