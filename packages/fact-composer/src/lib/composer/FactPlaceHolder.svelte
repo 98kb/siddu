@@ -16,6 +16,7 @@
     on:click={async () => {
         await db.facts.add({content: $query});
         append($query);
+        $query = "";
       }
     }
   >Add "{$query}"</Button>
