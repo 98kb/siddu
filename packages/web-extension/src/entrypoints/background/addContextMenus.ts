@@ -1,8 +1,9 @@
-import {DexieAdapter} from "@repo/facts-db-adapter";
-import {ORM, createFactsDB} from "@repo/facts-db";
+import {DexieAdapter, FactsService} from "@repo/facts-service";
+import {createFactsDB} from "@repo/facts-db";
 
-const db = createFactsDB("facts");
-const facts = new ORM(new DexieAdapter(db, "facts"));
+const db = new FactsService(
+  table => new DexieAdapter(table, createFactsDB("facts")),
+);
 
 export const addContextMenus = () => {
   const id = "add-to-facts";
@@ -22,7 +23,7 @@ export const addContextMenus = () => {
 
   chrome.contextMenus.onClicked.addListener(info => {
     if (info.menuItemId === id && info.selectionText) {
-      facts.objects.addOne({content: info.selectionText});
+      db.facts.add({content: info.selectionText});
     }
   });
 };
