@@ -1,7 +1,7 @@
 import {IAdapter} from "../src/IAdapter";
 import {Reader} from "fp-ts/lib/Reader";
 import {Tables} from "@repo/facts-db";
-import {beforeEach, describe, expect, it} from "vitest";
+import {describe, expect, it} from "vitest";
 import {describeAdd} from "./features/describeAdd";
 import {describeDeleteAll} from "./features/describeDeleteAll";
 import {describeDeleteOne} from "./features/describeDeleteOne";
@@ -14,27 +14,21 @@ type Features = keyof IAdapter<keyof Tables>;
 export const describeAdapter = <T extends keyof Tables>(
   adapter: IAdapter<T>,
 ) => {
-  describe(adapter.constructor.name, () => {
-    beforeEach(async () => {
-      await adapter.deleteAll();
-    });
+  const features: Record<Features, Reader<IAdapter<T>, void>> = {
+    add: describeAdd,
+    deleteAll: describeDeleteAll,
+    delete: describeDeleteOne,
+    getAll: describeGetAll,
+    get: describeGet,
+    onMutation: describeOnMutation,
+    entity: adapter => {
+      it("has an entity", () => {
+        expect(adapter.entity).toBeDefined();
+      });
+    },
+  };
 
-    const features: Record<Features, Reader<IAdapter<T>, void>> = {
-      add: describeAdd,
-      deleteAll: describeDeleteAll,
-      delete: describeDeleteOne,
-      getAll: describeGetAll,
-      get: describeGet,
-      onMutation: describeOnMutation,
-      entity: adapter => {
-        it("has an entity", () => {
-          expect(adapter.entity).toBeDefined();
-        });
-      },
-    };
-
-    for (const [feature, test] of Object.entries(features)) {
-      describe(feature, () => test(adapter));
-    }
-  });
+  for (const [feature, test] of Object.entries(features)) {
+    describe(feature, () => test(adapter));
+  }
 };
