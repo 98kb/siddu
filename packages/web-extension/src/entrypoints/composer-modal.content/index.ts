@@ -3,7 +3,6 @@ import "@repo/fact-composer/dist/style.css";
 import "./style.css";
 import {createComposerModal} from "./createComposerModal";
 
-// TODO: Create a wrapper for ComposerModal that will handle focus and keyboard events
 export default defineContentScript({
   matches: ["<all_urls>"],
   cssInjectionMode: "ui",

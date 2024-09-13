@@ -1,11 +1,6 @@
-import {DexieAdapter, FactsService} from "@repo/facts-service";
-import {createFactsDB} from "@repo/facts-db";
+import {FactsService} from "@repo/facts-service";
 
-const db = new FactsService(
-  table => new DexieAdapter(table, createFactsDB("facts")),
-);
-
-export const addContextMenus = () => {
+export const addContextMenus = (db: FactsService) => {
   const id = "add-to-facts";
 
   chrome.contextMenus.create(
