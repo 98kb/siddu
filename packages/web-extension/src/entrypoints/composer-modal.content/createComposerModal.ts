@@ -1,9 +1,8 @@
-import {ComposerModal, requestComposer$} from "@repo/fact-composer";
-import {ORM} from "@repo/facts-db";
+import {ComposerModal} from "@repo/fact-composer";
+import {FactsService, createMemoryAdapter} from "@repo/facts-service";
 import {Reader} from "fp-ts/lib/Reader";
-import {RuntimeAdapter} from "@repo/facts-db-adapter";
 
-const facts = new ORM(new RuntimeAdapter());
+const db = new FactsService(createMemoryAdapter);
 
 export const createComposerModal: Reader<
   HTMLElement,
@@ -11,6 +10,6 @@ export const createComposerModal: Reader<
 > = container => {
   return new ComposerModal({
     target: container,
-    props: {facts, input$: requestComposer$},
+    props: {db},
   });
 };
