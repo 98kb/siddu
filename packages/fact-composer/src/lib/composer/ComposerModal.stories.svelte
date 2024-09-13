@@ -10,6 +10,10 @@
     (table: keyof Tables) => new MemoryAdapter(table),
   );
 
+  const emptyDb = new FactsService(
+    (table: keyof Tables) => new MemoryAdapter(table),
+  );
+
   const seed: InsertFact[] = [
     {
       content: "The quick brown fox jumps over the lazy dog",
@@ -34,7 +38,6 @@
   component={ComposerModal}
   tags={["autodocs"]}
   parameters={{layout: "centered"}}
-  args={{db}}
 />
 
 <Story
@@ -43,5 +46,14 @@
   let:args
 >
   <input value="Open Composer" />
-  <ComposerModal {...args} />
+  <ComposerModal {...args} {db} />
+</Story>
+
+<Story
+  id="EmptyComposer"
+  name="Empty Composer Modal"
+  let:args
+>
+  <input value="Open Composer" />
+  <ComposerModal {...args} db={emptyDb} />
 </Story>
