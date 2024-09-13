@@ -9,9 +9,9 @@
   import {syncFacts} from "./store/syncFacts";
   import {selectedFact} from "./store/selectedFact";
   import CompositionEditor from "./CompositionEditor.svelte";
-  import { Button } from "$lib/components/ui/button";
-  import { inputEl } from "./store/inputEl";
-  import { composition } from "./store/composition";
+  import {Button} from "$lib/components/ui/button";
+  import {inputEl} from "./store/inputEl";
+  import {composition} from "./store/composition";
 
   export let db: FactsService;
   let open = false;
@@ -29,6 +29,7 @@
       inputEl.value = $composition;
     }
     open = false;
+    $composition = "";
   };
 </script>
 
