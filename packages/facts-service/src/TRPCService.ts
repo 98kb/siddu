@@ -4,33 +4,33 @@ import {createChromeRuntimeClient} from "@repo/facts-service-trpc";
 
 export class TRPCService<T extends keyof Tables> extends AbstractAdapter<T> {
   constructor(
-    readonly table: T,
+    readonly entity: T,
     private client: ReturnType<typeof createChromeRuntimeClient>,
   ) {
-    super(table);
+    super(entity);
   }
 
   get(id: number): Promise<TableSchemas[T]["schema"] | undefined> {
-    return this.client[this.table].get.query({id});
+    return this.client[this.entity].get.query({id});
   }
 
   getAll(): Promise<TableSchemas[T]["schema"][]> {
-    return this.client[this.table].list.query({
+    return this.client[this.entity].list.query({
       limit: 9_999_999,
       offset: 0,
     });
   }
 
   async addItem(obj: TableSchemas[T]["insertSchema"]): Promise<number> {
-    const {id} = await this.client[this.table].create.mutate(obj);
+    const {id} = await this.client[this.entity].create.mutate(obj);
     return id;
   }
 
   deleteItem(id: number): Promise<void> {
-    return this.client[this.table].delete.mutate({id});
+    return this.client[this.entity].delete.mutate({id});
   }
 
   deleteAllItems(): Promise<void> {
-    return this.client[this.table].deleteAll.mutate();
+    return this.client[this.entity].deleteAll.mutate();
   }
 }

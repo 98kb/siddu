@@ -2,6 +2,7 @@ import {MutationSubscription} from "./MutationSubscription";
 import {TableSchemas, Tables} from "@repo/facts-db";
 
 export interface IAdapter<T extends keyof Tables> {
+  readonly entity: T;
   add(payload: TableSchemas[T]["insertSchema"]): Promise<number>;
   delete(id: number): Promise<void>;
   deleteAll(): Promise<void>;

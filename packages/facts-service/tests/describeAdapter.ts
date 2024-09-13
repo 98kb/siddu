@@ -1,7 +1,7 @@
 import {IAdapter} from "../src/IAdapter";
 import {Reader} from "fp-ts/lib/Reader";
 import {Tables} from "@repo/facts-db";
-import {beforeEach, describe} from "vitest";
+import {beforeEach, describe, expect, it} from "vitest";
 import {describeAdd} from "./features/describeAdd";
 import {describeDeleteAll} from "./features/describeDeleteAll";
 import {describeDeleteOne} from "./features/describeDeleteOne";
@@ -26,6 +26,11 @@ export const describeAdapter = <T extends keyof Tables>(
       getAll: describeGetAll,
       get: describeGet,
       onMutation: describeOnMutation,
+      entity: adapter => {
+        it("has an entity", () => {
+          expect(adapter.entity).toBeDefined();
+        });
+      },
     };
 
     for (const [feature, test] of Object.entries(features)) {

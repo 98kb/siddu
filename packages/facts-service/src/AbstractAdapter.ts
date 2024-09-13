@@ -7,7 +7,7 @@ export abstract class AbstractAdapter<T extends keyof Tables>
 {
   private mutationListeners: (() => void)[] = [];
 
-  constructor(readonly table: T) {}
+  constructor(readonly entity: T) {}
 
   onMutation(callback: () => void): MutationSubscription {
     this.mutationListeners.push(callback);
