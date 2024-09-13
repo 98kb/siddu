@@ -1,10 +1,10 @@
 // background.ts
+import {FactsService} from "@repo/facts-service";
 import {createAppRouter} from "./routers/createAppRouter";
 import {createChromeHandler} from "trpc-chrome/adapter";
-import {createFactsDB} from "@repo/facts-db";
 
-export const createChromeRuntimeServer = () =>
+export const createChromeRuntimeServer = (db: FactsService) =>
   createChromeHandler({
-    router: createAppRouter(createFactsDB("facts")),
+    router: createAppRouter(db),
     onError: console.error,
   });

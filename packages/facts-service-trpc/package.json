@@ -17,6 +17,7 @@
     "dist"
   ],
   "scripts": {
+    "prebuild": "pnpm test",
     "build": "unbuild",
     "dev": "vitest dev",
     "lint": "eslint --cache --ext .ts,.js,.mjs,.cjs . && prettier -c src tests",
@@ -39,6 +40,7 @@
   },
   "dependencies": {
     "@repo/facts-db": "workspace:*",
+    "@repo/facts-service": "workspace:*",
     "@trpc/client": "^10.0.0",
     "@trpc/server": "^10.0.0",
     "fp-ts": "^2.16.9",
