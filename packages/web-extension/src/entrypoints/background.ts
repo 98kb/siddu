@@ -1,7 +1,9 @@
 import {addContextMenus} from "./background/addContextMenus";
-import {addFactsDbMessaging} from "./background/addFactsDbMessaging";
+import {createChromeRuntimeServer} from "@repo/facts-service-trpc";
+// import {addFactsDbMessaging} from "./background/addFactsDbMessaging";
 
 export default defineBackground(() => {
-  addFactsDbMessaging();
+  // addFactsDbMessaging();
   addContextMenus();
+  createChromeRuntimeServer();
 });
