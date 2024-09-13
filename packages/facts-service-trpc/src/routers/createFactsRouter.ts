@@ -33,18 +33,12 @@ export const createFactsRouter = (table: Tables["facts"]) =>
       .query(async ({input}) => {
         return table.offset(input.offset).limit(input.limit).toArray();
       }),
-    update: publicProcedure
-      .input(FactSchema)
-      .output(FactSchema)
-      .use(getItem(table))
-      .mutation(async ({input}) => {
-        const payload = {...input};
-        await table.update(payload.id, payload);
-        return payload;
-      }),
     delete: publicProcedure
       .input(FactSchema.pick({id: true}))
       .mutation(async ({input}) => {
         await table.delete(input.id);
       }),
+    deleteAll: publicProcedure.mutation(async () => {
+      await table.clear();
+    }),
   });
