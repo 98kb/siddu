@@ -90,4 +90,15 @@ describe("facts/router", () => {
       await caller.delete({id});
     });
   });
+
+  describe("deleteAll", () => {
+    it("deletes all facts", async () => {
+      const addFact = {content: "test"} satisfies Input;
+      await caller.create(addFact);
+      await caller.create(addFact);
+      await caller.deleteAll();
+      const result = await caller.list({limit: 10, offset: 0});
+      expect(result).toHaveLength(0);
+    });
+  });
 });
