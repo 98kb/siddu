@@ -1,6 +1,7 @@
 import {MutationSubscription} from "./MutationSubscription";
 import {TableSchemas, Tables} from "@repo/facts-db";
 
+// TODO: add async error handling
 export interface IAdapter<T extends keyof Tables> {
   readonly entity: T;
   add(payload: TableSchemas[T]["insertSchema"]): Promise<number>;
