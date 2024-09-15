@@ -19,7 +19,6 @@
     "@repo/facts-service": "workspace:*",
     "@repo/facts-service-trpc": "workspace:*",
     "@repo/facts-web-app": "workspace:*",
-    "@repo/runtime-messaging": "workspace:*",
     "fp-ts": "^2.16.9",
     "rxjs": "^7.8.1"
   },
