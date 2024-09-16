@@ -1,13 +1,13 @@
 <script lang="ts">
-  import { type FactsORM } from '@repo/facts-db';
+  import {type FactsService} from '@repo/facts-service';
   import Input from './components/ui/input/input.svelte';
 
-  export let db: FactsORM;
+  export let db: FactsService;
 
   let value: string;
 
   async function addFact() {
-    await db.objects.addOne({content: value});
+    await db.facts.add({content: value});
     value = "";
   }
 </script>
