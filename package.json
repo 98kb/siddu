@@ -5,6 +5,8 @@
   "author": "",
   "sideEffects": false,
   "scripts": {
+    "build": "pnpm run -r build",
+    "test": "pnpm run -r test",
     "pree2e": "pnpm --filter web-extension build",
     "e2e": "pnpm --filter web-extension-e2e e2e:ui"
   }
