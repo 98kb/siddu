@@ -17,6 +17,7 @@
     "@repo/fact-composer": "workspace:*",
     "@repo/facts-db": "workspace:*",
     "@repo/facts-service": "workspace:*",
+    "@repo/facts-service-adapters": "workspace:*",
     "@repo/facts-service-trpc": "workspace:*",
     "@repo/facts-web-app": "workspace:*",
     "fp-ts": "^2.16.9",

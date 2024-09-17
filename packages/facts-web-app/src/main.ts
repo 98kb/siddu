@@ -1,5 +1,6 @@
 import {createFactsDB} from '@repo/facts-db';
-import {FactsService, DexieAdapter} from "@repo/facts-service";
+import {DexieAdapter} from "@repo/facts-service-adapters";
+import {FactsService} from "@repo/facts-service";
 import App from './App.svelte'
 
 const app = new App({

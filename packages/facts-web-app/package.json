@@ -27,6 +27,7 @@
   "dependencies": {
     "@repo/facts-db": "workspace:*",
     "@repo/facts-service": "workspace:*",
+    "@repo/facts-service-adapters": "workspace:*",
     "clsx": "^2.1.1",
     "tailwind-merge": "^2.5.2",
     "tailwind-variants": "^0.2.1"
