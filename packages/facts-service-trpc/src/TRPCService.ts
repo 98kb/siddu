@@ -1,18 +1,19 @@
-import {IAdapter} from "./IAdapter";
+import {IAdapter, MutationSubscription} from "@repo/facts-service";
 import {IO} from "fp-ts/lib/IO";
-import {MutationSubscription} from "./MutationSubscription";
 import {TableSchemas, Tables} from "@repo/facts-db";
-import {createChromeRuntimeClient} from "@repo/facts-service-trpc";
+import {createChromeRuntimeClient} from "./createChromeRuntimeClient";
+
+type Client = ReturnType<typeof createChromeRuntimeClient>;
 
 export class TRPCService<T extends keyof Tables> implements IAdapter<T> {
   private subscribers: IO<void>[] = [];
 
   constructor(
     readonly entity: T,
-    private client: ReturnType<typeof createChromeRuntimeClient>,
+    private client: Client,
   ) {
     // TODO: handle errors
-    client[this.entity].onMutation$.subscribe(undefined, {
+    client[entity as keyof Client].onMutation$.subscribe(undefined, {
       onData: () => {
         for (const subscriber of this.subscribers) {
           subscriber();
@@ -32,7 +33,7 @@ export class TRPCService<T extends keyof Tables> implements IAdapter<T> {
 
   async get(id: number): Promise<TableSchemas[T]["schema"] | undefined> {
     try {
-      return await this.client[this.entity].get.query({id});
+      return await this.client[this.entity as keyof Client].get.query({id});
     } catch {
       // TODO: only catch 404 and rethrow other errors
       return undefined;
@@ -40,22 +41,23 @@ export class TRPCService<T extends keyof Tables> implements IAdapter<T> {
   }
 
   getAll(): Promise<TableSchemas[T]["schema"][]> {
-    return this.client[this.entity].list.query({
+    return this.client[this.entity as keyof Client].list.query({
       limit: 9_999_999,
       offset: 0,
     });
   }
 
   async add(obj: TableSchemas[T]["insertSchema"]): Promise<number> {
-    const {id} = await this.client[this.entity].create.mutate(obj);
+    const {id} =
+      await this.client[this.entity as keyof Client].create.mutate(obj);
     return id;
   }
 
   delete(id: number): Promise<void> {
-    return this.client[this.entity].delete.mutate({id});
+    return this.client[this.entity as keyof Client].delete.mutate({id});
   }
 
   deleteAll(): Promise<void> {
-    return this.client[this.entity].deleteAll.mutate();
+    return this.client[this.entity as keyof Client].deleteAll.mutate();
   }
 }

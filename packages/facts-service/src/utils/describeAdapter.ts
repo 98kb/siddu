@@ -1,4 +1,4 @@
-import {IAdapter} from "../src/IAdapter";
+import {IAdapter} from "../IAdapter";
 import {Reader} from "fp-ts/lib/Reader";
 import {Tables} from "@repo/facts-db";
 import {describe, expect, it} from "vitest";

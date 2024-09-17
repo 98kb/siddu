@@ -1,4 +1,4 @@
-import {IAdapter} from "../../src/IAdapter";
+import {IAdapter} from "../../IAdapter";
 import {Tables} from "@repo/facts-db";
 import {expect, it} from "vitest";
 

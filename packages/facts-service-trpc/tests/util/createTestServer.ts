@@ -1,9 +1,5 @@
-import {
-  AppRouter,
-  createAppRouter,
-  transformer,
-} from "@repo/facts-service-trpc";
-import {FactsService, createMemoryAdapter} from "../../src";
+import {AppRouter, createAppRouter, transformer} from "../../src";
+import {FactsService, createMemoryAdapter} from "@repo/facts-service";
 import {WebSocketServer} from "ws";
 import {applyWSSHandler} from "@trpc/server/adapters/ws";
 import {createHTTPServer} from "@trpc/server/adapters/standalone";
@@ -15,8 +11,6 @@ import {
   wsLink,
 } from "@trpc/client";
 
-const port = 3333;
-
 // TODO: find a way to use headless chrome for this and use createRuntimeClientChromeServer and createRuntimeClientChromeClient instead
 export const createTestServer = () => {
   const router = createAppRouter(new FactsService(createMemoryAdapter));
@@ -24,11 +18,10 @@ export const createTestServer = () => {
 
   const wss = new WebSocketServer({server});
   applyWSSHandler<AppRouter>({wss, router});
-  listen(port);
-  return server;
+  return {server, listen};
 };
 
-export const createTestClient = () => {
+export const createTestClient = (port: number) => {
   const wsClient = createWSClient({url: `ws://localhost:${port}`});
 
   return createTRPCProxyClient<AppRouter>({

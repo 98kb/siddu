@@ -29,7 +29,6 @@
   },
   "dependencies": {
     "@repo/facts-db": "workspace:*",
-    "@repo/facts-service-trpc": "workspace:*",
     "dexie": "^4.0.8",
     "fp-ts": "^2.16.9"
   },
