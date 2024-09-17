@@ -16,6 +16,9 @@ importers:
       '@repo/facts-service':
         specifier: workspace:*
         version: link:../facts-service
+      '@repo/facts-service-adapters':
+        specifier: workspace:*
+        version: link:../facts-service-adapters
       bits-ui:
         specifier: ^0.21.13
         version: 0.21.13(svelte@4.2.19)
@@ -28,6 +31,9 @@ importers:
       fp-ts:
         specifier: ^2.16.9
         version: 2.16.9
+      lucide-svelte:
+        specifier: ^0.441.0
+        version: 0.441.0(svelte@4.2.19)
       rxjs:
         specifier: ^7.8.1
         version: 7.8.1
@@ -224,6 +230,76 @@ importers:
         specifier: ^8.18.0
         version: 8.18.0
 
+  packages/facts-service-adapters:
+    dependencies:
+      '@repo/facts-db':
+        specifier: workspace:*
+        version: link:../facts-db
+      '@repo/facts-service':
+        specifier: workspace:*
+        version: link:../facts-service
+      '@repo/facts-service-trpc':
+        specifier: workspace:*
+        version: link:../facts-service-trpc
+      dexie:
+        specifier: ^4.0.8
+        version: 4.0.8
+      fp-ts:
+        specifier: ^2.16.9
+        version: 2.16.9
+    devDependencies:
+      '@trpc/client':
+        specifier: ^10.0.0
+        version: 10.45.2(@trpc/server@10.45.2)
+      '@trpc/server':
+        specifier: ^10.0.0
+        version: 10.45.2
+      '@types/chrome':
+        specifier: ^0.0.270
+        version: 0.0.270
+      '@types/node':
+        specifier: ^20.5.4
+        version: 20.16.5
+      '@types/ws':
+        specifier: ^8.5.12
+        version: 8.5.12
+      '@vitest/coverage-v8':
+        specifier: ^2.0.5
+        version: 2.0.5(vitest@2.0.5(@types/node@20.16.5)(@vitest/ui@2.0.5)(jsdom@25.0.0))
+      '@webext-core/fake-browser':
+        specifier: ^1.3.1
+        version: 1.3.1
+      eslint:
+        specifier: ^8.47.0
+        version: 8.57.0
+      eslint-config-dsfx3d:
+        specifier: ^0.1.2
+        version: 0.1.6(eslint@8.57.0)(prettier@3.3.3)(typescript@5.6.2)
+      fake-indexeddb:
+        specifier: ^6.0.0
+        version: 6.0.0
+      jsdom:
+        specifier: ^25.0.0
+        version: 25.0.0
+      prettier:
+        specifier: ^3.0.2
+        version: 3.3.3
+      typescript:
+        specifier: 5.6.2
+        version: 5.6.2
+      unbuild:
+        specifier: ^2.0.0
+        version: 2.0.0(typescript@5.6.2)
+      vite:
+        specifier: ^5.4.1
+        version: 5.4.2(@types/node@20.16.5)
+      vitest:
+        specifier: ^2.0.5
+        version: 2.0.5(@types/node@20.16.5)(@vitest/ui@2.0.5)(jsdom@25.0.0)
+      ws:
+        specifier: ^8.18.0
+        version: 8.18.0
+
   packages/facts-service-trpc:
     dependencies:
       '@repo/facts-db':
@@ -232,6 +308,9 @@ importers:
       '@repo/facts-service':
         specifier: workspace:*
         version: link:../facts-service
+      '@repo/facts-service-adapters':
+        specifier: workspace:*
+        version: link:../facts-service-adapters
       '@trpc/client':
         specifier: ^10.0.0
         version: 10.45.2(@trpc/server@10.45.2)
@@ -4563,6 +4642,11 @@ packages:
 
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
+
+  lucide-svelte@0.441.0:
+    resolution: {integrity: sha512-lwckKpu4KNth7EBPWUdx7dvRaBrFC173JSdioN2WILol7nwFAPfvbGLeez8ZlnT31boj7pNT7hjvBz3ZJfmUbQ==}
+    peerDependencies:
+      svelte: ^3 || ^4 || ^5.0.0-next.42
 
   lz-string@1.5.0:
     resolution: {integrity: sha512-h5bgJWpxJNswbU7qCrV0tIKQCaS3blPDrqKWx+QxzuzL1zGUzij9XCWLrSLsJPu5t+eWA/ycetzYAO5IOMcWAQ==}
@@ -8995,7 +9079,7 @@ snapshots:
       pathe: 1.1.2
       sirv: 2.0.4
       tinyrainbow: 1.2.0
-      vitest: 2.0.5(@types/node@20.16.5)(@vitest/ui@2.0.5)(jsdom@25.0.0)
+      vitest: 2.0.5(@types/node@22.5.4)(@vitest/ui@2.0.5)(jsdom@25.0.0)
 
   '@vitest/utils@1.6.0':
     dependencies:
@@ -11674,6 +11758,10 @@ snapshots:
     dependencies:
       yallist: 3.1.1
 
+  lucide-svelte@0.441.0(svelte@4.2.19):
+    dependencies:
+      svelte: 4.2.19
+
   lz-string@1.5.0: {}
 
   magic-string@0.30.11:
@@ -13903,7 +13991,6 @@ snapshots:
       - sugarss
       - supports-color
       - terser
-    optional: true
 
   w3c-xmlserializer@5.0.0:
     dependencies:

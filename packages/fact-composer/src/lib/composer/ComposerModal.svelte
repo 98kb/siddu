@@ -12,6 +12,7 @@
   import {Button} from "$lib/components/ui/button";
   import {inputEl} from "./store/inputEl";
   import {composition} from "./store/composition";
+  import Navbar from "$lib/nav/Navbar.svelte";
 
   export let db: FactsService;
   let open = false;
@@ -35,16 +36,18 @@
 
 <CommandDialog
   {open}
-  class="min-w-[66vw]"
   bind:value={$selectedFact}
   closeOnOutsideClick={false}
   onOpenChange={(open$) => {
     open = open$;
   }}
 >
-  <Composition>
-    <CompositionEditor>
-      <Button on:click={submit}>OK</Button>
-    </CompositionEditor>
-  </Composition>
+  <div class="flex w-full h-full rounded-lg">
+    <Navbar />
+    <Composition>
+      <CompositionEditor>
+        <Button on:click={submit}>OK</Button>
+      </CompositionEditor>
+    </Composition>
+  </div>
 </CommandDialog>
