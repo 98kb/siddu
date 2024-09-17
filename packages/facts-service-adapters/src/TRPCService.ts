@@ -1,7 +1,7 @@
 import {IAdapter, MutationSubscription} from "@repo/facts-service";
 import {IO} from "fp-ts/lib/IO";
 import {TableSchemas, Tables} from "@repo/facts-db";
-import {createChromeRuntimeClient} from "./createChromeRuntimeClient";
+import {createChromeRuntimeClient} from "@repo/facts-service-trpc";
 
 type Client = ReturnType<typeof createChromeRuntimeClient>;
 

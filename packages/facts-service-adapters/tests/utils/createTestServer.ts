@@ -1,8 +1,13 @@
-import {AppRouter, createAppRouter, transformer} from "../../src";
-import {FactsService, createMemoryAdapter} from "@repo/facts-service";
+import {
+  AppRouter,
+  createAppRouter,
+  transformer,
+} from "@repo/facts-service-trpc";
+import {FactsService} from "@repo/facts-service";
 import {WebSocketServer} from "ws";
 import {applyWSSHandler} from "@trpc/server/adapters/ws";
 import {createHTTPServer} from "@trpc/server/adapters/standalone";
+import {createMemoryAdapter} from "../../src";
 import {
   createTRPCProxyClient,
   createWSClient,

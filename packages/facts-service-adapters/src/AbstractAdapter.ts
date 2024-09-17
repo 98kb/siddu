@@ -1,5 +1,4 @@
-import {IAdapter} from "./IAdapter";
-import {MutationSubscription} from "./MutationSubscription";
+import {IAdapter, MutationSubscription} from "@repo/facts-service";
 import {TableSchemas, Tables} from "@repo/facts-db";
 
 export abstract class AbstractAdapter<T extends keyof Tables>

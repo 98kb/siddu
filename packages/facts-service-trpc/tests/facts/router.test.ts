@@ -1,5 +1,6 @@
+import {createMemoryAdapter} from "@repo/facts-service-adapters";
 /* eslint-disable max-nested-callbacks */
-import {FactsService, createMemoryAdapter} from "@repo/facts-service";
+import {FactsService} from "@repo/facts-service";
 import {InsertFactSchema} from "@repo/facts-db";
 import {beforeEach, describe, expect, it} from "vitest";
 import {createCallerFactory} from "../../src/lib/trpc";
