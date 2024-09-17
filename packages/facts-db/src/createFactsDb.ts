@@ -1,13 +1,9 @@
 import {FactsDB} from "./FactsDb";
-import {Tables} from "./Tables";
+import {dbSchema} from "./dbSchema";
 import Dexie from "dexie";
-
-const dexieSchema: Record<keyof Tables, string> = {
-  facts: "++id, content",
-};
 
 export function createFactsDB(name: string): FactsDB {
   const db = new Dexie(name);
-  db.version(1).stores(dexieSchema);
+  db.version(1).stores(dbSchema);
   return db as FactsDB;
 }

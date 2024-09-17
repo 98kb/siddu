@@ -21,13 +21,13 @@
     "dev": "vitest dev",
     "lint": "eslint --cache --ext .ts,.js,.mjs,.cjs . && prettier -c src tests",
     "lint:fix": "eslint --cache --ext .ts,.js,.mjs,.cjs . --fix && prettier -c src test -w",
-    "test": "pnpm lint && pnpm test:types && pnpm test:unit",
     "test:unit": "vitest run --coverage --dir tests",
     "test:unit:debug": "vitest run --testTimeout 999999 --hookTimeout 999999 --dir tests ",
     "test:types": "tsc --noEmit --skipLibCheck"
   },
   "devDependencies": {
     "@types/node": "^20.5.4",
+    "@types/object-hash": "^3.0.6",
     "@vitest/coverage-v8": "^2.0.5",
     "@vitest/ui": "^2.0.5",
     "eslint": "^8.47.0",
