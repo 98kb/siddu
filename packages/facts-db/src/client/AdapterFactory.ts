@@ -1,5 +1,5 @@
 import {IAdapter} from "./IAdapter";
-import {Tables} from "@repo/facts-db";
+import {Tables} from "../schema/Tables";
 
 export type AdapterFactory = <$TableName extends keyof Tables>(
   tableName: $TableName,

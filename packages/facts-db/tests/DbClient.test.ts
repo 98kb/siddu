@@ -1,13 +1,13 @@
-import {FactsService} from "./../src/FactsService";
-import {Tables} from "@repo/facts-db";
+import {DbClient} from "../src/client/DbClient";
+import {Tables} from "../src/schema/Tables";
 import {describe, expect, it} from "vitest";
 
-const tables: (keyof Tables)[] = ["facts"];
+const tables: (keyof Tables)[] = ["facts", "collections"];
 const adapterFactory = (() => ({})) as any;
 
-describe(FactsService.name, () => {
+describe(DbClient.name, () => {
   it("includes an adapter for every FactsDB table", () => {
-    const service = new FactsService(adapterFactory);
+    const service = new DbClient(adapterFactory);
     expect(Object.keys(service)).toEqual(tables);
     for (const adapter of Object.values(service)) {
       expect(adapter).toBeDefined();

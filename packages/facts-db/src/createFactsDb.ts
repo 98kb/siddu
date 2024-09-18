@@ -1,5 +1,5 @@
 import {FactsDB} from "./FactsDb";
-import {dbSchema} from "./dbSchema";
+import {dbSchema} from "./schema/dbSchema";
 import Dexie from "dexie";
 
 export function createFactsDB(name: string): FactsDB {

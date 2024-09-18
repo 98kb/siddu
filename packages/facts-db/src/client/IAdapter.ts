@@ -1,9 +1,13 @@
 import {MutationSubscription} from "./MutationSubscription";
-import {TableSchemas, Tables} from "@repo/facts-db";
+import {TableSchemas} from "../schema/TableSchemas";
+import {Tables} from "../schema/Tables";
 
 // TODO: add async error handling
 export interface IAdapter<T extends keyof Tables> {
   readonly entity: T;
+  readonly schema: TableSchemas[T]["schema"];
+  readonly insertSchema: TableSchemas[T]["insertSchema"];
+
   add(payload: TableSchemas[T]["insertSchema"]): Promise<number>;
   delete(id: number): Promise<void>;
   deleteAll(): Promise<void>;
