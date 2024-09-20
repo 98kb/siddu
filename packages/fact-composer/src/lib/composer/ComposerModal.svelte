@@ -20,14 +20,13 @@
   onMount(syncFacts(db));
   $: {
     if ($inputEl) {
-      $composition = $inputEl.value;
       open = true;
     }
   }
   const submit = () => {
     const inputEl = $inputEl;
     if (inputEl) {
-      inputEl.value = $composition;
+      inputEl.value = `${inputEl.value} ${$composition}`;
     }
     open = false;
     $composition = "";
