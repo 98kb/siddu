@@ -1,6 +1,6 @@
-import {FactsService} from "@repo/facts-service";
+import {DbClient} from "@repo/facts-db";
 
-export const addContextMenus = (db: FactsService) => {
+export const addContextMenus = (db: DbClient) => {
   const id = "add-to-facts";
 
   chrome.contextMenus.create(
