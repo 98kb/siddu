@@ -26,7 +26,7 @@
   const submit = () => {
     const inputEl = $inputEl;
     if (inputEl) {
-      inputEl.value = `${inputEl.value} ${$composition}`;
+      inputEl.value = [inputEl.value, $composition].filter(Boolean).join(" ");
     }
     open = false;
     $composition = "";
