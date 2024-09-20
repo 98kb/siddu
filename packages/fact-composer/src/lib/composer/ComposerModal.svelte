@@ -9,7 +9,7 @@
   import {selectedFact} from "./store/selectedFact";
   import CompositionEditor from "./CompositionEditor.svelte";
   import {Button} from "$lib/components/ui/button";
-  import {inputEl} from "./store/inputEl";
+  import {appendText, inputEl} from "./store/inputEl";
   import {composition} from "./store/composition";
   import Navbar from "$lib/nav/Navbar.svelte";
   import type {DbClient} from "@repo/facts-db";
@@ -24,10 +24,7 @@
     }
   }
   const submit = () => {
-    const inputEl = $inputEl;
-    if (inputEl) {
-      inputEl.value = [inputEl.value, $composition].filter(Boolean).join(" ");
-    }
+    $inputEl && appendText($inputEl, $composition);
     open = false;
     $composition = "";
   };

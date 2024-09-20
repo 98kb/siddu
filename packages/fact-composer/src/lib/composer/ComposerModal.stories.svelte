@@ -37,7 +37,16 @@
   name="ComposerModal"
   let:args
 >
-  <textarea value="Open Composer" />
+  <textarea class="w-[70vw] h-[60vh]" value="Open Composer" />
+  <ComposerModal {...args} {db} />
+</Story>
+
+<Story
+  id="ComposerContentEditable"
+  name="Content Editable"
+  let:args
+>
+  <p class="w-[70vw] h-[60vh]" contenteditable>Open Composer</p>
   <ComposerModal {...args} {db} />
 </Story>
 
