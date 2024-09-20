@@ -1,9 +1,9 @@
 <script lang="ts">
-  import {type FactsService} from '@repo/facts-service';
+  import type {DbClient} from '@repo/facts-db';
   import Fact from './Fact.svelte';
   import {facts} from "./stores/facts"
 
-  export let db: FactsService;
+  export let db: DbClient;
 </script>
 
 <div class="columns-2 lg:columns-5 w-4/5">

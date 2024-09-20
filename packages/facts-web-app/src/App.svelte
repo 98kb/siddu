@@ -1,12 +1,12 @@
 <script lang="ts">
-  import type {FactsService} from "@repo/facts-service";
   import AddFact from "$lib/AddFact.svelte";
   import FactsGrid from "$lib/FactsGrid.svelte";
   import {onMount} from "svelte";
   import {syncFacts} from "$lib/stores/syncFacts"
   import "./app.css";
+  import type {DbClient} from "@repo/facts-db";
 
-  export let db: FactsService;
+  export let db: DbClient;
   onMount(syncFacts(db));
 </script>
 

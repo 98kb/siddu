@@ -1,8 +1,8 @@
 <script lang="ts">
-  import {type FactsService} from '@repo/facts-service';
   import Input from './components/ui/input/input.svelte';
+  import type {DbClient} from '@repo/facts-db';
 
-  export let db: FactsService;
+  export let db: DbClient;
 
   let value: string;
 

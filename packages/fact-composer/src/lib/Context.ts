@@ -1,5 +1,5 @@
-import type {FactsService} from "@repo/facts-service";
+import type {DbClient} from "@repo/facts-db";
 
 export type Context = {
-  db: FactsService;
+  db: DbClient;
 };

@@ -1,7 +1,7 @@
 import {facts} from "./facts";
-import type {FactsService} from "@repo/facts-service";
+import type {DbClient} from "@repo/facts-db";
 
-export const syncFacts = (db: FactsService) => () => {
+export const syncFacts = (db: DbClient) => () => {
   const fetchFacts = async () => facts.set(await db.facts.getAll());
   fetchFacts();
   return db.facts.onMutation(fetchFacts).unsubscribe;

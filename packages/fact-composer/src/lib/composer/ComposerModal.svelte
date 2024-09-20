@@ -3,7 +3,6 @@
   import CommandDialog from "$lib/components/ui/command/command-dialog.svelte";
   import Composition from "./Composition.svelte";
   import {onMount, setContext} from "svelte";
-  import {FactsService} from "@repo/facts-service";
   import {type Context} from "$lib/Context";
   import {contextKey} from "$lib/contextKey";
   import {syncFacts} from "./store/syncFacts";
@@ -13,8 +12,9 @@
   import {inputEl} from "./store/inputEl";
   import {composition} from "./store/composition";
   import Navbar from "$lib/nav/Navbar.svelte";
+  import type {DbClient} from "@repo/facts-db";
 
-  export let db: FactsService;
+  export let db: DbClient;
   let open = false;
   setContext<Context>(contextKey, {db});
   onMount(syncFacts(db));

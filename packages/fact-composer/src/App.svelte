@@ -1,10 +1,10 @@
 <script lang="ts">
   import "./app.css";
   import ComposerModal from "$lib/composer/ComposerModal.svelte";
-  import type { FactsService } from "@repo/facts-service";
-  import { Textarea } from "$lib/components/ui/textarea";
+  import {Textarea} from "$lib/components/ui/textarea";
+  import type {DbClient} from "@repo/facts-db";
 
-  export let db: FactsService;
+  export let db: DbClient;
   let open = false;
   let value = "";
   let input: HTMLTextAreaElement | null;
