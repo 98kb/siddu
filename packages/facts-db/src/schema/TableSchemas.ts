@@ -1,15 +1,15 @@
-import {Collection} from "./collection/Collection";
-import {Fact} from "./fact/Fact";
-import {InsertCollection} from "./collection/InsertCollection";
-import {InsertFact} from "./fact/InsertFact";
+import {CollectionSchema} from "./collection/CollectionSchema";
+import {FactSchema} from "../schema/fact/FactSchema";
+import {InsertCollectionSchema} from "./collection/InsertCollectionSchema";
+import {InsertFactSchema} from "../schema/fact/InsertFactSchema";
 
 export type TableSchemas = {
   facts: {
-    schema: Fact;
-    insertSchema: InsertFact;
+    schema: typeof FactSchema;
+    insertSchema: typeof InsertFactSchema;
   };
   collections: {
-    schema: Collection;
-    insertSchema: InsertCollection;
+    schema: typeof CollectionSchema;
+    insertSchema: typeof InsertCollectionSchema;
   };
 };

@@ -1,12 +1,10 @@
 <script lang="ts">
   import {Meta, Story} from "@storybook/addon-svelte-csf";
-  import {FactsService} from "@repo/facts-service";
-  import {type InsertFact} from "@repo/facts-db";
+  import {DbClient, MemoryAdapter, type InsertFact} from "@repo/facts-db";
   import ComposerModal from "./ComposerModal.svelte";
-  import { MemoryAdapter } from "@repo/facts-service-adapters";
 
-  const db: FactsService = new FactsService(table => new MemoryAdapter(table));
-  const emptyDb = new FactsService(table => new MemoryAdapter(table));
+  const db = new DbClient(table => new MemoryAdapter(table));
+  const emptyDb = new DbClient(table => new MemoryAdapter(table));
 
   const seed: InsertFact[] = [
     {

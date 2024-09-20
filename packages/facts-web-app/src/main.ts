@@ -1,12 +1,10 @@
-import {createFactsDB} from '@repo/facts-db';
-import {DexieAdapter} from "@repo/facts-service-adapters";
-import {FactsService} from "@repo/facts-service";
+import {createFactsDB, DbClient, DexieAdapter} from '@repo/facts-db';
 import App from './App.svelte'
 
 const app = new App({
   target: document.getElementById('app')!,
   props: {
-    db: new FactsService(
+    db: new DbClient(
       (table) => new DexieAdapter(table, createFactsDB("facts"))
     ),
   }

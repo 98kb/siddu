@@ -1,7 +1,5 @@
-import {DexieAdapter} from "@repo/facts-service-adapters";
-import {FactsService} from "@repo/facts-service";
-import {createFactsDB} from "@repo/facts-db";
+import {DbClient, DexieAdapter, createFactsDB} from "@repo/facts-db";
 
-export const db = new FactsService(
+export const db = new DbClient(
   table => new DexieAdapter(table, createFactsDB("facts")),
 );

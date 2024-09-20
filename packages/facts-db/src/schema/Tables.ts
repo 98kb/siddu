@@ -1,10 +1,11 @@
 import {EntityTable} from "dexie";
 import {TableSchemas} from "./TableSchemas";
+import {z} from "zod";
 
 export type Tables = {
   [Table in keyof TableSchemas]: EntityTable<
-    TableSchemas[Table]["schema"],
+    z.infer<TableSchemas[Table]["schema"]>,
     "id",
-    TableSchemas[Table]["insertSchema"]
+    z.infer<TableSchemas[Table]["insertSchema"]>
   >;
 };

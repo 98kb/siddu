@@ -1,10 +1,8 @@
 import {ComposerModal} from "@repo/fact-composer";
-import {FactsService} from "@repo/facts-service";
+import {DbClient, TRPCService, createChromeRuntimeClient} from "@repo/facts-db";
 import {Reader} from "fp-ts/lib/Reader";
-import {TRPCService} from "@repo/facts-service-adapters";
-import {createChromeRuntimeClient} from "@repo/facts-service-trpc";
 
-const db = new FactsService(
+const db = new DbClient(
   table => new TRPCService(table, createChromeRuntimeClient()),
 );
 

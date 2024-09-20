@@ -1,4 +1,4 @@
-import {DbClient} from "../src/client/DbClient";
+import {DbClient} from "../src/DbClient";
 import {Tables} from "../src/schema/Tables";
 import {describe, expect, it} from "vitest";
 
