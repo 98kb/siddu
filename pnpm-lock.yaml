@@ -378,9 +378,6 @@ importers:
       '@repo/facts-db':
         specifier: workspace:*
         version: link:../facts-db
-      '@repo/facts-service-trpc':
-        specifier: workspace:*
-        version: link:../facts-service-trpc
       '@repo/facts-web-app':
         specifier: workspace:*
         version: link:../facts-web-app
