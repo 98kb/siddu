@@ -12,7 +12,7 @@
     <FactPlaceHolder />
   </CommandEmpty>
   {#each $facts as fact (fact.id)}
-    <CommandItem onSelect={() => append(fact.content)}>
+    <CommandItem value={`${fact.id}`} onSelect={() => append(fact.content)}>
       {fact.content}
     </CommandItem>
   {/each}
