@@ -1,6 +1,6 @@
 <script lang="ts">
   import {Button} from "$lib/components/ui/button";
-  import {PencilRulerIcon, HomeIcon, NotebookTabsIcon} from "lucide-svelte";
+  import {PencilRulerIcon, HomeIcon, NotebookIcon, TagIcon} from "lucide-svelte";
 </script>
 
 <div class="flex flex-col min-w-14 h-full shadow items-center py-2 gap-4">
@@ -11,6 +11,9 @@
     <PencilRulerIcon />
   </Button>
   <Button size="icon" variant="ghost">
-    <NotebookTabsIcon />
+    <NotebookIcon />
+  </Button>
+  <Button size="icon" variant="ghost">
+    <TagIcon />
   </Button>
 </div>
