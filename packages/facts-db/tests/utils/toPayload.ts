@@ -5,6 +5,7 @@ const random = () => Math.random().toString(36).slice(2);
 export const createPayloads = () => ({
   facts: {content: random()},
   collections: {name: random()},
+  labels: {name: random()},
 });
 
 export const toPayload = <T extends keyof Tables>(adapter: IAdapter<T>) => {

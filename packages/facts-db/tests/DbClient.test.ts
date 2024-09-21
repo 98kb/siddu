@@ -2,7 +2,7 @@ import {DbClient} from "../src/DbClient";
 import {Tables} from "../src/schema/Tables";
 import {describe, expect, it} from "vitest";
 
-const tables: (keyof Tables)[] = ["facts", "collections"];
+const tables: (keyof Tables)[] = ["facts", "collections", "labels"];
 const adapterFactory = (() => ({})) as any;
 
 describe(DbClient.name, () => {
