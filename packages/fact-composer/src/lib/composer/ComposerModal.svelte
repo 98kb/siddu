@@ -1,47 +1,55 @@
 <script lang="ts">
   import "../../app.css";
   import CommandDialog from "$lib/components/ui/command/command-dialog.svelte";
-  import Composition from "./Composition.svelte";
-  import {onMount, setContext} from "svelte";
+  import Composition from "../composition/Composition.svelte";
+  import {setContext} from "svelte";
   import {type Context} from "$lib/Context";
   import {contextKey} from "$lib/contextKey";
-  import {syncFacts} from "./store/syncFacts";
-  import CompositionEditor from "./CompositionEditor.svelte";
-  import {Button} from "$lib/components/ui/button";
-  import {appendText, inputEl} from "./store/inputEl";
-  import {composition} from "./store/composition";
+  import {inputEl} from "./store/inputEl";
   import Navbar from "$lib/nav/Navbar.svelte";
   import type {DbClient} from "@repo/facts-db";
+  import Router from "$lib/router/Router.svelte";
+  import {CommandInput} from "$lib/components/ui/command";
+  import {query} from "./store/query";
+  import Labels from "$lib/labels/Labels.svelte";
 
   export let db: DbClient;
   let open = false;
   setContext<Context>(contextKey, {db});
-  onMount(syncFacts(db));
   $: {
     if ($inputEl) {
       open = true;
     }
   }
-  const submit = () => {
-    $inputEl && appendText($inputEl, $composition);
-    open = false;
-    $composition = "";
-  };
 </script>
 
 <CommandDialog
   {open}
   closeOnOutsideClick={false}
-  onOpenChange={(open$) => {
+  onOpenChange={open$ => {
     open = open$;
   }}
 >
   <div class="flex w-full h-full rounded-lg">
     <Navbar />
-    <Composition>
-      <CompositionEditor>
-        <Button on:click={submit}>OK</Button>
-      </CompositionEditor>
-    </Composition>
+    <div class="flex flex-col h-full">
+      <CommandInput
+        autofocus
+        placeholder="Type to search..."
+        bind:value={$query}
+      />
+      <Router>
+        <svelte:fragment slot="composition">
+          <Composition
+            onSubmit={() => {
+              open = false;
+            }}
+          />
+        </svelte:fragment>
+        <svelte:fragment slot="labels">
+          <Labels />
+        </svelte:fragment>
+      </Router>
+    </div>
   </div>
 </CommandDialog>
