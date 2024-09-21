@@ -1,10 +1,11 @@
 <script lang="ts">
   import CommandList from "$lib/components/ui/command/command-list.svelte";
   import CommandEmpty from "$lib/components/ui/command/command-empty.svelte";
-  import CommandItem from "$lib/components/ui/command/command-item.svelte";
+  import {CommandItem} from "$lib/components/ui/command";
   import {append} from "./store/composition";
   import {facts} from './store/facts';
   import FactPlaceHolder from "./FactPlaceHolder.svelte";
+  import FactListItem from "./FactListItem.svelte";
 </script>
 
 <CommandList>
@@ -13,7 +14,7 @@
   </CommandEmpty>
   {#each $facts as fact (fact.id)}
     <CommandItem value={`${fact.id}`} onSelect={() => append(fact.content)}>
-      {fact.content}
+      <FactListItem {fact} />
     </CommandItem>
   {/each}
 </CommandList>
