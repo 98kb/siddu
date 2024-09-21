@@ -6,7 +6,6 @@
   import {type Context} from "$lib/Context";
   import {contextKey} from "$lib/contextKey";
   import {syncFacts} from "./store/syncFacts";
-  import {selectedFact} from "./store/selectedFact";
   import CompositionEditor from "./CompositionEditor.svelte";
   import {Button} from "$lib/components/ui/button";
   import {appendText, inputEl} from "./store/inputEl";
@@ -32,7 +31,6 @@
 
 <CommandDialog
   {open}
-  bind:value={$selectedFact}
   closeOnOutsideClick={false}
   onOpenChange={(open$) => {
     open = open$;
