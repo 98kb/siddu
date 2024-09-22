@@ -1,4 +1,5 @@
 import type {IAdapter, Tables} from "@repo/facts-db";
+import type {IO} from "fp-ts/lib/IO";
 import type {Writable} from "svelte/store";
 
 /**
@@ -12,8 +13,16 @@ import type {Writable} from "svelte/store";
 export const liveStore = <T extends keyof Tables>(
   adapter: IAdapter<T>,
   store: Writable<Awaited<ReturnType<IAdapter<T>["getAll"]>>>,
-) => {
-  const sync = async () => store.set(await adapter.getAll());
+): IO<void> => {
+  const sync = async () => {
+    console.log(
+      "fetching labels",
+      adapter.options.entity,
+      await adapter.getAll(),
+    );
+
+    store.set(await adapter.getAll());
+  };
   sync();
-  return adapter.onMutation(sync).unsubscribe;
+  return () => adapter.onMutation(sync).unsubscribe;
 };
