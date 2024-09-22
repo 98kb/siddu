@@ -32,7 +32,7 @@
 >
   <div class="flex w-full h-full rounded-lg">
     <Navbar />
-    <div class="flex flex-col h-full">
+    <div class="flex flex-col w-full h-full">
       <CommandInput
         autofocus
         placeholder="Type to search..."
