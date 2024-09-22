@@ -1,17 +1,9 @@
 <script lang="ts">
-  import {contextKey} from "$lib/contextKey";
-  import SidebarLayout from "$lib/layouts/SidebarLayout.svelte";
   import AddLabel from "./AddLabel.svelte";
-  import {getContext, onMount} from "svelte";
-  import {liveStore} from "$lib/db/liveStore";
-  import {labels} from "./store/labels";
-  import type {Context} from "$lib/Context";
-
-  const {db} = getContext<Context>(contextKey);
-  onMount(liveStore(db.labels, labels));
+  import ListLabels from "./ListLabels.svelte";
 </script>
 
-<SidebarLayout>
-  <slot name="sidebar"></slot>
+<div class="flex flex-col w-full h-full px-2">
   <AddLabel />
-</SidebarLayout>
+  <ListLabels />
+</div>
