@@ -9,12 +9,10 @@
     TableHeader,
     TableRow,
   } from "$lib/components/ui/table";
-  import {Badge} from "$lib/components/ui/badge";
   import {getContext, onMount} from "svelte";
   import type {Context} from "$lib/Context";
   import {contextKey} from "$lib/contextKey";
   import {liveStore} from "$lib/db/liveStore";
-  import {Button} from "$lib/components/ui/button";
   import { identity } from "fp-ts/lib/function";
   import ListLabelsRowAction from "./ListLabelsRowAction.svelte";
   import type { Label } from "@repo/facts-db";
@@ -73,13 +71,7 @@
           {#each row.cells as cell (cell.id)}
             <Subscribe attrs={cell.attrs()} props={cell.props()} let:attrs>
               <TableCell {...attrs}>
-                <!-- {#if cell.column.id === "label"}
-                  <Badge variant="outline">
-                    <Render of={cell.render()} />
-                  </Badge>
-                {:else} -->
                   <Render of={cell.render()} />
-                <!-- {/if} -->
               </TableCell>
             </Subscribe>
           {/each}
