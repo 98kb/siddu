@@ -1,5 +1,6 @@
 import {AdapterOption} from "./AdapterOption";
 import {MutationSubscription} from "./MutationSubscription";
+import {RequireExactlyOne} from "type-fest";
 import {TableSchemas} from "../schema/TableSchemas";
 import {Tables} from "../schema/Tables";
 import {z} from "zod";
@@ -13,6 +14,12 @@ export interface IAdapter<T extends keyof Tables> {
   deleteAll(): Promise<void>;
   get(id: number): Promise<z.infer<TableSchemas[T]["schema"]> | undefined>;
   getAll(): Promise<z.infer<TableSchemas[T]["schema"]>[]>;
+  put(
+    payload: RequireExactlyOne<
+      Partial<z.infer<TableSchemas[T]["schema"]>>,
+      "id"
+    >,
+  ): Promise<void>;
 
   /**
    * omits on every mutation (add, update, delete)

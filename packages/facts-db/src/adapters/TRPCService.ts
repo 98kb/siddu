@@ -6,6 +6,7 @@ import {TableSchemas} from "../schema/TableSchemas";
 import {Tables} from "../schema/Tables";
 import {createChromeRuntimeClient} from "../service/createChromeRuntimeClient";
 
+import {RequireExactlyOne} from "type-fest";
 import {z} from "zod";
 
 type Client = ReturnType<typeof createChromeRuntimeClient>;
@@ -27,6 +28,15 @@ export class TRPCService<T extends keyof Tables> implements IAdapter<T> {
         }
       },
     });
+  }
+
+  async put(
+    payload: RequireExactlyOne<
+      Partial<z.infer<TableSchemas[T]["schema"]>>,
+      "id"
+    >,
+  ): Promise<void> {
+    await this.entity.put.mutate(payload);
   }
 
   onMutation(callback: () => void): MutationSubscription {

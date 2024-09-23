@@ -1,6 +1,7 @@
 import {AdapterOption} from "./AdapterOption";
 import {IAdapter} from "./IAdapter";
 import {MutationSubscription} from "./MutationSubscription";
+import {RequireExactlyOne} from "type-fest";
 import {TableSchemas} from "../schema/TableSchemas";
 import {Tables} from "../schema/Tables";
 import {z} from "zod";
@@ -23,6 +24,16 @@ export abstract class AbstractAdapter<T extends keyof Tables>
     const id = await this.addItem(payload);
     this.notifyMutation();
     return id;
+  }
+
+  async put(
+    payload: RequireExactlyOne<
+      Partial<z.infer<TableSchemas[T]["schema"]>>,
+      "id"
+    >,
+  ): Promise<void> {
+    await this.putItem(payload);
+    this.notifyMutation();
   }
 
   async delete(id: number): Promise<void> {
@@ -62,4 +73,10 @@ export abstract class AbstractAdapter<T extends keyof Tables>
 
   abstract deleteItem(id: number): Promise<void>;
   abstract deleteAllItems(): Promise<void>;
+  abstract putItem(
+    payload: RequireExactlyOne<
+      Partial<z.infer<TableSchemas[T]["schema"]>>,
+      "id"
+    >,
+  ): Promise<void>;
 }

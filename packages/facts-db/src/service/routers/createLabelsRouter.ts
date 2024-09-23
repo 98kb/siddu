@@ -25,6 +25,11 @@ export const createLabelsRouter = (labels: IAdapter<"labels">) =>
         const id = await labels.add(input);
         return {...input, id};
       }),
+    put: publicProcedure
+      .input(LabelSchema.partial().required({id: true}))
+      .mutation(async ({input}) => {
+        await labels.put(input);
+      }),
     get: publicProcedure
       .input(LabelSchema.pick({id: true}))
       .output(LabelSchema)

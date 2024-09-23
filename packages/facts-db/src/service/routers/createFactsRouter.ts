@@ -31,6 +31,11 @@ export const createFactsRouter = (facts: IAdapter<"facts">) =>
       .output(FactSchema)
       .use(getItem(facts))
       .query(({ctx}) => ctx.item),
+    put: publicProcedure
+      .input(FactSchema.partial().required({id: true}))
+      .mutation(async ({input}) => {
+        await facts.put(input);
+      }),
     list: publicProcedure
       .input(FilterSchema)
       .output(FactSchema.array())

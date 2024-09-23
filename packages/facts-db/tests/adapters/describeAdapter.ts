@@ -21,6 +21,7 @@ export const describeAdapter = <T extends keyof Tables>(
     getAll: describeGetAll,
     get: describeGet,
     onMutation: describeOnMutation,
+    put: () => {},
     options: adapter => {
       it("has options", () => {
         expect(adapter.options.entity).toBeDefined();

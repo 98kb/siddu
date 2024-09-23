@@ -1,6 +1,7 @@
 import {AbstractAdapter} from "./AbstractAdapter";
 import {AdapterOption} from "./AdapterOption";
 import {FactsDB} from "../FactsDb";
+import {RequireExactlyOne} from "type-fest";
 import {TableSchemas} from "../schema/TableSchemas";
 import {Tables} from "../schema/Tables";
 import {z} from "zod";
@@ -27,6 +28,15 @@ export class DexieAdapter<T extends keyof Tables> extends AbstractAdapter<T> {
 
   getAll(): Promise<z.infer<TableSchemas[T]["schema"]>[]> {
     return this.db[this.options.entity].toArray();
+  }
+
+  async putItem(
+    payload: RequireExactlyOne<
+      Partial<z.infer<TableSchemas[T]["schema"]>>,
+      "id"
+    >,
+  ): Promise<void> {
+    await this.db[this.options.entity].put({...payload} as any);
   }
 
   deleteItem(id: number): Promise<void> {

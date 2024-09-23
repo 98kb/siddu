@@ -2,9 +2,10 @@ import {AdapterOption} from "../adapters/AdapterOption";
 import {DbClient} from "../DbClient";
 import {IAdapter} from "../adapters/IAdapter";
 import {MutationSubscription} from "../adapters/MutationSubscription";
+import {RequireExactlyOne} from "type-fest";
 import {TableSchemas} from "../schema/TableSchemas";
 import {Tables} from "../schema/Tables";
-import {TypeOf} from "zod";
+import {TypeOf, z} from "zod";
 
 export class EntityManager<T extends keyof Tables> implements IAdapter<T> {
   readonly options: AdapterOption<T>;
@@ -14,6 +15,15 @@ export class EntityManager<T extends keyof Tables> implements IAdapter<T> {
     readonly db: DbClient,
   ) {
     this.options = crud.options;
+  }
+
+  put(
+    payload: RequireExactlyOne<
+      Partial<z.infer<TableSchemas[T]["schema"]>>,
+      "id"
+    >,
+  ): Promise<void> {
+    return this.crud.put(payload);
   }
 
   add(payload: TypeOf<TableSchemas[T]["insertSchema"]>): Promise<number> {
