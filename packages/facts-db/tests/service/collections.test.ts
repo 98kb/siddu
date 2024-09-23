@@ -1,10 +1,11 @@
 /* eslint-disable max-nested-callbacks */
-import {DbClient, createMemoryAdapter} from "@repo/facts-db";
+import {DbClient} from "../../src/DbClient";
 import {InsertCollectionSchema} from "../../src/schema/collection/InsertCollectionSchema";
 import {beforeEach, describe, expect, it} from "vitest";
 import {createCallerFactory} from "../../src/service/lib/trpc";
 import {createCollectionsRouter} from "../../src/service/routers/createCollectionsRouter";
 import {createContextInner} from "../../src/service/lib/createContextInner";
+import {createMemoryAdapter} from "../../src/adapters/createMemoryAdapter";
 import {createPayloads} from "../utils/toPayload";
 
 const payload = createPayloads();

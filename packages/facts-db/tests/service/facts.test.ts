@@ -1,9 +1,11 @@
 /* eslint-disable max-nested-callbacks */
-import {DbClient, InsertFactSchema, createMemoryAdapter} from "@repo/facts-db";
+import {DbClient} from "../../src/DbClient";
+import {InsertFactSchema} from "../../src/schema/fact/InsertFactSchema";
 import {beforeEach, describe, expect, it} from "vitest";
 import {createCallerFactory} from "../../src/service/lib/trpc";
 import {createContextInner} from "../../src/service/lib/createContextInner";
 import {createFactsRouter} from "../../src/service/routers/createFactsRouter";
+import {createMemoryAdapter} from "../../src/adapters/createMemoryAdapter";
 import {inferProcedureInput} from "@trpc/server";
 
 const ctx = createContextInner({});
