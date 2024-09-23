@@ -3,7 +3,7 @@
   import {getContext} from "svelte";
   import {type Context} from "$lib/Context";
   import {contextKey} from "$lib/contextKey";
-  import {query} from "../composer/store/query";
+  import {query} from "./store/query";
   import {append} from "./store/composition";
 
   const {db} = getContext<Context>(contextKey);

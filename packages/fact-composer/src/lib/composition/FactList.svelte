@@ -10,16 +10,21 @@
   import type {Context} from "$lib/Context";
   import {contextKey} from "$lib/contextKey";
   import {liveStore} from "$lib/db/liveStore";
+  import {query} from "./store/query";
 
   const {db} = getContext<Context>(contextKey);
   onMount(liveStore(db.facts, facts));
+
+  $: filteredFacts = $facts.filter(fact =>
+    fact.content.toLowerCase().includes($query.toLowerCase()),
+  );
 </script>
 
 <CommandList>
   <CommandEmpty class="p-0 h-full">
     <FactPlaceHolder />
   </CommandEmpty>
-  {#each $facts as fact (fact.id)}
+  {#each filteredFacts as fact (fact.id)}
     <CommandItem value={`${fact.id}`} onSelect={() => append(fact.content)}>
       <FactListItem {fact} />
     </CommandItem>
