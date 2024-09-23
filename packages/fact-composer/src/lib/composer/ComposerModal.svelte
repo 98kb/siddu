@@ -9,9 +9,8 @@
   import Navbar from "$lib/nav/Navbar.svelte";
   import type {DbClient} from "@repo/facts-db";
   import Router from "$lib/router/Router.svelte";
-  import {CommandInput} from "$lib/components/ui/command";
-  import {query} from "./store/query";
   import Labels from "$lib/labels/Labels.svelte";
+  import Header from "$lib/router/Header.svelte";
 
   export let db: DbClient;
   let open = false;
@@ -33,11 +32,7 @@
   <div class="flex w-full h-full rounded-lg">
     <Navbar />
     <div class="flex flex-col w-full h-full">
-      <CommandInput
-        autofocus
-        placeholder="Type to search..."
-        bind:value={$query}
-      />
+      <Header />
       <Router>
         <svelte:fragment slot="composition">
           <Composition
