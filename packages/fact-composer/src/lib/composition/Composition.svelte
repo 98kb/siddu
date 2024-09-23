@@ -6,8 +6,6 @@
   import FactList from "./FactList.svelte";
   import {composition} from "./store/composition";
   import SidebarLayout from "$lib/layouts/SidebarLayout.svelte";
-  import SearchInput from "$lib/components/SearchInput.svelte";
-  import {query} from "./store/query";
 
   export let onSubmit: IO<void>;
   function submit() {
@@ -23,9 +21,6 @@
   </CompositionEditor>
 
   <svelte:fragment slot="sidebar">
-    <div class="flex flex-col">
-      <SearchInput bind:value={$query} />
-      <FactList />
-    </div>
+    <FactList />
   </svelte:fragment>
 </SidebarLayout>

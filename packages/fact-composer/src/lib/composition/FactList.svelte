@@ -11,6 +11,7 @@
   import {contextKey} from "$lib/contextKey";
   import {liveStore} from "$lib/db/liveStore";
   import {query} from "./store/query";
+  import SearchInput from "$lib/components/SearchInput.svelte";
 
   const {db} = getContext<Context>(contextKey);
   onMount(liveStore(db.facts, facts));
@@ -20,6 +21,7 @@
   );
 </script>
 
+<SearchInput bind:value={$query} />
 <CommandList>
   <CommandEmpty class="p-0 h-full">
     <FactPlaceHolder />
