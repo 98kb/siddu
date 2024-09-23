@@ -36,7 +36,8 @@ export class TRPCService<T extends keyof Tables> implements IAdapter<T> {
       "id"
     >,
   ): Promise<void> {
-    await this.entity.put.mutate(payload);
+    // TODO: fix this type cast
+    await this.entity.put.mutate(payload as any);
   }
 
   onMutation(callback: () => void): MutationSubscription {
