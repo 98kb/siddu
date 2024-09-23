@@ -9054,7 +9054,7 @@ snapshots:
       pathe: 1.1.2
       sirv: 2.0.4
       tinyrainbow: 1.2.0
-      vitest: 2.0.5(@types/node@20.16.1)(@vitest/ui@2.0.5)(jsdom@25.0.0)
+      vitest: 2.0.5(@types/node@22.5.4)(@vitest/ui@2.0.5)(jsdom@25.0.0)
 
   '@vitest/utils@1.6.0':
     dependencies:
@@ -13988,7 +13988,6 @@ snapshots:
       - sugarss
       - supports-color
       - terser
-    optional: true
 
   w3c-xmlserializer@5.0.0:
     dependencies:

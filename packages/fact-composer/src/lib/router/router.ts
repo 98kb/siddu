@@ -1,10 +1,10 @@
 import {derived, writable} from "svelte/store";
 import {identity} from "fp-ts/function";
 
-type Routes =
+export type Routes =
   | "composition"
   | "labels"
-  | "collections"
+  | "collection"
   | "marketplace"
   | "settings"
   | "account";

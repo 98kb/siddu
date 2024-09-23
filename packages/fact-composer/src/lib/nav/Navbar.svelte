@@ -1,6 +1,5 @@
 <script lang="ts">
   import {Button} from "$lib/components/ui/button";
-  import {activeRoute, setActiveRoute} from "$lib/router/router";
   import {
     PencilRulerIcon,
     HomeIcon,
@@ -10,6 +9,7 @@
     WrenchIcon,
     UserCircleIcon,
   } from "lucide-svelte";
+  import NavTab from "./NavTab.svelte";
 
   const tabs = [
     {
@@ -17,7 +17,7 @@
       icon: PencilRulerIcon,
     },
     {
-      name: "collections",
+      name: "collection",
       icon: NotebookIcon,
     },
     {
@@ -47,22 +47,14 @@
     <HomeIcon />
   </Button>
   {#each tabs as { name, icon }}
-    <Button
-      size="icon"
-      variant={$activeRoute === name ? "default" : "ghost"}
-      on:click={() => setActiveRoute(name)}
-    >
+    <NavTab {name}>
       <svelte:component this={icon} />
-    </Button>
+    </NavTab>
   {/each}
   <div class="grow"></div>
   {#each bottomTabs as { name, icon }}
-    <Button
-      size="icon"
-      variant={$activeRoute === name ? "default" : "ghost"}
-      on:click={() => setActiveRoute(name)}
-    >
+    <NavTab {name}>
       <svelte:component this={icon} />
-    </Button>
+    </NavTab>
   {/each}
 </div>
