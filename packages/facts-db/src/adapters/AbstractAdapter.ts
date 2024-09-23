@@ -27,12 +27,10 @@ export abstract class AbstractAdapter<T extends keyof Tables>
   }
 
   async put(
-    payload: RequireExactlyOne<
-      Partial<z.infer<TableSchemas[T]["schema"]>>,
-      "id"
-    >,
+    id: number,
+    payload: Partial<z.infer<TableSchemas[T]["schema"]>>,
   ): Promise<void> {
-    await this.putItem(payload);
+    await this.putItem({...payload, id});
     this.notifyMutation();
   }
 

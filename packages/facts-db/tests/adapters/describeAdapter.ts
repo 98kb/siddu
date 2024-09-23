@@ -8,6 +8,7 @@ import {describeDeleteOne} from "./features/describeDeleteOne";
 import {describeGet} from "./features/describeGet";
 import {describeGetAll} from "./features/describeGetAll";
 import {describeOnMutation} from "./features/describeOnMutation";
+import {describePut} from "./features/describePut";
 
 type Features = keyof IAdapter<keyof Tables>;
 
@@ -21,7 +22,7 @@ export const describeAdapter = <T extends keyof Tables>(
     getAll: describeGetAll,
     get: describeGet,
     onMutation: describeOnMutation,
-    put: () => {},
+    put: describePut,
     options: adapter => {
       it("has options", () => {
         expect(adapter.options.entity).toBeDefined();

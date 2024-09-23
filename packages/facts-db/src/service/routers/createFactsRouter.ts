@@ -34,7 +34,7 @@ export const createFactsRouter = (facts: IAdapter<"facts">) =>
     put: publicProcedure
       .input(FactSchema.partial().required({id: true}))
       .mutation(async ({input}) => {
-        await facts.put(input);
+        await facts.put(input.id, input);
       }),
     list: publicProcedure
       .input(FilterSchema)

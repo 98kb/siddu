@@ -1,6 +1,5 @@
 import {AdapterOption} from "./AdapterOption";
 import {MutationSubscription} from "./MutationSubscription";
-import {RequireExactlyOne} from "type-fest";
 import {TableSchemas} from "../schema/TableSchemas";
 import {Tables} from "../schema/Tables";
 import {z} from "zod";
@@ -15,10 +14,8 @@ export interface IAdapter<T extends keyof Tables> {
   get(id: number): Promise<z.infer<TableSchemas[T]["schema"]> | undefined>;
   getAll(): Promise<z.infer<TableSchemas[T]["schema"]>[]>;
   put(
-    payload: RequireExactlyOne<
-      Partial<z.infer<TableSchemas[T]["schema"]>>,
-      "id"
-    >,
+    id: number,
+    payload: Partial<z.infer<TableSchemas[T]["schema"]>>,
   ): Promise<void>;
 
   /**

@@ -28,7 +28,7 @@ export const createCollectionsRouter = (collections: IAdapter<"collections">) =>
     put: publicProcedure
       .input(CollectionSchema.partial().required({id: true}))
       .mutation(async ({input}) => {
-        await collections.put(input);
+        await collections.put(input.id, input);
       }),
     get: publicProcedure
       .input(CollectionSchema.pick({id: true}))
