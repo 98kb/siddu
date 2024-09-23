@@ -143,6 +143,9 @@ importers:
       trpc-chrome:
         specifier: ^1.0.0
         version: 1.0.0(@trpc/client@10.45.2(@trpc/server@10.45.2))(@trpc/server@10.45.2)
+      type-fest:
+        specifier: ^4.26.1
+        version: 4.26.1
       zod:
         specifier: ^3.23.8
         version: 3.23.8
@@ -6301,6 +6304,10 @@ packages:
     resolution: {integrity: sha512-tLq3bSNx+xSpwvAJnzrK0Ep5CLNWjvFTOp71URMaAEWBfRb9nnJiBoUe0tF8bI4ZFO3omgBR6NvnbzVUT3Ly4g==}
     engines: {node: '>=14.16'}
 
+  type-fest@4.26.1:
+    resolution: {integrity: sha512-yOGpmOAL7CkKe/91I5O3gPICmJNLJ1G4zFYVAsRHg7M64biSnPtRj0WNQt++bRkjYOqjWXrhnUw1utzmVErAdg==}
+    engines: {node: '>=16'}
+
   type-is@1.6.18:
     resolution: {integrity: sha512-TkRKr9sUTxEH8MdfuCSP7VizJyzRNMjj2J2do2Jr3Kym598JVdEksuzPQCnlFPW4ky9Q+iA+ma9BGm06XQBy8g==}
     engines: {node: '>= 0.6'}
@@ -9047,7 +9054,7 @@ snapshots:
       pathe: 1.1.2
       sirv: 2.0.4
       tinyrainbow: 1.2.0
-      vitest: 2.0.5(@types/node@22.5.4)(@vitest/ui@2.0.5)(jsdom@25.0.0)
+      vitest: 2.0.5(@types/node@20.16.1)(@vitest/ui@2.0.5)(jsdom@25.0.0)
 
   '@vitest/utils@1.6.0':
     dependencies:
@@ -13523,6 +13530,8 @@ snapshots:
 
   type-fest@3.13.1: {}
 
+  type-fest@4.26.1: {}
+
   type-is@1.6.18:
     dependencies:
       media-typer: 0.3.0
@@ -13979,6 +13988,7 @@ snapshots:
       - sugarss
       - supports-color
       - terser
+    optional: true
 
   w3c-xmlserializer@5.0.0:
     dependencies:
