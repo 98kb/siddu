@@ -4,13 +4,24 @@
   import type {Context} from "$lib/Context";
   import {contextKey} from "$lib/contextKey";
   import {getContext} from "svelte";
-  import { Button } from "$lib/components/ui/button";
+  import {Button} from "$lib/components/ui/button";
+  import {selectedLabel} from "./store/selectedLabel";
 
-  export let label: ILabel | InsertLabel = {name: ""};
   const {db} = getContext<Context>(contextKey);
+  let label: ILabel | InsertLabel = {name: ""};
+
+  $: {
+    label = $selectedLabel ?? {name: ""};
+  }
 
   const submit = async () => {
-    await db.labels.add(label);
+    if ("id" in label) {
+      await db.labels.put(label.id, label);
+      selectedLabel.set(undefined);
+    } else {
+      await db.labels.add(label);
+      label = {name: ""};
+    }
   };
 </script>
 
