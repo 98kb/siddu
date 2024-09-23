@@ -15,12 +15,6 @@ export const liveStore = <T extends keyof Tables>(
   store: Writable<Awaited<ReturnType<IAdapter<T>["getAll"]>>>,
 ): IO<void> => {
   const sync = async () => {
-    console.log(
-      "fetching labels",
-      adapter.options.entity,
-      await adapter.getAll(),
-    );
-
     store.set(await adapter.getAll());
   };
   sync();
