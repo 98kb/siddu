@@ -9,29 +9,27 @@
   import {injectDbClient} from "$lib/injectDbClient";
 
   const db = injectDbClient();
-  let [minColWidth, maxColWidth, gap] = [200, 200, 15];
+  let [minColWidth, maxColWidth, gap] = [150, 200, 15];
 
   onMount(liveStore(db.facts, facts));
 </script>
 
-<div class="flex w-full py-5">
-  <aside class="min-w-[15vw] pr-10">
+<div class="flex w-full">
+  <aside class="min-w-[15vw] pr-10 py-5">
     <LabelList />
   </aside>
-  <div class="flex flex-col max-h-[475px] overflow-x-scroll w-full gap-10">
-    <div class="w-3/5 self-center">
-      <AddFact />
-    </div>
+  <div id="grid" class="flex w-full h-full">
     <Masonry
-      class="w-full"
+      class="w-full py-4"
       style="justify-content:start;"
       items={$facts}
       {minColWidth}
       {maxColWidth}
       {gap}
       let:item={fact}
-    >
+      >
       <FactCard {fact} />
     </Masonry>
   </div>
+  <AddFact />
 </div>
