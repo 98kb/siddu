@@ -28,28 +28,28 @@ describe("facts/router", () => {
       const promise = new Promise<unknown>(resolve => {
         observable.subscribe({next: resolve});
       });
-      await caller.create({content: "test"} as Input);
+      await caller.create({content: "test", labels: []} as Input);
       await promise;
     });
   });
 
   describe("create", () => {
     it("adds a valid input", async () => {
-      const addFact = {content: "test"} satisfies Input;
+      const addFact = {content: "test", labels: []} satisfies Input;
       const result = await caller.create(addFact);
       expect(result.id).toBeDefined();
       expect(result.content).toBe(addFact.content);
     });
 
     it(`throws if content length is less than ${InsertFactSchema.shape.content.minLength}`, async () => {
-      const addFact = {content: ""} satisfies Input;
+      const addFact = {content: "", labels: []} satisfies Input;
       await expect(caller.create(addFact)).rejects.toThrow();
     });
   });
 
   describe("get", () => {
     it("gets a existing fact", async () => {
-      const addFact = {content: "test"} satisfies Input;
+      const addFact = {content: "test", labels: []} satisfies Input;
       const {id} = await caller.create(addFact);
       const result = await caller.get({id});
       expect(result.id).toBe(id);
@@ -64,7 +64,7 @@ describe("facts/router", () => {
 
   describe("list", () => {
     it("lists facts", async () => {
-      const addFact = {content: "test"} satisfies Input;
+      const addFact = {content: "test", labels: []} satisfies Input;
       const createRequests = [
         await caller.create(addFact),
         await caller.create(addFact),
@@ -80,7 +80,7 @@ describe("facts/router", () => {
 
   describe("delete", () => {
     it("deletes a fact", async () => {
-      const addFact = {content: "test"} satisfies Input;
+      const addFact = {content: "test", labels: []} satisfies Input;
       const {id} = await caller.create(addFact);
       await caller.delete({id});
       await expect(caller.get({id})).rejects.toThrow();
@@ -94,7 +94,7 @@ describe("facts/router", () => {
 
   describe("deleteAll", () => {
     it("deletes all facts", async () => {
-      const addFact = {content: "test"} satisfies Input;
+      const addFact = {content: "test", labels: []} satisfies Input;
       await caller.create(addFact);
       await caller.create(addFact);
       await caller.deleteAll();

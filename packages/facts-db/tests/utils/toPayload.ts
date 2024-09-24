@@ -3,7 +3,7 @@ import {Tables} from "../../src/schema/Tables";
 
 const random = () => Math.random().toString(36).slice(2);
 export const createPayloads = () => ({
-  facts: {content: random()},
+  facts: {content: random(), labels: []},
   collections: {name: random()},
   labels: {name: random()},
 });
