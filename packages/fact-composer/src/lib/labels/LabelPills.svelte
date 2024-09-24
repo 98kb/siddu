@@ -11,9 +11,7 @@
   <Badge variant="outline">
     <span class="inline-flex items-center relative">
       {label.name}
-      <Button size="icon-sm" variant="ghost" class="rounded-full">
-        <XIcon class="w-3 h-3" />
-      </Button>
+      <slot {label} />
     </span>
   </Badge>
 {/each}

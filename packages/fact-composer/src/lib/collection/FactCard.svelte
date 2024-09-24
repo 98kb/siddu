@@ -4,11 +4,12 @@
   import {selectedFact} from "./store/selectedFact";
   import {openFactEditor} from "./store/openFactEditor";
   import { cn } from "$lib/utils";
+  import deepClone from "lodash.clonedeep";
 
   export let fact: Fact;
   $: isSelected = "id" in $selectedFact && $selectedFact.id === fact.id;
   const selectFact = () => {
-    $selectedFact = {...fact};
+    $selectedFact = deepClone(fact);
     $openFactEditor = true;
   };
 </script>

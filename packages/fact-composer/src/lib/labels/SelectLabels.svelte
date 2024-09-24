@@ -26,6 +26,9 @@
     selectedLabels = selectedLabels;
     open = false;
   };
+
+  const isSelected = (label: Label) =>
+    selectedLabels.some(l => l.id === label.id);
 </script>
 
 <Popover.Root bind:open>
@@ -58,7 +61,7 @@
             <Check
               class={cn(
                 "mr-2 h-4 w-4",
-                !selectedLabels.includes(label) && "text-transparent",
+                !isSelected(label) && "text-transparent",
               )}
             />
             {label.name}

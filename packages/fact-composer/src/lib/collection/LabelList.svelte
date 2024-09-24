@@ -11,7 +11,7 @@
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <span
       class={cn([
-        "inline-flex gap-5 p-2 px-4 items-center",
+        "inline-flex gap-5 p-2 pl-4 items-center",
         "cursor-pointer rounded-r-full text-sm",
         {
           "hover:bg-gray-100": selected !== label.id,
