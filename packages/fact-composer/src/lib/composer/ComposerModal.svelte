@@ -11,6 +11,7 @@
   import Router from "$lib/router/Router.svelte";
   import Labels from "$lib/labels/Labels.svelte";
   import Header from "$lib/router/Header.svelte";
+  import Collection from "$lib/collection/Collection.svelte";
 
   export let db: DbClient;
   let open = false;
@@ -40,6 +41,9 @@
               open = false;
             }}
           />
+        </svelte:fragment>
+        <svelte:fragment slot="collection">
+          <Collection />
         </svelte:fragment>
         <svelte:fragment slot="labels">
           <Labels />

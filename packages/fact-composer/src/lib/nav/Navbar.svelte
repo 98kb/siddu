@@ -42,7 +42,7 @@
   ] as const;
 </script>
 
-<div class="flex flex-col min-w-14 h-full shadow items-center py-2 gap-4">
+<div class="flex flex-col min-w-14 max-h-[598px] box-border h-full shadow items-center py-2 gap-4">
   <Button size="icon" variant="ghost">
     <HomeIcon />
   </Button>

@@ -10,9 +10,9 @@
   <div class="page">
     <slot name="labels" />
   </div>
-{:else if $activeRoute === "collections"}
+{:else if $activeRoute === "collection"}
   <div class="page">
-    <slot name="collections" />
+    <slot name="collection" />
   </div>
 {:else}
   <div class="flex w-full h-full justify-center items-center">
