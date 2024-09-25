@@ -1,0 +1,33 @@
+<script lang="ts">
+  import {Card, CardContent, CardFooter} from "$lib/components/ui/card";
+  import type {Fact} from "@repo/facts-db";
+  import {cn} from "$lib/utils";
+  import LabelPills from "$lib/labels/LabelPills.svelte";
+
+  export let fact: Fact;
+  export let isSelected: boolean;
+  export let selectFact: () => void;
+</script>
+
+<Card
+  on:click={selectFact}
+  class={cn([
+    "group",
+    "max-w-[200px]",
+    "shadow-none hover:shadow hover:border-gray-400",
+    "transition-shadow duration-100 ease-in-out",
+    {"border-black hover:border-black": isSelected},
+  ])}
+>
+  <CardContent>
+    <p class="min-h-[100px] line-clamp-5 cursor-default pt-4 mb-2">
+      {fact.content}
+    </p>
+    <div class="flex gap-1 flex-wrap">
+      <LabelPills labels={fact.labels} />
+    </div>
+  </CardContent>
+  {#if fact.labels}
+    <CardFooter class="opacity-0 group-hover:opacity-100"></CardFooter>
+  {/if}
+</Card>

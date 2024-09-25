@@ -6,7 +6,7 @@
     NotebookIcon,
     TagIcon,
     ShoppingBagIcon,
-    WrenchIcon,
+    HelpCircleIcon,
     UserCircleIcon,
   } from "lucide-svelte";
   import NavTab from "./NavTab.svelte";
@@ -33,16 +33,18 @@
   const bottomTabs = [
     {
       name: "settings",
-      icon: WrenchIcon,
+      icon: HelpCircleIcon,
     },
     {
       name: "account",
       icon: UserCircleIcon,
-    }
+    },
   ] as const;
 </script>
 
-<div class="flex flex-col min-w-14 max-h-[598px] box-border h-full shadow items-center py-2 gap-4">
+<div
+  class="flex flex-col min-w-14 max-h-[598px] box-border h-full shadow items-center py-2 gap-4"
+>
   <Button size="icon" variant="ghost">
     <HomeIcon />
   </Button>
