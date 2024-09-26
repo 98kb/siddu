@@ -49,7 +49,7 @@
       <FactCard
         {fact}
         isSelected={isEqual(fact, selectedFact)}
-        selectFact={() => (selectedFact = deepClone(fact))}
+        onClick={() => (selectedFact = deepClone(fact))}
       />
     </Masonry>
   </div>

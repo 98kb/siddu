@@ -3,14 +3,14 @@
   import type {Fact} from "@repo/facts-db";
   import {cn} from "$lib/utils";
   import LabelPills from "$lib/labels/LabelPills.svelte";
+  import FactCardFooter from "./FactCardFooter.svelte";
 
   export let fact: Fact;
   export let isSelected: boolean;
-  export let selectFact: () => void;
+  export let onClick: () => void;
 </script>
 
 <Card
-  on:click={selectFact}
   class={cn([
     "group",
     "max-w-[200px]",
@@ -20,14 +20,18 @@
   ])}
 >
   <CardContent>
-    <p class="min-h-[100px] line-clamp-5 cursor-default pt-4 mb-2">
-      {fact.content}
-    </p>
-    <div class="flex gap-1 flex-wrap">
-      <LabelPills labels={fact.labels} />
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <!-- svelte-ignore a11y-no-static-element-interactions -->
+    <div class="w-full" on:click={onClick}>
+      <p class="min-h-[100px] line-clamp-5 cursor-default pt-4 mb-2">
+        {fact.content}
+      </p>
+      <div class="flex gap-1 flex-wrap">
+        <LabelPills labels={fact.labels} />
+      </div>
     </div>
   </CardContent>
-  {#if fact.labels}
-    <CardFooter class="opacity-0 group-hover:opacity-100"></CardFooter>
-  {/if}
+  <CardFooter class="opacity-0 group-hover:opacity-100">
+    <FactCardFooter {fact} on:click={onClick} />
+  </CardFooter>
 </Card>
