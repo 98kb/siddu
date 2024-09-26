@@ -18,11 +18,10 @@
     "transition-shadow duration-100 ease-in-out",
     {"border-black hover:border-black": isSelected},
   ])}
+  on:click={onClick}
 >
   <CardContent>
-    <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <!-- svelte-ignore a11y-no-static-element-interactions -->
-    <div class="w-full" on:click={onClick}>
+    <div class="w-full">
       <p class="min-h-[100px] line-clamp-5 cursor-default pt-4 mb-2">
         {fact.content}
       </p>
@@ -32,6 +31,6 @@
     </div>
   </CardContent>
   <CardFooter class="opacity-0 group-hover:opacity-100">
-    <FactCardFooter {fact} on:click={onClick} />
+    <FactCardFooter {fact} />
   </CardFooter>
 </Card>

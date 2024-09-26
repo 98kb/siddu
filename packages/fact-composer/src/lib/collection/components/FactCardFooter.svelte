@@ -14,9 +14,7 @@
   };
 </script>
 
-<!-- svelte-ignore a11y-click-events-have-key-events -->
-<!-- svelte-ignore a11y-no-static-element-interactions -->
-<div class="flex" on:click>
+<div class="flex">
   <EasyTooltip tooltip="Archive">
     <Button variant="ghost" size="icon-sm" on:click={archive}>
       <ArchiveXIcon />
