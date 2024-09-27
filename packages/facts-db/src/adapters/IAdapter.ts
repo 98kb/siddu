@@ -1,5 +1,6 @@
 import {AdapterOption} from "./AdapterOption";
 import {MutationSubscription} from "./MutationSubscription";
+import {Reader} from "fp-ts/lib/Reader";
 import {TableSchemas} from "../schema/TableSchemas";
 import {Tables} from "../schema/Tables";
 import {z} from "zod";
@@ -12,7 +13,9 @@ export interface IAdapter<T extends keyof Tables> {
   delete(id: number): Promise<void>;
   deleteAll(): Promise<void>;
   get(id: number): Promise<z.infer<TableSchemas[T]["schema"]> | undefined>;
-  getAll(): Promise<z.infer<TableSchemas[T]["schema"]>[]>;
+  getAll(
+    predicate?: Reader<z.infer<TableSchemas[T]["schema"]>, boolean>,
+  ): Promise<z.infer<TableSchemas[T]["schema"]>[]>;
   put(
     id: number,
     payload: Partial<z.infer<TableSchemas[T]["schema"]>>,
