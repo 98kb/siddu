@@ -2,7 +2,7 @@
   import {facts} from "$lib/composition/store/facts";
   import Masonry from "svelte-bricks";
   import FactCard from "./components/FactCard.svelte";
-  import LabelList from "./components/LabelList.svelte";
+  import CollectionNav from "./components/CollectionNav.svelte";
   import AddFact from "./components/AddFact.svelte";
   import {onMount} from "svelte";
   import {liveStore} from "$lib/db/liveStore";
@@ -23,7 +23,7 @@
 
 <div class="flex w-full">
   <aside class="flex flex-col min-w-[15vw] pr-10 py-5">
-    <LabelList labels={$labels} />
+    <CollectionNav labels={$labels} />
   </aside>
   <div
     class="flex flex-col w-full h-full py-5 px-4 overflow-y-scroll max-h-[550px] pb-14"
