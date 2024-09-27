@@ -2,6 +2,7 @@ import {AdapterOption} from "./AdapterOption";
 import {IAdapter} from "./IAdapter";
 import {IO} from "fp-ts/lib/IO";
 import {MutationSubscription} from "./MutationSubscription";
+import {Reader} from "fp-ts/lib/Reader";
 import {TableSchemas} from "../schema/TableSchemas";
 import {Tables} from "../schema/Tables";
 import {createChromeRuntimeClient} from "../service/createChromeRuntimeClient";
@@ -55,8 +56,12 @@ export class TRPCService<T extends keyof Tables> implements IAdapter<T> {
     }
   }
 
-  getAll(): Promise<z.infer<TableSchemas[T]["schema"]>[]> {
-    return this.entity.list.query({limit: 9_999_999, offset: 0});
+  async getAll(
+    predicate?: Reader<z.infer<TableSchemas[T]["schema"]>, boolean>,
+  ): Promise<z.infer<TableSchemas[T]["schema"]>[]> {
+    return (await this.entity.list.query({limit: 9_999_999, offset: 0})).filter(
+      item => predicate?.(item) ?? true,
+    );
   }
 
   async add(

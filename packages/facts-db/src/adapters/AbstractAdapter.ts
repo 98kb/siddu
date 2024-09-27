@@ -1,6 +1,7 @@
 import {AdapterOption} from "./AdapterOption";
 import {IAdapter} from "./IAdapter";
 import {MutationSubscription} from "./MutationSubscription";
+import {Reader} from "fp-ts/lib/Reader";
 import {RequireExactlyOne} from "type-fest";
 import {TableSchemas} from "../schema/TableSchemas";
 import {Tables} from "../schema/Tables";
@@ -64,7 +65,10 @@ export abstract class AbstractAdapter<T extends keyof Tables>
     id: number,
   ): Promise<z.infer<TableSchemas[T]["schema"]> | undefined>;
 
-  abstract getAll(): Promise<z.infer<TableSchemas[T]["schema"]>[]>;
+  abstract getAll(
+    predicate?: Reader<z.infer<TableSchemas[T]["schema"]>, boolean>,
+  ): Promise<z.infer<TableSchemas[T]["schema"]>[]>;
+
   abstract addItem(
     obj: z.infer<TableSchemas[T]["insertSchema"]>,
   ): Promise<number>;

@@ -18,4 +18,13 @@ export const describeGetAll = <T extends keyof Tables>(
     const facts = await adapter.getAll();
     expect(facts).toEqual([await adapter.get(id1), await adapter.get(id2)]);
   });
+  it("filter objects if predicate is provided", async () => {
+    const payload1 = toPayload(adapter);
+    const payload2 = toPayload(adapter);
+    const id1 = await adapter.add(payload1);
+    await adapter.add(payload2);
+    const facts = await adapter.getAll(item => item.id === id1);
+    expect(facts.length).toBe(1);
+    expect(facts).toEqual([await adapter.get(id1)]);
+  });
 };

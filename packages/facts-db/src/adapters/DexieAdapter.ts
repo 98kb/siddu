@@ -1,6 +1,7 @@
 import {AbstractAdapter} from "./AbstractAdapter";
 import {AdapterOption} from "./AdapterOption";
 import {FactsDB} from "../FactsDb";
+import {Reader} from "fp-ts/lib/Reader";
 import {RequireExactlyOne} from "type-fest";
 import {TableSchemas} from "../schema/TableSchemas";
 import {Tables} from "../schema/Tables";
@@ -26,8 +27,12 @@ export class DexieAdapter<T extends keyof Tables> extends AbstractAdapter<T> {
     return this.db[this.options.entity].get(id);
   }
 
-  getAll(): Promise<z.infer<TableSchemas[T]["schema"]>[]> {
-    return this.db[this.options.entity].toArray();
+  getAll(
+    predicate?: Reader<z.infer<TableSchemas[T]["schema"]>, boolean>,
+  ): Promise<z.infer<TableSchemas[T]["schema"]>[]> {
+    return this.db[this.options.entity]
+      .filter(item => predicate?.(item) ?? true)
+      .toArray();
   }
 
   async putItem(

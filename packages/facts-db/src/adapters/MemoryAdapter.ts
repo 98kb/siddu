@@ -1,4 +1,5 @@
 import {AbstractAdapter} from "./AbstractAdapter";
+import {Reader} from "fp-ts/lib/Reader";
 import {RequireExactlyOne} from "type-fest";
 import {TableSchemas} from "../schema/TableSchemas";
 import {Tables} from "../schema/Tables";
@@ -13,8 +14,12 @@ export class MemoryAdapter<T extends keyof Tables> extends AbstractAdapter<T> {
     return this.objects[id];
   }
 
-  async getAll(): Promise<z.infer<TableSchemas[T]["schema"]>[]> {
-    return Object.values(this.objects);
+  async getAll(
+    predicate?: Reader<z.infer<TableSchemas[T]["schema"]>, boolean>,
+  ): Promise<z.infer<TableSchemas[T]["schema"]>[]> {
+    return Object.values(this.objects).filter(
+      item => predicate?.(item) ?? true,
+    );
   }
 
   async addItem(
