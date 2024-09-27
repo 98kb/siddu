@@ -1,5 +1,5 @@
 <script lang="ts">
-  import {facts} from "$lib/composition/store/facts";
+  import {facts} from "$lib/store/facts";
   import Masonry from "svelte-bricks";
   import FactCard from "./components/FactCard.svelte";
   import CollectionNav from "./components/CollectionNav.svelte";

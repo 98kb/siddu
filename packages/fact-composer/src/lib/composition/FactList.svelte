@@ -3,7 +3,7 @@
   import CommandEmpty from "$lib/components/ui/command/command-empty.svelte";
   import {CommandItem} from "$lib/components/ui/command";
   import {append} from "./store/composition";
-  import {facts} from "./store/facts";
+  import {facts} from "../store/facts";
   import FactPlaceHolder from "./FactPlaceHolder.svelte";
   import FactListItem from "./FactListItem.svelte";
   import {getContext, onMount} from "svelte";
