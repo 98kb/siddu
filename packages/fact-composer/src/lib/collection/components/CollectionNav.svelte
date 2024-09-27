@@ -1,4 +1,5 @@
 <script lang="ts">
+  import {factsFilter} from "../store/factsFilter";
   import CollectionNavItem from "./CollectionNavItem.svelte";
   import LabelIcon from "./LabelIcon.svelte";
   import type {Label} from "@repo/facts-db";
@@ -6,9 +7,18 @@
 
   export let labels: Label[];
   let selected: number = 0;
+  const clearFilters = () => {
+    selected = -1;
+    factsFilter.set({labels: []});
+  };
+
+  const selectLabel = (label: Label) => () => {
+    selected = label.id;
+    factsFilter.set({labels: [label]});
+  };
 </script>
 
-<CollectionNavItem isSelected={selected === -1} onClick={() => (selected = -1)}>
+<CollectionNavItem isSelected={selected === -1} onClick={clearFilters}>
   <BookOpenTextIcon />
   Facts
 </CollectionNavItem>
@@ -19,7 +29,7 @@
 {#each labels as label (label.id)}
   <CollectionNavItem
     isSelected={selected === label.id}
-    onClick={() => (selected = label.id)}
+    onClick={selectLabel(label)}
   >
     <LabelIcon />
     {label.name}

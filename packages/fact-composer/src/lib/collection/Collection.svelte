@@ -13,6 +13,7 @@
   import type {Fact, InsertFact} from "@repo/facts-db";
   import deepClone from "lodash.clonedeep";
   import isEqual from "lodash.isequal";
+  import { filteredFacts } from "./store/filteredFacts";
 
   const db = injectDbClient();
   onMount(liveStore(db.facts, facts));
@@ -40,7 +41,7 @@
     <Masonry
       class="w-full py-4"
       style="justify-content:start;"
-      items={$facts}
+      items={$filteredFacts}
       minColWidth={200}
       maxColWidth={200}
       gap={15}
