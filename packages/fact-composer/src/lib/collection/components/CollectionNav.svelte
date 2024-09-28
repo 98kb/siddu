@@ -18,20 +18,20 @@
   };
 </script>
 
-<CollectionNavItem isSelected={selected === -1} onClick={clearFilters}>
+<CollectionNavItem isSelected={selected === -1} on:click={clearFilters}>
   <BookOpenTextIcon />
   Facts
-</CollectionNavItem>
-<CollectionNavItem isSelected={selected === 0} onClick={() => (selected = 0)}>
-  <ArchiveIcon />
-  Archive
 </CollectionNavItem>
 {#each labels as label (label.id)}
   <CollectionNavItem
     isSelected={selected === label.id}
-    onClick={selectLabel(label)}
+    on:click={selectLabel(label)}
   >
     <LabelIcon />
     {label.name}
   </CollectionNavItem>
 {/each}
+<CollectionNavItem isSelected={selected === 0} on:click={() => (selected = 0)}>
+  <ArchiveIcon />
+  Archive
+</CollectionNavItem>
