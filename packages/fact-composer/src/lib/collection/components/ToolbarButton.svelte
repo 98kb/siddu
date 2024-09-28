@@ -8,7 +8,7 @@
     Pick<ComponentProps<EasyTooltip>, "tooltip">;
 
   export let tooltip: string;
-  let openDelay = 10;
+  let openDelay = 250;
   let className: $$Props["class"] = undefined;
 </script>
 
