@@ -2,7 +2,6 @@
   import {cn} from "$lib/utils";
 
   export let isSelected: boolean;
-  export let onClick: () => void;
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -14,7 +13,7 @@
     "hover:bg-gray-100",
     isSelected && "bg-gray-100",
   )}
-  on:click={onClick}
+  on:click
 >
   <slot />
 </span>
