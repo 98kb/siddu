@@ -17,6 +17,7 @@
 
   const onCreate = async () => {
     fact && (await db.facts.add(fact));
+    onClose();
   };
 
   const onClose = async () => {
