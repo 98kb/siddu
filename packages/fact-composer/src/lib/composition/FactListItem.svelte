@@ -20,7 +20,7 @@
   )}
   on:click
 >
-  <span class="text-sm">
+  <span class="text-sm cursor-default">
     {fact.content}
   </span>
   <div class="flex gap-1">
