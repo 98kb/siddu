@@ -22,7 +22,7 @@
   let selectedFact: Fact | InsertFact | undefined;
 </script>
 
-<div class="flex w-full">
+<div class="flex w-full h-full">
   <aside class="flex flex-col min-w-[15vw] pr-10 py-5">
     <CollectionNav labels={$labels} />
   </aside>
