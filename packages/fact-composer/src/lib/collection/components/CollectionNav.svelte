@@ -6,7 +6,7 @@
   import {ArchiveIcon, BookOpenTextIcon} from "lucide-svelte";
 
   export let labels: Label[];
-  let selected: number = 0;
+  let selected: number = -1;
   const clearFilters = () => {
     selected = -1;
     factsFilter.set({labels: []});
