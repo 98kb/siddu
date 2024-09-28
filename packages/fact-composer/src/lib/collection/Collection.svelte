@@ -27,7 +27,7 @@
     <CollectionNav labels={$labels} />
   </aside>
   <div
-    class="flex flex-col w-full h-full py-5 px-4 overflow-y-scroll max-h-[550px] pb-14"
+    class="flex flex-col w-full h-full py-5 px-4 overflow-y-scroll max-h-[540px] pb-14"
   >
     <div class="flex w-full">
       <Button

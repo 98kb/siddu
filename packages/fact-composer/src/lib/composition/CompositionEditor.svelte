@@ -10,4 +10,5 @@
 <UnstyledTextarea
   bind:value={$composition}
   class="w-full h-full"
+  placeholder="Type or select a fact to start composing..."
 />

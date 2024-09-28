@@ -5,14 +5,16 @@
   import type {ComponentProps} from "svelte";
 
   type $$Props = ComponentProps<Button> &
-    Pick<ComponentProps<EasyTooltip>, "tooltip">;
+    ComponentProps<EasyTooltip>;
 
   export let tooltip: string;
+  export let side: ComponentProps<EasyTooltip>["side"] = "bottom";
+  export let sideOffset: ComponentProps<EasyTooltip>["sideOffset"] = 0;
   let openDelay = 250;
   let className: $$Props["class"] = undefined;
 </script>
 
-<EasyTooltip {tooltip} {openDelay}>
+<EasyTooltip {tooltip} {openDelay} {side} {sideOffset}>
   <Button
     size="icon"
     variant="ghost"

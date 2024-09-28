@@ -4,12 +4,6 @@
   import * as Popover from "$lib/components/ui/popover/index.js";
   import {Button} from "$lib/components/ui/button/index.js";
   import {cn} from "$lib/utils.js";
-  import {TagIcon} from "lucide-svelte";
-  import {
-    Tooltip,
-    TooltipContent,
-    TooltipTrigger,
-  } from "$lib/components/ui/tooltip";
   import {labels} from "./store/labels";
   import type {Label} from "@repo/facts-db";
   import {injectDbClient} from "$lib/injectDbClient";
