@@ -11,6 +11,13 @@
   } from "lucide-svelte";
   import NavTab from "./NavTab.svelte";
 
+  export let activeTab: (typeof tabs)[number]["name"] |
+    (typeof bottomTabs)[number]["name"];
+
+  const setActiveTab = (name: typeof activeTab) => () => {
+    activeTab = name;
+  };
+
   const tabs = [
     {
       name: "composition",
@@ -49,13 +56,13 @@
     <HomeIcon />
   </Button>
   {#each tabs as { name, icon }}
-    <NavTab {name}>
+    <NavTab {name} on:click={setActiveTab(name)} isActive={activeTab === name}>
       <svelte:component this={icon} />
     </NavTab>
   {/each}
   <div class="grow"></div>
   {#each bottomTabs as { name, icon }}
-    <NavTab {name}>
+    <NavTab {name} on:click={setActiveTab(name)} isActive={activeTab === name}>
       <svelte:component this={icon} />
     </NavTab>
   {/each}

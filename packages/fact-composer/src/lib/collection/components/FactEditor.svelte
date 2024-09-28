@@ -1,19 +1,11 @@
 <script lang="ts">
   import {Button} from "$lib/components/ui/button";
   import UnstyledTextarea from "$lib/components/ui/textarea/UnstyledTextarea.svelte";
-  import SelectLabels from "$lib/labels/SelectLabels.svelte";
   import LabelPills from "$lib/labels/LabelPills.svelte";
-  import type {Task} from "fp-ts/lib/Task";
   import type {InsertFact} from "@repo/facts-db";
   import {XIcon} from "lucide-svelte";
 
   export let fact: InsertFact;
-  export let onCreate: Task<void>;
-  export let onSave: Task<void>;
-  export let onClose: Task<void>;
-
-  $: handler = "id" in fact ? onSave : onCreate;
-  $: saveLabel = "id" in fact ? "Save" : "Create";
 
   const removeLabel = (labelId: number) => {
     fact.labels = fact.labels.filter(label => label.id !== labelId);
@@ -21,14 +13,7 @@
 </script>
 
 <div class="flex flex-col w-full h-full gap-4 px-3 py-4 border">
-  <div class="flex w-full">
-    <div class="flex">
-      <SelectLabels bind:selectedLabels={fact.labels} />
-    </div>
-    <div class="grow"></div>
-    <Button variant="link" on:click={handler}>{saveLabel}</Button>
-    <Button variant="link" on:click={onClose}>Cancel</Button>
-  </div>
+  <slot />
   <div class="flex gap-2">
     <LabelPills bind:labels={fact.labels} let:label>
       <Button

@@ -7,7 +7,6 @@
 
   export let fact: Fact;
   export let isSelected: boolean;
-  export let onClick: () => void;
 </script>
 
 <Card
@@ -18,7 +17,7 @@
     "transition-shadow duration-100 ease-in-out",
     {"border-black hover:border-black": isSelected},
   ])}
-  on:click={onClick}
+  on:click
 >
   <CardContent>
     <div class="w-full">
@@ -30,7 +29,7 @@
       </div>
     </div>
   </CardContent>
-  <CardFooter class="opacity-0 group-hover:opacity-100">
+  <CardFooter class="opacity-0 pb-4 group-hover:opacity-100">
     <FactCardFooter {fact} />
   </CardFooter>
 </Card>

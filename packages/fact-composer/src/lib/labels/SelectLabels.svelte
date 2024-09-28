@@ -41,23 +41,7 @@
 
 <Popover.Root bind:open>
   <Popover.Trigger asChild let:builder>
-    <Tooltip openDelay={10}>
-      <TooltipTrigger>
-        <Button
-          builders={[builder]}
-          variant="ghost"
-          role="combobox"
-          size="icon"
-          aria-expanded={open}
-          class="rounded-full"
-        >
-          <TagIcon class="h-4 w-4" />
-        </Button>
-      </TooltipTrigger>
-      <TooltipContent side="bottom">
-        <span class="capitalize">Add label</span>
-      </TooltipContent>
-    </Tooltip>
+    <slot {builder} {open} />
   </Popover.Trigger>
   <Popover.Content class="w-[200px] p-0">
     <Command.Root>

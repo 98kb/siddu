@@ -5,13 +5,15 @@
 
   export let tooltip: string;
   export let side: ComponentProps<TooltipContent>["side"] = "bottom";
+  export let openDelay: number = 500;
+  export let sideOffset: number = 0;
 </script>
 
-<Tooltip openDelay={500}>
+<Tooltip {openDelay}>
   <TooltipTrigger>
     <slot />
   </TooltipTrigger>
-  <TooltipContent {side} sideOffset={0}>
+  <TooltipContent {side} {sideOffset}>
     <span class="capitalize text-xs">{tooltip}</span>
   </TooltipContent>
 </Tooltip>

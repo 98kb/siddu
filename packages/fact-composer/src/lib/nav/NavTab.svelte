@@ -1,28 +1,15 @@
 <script lang="ts">
+  import EasyTooltip from "$lib/components/EasyTooltip.svelte";
   import {Button} from "$lib/components/ui/button";
-  import {
-    Tooltip,
-    TooltipContent,
-    TooltipTrigger,
-  } from "$lib/components/ui/tooltip";
-  import {activeRoute, setActiveRoute, type Routes} from "$lib/router/router";
 
-  export let name: Routes;
+  export let name: string;
+  export let isActive: boolean;
+  let openDelay: number = 100;
+  let sideOffset: number = 20;
 </script>
 
-<Button
-  size="icon"
-  variant={$activeRoute === name ? "default" : "ghost"}
-  on:click={() => setActiveRoute(name)}
->
-  <Tooltip openDelay={100}>
-    <TooltipTrigger>
-      <slot />
-    </TooltipTrigger>
-    <TooltipContent side="left" sideOffset={20}>
-      <span class="capitalize">
-        {name}
-      </span>
-    </TooltipContent>
-  </Tooltip>
-</Button>
+<EasyTooltip side="left" tooltip={name} {openDelay} {sideOffset}>
+  <Button size="icon" on:click variant={isActive ? "default" : "ghost"}>
+    <slot />
+  </Button>
+</EasyTooltip>
