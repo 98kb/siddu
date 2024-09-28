@@ -1,12 +1,9 @@
 <script lang="ts">
-  import {Badge} from "$lib/components/ui/badge";
   import LabelPills from "$lib/labels/LabelPills.svelte";
   import {cn} from "$lib/utils";
   import type {Fact} from "@repo/facts-db";
 
   export let fact: Fact;
-
-  let labels = ["UX", "Software Engineering"];
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
