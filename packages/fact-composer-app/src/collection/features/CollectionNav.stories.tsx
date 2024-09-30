@@ -3,7 +3,7 @@ import {CollectionNav} from "./CollectionNav";
 import {RouterDecorator} from "~/lib/location/storybook/decorators/RouterDecorator";
 
 const meta = {
-  title: "features/collection/components/CollectionNav",
+  title: "features/collection/features/CollectionNav",
   component: CollectionNav,
   decorators: [
     Story => (

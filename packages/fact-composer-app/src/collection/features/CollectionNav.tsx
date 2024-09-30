@@ -1,8 +1,8 @@
 import {useLocation, useNavigate} from "react-router-dom";
-import {CollectionNavTabs} from "./CollectionNavTabs";
+import {CollectionNavTabs} from "../components/CollectionNavTabs";
 import {Label} from "@repo/facts-db";
 import {ArchiveIcon, BookOpenTextIcon} from "lucide-react";
-import {LabelIcon} from "./LabelIcon";
+import {LabelIcon} from "../components/LabelIcon";
 import {NavTab} from "~/lib/NavTab";
 import {useMemo} from "react";
 
