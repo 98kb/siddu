@@ -7,77 +7,67 @@ import {
   TagIcon,
   UserCircleIcon,
 } from "lucide-react";
-import {Button} from "~/components/ui/button";
-import {ComposerNavTab} from "./ComposerNavTab";
-import {useState} from "react";
-
-type Tab = {
-  name: string;
-  Icon: React.FC;
-};
-
-type TabName =
-  | (typeof tabs)[number]["name"]
-  | (typeof bottomTabs)[number]["name"];
+import {useLocation, useNavigate} from "react-router-dom";
+import {ComposerNavTabs} from "./ComposerNavTabs";
+import {NavTab} from "../lib/NavTab";
 
 export function ComposerNav() {
-  const [activeRoute, setActiveRoute] = useState<TabName>("collection");
+  const location = useLocation();
+  const navigate = useNavigate();
   return (
     <div className="flex flex-col min-w-14 max-h-[598px] box-border h-full shadow items-center py-2 gap-4">
-      <Button size="icon" variant="ghost">
-        <HomeIcon />
-      </Button>
-      {tabs.map(({name, Icon}) => (
-        <ComposerNavTab
-          key={name}
-          tabName={name}
-          isActive={activeRoute === name}
-          onClick={() => setActiveRoute(name)}
-        >
-          <Icon />
-        </ComposerNavTab>
-      ))}
+      <ComposerNavTabs
+        tabs={tabs}
+        activeRoute={location.pathname}
+        onClick={navigate}
+      />
       <div className="grow" />
-      {bottomTabs.map(({name, Icon}) => (
-        <ComposerNavTab
-          key={name}
-          tabName={name}
-          isActive={activeRoute === name}
-          onClick={() => setActiveRoute(name)}
-        >
-          <Icon />
-        </ComposerNavTab>
-      ))}
+      <ComposerNavTabs
+        tabs={bottomTabs}
+        activeRoute={location.pathname}
+        onClick={navigate}
+      />
     </div>
   );
 }
 
-const tabs: Tab[] = [
+const tabs: NavTab[] = [
+  {
+    name: "home",
+    route: "/",
+    Icon: HomeIcon,
+  },
   {
     name: "composition",
+    route: "/composition",
     Icon: PencilRulerIcon,
   },
   {
     name: "collection",
+    route: "/collection",
     Icon: NotebookIcon,
   },
   {
     name: "labels",
+    route: "/labels",
     Icon: TagIcon,
   },
   {
     name: "marketplace",
+    route: "/marketplace",
     Icon: ShoppingBagIcon,
   },
 ];
 
-const bottomTabs: Tab[] = [
+const bottomTabs: NavTab[] = [
   {
-    name: "settings",
+    name: "Guides",
+    route: "/help",
     Icon: HelpCircleIcon,
   },
   {
-    name: "account",
+    name: "Account",
+    route: "/account",
     Icon: UserCircleIcon,
   },
-] as const;
+];

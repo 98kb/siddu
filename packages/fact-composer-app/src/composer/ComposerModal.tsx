@@ -20,9 +20,10 @@ export function ComposerModal({db}: TProps) {
           <DialogContent className="flex gap-0 h-full rounded-lg overflow-y-scroll overflow-x-visible p-0 min-w-[70vw] min-h-[600px] max-h-[600px] max-w-[70vw]">
             <ComposerNav />
             <Routes>
-              <Route path="collection" element={<div>Collection</div>} />
-              <Route path="composer" element={<div>Composer</div>} />
-              <Route path="labels" element={<div>Labels</div>} />
+              <Route path="/collection" element={<div>Collection</div>} />
+              <Route path="/composition" element={<div>Composition</div>} />
+              <Route path="/labels" element={<div>Labels</div>} />
+              <Route path="*" element={<div>Not Found</div>} />
             </Routes>
           </DialogContent>
         </Dialog>
