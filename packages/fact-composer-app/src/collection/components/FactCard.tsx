@@ -24,8 +24,7 @@ export function FactCard({
     <TooltipProvider>
       <Card
         className={cn([
-          "max-w-[200px] min-w-[200px] w-full",
-          "group",
+          "group w-full",
           "select-none",
           "shadow-none hover:shadow hover:border-gray-400",
           "transition-shadow duration-100 ease-in-out",
