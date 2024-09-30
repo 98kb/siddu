@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import {useLocation, useNavigate} from "react-router-dom";
 import {ComposerNavTabs} from "./ComposerNavTabs";
-import {NavTab} from "../lib/NavTab";
+import {NavTab} from "../../lib/NavTab";
 
 export function ComposerNav() {
   const location = useLocation();

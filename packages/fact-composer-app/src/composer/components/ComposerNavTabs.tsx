@@ -1,4 +1,4 @@
-import {NavTab} from "../lib/NavTab";
+import {NavTab} from "../../lib/NavTab";
 import {ComposerNavTab} from "./ComposerNavTab";
 
 type TProps = {
