@@ -1,6 +1,7 @@
 import type {Meta, StoryObj} from "@storybook/react";
 import {FactCards} from "./FactCards";
 import {Fact} from "@repo/facts-db";
+import {FactCardActions} from "./FactCardActions";
 
 const meta = {
   title: "features/collection/components/FactCards",
@@ -96,5 +97,12 @@ export const HighlightedLabels: Story = {
     facts,
     highlightedFacts: [facts[0]],
     highlightedLabels: [facts[0].labels[0], facts[1].labels[1]],
+  },
+};
+
+export const WithFactActions: Story = {
+  args: {
+    facts,
+    children: () => <FactCardActions />,
   },
 };

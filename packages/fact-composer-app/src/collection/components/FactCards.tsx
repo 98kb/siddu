@@ -1,14 +1,17 @@
 import {Fact, Label} from "@repo/facts-db";
 import {FactCard} from "./FactCard";
+import {ComponentProps} from "react";
 
 type TProps = {
   facts: Fact[];
   highlightedFacts?: Fact[];
   highlightedLabels?: Label[];
+  children?: ComponentProps<typeof FactCard>["children"];
 };
 
 export function FactCards({
   facts,
+  children,
   highlightedFacts,
   highlightedLabels,
 }: TProps) {
@@ -18,7 +21,9 @@ export function FactCards({
       fact={fact}
       isHighlighted={isHighlighted(fact, highlightedFacts)}
       highlightedLabels={highlightedLabels}
-    />
+    >
+      {children}
+    </FactCard>
   ));
 }
 

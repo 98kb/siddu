@@ -3,6 +3,7 @@ import {fn} from "@storybook/test";
 
 import {FactCard} from "./FactCard";
 import {Fact} from "@repo/facts-db";
+import {FactCardActions} from "./FactCardActions";
 
 const meta = {
   title: "features/collection/components/FactCard",
@@ -53,5 +54,12 @@ export const WithHighlightedLabels: Story = {
       {id: 0, name: "ChatGPT"},
       {id: 2, name: "GoT"},
     ],
+  },
+};
+
+export const WithChildren: Story = {
+  args: {
+    fact,
+    children: () => <FactCardActions />,
   },
 };
