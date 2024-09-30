@@ -1,11 +1,11 @@
 import {Fact, Label} from "@repo/facts-db";
 import {Card, CardContent, CardFooter} from "~/components/ui/card";
 import {cn} from "~/lib/utils";
-import {LabelPills} from "../labels/components/LabelPills";
 import {Button} from "~/components/ui/button";
 import {ArchiveXIcon} from "lucide-react";
 import {EasyTooltip} from "~/components/EasyTooltip";
 import {TooltipProvider} from "~/components/ui/tooltip";
+import {LabelPills} from "~/labels/components/LabelPills";
 
 type TProps = {
   fact: Fact;
