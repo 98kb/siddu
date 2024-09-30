@@ -5,6 +5,7 @@ import {CollectionNavTabs} from "./CollectionNavTabs";
 import {NavTab} from "~/lib/NavTab";
 import {ArchiveIcon, BookOpenTextIcon} from "lucide-react";
 import {LabelIcon} from "./LabelIcon";
+import {Location} from "react-router-dom";
 
 const meta = {
   title: "features/collection/components/CollectionNavTabs",
@@ -53,6 +54,8 @@ const tabs: NavTab[] = [
 export const Default: Story = {
   args: {
     tabs,
-    activeRoute: "/facts",
+    activeRoute: {
+      pathname: "/facts",
+    } as Location,
   },
 };
