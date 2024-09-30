@@ -2,12 +2,16 @@ import type {Meta, StoryObj} from "@storybook/react";
 import {FactCards} from "./FactCards";
 import {Fact} from "@repo/facts-db";
 import {FactCardActions} from "./FactCardActions";
+import {fn} from "@storybook/test";
 
 const meta = {
   title: "features/collection/components/FactCards",
   component: FactCards,
   parameters: {
-    layout: "fullscreen",
+    layout: "centered",
+  },
+  args: {
+    onClick: fn(),
   },
 } satisfies Meta<typeof FactCards>;
 
