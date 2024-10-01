@@ -13,6 +13,9 @@ importers:
       '@repo/fact-composer-app':
         specifier: workspace:*
         version: link:../fact-composer-app
+      '@repo/facts-db':
+        specifier: workspace:*
+        version: link:../facts-db
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -10586,7 +10589,7 @@ snapshots:
       pathe: 1.1.2
       sirv: 2.0.4
       tinyrainbow: 1.2.0
-      vitest: 2.0.5(@types/node@20.16.1)(@vitest/ui@2.0.5)(jsdom@25.0.0)
+      vitest: 2.0.5(@types/node@22.7.4)(@vitest/ui@2.0.5)(jsdom@25.0.0)
 
   '@vitest/utils@1.6.0':
     dependencies:
@@ -15662,7 +15665,6 @@ snapshots:
       - sugarss
       - supports-color
       - terser
-    optional: true
 
   w3c-xmlserializer@5.0.0:
     dependencies:
