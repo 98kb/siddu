@@ -7,12 +7,12 @@ export function useFacts() {
   const [facts, setFacts] = useState<Fact[]>([]);
   const [cacheBuster, setCacheBuster] = useState("");
   useEffect(() => {
-    db.facts.getAll().then(setFacts);
+    db?.facts.getAll().then(setFacts);
   }, [db, cacheBuster]);
 
   const deleteFact = useCallback(
     (fact: Fact) => {
-      db.facts.delete(fact.id).then(() => {
+      db?.facts.delete(fact.id).then(() => {
         setCacheBuster(Date.now().toString());
       });
     },
