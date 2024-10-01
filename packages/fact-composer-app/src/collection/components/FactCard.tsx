@@ -2,14 +2,13 @@ import {Fact, Label} from "@repo/facts-db";
 import {Card, CardContent, CardFooter} from "~/components/ui/card";
 import {cn} from "~/lib/utils";
 import {LabelPills} from "~/labels/components/LabelPills";
-import {Reader} from "fp-ts/lib/Reader";
 
 type TProps = {
   fact: Fact;
   isHighlighted?: boolean;
   highlightedLabels?: Label[];
   onClick?: () => void;
-  children?: Reader<Fact, React.ReactNode>;
+  children?: React.ReactNode;
 };
 
 export function FactCard({
@@ -45,7 +44,7 @@ export function FactCard({
       </CardContent>
       {children && (
         <CardFooter className="opacity-0 pb-4 group-hover:opacity-100">
-          {children(fact)}
+          {children}
         </CardFooter>
       )}
     </Card>
