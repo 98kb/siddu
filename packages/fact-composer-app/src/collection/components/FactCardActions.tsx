@@ -1,10 +1,11 @@
+import {IO} from "fp-ts/lib/IO";
 import {ArchiveXIcon} from "lucide-react";
 import {EasyTooltip} from "~/components/EasyTooltip";
 import {Button} from "~/components/ui/button";
 import {TooltipProvider} from "~/components/ui/tooltip";
 
 type TProps = {
-  onArchive: () => void;
+  onArchive?: IO<void>;
 };
 
 export function FactCardActions({onArchive}: TProps) {
