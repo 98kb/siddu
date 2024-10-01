@@ -32,17 +32,17 @@ function useCollectionNav(labels: Label[]): NavTab[] {
       {
         Icon: BookOpenTextIcon,
         name: "Facts",
-        route: "/facts",
+        route: "/collection",
       },
       ...labels.map(label => ({
         Icon: LabelIcon,
         name: label.name,
-        route: `/facts?label=${label.id}`,
+        route: `/collection?label=${label.id}`,
       })),
       {
         Icon: ArchiveIcon,
         name: "Archive",
-        route: "/facts/archive",
+        route: "/collection/archive",
       },
     ];
   }, [labels]);

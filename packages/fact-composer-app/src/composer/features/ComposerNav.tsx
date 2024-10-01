@@ -8,26 +8,29 @@ import {
   UserCircleIcon,
 } from "lucide-react";
 import {useLocation, useNavigate} from "react-router-dom";
-import {ComposerNavTabs} from "./ComposerNavTabs";
+import {ComposerNavTabs} from "../components/ComposerNavTabs";
 import {NavTab} from "../../lib/NavTab";
+import {TooltipProvider} from "~/components/ui/tooltip";
 
 export function ComposerNav() {
   const location = useLocation();
   const navigate = useNavigate();
   return (
-    <div className="flex flex-col min-w-14 max-h-[598px] box-border h-full shadow items-center py-2 gap-4">
-      <ComposerNavTabs
-        tabs={tabs}
-        activeRoute={location.pathname}
-        onClick={navigate}
-      />
-      <div className="grow" />
-      <ComposerNavTabs
-        tabs={bottomTabs}
-        activeRoute={location.pathname}
-        onClick={navigate}
-      />
-    </div>
+    <TooltipProvider>
+      <div className="flex flex-col min-w-12 max-h-[598px] box-border h-full shadow items-center py-2 gap-4">
+        <ComposerNavTabs
+          tabs={tabs}
+          activeRoute={location.pathname}
+          onClick={navigate}
+        />
+        <div className="grow" />
+        <ComposerNavTabs
+          tabs={bottomTabs}
+          activeRoute={location.pathname}
+          onClick={navigate}
+        />
+      </div>
+    </TooltipProvider>
   );
 }
 

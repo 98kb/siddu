@@ -1,9 +1,9 @@
-declare module "@repo/fact-composer-app" {
-  import {ComponentProps} from "react";
-  import {ComposerModal} from "./composer/ComposerModal.tsx";
+import {Composer} from "./composer/Composer.tsx";
+import {ComponentProps} from "react";
 
+declare module "@repo/fact-composer-app" {
   export const createApp: (
     container: HTMLElement,
-    props: ComponentProps<typeof ComposerModal>,
+    props: ComponentProps<typeof Composer>,
   ) => void;
 }

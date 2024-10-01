@@ -15,7 +15,7 @@ export function FactsGrid({highlightedFacts, onClick}: TProps) {
 
   return (
     <ResponsiveMasonry
-      columnsCountBreakPoints={{300: 1, 350: 2, 500: 3, 700: 4, 900: 5}}
+      columnsCountBreakPoints={{300: 1, 350: 2, 500: 3, 700: 4, 900: 4}}
     >
       <Masonry gutter="0.75rem">
         {facts.map(fact => (
