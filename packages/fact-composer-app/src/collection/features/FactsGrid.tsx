@@ -1,14 +1,13 @@
 import {Fact} from "@repo/facts-db";
-import {FactCards} from "../components/FactCards";
 import {useFacts} from "~/db/useFacts";
 import {FactCardActions} from "../components/FactCardActions";
-import {ComponentProps} from "react";
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry";
 import {FactCard} from "../components/FactCard";
+import {Reader} from "fp-ts/lib/Reader";
 
 type TProps = {
   highlightedFacts: Fact[];
-  onClick: ComponentProps<typeof FactCards>["onClick"];
+  onClick: Reader<Fact, void>;
 };
 
 export function FactsGrid({highlightedFacts, onClick}: TProps) {
