@@ -29,6 +29,7 @@
     "fp-ts": "^2.16.9",
     "lodash.isequal": "^4.5.0",
     "lucide-react": "^0.446.0",
+    "nanoid": "^5.0.7",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-responsive-masonry": "^2.3.0",
