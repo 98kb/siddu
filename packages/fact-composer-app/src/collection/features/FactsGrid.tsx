@@ -1,9 +1,11 @@
 import {Fact} from "@repo/facts-db";
-import {useFacts} from "~/db/useFacts";
 import {FactCardActions} from "../components/FactCardActions";
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry";
 import {FactCard} from "../components/FactCard";
 import {Reader} from "fp-ts/lib/Reader";
+import {useFactsDb} from "~/db/useFactsDb";
+import {useLiveQuery} from "~/db/useLiveQuery";
+import {useCallback} from "react";
 
 type TProps = {
   highlightedFacts: Fact[];
@@ -11,7 +13,9 @@ type TProps = {
 };
 
 export function FactsGrid({highlightedFacts, onClick}: TProps) {
-  const {facts, deleteFact} = useFacts();
+  const db = useFactsDb();
+  const fetchFacts = useCallback(async () => db?.facts.getAll(), [db]);
+  const facts = useLiveQuery("facts", fetchFacts);
 
   return (
     <ResponsiveMasonry
@@ -25,7 +29,10 @@ export function FactsGrid({highlightedFacts, onClick}: TProps) {
             isHighlighted={isHighlighted(fact, highlightedFacts)}
             onClick={() => onClick?.(fact)}
           >
-            <FactCardActions key={fact.id} onArchive={() => deleteFact(fact)} />
+            <FactCardActions
+              key={fact.id}
+              onArchive={() => db?.facts.delete(fact.id)}
+            />
           </FactCard>
         ))}
       </Masonry>
