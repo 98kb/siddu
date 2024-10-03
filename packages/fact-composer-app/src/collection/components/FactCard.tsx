@@ -9,14 +9,16 @@ type TProps = {
   highlightedLabels?: Label[];
   onClick?: () => void;
   children?: React.ReactNode;
+  className?: string;
 };
 
 export function FactCard({
   fact,
   highlightedLabels,
   isHighlighted,
-  onClick,
   children,
+  className,
+  onClick,
 }: TProps) {
   return (
     <Card
@@ -26,6 +28,7 @@ export function FactCard({
         "shadow-none hover:shadow hover:border-gray-400",
         "transition-shadow duration-100 ease-in-out",
         {"border-black hover:border-black": isHighlighted},
+        className,
       ])}
       onClick={onClick}
     >
