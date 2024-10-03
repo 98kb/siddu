@@ -83,8 +83,9 @@ export const factsData: InsertFact[] = [
   },
 ];
 
-export const seedDb = (db: DbClient) => {
-  for (const label of labels) {
+// eslint-disable-next-line complexity
+export const seedDb = (db: DbClient, interLabels: InsertLabel[] = labels) => {
+  for (const label of interLabels) {
     db.labels.add(label);
   }
 
