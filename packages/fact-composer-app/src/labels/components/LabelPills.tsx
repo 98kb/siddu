@@ -6,15 +6,15 @@ import _isequal from "lodash.isequal";
 type TProps = {
   labels: Label[];
   highlightedLabels?: Label[];
-  slot?: Reader<Label, React.ReactNode>;
   onClick?: Reader<Label, void>;
+  children?: Reader<Label, React.ReactNode>;
   className?: string;
 };
 
 export function LabelPills({
   labels,
   highlightedLabels,
-  slot,
+  children,
   onClick,
   className,
 }: TProps) {
@@ -27,7 +27,7 @@ export function LabelPills({
         variant={toVariant(label, highlightedLabels)}
         onClick={() => onClick?.(label)}
       >
-        {slot?.(label)}
+        {children?.(label)}
       </Pill>
     ))
     .sort((a, b) => {

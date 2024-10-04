@@ -17,7 +17,7 @@ export function ComposerNav() {
   const navigate = useNavigate();
   return (
     <TooltipProvider>
-      <div className="flex flex-col min-w-12 max-h-[598px] box-border h-full shadow items-center py-2 gap-4">
+      <div className="flex flex-col min-w-14 max-h-[598px] box-border h-full shadow items-center py-2 gap-4">
         <ComposerNavTabs
           tabs={tabs}
           activeRoute={location.pathname}

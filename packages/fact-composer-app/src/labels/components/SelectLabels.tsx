@@ -1,7 +1,7 @@
 import {InsertLabel, Label} from "@repo/facts-db";
 import {Reader} from "fp-ts/lib/Reader";
 import {Check} from "lucide-react";
-import React, {useCallback, useState} from "react";
+import {useCallback, useState} from "react";
 import {Button} from "~/components/ui/button";
 import {
   Command,
@@ -22,24 +22,20 @@ type TProps = {
   onSelect: Reader<Label, void>;
 };
 
-function useSelectLabels() {
-  const db = useFactsDb();
-  const [query, setQuery] = useState("");
-  const fetchLabels = useCallback(async () => db?.labels.getAll(), [db]);
-  const labels = useLiveQuery("labels", fetchLabels);
-
-  return {
-    labels,
-    query,
-    setQuery,
-    addLabel: (label: InsertLabel) => db?.labels.add(label),
-  };
-}
-
 export function SelectLabels({children, selected, onSelect}: TProps) {
   const [open, setOpen] = useState(false);
   const {labels, query, addLabel, setQuery} = useSelectLabels();
   const isSelected = (label: Label) => selected.some(l => l.id === label.id);
+  const handleSelect = (label: Label) => {
+    onSelect(label);
+    setOpen(false);
+  };
+  const addAndSelect = async () => {
+    const id = await addLabel({name: query});
+    if (id) {
+      handleSelect({id, name: query});
+    }
+  };
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>{children?.({open})}</PopoverTrigger>
@@ -56,12 +52,7 @@ export function SelectLabels({children, selected, onSelect}: TProps) {
                 variant="ghost"
                 size="sm"
                 className="w-full justify-start"
-                onClick={async () => {
-                  const id = await addLabel({name: query});
-                  if (id) {
-                    onSelect({id, name: query});
-                  }
-                }}
+                onClick={addAndSelect}
               >
                 Add "{query}"
               </Button>
@@ -71,7 +62,7 @@ export function SelectLabels({children, selected, onSelect}: TProps) {
                 <CommandItem
                   key={label.id}
                   value={label.name}
-                  onSelect={() => onSelect(label)}
+                  onSelect={() => handleSelect(label)}
                 >
                   <Check
                     className={cn(
@@ -88,4 +79,18 @@ export function SelectLabels({children, selected, onSelect}: TProps) {
       </PopoverContent>
     </Popover>
   );
+}
+
+function useSelectLabels() {
+  const db = useFactsDb();
+  const [query, setQuery] = useState("");
+  const fetchLabels = useCallback(async () => db?.labels.getAll(), [db]);
+  const labels = useLiveQuery("labels", fetchLabels);
+
+  return {
+    labels,
+    query,
+    setQuery,
+    addLabel: (label: InsertLabel) => db?.labels.add(label),
+  };
 }

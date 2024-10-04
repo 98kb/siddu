@@ -16,10 +16,12 @@ export function ComposerBreadcrumbs({path}: TProps) {
       <BreadcrumbList>
         {pathList.map((path, index) => (
           <>
-            <BreadcrumbItem key={path} className="capitalize">
+            <BreadcrumbItem key={index} className="capitalize">
               {path}
             </BreadcrumbItem>
-            {index < pathList.length - 1 && <BreadcrumbSeparator />}
+            {index < pathList.length - 1 && (
+              <BreadcrumbSeparator key={`sep-${index}`} />
+            )}
           </>
         ))}
       </BreadcrumbList>

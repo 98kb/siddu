@@ -13,7 +13,7 @@ export function CollectionNavTab({Icon, isActive, name, onClick}: TProps) {
       className={cn(
         "inline-flex",
         "gap-5 p-2 px-4 items-center",
-        "min-w-[250px] max-w-[250px]",
+        "min-w-[240px] max-w-[240px]",
         "overflow-hidden",
         "cursor-pointer rounded-r-full text-sm",
         "hover:bg-gray-100",

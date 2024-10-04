@@ -13,7 +13,7 @@ export function CollectionNav() {
   const tabs = useCollectionNav();
 
   return (
-    <aside className="flex flex-col pr-10 py-5">
+    <aside className="flex flex-col pr-10 py-5 min-w-[15vw]">
       <CollectionNavTabs
         tabs={tabs}
         activeRoute={location}

@@ -49,7 +49,7 @@ export const Default: Story = {
 export const WithChildren: Story = {
   args: {
     labels,
-    slot: () => (
+    children: () => (
       <Button variant="ghost" size="icon-sm">
         <XIcon />
       </Button>
@@ -69,7 +69,7 @@ export const WithClassName: Story = {
   args: {
     labels,
     className: "ellipsis truncate max-w-[100px]",
-    slot: () => (
+    children: () => (
       <Button variant="ghost" size="icon-sm">
         <XIcon />
       </Button>
