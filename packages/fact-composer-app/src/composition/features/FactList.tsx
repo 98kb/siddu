@@ -6,15 +6,24 @@ import {queryAtom} from "../stores/queryAtom";
 import {filterLabelsAtom} from "../stores/filterLabelsAtom";
 import {useFactsDb} from "~/db/useFactsDb";
 import {FactListItem} from "../components/FactListItem";
+import {Reader} from "fp-ts/lib/Reader";
 
-export function FactList() {
+type TProps = {
+  onClick: Reader<Fact, void>;
+};
+
+export function FactList({onClick}: TProps) {
   const filteredFacts = useFacts();
   return (
     <>
       <SearchFact />
       <div className="flex flex-col gap-2 w-full max-h-[485px] pb-10 overflow-y-scroll">
         {filteredFacts.map(fact => (
-          <FactListItem key={fact.id} fact={fact} />
+          <FactListItem
+            key={fact.id}
+            fact={fact}
+            onClick={() => onClick(fact)}
+          />
         ))}
       </div>
     </>
