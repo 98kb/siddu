@@ -3,7 +3,6 @@ import {Reader} from "fp-ts/lib/Reader";
 import {useEffect, useState} from "react";
 import {Textarea} from "~/components/ui/textarea";
 import {LabelsEditor} from "~/labels/components/LabelsEditor";
-import {useDebounce} from "@uidotdev/usehooks";
 
 type TProps = {
   fact: Fact | InsertFact;
@@ -37,17 +36,4 @@ export function FactEditor({fact, onChange}: TProps) {
       />
     </div>
   );
-}
-
-function useContent({fact, onChange}: TProps) {
-  const [content, setContent] = useState(fact.content);
-  const debouncedContent = useDebounce(content, 200);
-  useEffect(() => {
-    setContent(fact.content);
-  }, [fact.content]);
-
-  useEffect(() => {
-    onChange({...fact, content: debouncedContent});
-  }, [debouncedContent, fact, onChange]);
-  return [content, setContent];
 }
