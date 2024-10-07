@@ -213,6 +213,9 @@ importers:
       fp-ts:
         specifier: ^2.16.9
         version: 2.16.9
+      jotai:
+        specifier: ^2.10.0
+        version: 2.10.0(@types/react@18.3.11)(react@18.3.1)
       lodash.debounce:
         specifier: ^4.0.8
         version: 4.0.8
@@ -231,9 +234,6 @@ importers:
       react-dom:
         specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
-      react-perfect-scrollbar:
-        specifier: ^1.5.8
-        version: 1.5.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-responsive-masonry:
         specifier: ^2.3.0
         version: 2.3.0
@@ -4737,6 +4737,18 @@ packages:
     resolution: {integrity: sha512-xPZ6pPzUifI8XDBBxIL4OB1w1ZKmBpmNEeKwNt2d0Spn8XisAIZhWrlOHq5seBrFGTxVx9PbrWvEMyrk4IO5bA==}
     hasBin: true
 
+  jotai@2.10.0:
+    resolution: {integrity: sha512-8W4u0aRlOIwGlLQ0sqfl/c6+eExl5D8lZgAUolirZLktyaj4WnxO/8a0HEPmtriQAB6X5LMhXzZVmw02X0P0qQ==}
+    engines: {node: '>=12.20.0'}
+    peerDependencies:
+      '@types/react': '>=17.0.0'
+      react: '>=17.0.0'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      react:
+        optional: true
+
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
 
@@ -5415,9 +5427,6 @@ packages:
   perfect-debounce@1.0.0:
     resolution: {integrity: sha512-xCy9V055GLEqoFaHoC1SoLIaLmWctgCUaBaWxDZ7/Zx4CTyX7cJQLJOok/orfjZAh9kEYpjJa4d0KcJmCbctZA==}
 
-  perfect-scrollbar@1.5.5:
-    resolution: {integrity: sha512-dzalfutyP3e/FOpdlhVryN4AJ5XDVauVWxybSkLZmakFE2sS3y3pc4JnSprw8tGmHvkaG5Edr5T7LBTZ+WWU2g==}
-
   periscopic@3.1.0:
     resolution: {integrity: sha512-vKiQ8RRtkl9P+r/+oefh25C3fhybptkHKCZSPlcXiJux2tJF55GnEj3BVn4A5gKfq9NWWXXrxkHBwVPUfH0opw==}
 
@@ -5836,12 +5845,6 @@ packages:
 
   react-is@18.1.0:
     resolution: {integrity: sha512-Fl7FuabXsJnV5Q1qIOQwx/sagGF18kogb4gpfcG4gjLBWO0WDiiz1ko/ExayuxE7InyQkBLkxRFG5oxY6Uu3Kg==}
-
-  react-perfect-scrollbar@1.5.8:
-    resolution: {integrity: sha512-bQ46m70gp/HJtiBOF3gRzBISSZn8FFGNxznTdmTG8AAwpxG1bJCyn7shrgjEvGSQ5FJEafVEiosY+ccER11OSA==}
-    peerDependencies:
-      react: '>=16.3.3'
-      react-dom: '>=16.3.3'
 
   react-refresh@0.14.2:
     resolution: {integrity: sha512-jCvmsr+1IUSMUyzOkRcvnVbX3ZYC6g9TDrDbFuFmRDq7PD4yaGbLKNQL6k2jnArV8hjYxh7hVhAZB6s9HDGpZA==}
@@ -11644,6 +11647,11 @@ snapshots:
 
   jiti@2.3.1: {}
 
+  jotai@2.10.0(@types/react@18.3.11)(react@18.3.1):
+    optionalDependencies:
+      '@types/react': 18.3.11
+      react: 18.3.1
+
   js-tokens@4.0.0: {}
 
   js-tokens@9.0.0: {}
@@ -12309,8 +12317,6 @@ snapshots:
 
   perfect-debounce@1.0.0: {}
 
-  perfect-scrollbar@1.5.5: {}
-
   periscopic@3.1.0:
     dependencies:
       '@types/estree': 1.0.6
@@ -12715,13 +12721,6 @@ snapshots:
   react-is@17.0.2: {}
 
   react-is@18.1.0: {}
-
-  react-perfect-scrollbar@1.5.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
-    dependencies:
-      perfect-scrollbar: 1.5.5
-      prop-types: 15.8.1
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
 
   react-refresh@0.14.2: {}
 

@@ -5,6 +5,7 @@ import {Collection} from "~/collection/pages/Collection";
 import {Reader} from "fp-ts/lib/Reader";
 import {cn} from "~/lib/utils";
 import {Header} from "../components/Header";
+import {Composition} from "~/composition/pages/Composition";
 
 type TProp = {
   open: boolean;
@@ -30,7 +31,7 @@ export function ComposerModal({open, onOpenChange}: TProp) {
           </h1>
           <Routes>
             <Route path="/collection" element={<Collection />} />
-            <Route path="/composition" element={<div>Composition</div>} />
+            <Route path="/composition" element={<Composition />} />
             <Route path="/labels" element={<div>Labels</div>} />
             <Route path="*" element={<div>Not Found</div>} />
           </Routes>
