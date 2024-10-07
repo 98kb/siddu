@@ -1,11 +1,9 @@
 import {Fact, InsertFact, Label} from "@repo/facts-db";
 import {ArchiveXIcon, TagIcon} from "lucide-react";
-import {ComponentProps, forwardRef} from "react";
-import {EasyTooltip} from "~/components/EasyTooltip";
+import {IconButton} from "~/components/IconButton";
 import {Button} from "~/components/ui/button";
 import {TooltipProvider} from "~/components/ui/tooltip";
 import {SelectLabels} from "~/labels/components/SelectLabels";
-import {cn} from "~/lib/utils";
 
 type TProps = {
   fact: Fact | InsertFact;
@@ -30,17 +28,17 @@ export function FactEditorToolbar({
             onSelect={label => updateLabels([...fact.labels, label])}
           >
             {({open}) => (
-              <ToolbarButton
+              <IconButton
                 tooltip="Add Label"
                 role="combobox"
                 aria-expanded={open}
               >
                 <TagIcon className="h-4 w-4" />
-              </ToolbarButton>
+              </IconButton>
             )}
           </SelectLabels>
           {"id" in fact && (
-            <ToolbarButton
+            <IconButton
               tooltip="Archive"
               onClick={async () => {
                 await onArchive(fact.id);
@@ -48,7 +46,7 @@ export function FactEditorToolbar({
               }}
             >
               <ArchiveXIcon className="h-4 w-4" />
-            </ToolbarButton>
+            </IconButton>
           )}
         </div>
         <div className="grow"></div>
@@ -59,37 +57,3 @@ export function FactEditorToolbar({
     </TooltipProvider>
   );
 }
-
-type ToolbarButtonProps = ComponentProps<typeof Button> & {
-  tooltip: string;
-  className?: string;
-  openDelay?: number;
-  side?: "top" | "bottom" | "left" | "right";
-  sideOffset?: number;
-};
-
-const ToolbarButton = forwardRef<HTMLButtonElement, ToolbarButtonProps>(
-  function ToolbarButton(
-    {children, tooltip, openDelay, side, sideOffset, className, ...buttonProps},
-    ref,
-  ) {
-    return (
-      <EasyTooltip
-        tooltip={tooltip}
-        openDelay={openDelay}
-        side={side}
-        sideOffset={sideOffset}
-      >
-        <Button
-          ref={ref}
-          size="icon"
-          variant="ghost"
-          className={cn("rounded-full", className)}
-          {...buttonProps}
-        >
-          {children}
-        </Button>
-      </EasyTooltip>
-    );
-  },
-);
