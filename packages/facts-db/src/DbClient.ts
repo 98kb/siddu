@@ -10,9 +10,9 @@ import {LabelSchema} from "./schema/label/LabelSchema";
 import {LabelsManager} from "./entities/LabelsManager";
 
 export class DbClient {
-  readonly facts: IAdapter<"facts">;
+  readonly facts: FactsManager;
   readonly collections: IAdapter<"collections">;
-  readonly labels: IAdapter<"labels">;
+  readonly labels: LabelsManager;
 
   constructor(factory: AdapterFactory) {
     this.collections = factory(options.collections);

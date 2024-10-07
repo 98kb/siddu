@@ -5,6 +5,7 @@ import {InsertFactSchema} from "../../src/schema/fact/InsertFactSchema";
 import {afterEach, beforeEach, describe} from "vitest";
 import {createMemoryAdapter} from "../../src/adapters/createMemoryAdapter";
 import {describeAdapter} from "../adapters/describeAdapter";
+import {describeFactFilter} from "./fact-manager/describeFactFilter";
 
 const db = new DbClient(createMemoryAdapter);
 const createFactManager = () =>
@@ -17,6 +18,7 @@ const createFactManager = () =>
     db,
   );
 
+// eslint-disable-next-line max-statements
 describe(FactsManager.name, () => {
   let manager = createFactManager();
   beforeEach(() => {
@@ -24,4 +26,5 @@ describe(FactsManager.name, () => {
   });
   afterEach(() => manager.deleteAll());
   describeAdapter(manager);
+  describeFactFilter(manager);
 });
