@@ -6,9 +6,5 @@ type TProps = {
 };
 
 export function Header({location}: TProps) {
-  return (
-    <div>
-      <ComposerBreadcrumbs path={location.pathname} />
-    </div>
-  );
+  return <ComposerBreadcrumbs path={location.pathname} />;
 }
