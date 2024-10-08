@@ -8,7 +8,7 @@ export const describeDeleteOne = <T extends keyof Tables>(
 ) => {
   it("deletes the object", async () => {
     const payload = toPayload(adapter);
-    const id = await adapter.add(payload);
+    const {id} = await adapter.add(payload);
     await adapter.delete(id);
     const retrievedFact = await adapter.get(id);
     expect(retrievedFact).toBeUndefined();

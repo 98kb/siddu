@@ -7,7 +7,7 @@ export const describePut = <T extends keyof Tables>(adapter: IAdapter<T>) => {
   // eslint-disable-next-line max-statements
   it("updates an existing object", async () => {
     const payload = toPayload(adapter);
-    const id = await adapter.add(payload);
+    const {id} = await adapter.add(payload);
 
     let key = "content";
     if (

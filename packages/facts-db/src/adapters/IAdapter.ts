@@ -9,7 +9,12 @@ import {z} from "zod";
 export interface IAdapter<T extends keyof Tables> {
   readonly options: AdapterOption<T>;
 
-  add(payload: z.infer<TableSchemas[T]["insertSchema"]>): Promise<number>;
+  add(
+    payload: z.infer<TableSchemas[T]["insertSchema"]>,
+  ): Promise<z.infer<TableSchemas[T]["schema"]>>;
+  addMany(
+    payload: z.infer<TableSchemas[T]["insertSchema"]>[],
+  ): Promise<z.infer<TableSchemas[T]["schema"]>[]>;
   delete(id: number): Promise<void>;
   deleteAll(): Promise<void>;
   get(id: number): Promise<z.infer<TableSchemas[T]["schema"]> | undefined>;

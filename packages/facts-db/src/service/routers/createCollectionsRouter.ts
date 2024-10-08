@@ -22,8 +22,13 @@ export const createCollectionsRouter = (collections: IAdapter<"collections">) =>
       .input(InsertCollectionSchema)
       .output(CollectionSchema)
       .mutation(async ({input}) => {
-        const id = await collections.add(input);
-        return {...input, id};
+        return await collections.add(input);
+      }),
+    createMany: publicProcedure
+      .input(InsertCollectionSchema.array())
+      .output(CollectionSchema.array())
+      .mutation(async ({input}) => {
+        return await collections.addMany(input);
       }),
     put: publicProcedure
       .input(CollectionSchema.partial().required({id: true}))

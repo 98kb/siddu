@@ -20,6 +20,8 @@ export * from "./schema/collection/InsertCollectionSchema";
 export * from "./schema/dbSchema";
 export * from "./schema/fact/Fact";
 export * from "./schema/fact/FactSchema";
+export * from "./schema/fact/ImportFact";
+export * from "./schema/fact/ImportFactSchema";
 export * from "./schema/fact/InsertFact";
 export * from "./schema/fact/InsertFactSchema";
 export * from "./schema/label/InsertLabel";

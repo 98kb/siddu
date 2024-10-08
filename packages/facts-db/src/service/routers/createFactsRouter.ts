@@ -23,8 +23,13 @@ export const createFactsRouter = (facts: IAdapter<"facts">) =>
       .input(InsertFactSchema)
       .output(FactSchema)
       .mutation(async ({input}) => {
-        const id = await facts.add(input);
-        return {...input, id};
+        return await facts.add(input);
+      }),
+    createMany: publicProcedure
+      .input(FactSchema.array())
+      .output(FactSchema.array())
+      .mutation(async ({input}) => {
+        return await facts.addMany(input);
       }),
     get: publicProcedure
       .input(FactSchema.pick({id: true}))

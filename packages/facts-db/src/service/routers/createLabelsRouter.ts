@@ -22,8 +22,13 @@ export const createLabelsRouter = (labels: IAdapter<"labels">) =>
       .input(InsertLabelSchema)
       .output(LabelSchema)
       .mutation(async ({input}) => {
-        const id = await labels.add(input);
-        return {...input, id};
+        return await labels.add(input);
+      }),
+    createMany: publicProcedure
+      .input(LabelSchema.array())
+      .output(LabelSchema.array())
+      .mutation(async ({input}) => {
+        return await labels.addMany(input);
       }),
     put: publicProcedure
       .input(LabelSchema.partial().required({id: true}))

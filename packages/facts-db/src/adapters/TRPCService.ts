@@ -66,11 +66,16 @@ export class TRPCService<T extends keyof Tables> implements IAdapter<T> {
 
   async add(
     obj: Parameters<typeof this.entity.create.mutate>[0],
-  ): Promise<number> {
+  ): Promise<z.infer<TableSchemas[T]["schema"]>> {
     // TODO: This is a hack to make the type checker happy but it's the ugliest thing I've ever seen
     const entity = this.entity as Client["collections"];
-    const {id} = await entity.create.mutate(obj as any);
-    return id;
+    return await entity.create.mutate(obj as any);
+  }
+
+  addMany(
+    payload: z.TypeOf<TableSchemas[T]["insertSchema"]>[],
+  ): Promise<z.TypeOf<TableSchemas[T]["schema"]>[]> {
+    return this.entity.createMany.mutate(payload as any);
   }
 
   delete(id: number): Promise<void> {

@@ -24,10 +24,16 @@ export class MemoryAdapter<T extends keyof Tables> extends AbstractAdapter<T> {
 
   async addItem(
     obj: z.infer<TableSchemas[T]["insertSchema"]>,
-  ): Promise<number> {
+  ): Promise<z.infer<TableSchemas[T]["schema"]>> {
     const id = Object.keys(this.objects).length + 1;
     this.objects[id] = {...obj, id} as z.infer<TableSchemas[T]["schema"]>;
-    return id;
+    return this.objects[id];
+  }
+
+  async addManyItems(
+    objs: z.infer<TableSchemas[T]["insertSchema"]>[],
+  ): Promise<z.infer<TableSchemas[T]["schema"]>[]> {
+    return Promise.all(objs.map(obj => this.addItem(obj)));
   }
 
   async putItem(

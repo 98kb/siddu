@@ -21,10 +21,18 @@ export abstract class AbstractAdapter<T extends keyof Tables>
 
   async add(
     payload: z.infer<TableSchemas[T]["insertSchema"]>,
-  ): Promise<number> {
-    const id = await this.addItem(payload);
+  ): Promise<z.infer<TableSchemas[T]["schema"]>> {
+    const item = await this.addItem(payload);
     this.notifyMutation();
-    return id;
+    return item;
+  }
+
+  async addMany(
+    payload: z.infer<TableSchemas[T]["insertSchema"]>[],
+  ): Promise<z.infer<TableSchemas[T]["schema"]>[]> {
+    const items = await this.addManyItems(payload);
+    this.notifyMutation();
+    return items;
   }
 
   async put(
@@ -71,7 +79,11 @@ export abstract class AbstractAdapter<T extends keyof Tables>
 
   abstract addItem(
     obj: z.infer<TableSchemas[T]["insertSchema"]>,
-  ): Promise<number>;
+  ): Promise<z.infer<TableSchemas[T]["schema"]>>;
+
+  abstract addManyItems(
+    obj: z.infer<TableSchemas[T]["insertSchema"]>[],
+  ): Promise<z.infer<TableSchemas[T]["schema"]>[]>;
 
   abstract deleteItem(id: number): Promise<void>;
   abstract deleteAllItems(): Promise<void>;

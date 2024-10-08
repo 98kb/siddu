@@ -5,9 +5,9 @@ import {toPayload} from "../../utils/toPayload";
 
 export const describeAdd = <T extends keyof Tables>(adapter: IAdapter<T>) => {
   const payload = toPayload(adapter);
-  it("adds an object and returns it's ID", async () => {
-    const id = await adapter.add(payload);
-    expect(id).not.toBeNaN();
+  it("adds an object and returns the added object", async () => {
+    const item = await adapter.add(payload);
+    expect(item).toMatchObject(payload);
   });
 
   it("does not mutate the input object", async () => {

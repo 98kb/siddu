@@ -5,7 +5,7 @@ import {MutationSubscription} from "../adapters/MutationSubscription";
 import {Reader} from "fp-ts/lib/Reader";
 import {TableSchemas} from "../schema/TableSchemas";
 import {Tables} from "../schema/Tables";
-import {TypeOf, z} from "zod";
+import {z} from "zod";
 
 export class EntityManager<T extends keyof Tables> implements IAdapter<T> {
   readonly options: AdapterOption<T>;
@@ -24,8 +24,16 @@ export class EntityManager<T extends keyof Tables> implements IAdapter<T> {
     return this.crud.put(id, payload);
   }
 
-  add(payload: TypeOf<TableSchemas[T]["insertSchema"]>): Promise<number> {
+  add(
+    payload: z.infer<TableSchemas[T]["insertSchema"]>,
+  ): Promise<z.infer<TableSchemas[T]["schema"]>> {
     return this.crud.add(payload);
+  }
+
+  addMany(
+    payload: z.TypeOf<TableSchemas[T]["insertSchema"]>[],
+  ): Promise<z.TypeOf<TableSchemas[T]["schema"]>[]> {
+    return this.crud.addMany(payload);
   }
 
   delete(id: number): Promise<void> {
@@ -36,13 +44,13 @@ export class EntityManager<T extends keyof Tables> implements IAdapter<T> {
     return this.crud.deleteAll();
   }
 
-  get(id: number): Promise<TypeOf<TableSchemas[T]["schema"]> | undefined> {
+  get(id: number): Promise<z.infer<TableSchemas[T]["schema"]> | undefined> {
     return this.crud.get(id);
   }
 
   getAll(
-    predicate?: Reader<TypeOf<TableSchemas[T]["schema"]>, boolean>,
-  ): Promise<TypeOf<TableSchemas[T]["schema"]>[]> {
+    predicate?: Reader<z.infer<TableSchemas[T]["schema"]>, boolean>,
+  ): Promise<z.infer<TableSchemas[T]["schema"]>[]> {
     return this.crud.getAll(predicate);
   }
 

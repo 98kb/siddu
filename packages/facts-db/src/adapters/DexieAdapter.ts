@@ -19,8 +19,18 @@ export class DexieAdapter<T extends keyof Tables> extends AbstractAdapter<T> {
 
   async addItem(
     payload: z.infer<TableSchemas[T]["insertSchema"]>,
-  ): Promise<number> {
-    return (await this.table.add({...payload})) as number;
+  ): Promise<z.infer<TableSchemas[T]["schema"]>> {
+    const id = await this.table.add({...payload});
+    return (await this.get(id as number))!;
+  }
+
+  async addManyItems(
+    payload: z.infer<TableSchemas[T]["insertSchema"]>[],
+  ): Promise<z.infer<TableSchemas[T]["schema"]>[]> {
+    const ids = (await this.table.bulkAdd(payload, {
+      allKeys: true,
+    })) as number[];
+    return await this.getAll(item => ids.includes(item.id));
   }
 
   get(id: number): Promise<z.infer<TableSchemas[T]["schema"]> | undefined> {

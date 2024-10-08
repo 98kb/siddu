@@ -6,7 +6,7 @@ import {toPayload} from "../../utils/toPayload";
 export const describeGet = <T extends keyof Tables>(adapter: IAdapter<T>) => {
   it("returns the object", async () => {
     const payload = toPayload(adapter);
-    const id = await adapter.add(payload);
+    const {id} = await adapter.add(payload);
     const retrievedItem = await adapter.get(id);
     expect(retrievedItem).toEqual({...payload, id});
   });
