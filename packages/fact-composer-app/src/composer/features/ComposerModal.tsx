@@ -5,22 +5,19 @@ import {Collection} from "~/collection/pages/Collection";
 import {cn} from "~/lib/utils";
 import {Header} from "../components/Header";
 import {Composition} from "~/composition/pages/Composition";
-import {Reader} from "fp-ts/lib/Reader";
 import {useCompositionTrigger} from "../hooks/useCompositionTrigger";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 import {DialogTitle} from "@radix-ui/react-dialog";
+import {useSetAtom} from "jotai";
+import {inputElAtom} from "../stores/inputElAtom";
+import {useComposer} from "../hooks/useComposer";
 
-type TProps = {
-  open: boolean;
-  onOpenChange: Reader<boolean, void>;
-};
-
-export function ComposerModal({open, onOpenChange}: TProps) {
+export function ComposerModal() {
   const location = useLocation();
-  const navigate = useNavigate();
-  useCompositionTrigger(() => navigate("/composition"));
+  const [isOpen, setIsOpen] = useComposer();
+  useCompositionTriggerHandler();
   return (
-    <Dialog modal open={open} onOpenChange={onOpenChange}>
+    <Dialog modal open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent
         className={cn(
           "flex gap-0 h-full rounded-lg p-0",
@@ -47,4 +44,13 @@ export function ComposerModal({open, onOpenChange}: TProps) {
       </DialogContent>
     </Dialog>
   );
+}
+
+function useCompositionTriggerHandler() {
+  const navigate = useNavigate();
+  const setInputEl = useSetAtom(inputElAtom);
+  useCompositionTrigger(event => {
+    setInputEl(event.target as HTMLTextAreaElement);
+    navigate("/composition");
+  });
 }
