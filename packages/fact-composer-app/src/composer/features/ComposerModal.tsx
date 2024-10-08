@@ -1,29 +1,37 @@
-import {Dialog, DialogContent} from "~/components/ui/dialog";
+import {Dialog, DialogContent, DialogDescription} from "~/components/ui/dialog";
 import {ComposerNav} from "./ComposerNav";
-import {Route, Routes, useLocation} from "react-router-dom";
+import {Route, Routes, useLocation, useNavigate} from "react-router-dom";
 import {Collection} from "~/collection/pages/Collection";
-import {Reader} from "fp-ts/lib/Reader";
 import {cn} from "~/lib/utils";
 import {Header} from "../components/Header";
 import {Composition} from "~/composition/pages/Composition";
+import {Reader} from "fp-ts/lib/Reader";
+import {useCompositionTrigger} from "../hooks/useCompositionTrigger";
+import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
+import {DialogTitle} from "@radix-ui/react-dialog";
 
-type TProp = {
+type TProps = {
   open: boolean;
   onOpenChange: Reader<boolean, void>;
 };
 
-export function ComposerModal({open, onOpenChange}: TProp) {
+export function ComposerModal({open, onOpenChange}: TProps) {
   const location = useLocation();
-
+  const navigate = useNavigate();
+  useCompositionTrigger(() => navigate("/composition"));
   return (
     <Dialog modal open={open} onOpenChange={onOpenChange}>
       <DialogContent
         className={cn(
           "flex gap-0 h-full rounded-lg p-0",
-          "overflow-y-scroll overflow-x-visible",
+          "overflow-hidden",
           "min-w-[70vw] min-h-[600px] max-h-[600px] max-w-[70vw]",
         )}
       >
+        <VisuallyHidden.Root>
+          <DialogDescription>Composer</DialogDescription>
+          <DialogTitle>{location.pathname}</DialogTitle>
+        </VisuallyHidden.Root>
         <ComposerNav />
         <div className="flex flex-col w-full h-full">
           <h1 className="p-4 capitalize border-b">
