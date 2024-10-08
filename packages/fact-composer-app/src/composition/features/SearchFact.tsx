@@ -8,6 +8,7 @@ import {TooltipProvider} from "@radix-ui/react-tooltip";
 import {filterLabelsAtom} from "../stores/filterLabelsAtom";
 import {Reader} from "fp-ts/lib/Reader";
 import {Label} from "@repo/facts-db";
+import {Input} from "~/components/ui/input";
 
 export function SearchFact() {
   const [query, setQuery] = useAtom(queryAtom);
@@ -15,13 +16,14 @@ export function SearchFact() {
 
   return (
     <TooltipProvider>
-      <div className="flex flex-col bg-background py-2 gap-2">
+      <div className="flex flex-col py-2 gap-2">
         <div className="flex items-center border gap-3 pl-2 focus-within:border-foreground">
           <SearchIcon size={16} className="text-foreground" />
-          <input
+          <Input
+            borderless
             type="text"
-            className="w-full focus:outline-none text-sm text-foreground"
             placeholder="Type to search..."
+            className="p-0"
             value={query}
             onInput={e => setQuery(e.currentTarget.value)}
           />
