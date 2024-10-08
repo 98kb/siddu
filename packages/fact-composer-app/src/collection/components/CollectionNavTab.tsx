@@ -16,8 +16,8 @@ export function CollectionNavTab({Icon, isActive, name, onClick}: TProps) {
         "min-w-[240px] max-w-[240px]",
         "overflow-hidden",
         "cursor-pointer rounded-r-full text-sm",
-        "hover:bg-gray-100",
-        isActive && "bg-gray-100",
+        "hover:bg-gray-50",
+        isActive && "bg-gray-50",
       )}
       onClick={onClick}
     >
