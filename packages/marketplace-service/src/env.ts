@@ -1,7 +1,4 @@
-import dotenv from "dotenv";
+import "dotenv/config";
+import {EnvSchema} from "./common/EnvSchema";
 
-dotenv.config();
-
-export const env = {
-  PORT: Number(process.env.PORT ?? "3000"),
-};
+export const env = EnvSchema.parse(process.env);
