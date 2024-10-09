@@ -2,7 +2,11 @@ import * as trpcExpress from "@trpc/server/adapters/express";
 import {createAppRouter} from "./createAppRouter";
 import {createContextInner} from "./lib/createContextInner";
 import {expressHandler} from "trpc-playground/handlers/express";
+import {extendZod} from "@zodyac/zod-mongoose";
+import {z} from "zod";
 import express from "express";
+
+extendZod(z);
 
 const trpcApiEndpoint = "/trpc";
 const playgroundEndpoint = "/dev";
@@ -28,4 +32,5 @@ app.use(
     },
   }),
 );
+
 export {app};

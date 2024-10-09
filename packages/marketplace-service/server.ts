@@ -1,5 +1,8 @@
 import {app} from "./src/app";
+import {connectDb} from "./src/connectDb";
 import {env} from "./src/env";
+
+await connectDb();
 
 app
   .listen(env.PORT, () => {

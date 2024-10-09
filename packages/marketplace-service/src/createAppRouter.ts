@@ -1,9 +1,7 @@
-import {publicProcedure, router} from "./lib/trpc";
-import {z} from "zod";
+import {createCollectionsRouter} from "./modules/collections/createCollectionsRouter";
+import {router} from "./lib/trpc";
 
 export const createAppRouter = () =>
   router({
-    getUser: publicProcedure.input(z.string()).query(opts => {
-      return {id: opts.input, name: "Bilbo"};
-    }),
+    collections: createCollectionsRouter(),
   });

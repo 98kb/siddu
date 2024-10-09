@@ -32,6 +32,8 @@
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
     "@types/express": "^5.0.0",
+    "@types/mongodb": "^4.0.7",
+    "@types/mongoose": "^5.11.97",
     "@types/node": "^20.5.4",
     "@vitest/coverage-v8": "^0.34.2",
     "eslint": "^8.47.0",
@@ -44,9 +46,13 @@
     "vitest": "^0.34.2"
   },
   "dependencies": {
+    "@repo/facts-db": "workspace:*",
     "@trpc/server": "^10.0.0",
+    "@zodyac/zod-mongoose": "^2.3.3",
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
+    "mongodb": "^6.9.0",
+    "mongoose": "^8.7.0",
     "superjson": "^2.2.1",
     "trpc-playground": "^1.0.4",
     "zod": "^3.23.8"
