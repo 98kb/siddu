@@ -6,6 +6,7 @@ import {createCallerFactory} from "../../src/service/lib/trpc";
 import {createContextInner} from "../../src/service/lib/createContextInner";
 import {createFactsRouter} from "../../src/service/routers/createFactsRouter";
 import {createMemoryAdapter} from "../../src/adapters/createMemoryAdapter";
+// eslint-disable-next-line import/named
 import {inferProcedureInput} from "@trpc/server";
 
 const ctx = createContextInner({});

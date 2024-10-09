@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/named
 import {EntityTable} from "dexie";
 import {TableSchemas} from "./TableSchemas";
 import {z} from "zod";
