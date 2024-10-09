@@ -1,23 +1,31 @@
 import * as trpcExpress from "@trpc/server/adapters/express";
 import {createAppRouter} from "./createAppRouter";
 import {createContextInner} from "./lib/createContextInner";
-import {env} from "./env";
-import {renderTrpcPanel} from "trpc-panel";
-import express, {Request, Response} from "express";
+import {expressHandler} from "trpc-playground/handlers/express";
+import express from "express";
+
+const trpcApiEndpoint = "/trpc";
+const playgroundEndpoint = "/dev";
 
 const router = createAppRouter();
 const app = express();
 app.use(
-  "/trpc",
+  trpcApiEndpoint,
   trpcExpress.createExpressMiddleware({
     router,
     createContext: createContextInner,
   }),
 );
 
-app.use("/dev", (_: Request, res: Response) => {
-  return res.send(
-    renderTrpcPanel(router, {url: `http://localhost:${env.PORT}/trpc`}),
-  );
-});
+app.use(
+  playgroundEndpoint,
+  await expressHandler({
+    trpcApiEndpoint,
+    playgroundEndpoint,
+    router,
+    request: {
+      superjson: true,
+    },
+  }),
+);
 export {app};
