@@ -1,4 +1,5 @@
 import * as trpcExpress from "@trpc/server/adapters/express";
+import {createAdmin} from "./modules/admin/createAdmin";
 import {createAppRouter} from "./createAppRouter";
 import {createContextInner} from "./lib/createContextInner";
 import {expressHandler} from "trpc-playground/handlers/express";
@@ -13,6 +14,7 @@ const playgroundEndpoint = "/dev";
 
 const router = createAppRouter();
 const app = express();
+
 app.use(
   trpcApiEndpoint,
   trpcExpress.createExpressMiddleware({
@@ -32,5 +34,7 @@ app.use(
     },
   }),
 );
+
+createAdmin(app);
 
 export {app};
