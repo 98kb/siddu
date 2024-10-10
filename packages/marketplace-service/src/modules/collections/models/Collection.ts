@@ -1,5 +1,17 @@
-import {CollectionSchema} from "../schemas/CollectionSchema";
-import {model} from "mongoose";
-import {zodSchema} from "@zodyac/zod-mongoose";
+import {Schema, model} from "mongoose";
 
-export const Collection = model("Collection", zodSchema(CollectionSchema));
+const LabelSchema = new Schema({
+  name: String,
+});
+
+const FactSchema = new Schema({
+  content: String,
+  labels: [LabelSchema],
+});
+
+const CollectionSchema = new Schema({
+  name: String,
+  facts: [FactSchema],
+});
+
+export const Collection = model("Collection", CollectionSchema);

@@ -1,12 +1,10 @@
-import {Collection} from "./models/Collection";
-import {CollectionSchema} from "./schemas/CollectionSchema";
+import {CollectionService} from "./services/CollectionService";
 import {publicProcedure} from "@repo/facts-db";
 import {router} from "../../lib/trpc";
-import {z} from "zod";
+
+const collections = new CollectionService();
 
 export const createCollectionsRouter = () =>
   router({
-    list: publicProcedure.output(z.array(CollectionSchema)).query(() => {
-      return Collection.find();
-    }),
+    list: publicProcedure.query(() => collections.list()),
   });
