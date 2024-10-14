@@ -31,9 +31,9 @@ export function SelectLabels({children, selected, onSelect}: TProps) {
     setOpen(false);
   };
   const addAndSelect = async () => {
-    const id = await addLabel({name: query});
-    if (id) {
-      handleSelect({id, name: query});
+    const addedLabel = await addLabel({name: query});
+    if (addedLabel) {
+      handleSelect(addedLabel);
     }
   };
   return (

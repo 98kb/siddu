@@ -25,8 +25,9 @@ export function SaveFact({fact: factProp, onChange, onClose}: TProps) {
       await db?.facts.put(fact.id, fact);
       onChange(fact);
     } else {
-      const id = await db?.facts.add(fact);
-      onChange({id, ...fact});
+      const insertedFact = await db?.facts.add(fact);
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      insertedFact && onChange(insertedFact);
     }
     setFact(fact);
   };

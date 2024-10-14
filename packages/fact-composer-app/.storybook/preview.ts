@@ -1,3 +1,4 @@
+import "normalize.css";
 import type {Preview} from "@storybook/react";
 import "../src/index.css";
 
