@@ -1,4 +1,5 @@
 import "@repo/fact-composer-app/dist/style.css";
+import "./style.css";
 import { createApp } from "@repo/fact-composer-app";
 import { createDbClient } from "./createDbClient";
 
