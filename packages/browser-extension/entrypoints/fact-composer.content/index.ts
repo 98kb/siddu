@@ -1,8 +1,6 @@
 import "@repo/fact-composer-app/dist/style.css";
 import { createApp } from "@repo/fact-composer-app";
-import { DbClient, createMemoryAdapter } from "@repo/facts-db";
-
-const db = new DbClient(createMemoryAdapter);
+import { createDbClient } from "./createDbClient";
 
 export default defineContentScript({
   matches: ["<all_urls>"],
@@ -10,7 +8,7 @@ export default defineContentScript({
   async main(ctx) {
     // 3. Define your UI
     const ui = await createShadowRootUi(ctx, {
-      name: "example-ui",
+      name: "fact-composer",
       position: "inline",
       isolateEvents: true,
       mode: "closed",
@@ -18,7 +16,7 @@ export default defineContentScript({
         const root = document.createElement("div");
         root.id = "root";
         container.appendChild(root);
-        createApp(root, { db });
+        createApp(root, { db: createDbClient() });
       },
     });
 

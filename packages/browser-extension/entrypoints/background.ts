@@ -1,3 +1,6 @@
+import { createChromeRuntimeServer } from "@repo/facts-db";
+import { db } from "@/lib/db";
+
 export default defineBackground(() => {
-  console.log('Hello background!', { id: browser.runtime.id });
+  createChromeRuntimeServer(db);
 });
