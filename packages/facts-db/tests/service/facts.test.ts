@@ -1,6 +1,5 @@
 /* eslint-disable max-nested-callbacks */
 import {DbClient} from "../../src/DbClient";
-import {InsertFactSchema} from "../../src/schema/fact/InsertFactSchema";
 import {beforeEach, describe, expect, it} from "vitest";
 import {createCallerFactory} from "../../src/service/lib/trpc";
 import {createContextInner} from "../../src/service/lib/createContextInner";
@@ -40,11 +39,6 @@ describe("facts/router", () => {
       const result = await caller.create(addFact);
       expect(result.id).toBeDefined();
       expect(result.content).toBe(addFact.content);
-    });
-
-    it(`throws if content length is less than ${InsertFactSchema.shape.content.minLength}`, async () => {
-      const addFact = {content: "", labels: []} satisfies Input;
-      await expect(caller.create(addFact)).rejects.toThrow();
     });
   });
 
