@@ -3,11 +3,14 @@ import {Reader} from "fp-ts/lib/Reader";
 import {useEffect, useState} from "react";
 import {Textarea} from "~/components/ui/textarea";
 import {LabelsEditor} from "~/labels/components/LabelsEditor";
+import {createDebounce} from "~/lib/createDebounce";
 
 type TProps = {
   fact: Fact | InsertFact;
   onChange: Reader<Fact | InsertFact, void>;
 };
+
+const debounce = createDebounce(300);
 
 export function FactEditor({fact, onChange}: TProps) {
   const [content, setContent] = useState(fact.content);
@@ -17,7 +20,7 @@ export function FactEditor({fact, onChange}: TProps) {
 
   const updateContent = (content: string) => {
     setContent(content);
-    onChange({...fact, content});
+    debounce(() => onChange({...fact, content}));
   };
   const updateLabels = (labels: Label[]) => onChange({...fact, labels});
 
