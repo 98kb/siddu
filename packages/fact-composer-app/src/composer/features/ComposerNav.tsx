@@ -11,6 +11,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {ComposerNavTabs} from "../components/ComposerNavTabs";
 import {NavTab} from "../../lib/NavTab";
 import {TooltipProvider} from "~/components/ui/tooltip";
+import {AppLogoIcon} from "~/components/AppLogoIcon";
 
 export function ComposerNav() {
   const location = useLocation();
@@ -18,6 +19,7 @@ export function ComposerNav() {
   return (
     <TooltipProvider>
       <div className="flex flex-col min-w-14 max-h-[598px] box-border h-full shadow items-center py-2 gap-4">
+        <AppLogoIcon className="w-10 h-10" />
         <ComposerNavTabs
           tabs={tabs}
           activeRoute={location.pathname}
