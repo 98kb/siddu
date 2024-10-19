@@ -1,17 +1,20 @@
 import {Schema, model} from "mongoose";
 
-const LabelSchema = new Schema({
-  name: String,
-});
-
-const FactSchema = new Schema({
-  content: String,
-  labels: [LabelSchema],
-});
-
 const CollectionSchema = new Schema({
-  name: String,
-  facts: [FactSchema],
+  name: {
+    type: String,
+    required: true,
+  },
+  facts: [
+    {
+      title: String,
+      content: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
+  labels: [String],
 });
 
 export const Collection = model("Collection", CollectionSchema);
