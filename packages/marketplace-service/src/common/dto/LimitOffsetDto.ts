@@ -1,7 +1,7 @@
 import {z} from "zod";
 
 export const LimitOffsetDto = z.object({
-  limit: z.number().int().positive(),
+  limit: z.number().int().positive().max(50),
   offset: z.number().int().nonnegative(),
 });
 
