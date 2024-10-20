@@ -16,7 +16,7 @@ export default defineContentScript({
       onMount(container) {
         const root = document.createElement("div");
         root.id = "root";
-        container.appendChild(root);
+        container.append(root);
         createApp(root, { db: createDbClient() });
       },
     });

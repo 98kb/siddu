@@ -5,6 +5,6 @@ export default defineConfig({
   outDir: "dist",
   modules: ["@wxt-dev/module-react"],
   manifest: {
-    permissions: ["alarms"],
+    permissions: ["alarms", "storage", "contextMenus"],
   },
 });
