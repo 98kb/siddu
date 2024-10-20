@@ -4,7 +4,6 @@ import {
   NotebookIcon,
   PencilRulerIcon,
   ShoppingBagIcon,
-  TagIcon,
   UserCircleIcon,
 } from "lucide-react";
 import {useLocation, useNavigate} from "react-router-dom";
@@ -51,11 +50,6 @@ const tabs: NavTab[] = [
     name: "collection",
     route: "/collection",
     Icon: NotebookIcon,
-  },
-  {
-    name: "labels",
-    route: "/labels",
-    Icon: TagIcon,
   },
   {
     name: "marketplace",

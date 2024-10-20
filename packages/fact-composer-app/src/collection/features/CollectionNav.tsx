@@ -1,6 +1,6 @@
 import {useLocation, useNavigate} from "react-router-dom";
 import {CollectionNavTabs} from "../components/CollectionNavTabs";
-import {ArchiveIcon, BookOpenTextIcon} from "lucide-react";
+import {ArchiveIcon, BookOpenTextIcon, TagIcon} from "lucide-react";
 import {LabelIcon} from "../components/LabelIcon";
 import {NavTab} from "~/lib/NavTab";
 import {useCallback, useMemo} from "react";
@@ -43,6 +43,11 @@ function useCollectionNav(): NavTab[] {
         Icon: ArchiveIcon,
         name: "Archive",
         route: "/collection/archive",
+      },
+      {
+        Icon: TagIcon,
+        name: "Labels",
+        route: "/collection/labels",
       },
     ];
   }, [labels]);

@@ -12,6 +12,7 @@ import {useSetAtom} from "jotai";
 import {inputElAtom} from "../stores/inputElAtom";
 import {useComposer} from "../hooks/useComposer";
 import {useAddFactTrigger} from "../hooks/useAddFactTrigger";
+import {MarketplacePage} from "~/marketplace/page/Marketplace";
 
 export function ComposerModal() {
   const location = useLocation();
@@ -39,7 +40,8 @@ export function ComposerModal() {
           <Routes>
             <Route path="/collection" element={<Collection />} />
             <Route path="/composition" element={<Composition />} />
-            <Route path="/labels" element={<div>Labels</div>} />
+            <Route path="/composition/labels" element={<div>Labels</div>} />
+            <Route path="/marketplace" element={<MarketplacePage />} />
             <Route path="*" element={<div>Not Found</div>} />
           </Routes>
         </div>
