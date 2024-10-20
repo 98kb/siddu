@@ -2,21 +2,21 @@ import {Button} from "~/components/ui/button";
 import {CollectionNav} from "../features/CollectionNav";
 import {PlusIcon} from "lucide-react";
 import {FactsGrid} from "../components/FactsGrid";
-import {useCallback, useMemo, useState} from "react";
-import {DbClient, Fact, InsertFact} from "@repo/facts-db";
+import {useCallback, useMemo} from "react";
+import {DbClient, Fact} from "@repo/facts-db";
 import {useLocation} from "react-router-dom";
 import {useLiveQuery} from "~/db/useLiveQuery";
 import {useFactsDb} from "~/db/useFactsDb";
 import {SaveFact} from "../features/SaveFact";
+import {useAtom} from "jotai";
+import {selectedFactAtom} from "../stores/selectedFactAtom";
 
 // eslint-disable-next-line complexity
 export function Collection() {
   const db = useFactsDb();
   const facts = useFactsByQuery(db);
 
-  const [selectedFact, setSelectedFact] = useState<
-    Fact | InsertFact | undefined
-  >();
+  const [selectedFact, setSelectedFact] = useAtom(selectedFactAtom);
   const highlightedFacts =
     selectedFact && "id" in selectedFact ? [selectedFact] : [];
 
