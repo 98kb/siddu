@@ -17,7 +17,7 @@ export function useReceiver<T extends keyof MessagePayload>(
   );
 
   useEffect(() => {
-    chrome.runtime.onMessage.addListener(cb);
-    return () => chrome.runtime.onMessage.removeListener(cb);
+    chrome.runtime?.onMessage.addListener(cb);
+    return () => chrome.runtime?.onMessage.removeListener(cb);
   }, [cb]);
 }
