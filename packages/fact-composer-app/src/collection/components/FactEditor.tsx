@@ -25,8 +25,8 @@ export function FactEditor({fact, onChange}: TProps) {
   const updateLabels = (labels: Label[]) => onChange({...fact, labels});
 
   return (
-    <div className="flex flex-col w-full h-full gap-4 px-3 py-4">
-      <div className="flex gap-2 flex-wrap">
+    <div className="flex flex-col w-full h-full gap-4">
+      <div className="flex gap-2 flex-wrap pt-3">
         <LabelsEditor labels={fact.labels} onChange={updateLabels} />
       </div>
       <Textarea

@@ -40,7 +40,7 @@ export function Collection() {
         />
       </div>
       {selectedFact && (
-        <div className="max-w-[25vw] min-w-[25vw] border-l p-3">
+        <div className="max-w-[25vw] min-w-[25vw] border-l p-3 pb-0">
           <SaveFact
             fact={selectedFact}
             onClose={() => setSelectedFact(undefined)}
