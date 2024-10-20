@@ -11,11 +11,13 @@ import {DialogTitle} from "@radix-ui/react-dialog";
 import {useSetAtom} from "jotai";
 import {inputElAtom} from "../stores/inputElAtom";
 import {useComposer} from "../hooks/useComposer";
+import {useAddFactTrigger} from "../hooks/useAddFactTrigger";
 
 export function ComposerModal() {
   const location = useLocation();
   const [isOpen, setIsOpen] = useComposer();
   useCompositionTriggerHandler();
+  useAddFactTrigger();
   return (
     <Dialog modal open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent
