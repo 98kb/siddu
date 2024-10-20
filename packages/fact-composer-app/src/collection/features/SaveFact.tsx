@@ -33,7 +33,7 @@ export function SaveFact({fact: factProp, onChange, onClose}: TProps) {
   };
 
   return (
-    <div className="flex flex-col grow">
+    <div className="flex flex-col h-full">
       <FactEditorToolbar
         fact={fact}
         onArchive={factId => db?.facts.delete(factId)}
