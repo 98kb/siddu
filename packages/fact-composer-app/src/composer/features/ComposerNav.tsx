@@ -1,10 +1,10 @@
 import {
   HelpCircleIcon,
-  HomeIcon,
+  // HomeIcon,
   NotebookIcon,
   PencilRulerIcon,
-  ShoppingBagIcon,
-  UserCircleIcon,
+  // ShoppingBagIcon,
+  // UserCircleIcon,
 } from "lucide-react";
 import {useLocation, useNavigate} from "react-router-dom";
 import {ComposerNavTabs} from "../components/ComposerNavTabs";
@@ -36,11 +36,11 @@ export function ComposerNav() {
 }
 
 const tabs: NavTab[] = [
-  {
-    name: "home",
-    route: "/",
-    Icon: HomeIcon,
-  },
+  // {
+  //   name: "home",
+  //   route: "/",
+  //   Icon: HomeIcon,
+  // },
   {
     name: "composition",
     route: "/composition",
@@ -51,11 +51,11 @@ const tabs: NavTab[] = [
     route: "/collection",
     Icon: NotebookIcon,
   },
-  {
-    name: "marketplace",
-    route: "/marketplace",
-    Icon: ShoppingBagIcon,
-  },
+  // {
+  //   name: "marketplace",
+  //   route: "/marketplace",
+  //   Icon: ShoppingBagIcon,
+  // },
 ];
 
 const bottomTabs: NavTab[] = [
@@ -64,9 +64,9 @@ const bottomTabs: NavTab[] = [
     route: "/help",
     Icon: HelpCircleIcon,
   },
-  {
-    name: "Account",
-    route: "/account",
-    Icon: UserCircleIcon,
-  },
+  // {
+  //   name: "Account",
+  //   route: "/account",
+  //   Icon: UserCircleIcon,
+  // },
 ];
