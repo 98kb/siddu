@@ -17,7 +17,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    Icon: LabelIcon,
+    children: <LabelIcon />,
     name: "ChatGPT",
     isActive: false,
   },

@@ -1,13 +1,13 @@
 import {cn} from "~/lib/utils";
 
 type TProps = {
-  Icon: React.FC;
+  children: React.ReactNode;
   isActive: boolean;
   name: string;
   onClick: () => void;
 };
 
-export function CollectionNavTab({Icon, isActive, name, onClick}: TProps) {
+export function CollectionNavTab({children, isActive, name, onClick}: TProps) {
   return (
     <span
       className={cn(
@@ -21,7 +21,7 @@ export function CollectionNavTab({Icon, isActive, name, onClick}: TProps) {
       )}
       onClick={onClick}
     >
-      <Icon />
+      {children}
       <div className="truncate">{name}</div>
     </span>
   );

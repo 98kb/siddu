@@ -1,11 +1,12 @@
 import {useLocation, useNavigate} from "react-router-dom";
-import {CollectionNavTabs} from "../components/CollectionNavTabs";
-import {ArchiveIcon, BookOpenTextIcon, TagIcon} from "lucide-react";
+import {BookOpenTextIcon, TagIcon} from "lucide-react";
 import {LabelIcon} from "../components/LabelIcon";
 import {NavTab} from "~/lib/NavTab";
 import {useCallback, useMemo} from "react";
 import {useFactsDb} from "~/db/useFactsDb";
 import {useLiveQuery} from "~/db/useLiveQuery";
+import {toEndpoint} from "~/lib/location/toEndpoint";
+import {CollectionNavTab} from "../components/CollectionNavTab";
 
 export function CollectionNav() {
   const location = useLocation();
@@ -14,11 +15,16 @@ export function CollectionNav() {
 
   return (
     <aside className="flex flex-col pr-10 py-5 min-w-[14vw]">
-      <CollectionNavTabs
-        tabs={tabs}
-        activeRoute={location}
-        onClick={navigate}
-      />
+      {tabs.map(({name, route, Icon}) => (
+        <CollectionNavTab
+          key={name}
+          name={name}
+          isActive={route === toEndpoint(location)}
+          onClick={() => navigate(route)}
+        >
+          <Icon key={name} className="w-4 h-4" />
+        </CollectionNavTab>
+      ))}
     </aside>
   );
 }
@@ -39,11 +45,6 @@ function useCollectionNav(): NavTab[] {
         name: label.name,
         route: `/collection?label=${label.id}`,
       })),
-      {
-        Icon: ArchiveIcon,
-        name: "Archive",
-        route: "/collection/archive",
-      },
       {
         Icon: TagIcon,
         name: "Labels",
