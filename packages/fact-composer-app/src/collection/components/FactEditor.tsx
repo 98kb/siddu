@@ -26,13 +26,13 @@ export function FactEditor({fact, onChange}: TProps) {
 
   return (
     <div className="flex flex-col w-full grow gap-4">
-      <div className="flex gap-2 flex-wrap pt-3">
+      <div className="flex gap-2 flex-wrap pt-2">
         <LabelsEditor labels={fact.labels} onChange={updateLabels} />
       </div>
       <Textarea
         autoFocus
         borderless
-        className="w-full py-4 px-1 min-h-[120px] grow"
+        className="w-full pb-4 px-1 min-h-[120px] grow"
         placeholder="Add a Fact..."
         value={content}
         onInput={e => updateContent(e.currentTarget.value)}
