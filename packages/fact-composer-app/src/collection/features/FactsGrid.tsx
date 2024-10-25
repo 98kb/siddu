@@ -1,8 +1,8 @@
 import {Fact} from "@repo/facts-db";
-import {FactCard} from "./FactCard";
+import {FactCard} from "../components/FactCard";
 import {Reader} from "fp-ts/lib/Reader";
 import {useFactsDb} from "~/db/useFactsDb";
-import {FactCardActions} from "./FactCardActions";
+import {FactCardActions} from "../components/FactCardActions";
 
 type TProps = {
   facts: Fact[];

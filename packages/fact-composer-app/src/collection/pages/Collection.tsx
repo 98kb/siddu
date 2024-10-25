@@ -1,7 +1,7 @@
 import {Button} from "~/components/ui/button";
 import {CollectionNav} from "../features/CollectionNav";
 import {PlusIcon} from "lucide-react";
-import {FactsGrid} from "../components/FactsGrid";
+import {FactsGrid} from "../features/FactsGrid";
 import {useCallback, useMemo} from "react";
 import {DbClient, Fact} from "@repo/facts-db";
 import {useLocation} from "react-router-dom";
