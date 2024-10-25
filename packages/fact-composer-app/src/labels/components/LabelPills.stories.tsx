@@ -7,7 +7,7 @@ import {Button} from "~/components/ui/button";
 import {XIcon} from "lucide-react";
 
 const meta = {
-  title: "features/labels/components/LabelPills",
+  title: "labels/components/LabelPills",
   component: LabelPills,
   args: {
     onClick: fn(),

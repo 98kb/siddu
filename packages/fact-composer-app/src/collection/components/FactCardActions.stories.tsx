@@ -3,7 +3,7 @@ import {FactCardActions} from "./FactCardActions";
 import {fn} from "@storybook/test";
 
 const meta = {
-  title: "features/collection/components/FactCardActions",
+  title: "collection/components/FactCardActions",
   component: FactCardActions,
   args: {
     onArchive: fn(),

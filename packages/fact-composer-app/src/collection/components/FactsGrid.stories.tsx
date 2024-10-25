@@ -8,7 +8,7 @@ const db = new DbClient(createMemoryAdapter);
 seedDb(db);
 
 const meta = {
-  title: "features/collection/features/FactsGrid",
+  title: "collection/features/FactsGrid",
   component: FactsGrid,
   parameters: {
     layout: "fullscreen",

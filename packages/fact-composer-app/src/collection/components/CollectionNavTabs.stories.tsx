@@ -8,7 +8,7 @@ import {LabelIcon} from "./LabelIcon";
 import {Location} from "react-router-dom";
 
 const meta = {
-  title: "features/collection/components/CollectionNavTabs",
+  title: "collection/components/CollectionNavTabs",
   component: CollectionNavTabs,
   args: {
     onClick: fn(),

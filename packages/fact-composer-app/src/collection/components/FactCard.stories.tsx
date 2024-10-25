@@ -6,7 +6,7 @@ import {Fact} from "@repo/facts-db";
 import {FactCardActions} from "./FactCardActions";
 
 const meta = {
-  title: "features/collection/components/FactCard",
+  title: "collection/components/FactCard",
   component: FactCard,
   args: {
     onClick: fn(),

@@ -5,7 +5,7 @@ import {CollectionNavTab} from "./CollectionNavTab";
 import {LabelIcon} from "./LabelIcon";
 
 const meta = {
-  title: "features/collection/components/CollectionNavTab",
+  title: "collection/components/CollectionNavTab",
   component: CollectionNavTab,
   args: {
     onClick: fn(),
