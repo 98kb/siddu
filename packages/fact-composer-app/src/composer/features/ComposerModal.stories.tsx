@@ -18,11 +18,9 @@ const meta = {
   },
   decorators: [
     Story => (
-      <FactsDbContext.Provider value={db}>
-        <RouterDecorator>
-          <Story />
-        </RouterDecorator>
-      </FactsDbContext.Provider>
+      <RouterDecorator>
+        <Story />
+      </RouterDecorator>
     ),
   ],
 } satisfies Meta<typeof ComposerModal>;
@@ -34,4 +32,27 @@ export const Primary: Story = {
   args: {
     open: true,
   },
+  decorators: [
+    Story => (
+      <FactsDbContext.Provider value={db}>
+        <Story />
+      </FactsDbContext.Provider>
+    ),
+  ],
+};
+
+export const BlankDb: Story = {
+  args: {
+    open: true,
+  },
+  decorators: [
+    Story => {
+      const blankDb = new DbClient(createMemoryAdapter);
+      return (
+        <FactsDbContext.Provider value={blankDb}>
+          <Story />
+        </FactsDbContext.Provider>
+      );
+    },
+  ],
 };

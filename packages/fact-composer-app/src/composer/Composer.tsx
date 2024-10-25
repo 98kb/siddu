@@ -12,7 +12,7 @@ type TProps = {
 };
 
 export function Composer({db}: TProps) {
-  const [, setIsOpen] = useComposer();
+  const [isOpen, setIsOpen] = useComposer();
   const setComposition = useSetAtom(compositionAtom);
   useCompositionTrigger(() => {
     setComposition("");
@@ -21,7 +21,7 @@ export function Composer({db}: TProps) {
   return (
     <FactsDbContext.Provider value={db}>
       <MemoryRouter>
-        <ComposerModal />
+        <ComposerModal open={isOpen} onOpenChange={setIsOpen} />
       </MemoryRouter>
     </FactsDbContext.Provider>
   );
