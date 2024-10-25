@@ -10,17 +10,18 @@ import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 import {DialogTitle} from "@radix-ui/react-dialog";
 import {useSetAtom} from "jotai";
 import {inputElAtom} from "../stores/inputElAtom";
-import {useComposer} from "../hooks/useComposer";
 import {useAddFactTrigger} from "../hooks/useAddFactTrigger";
 import {MarketplacePage} from "~/marketplace/page/Marketplace";
+import {ComponentProps} from "react";
 
-export function ComposerModal() {
+type TProps = ComponentProps<typeof Dialog>;
+
+export function ComposerModal(props: TProps) {
   const location = useLocation();
-  const [isOpen, setIsOpen] = useComposer();
   useCompositionTriggerHandler();
   useAddFactTrigger();
   return (
-    <Dialog modal open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog modal {...props}>
       <DialogContent
         className={cn(
           "flex gap-0 h-full rounded-lg p-0",
