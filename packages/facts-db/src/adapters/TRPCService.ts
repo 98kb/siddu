@@ -1,14 +1,15 @@
 import {AdapterOption} from "./AdapterOption";
+import {AppRouter} from "../service/AppRouter";
 import {IAdapter} from "./IAdapter";
 import {IO} from "fp-ts/lib/IO";
 import {MutationSubscription} from "./MutationSubscription";
 import {Reader} from "fp-ts/lib/Reader";
 import {TableSchemas} from "../schema/TableSchemas";
 import {Tables} from "../schema/Tables";
-import {createChromeRuntimeClient} from "../service/createChromeRuntimeClient";
+import {createTRPCProxyClient} from "@trpc/client";
 import {z} from "zod";
 
-type Client = ReturnType<typeof createChromeRuntimeClient>;
+type Client = ReturnType<typeof createTRPCProxyClient<AppRouter>>;
 
 export class TRPCService<T extends keyof Tables> implements IAdapter<T> {
   private subscribers: IO<void>[] = [];

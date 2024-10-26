@@ -31,8 +31,6 @@ export * from "./schema/label/LabelSchema";
 export * from "./schema/Tables";
 export * from "./schema/TableSchemas";
 export * from "./service/AppRouter";
-export * from "./service/createChromeRuntimeClient";
-export * from "./service/createChromeRuntimeServer";
 export * from "./service/errors/NotFound";
 export * from "./service/lib/createContextInner";
 export * from "./service/lib/FilterSchema";
