@@ -1,10 +1,10 @@
-import { addContextMenus } from "./background/addContextMenus";
-import { createChromeRuntimeServer } from "@repo/facts-db";
-import { db } from "@/lib/db";
+import {addContextMenus} from "@/lib/background/addContextMenus";
+import {createRuntimeServer} from "@/lib/background/createRuntimeServer";
+import {db} from "@/lib/db";
 
 const init = () => {
   addContextMenus();
-  createChromeRuntimeServer(db);
+  createRuntimeServer(db);
 };
 
 export default defineBackground(() => {
@@ -12,8 +12,10 @@ export default defineBackground(() => {
   chrome.runtime.onInstalled.addListener(() => {
     console.log("Service worker installed, setting up keep-alive alarm");
     init();
-    const around28Seconds = 0.46; // ~28 seconds
-    chrome.alarms.create("keepAlive", { periodInMinutes: around28Seconds });
+    // ~28 seconds because chrome disconnects after 30 seconds of inactivity
+    const around28Seconds = 0.46;
+    // TODO: make it smarter, e.g. reset the alarm when the service worker is used
+    chrome.alarms.create("keepAlive", {periodInMinutes: around28Seconds});
   });
 
   // Reinitialize the tRPC server when Chrome starts
@@ -23,7 +25,7 @@ export default defineBackground(() => {
   });
 
   // Keep-alive logic: ensure the service worker stays alive
-  chrome.alarms.onAlarm.addListener((alarm) => {
+  chrome.alarms.onAlarm.addListener(alarm => {
     if (alarm.name === "keepAlive") {
       console.log(
         "Keep-alive alarm triggered, keeping the service worker alive",

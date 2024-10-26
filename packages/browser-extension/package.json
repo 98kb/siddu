@@ -15,8 +15,13 @@
     "postinstall": "wxt prepare"
   },
   "dependencies": {
+    "@repo/chrome-auth-service": "workspace:*",
     "@repo/fact-composer-app": "workspace:*",
     "@repo/facts-db": "workspace:*",
+    "@trpc/client": "^10.0.0",
+    "@trpc/server": "^10.0.0",
+    "superjson": "^2.2.1",
+    "trpc-chrome": "^1.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },

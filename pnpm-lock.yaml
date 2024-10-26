@@ -19,12 +19,24 @@ importers:
       '@repo/facts-db':
         specifier: workspace:*
         version: link:../facts-db
+      '@trpc/client':
+        specifier: ^10.0.0
+        version: 10.45.2(@trpc/server@10.45.2)
+      '@trpc/server':
+        specifier: ^10.0.0
+        version: 10.45.2
       react:
         specifier: ^18.3.1
         version: 18.3.1
       react-dom:
         specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
+      superjson:
+        specifier: ^2.2.1
+        version: 2.2.1
+      trpc-chrome:
+        specifier: ^1.0.0
+        version: 1.0.0(@trpc/client@10.45.2(@trpc/server@10.45.2))(@trpc/server@10.45.2)
     devDependencies:
       '@types/chrome':
         specifier: ^0.0.270
@@ -256,6 +268,9 @@ importers:
       '@radix-ui/react-visually-hidden':
         specifier: ^1.1.0
         version: 1.1.0(@types/react-dom@18.3.0)(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@repo/chrome-auth-service':
+        specifier: workspace:*
+        version: link:../chrome-auth-service
       '@repo/facts-db':
         specifier: workspace:*
         version: link:../facts-db
