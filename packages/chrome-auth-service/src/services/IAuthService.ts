@@ -1,4 +1,5 @@
-import {Task} from "fp-ts/lib/Task";
+import {Reader} from "fp-ts/lib/Reader";
+
 export interface IAuthService {
-  getAccessToken: Task<string | undefined>;
+  getAccessToken: Reader<string[], Promise<string | undefined>>;
 }
