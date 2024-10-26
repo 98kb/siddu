@@ -1,4 +1,4 @@
-import {useAuth} from "~/auth/useAuth";
+import {useAuth} from "~/auth/hooks/useAuth";
 import {Button} from "~/components/ui/button";
 
 export function SignInButton() {
