@@ -13,6 +13,7 @@ import {inputElAtom} from "../stores/inputElAtom";
 import {useAddFactTrigger} from "../hooks/useAddFactTrigger";
 import {MarketplacePage} from "~/marketplace/page/Marketplace";
 import {ComponentProps} from "react";
+import {AccountPage} from "~/account/pages/AccountPage";
 
 type TProps = ComponentProps<typeof Dialog>;
 
@@ -43,6 +44,7 @@ export function ComposerModal(props: TProps) {
             <Route path="/composition" element={<Composition />} />
             <Route path="/composition/labels" element={<div>Labels</div>} />
             <Route path="/marketplace" element={<MarketplacePage />} />
+            <Route path="/account" element={<AccountPage />} />
             <Route path="*" element={<div>Not Found</div>} />
           </Routes>
         </div>
