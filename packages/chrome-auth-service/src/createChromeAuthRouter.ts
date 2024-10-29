@@ -6,5 +6,5 @@ export const createChromeAuthRouter = (auth: IAuthService) =>
   router({
     getAccessToken: publicProcedure
       .input(AccessTokenRequest)
-      .query(({input}) => auth.getAccessToken(input.scopes)),
+      .query(({input}) => auth.getAccessToken(input)),
   });

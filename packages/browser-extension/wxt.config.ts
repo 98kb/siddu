@@ -10,7 +10,11 @@ export default defineConfig({
     permissions: ["alarms", "storage", "contextMenus", "identity"],
     oauth2: {
       client_id: env.WXT_OAUTH_CLIENT_ID,
-      scopes: ["email"],
+      scopes: [
+        "email",
+        // "https://www.googleapis.com/auth/drive.appdata",
+        // "https://www.googleapis.com/auth/drive.appfolder",
+      ],
     },
   },
 });

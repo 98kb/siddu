@@ -1,5 +1,4 @@
-import { DbClient, DexieAdapter, createFactsDB } from "@repo/facts-db";
+import {DbClient, DexieAdapter} from "@repo/facts-db";
+import {factsDb} from "./factsDb";
 
-export const db = new DbClient(
-  (table) => new DexieAdapter(table, createFactsDB("facts")),
-);
+export const db = new DbClient(table => new DexieAdapter(table, factsDb));

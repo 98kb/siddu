@@ -1,11 +1,24 @@
 import {
-  ChromeAuth,
-  createAppRouter as createAuthRouter,
+  GoogleChromeAuth,
+  createChromeAuthRouter,
 } from "@repo/chrome-auth-service";
+import {createBackupRouter, createBackupService} from "@repo/facts-db-backup";
 import {createAppRouter as createDbRouter} from "@repo/facts-db";
 import {router as createRouter} from "../trpc";
-import {db as dbClient} from "../db";
+import {db} from "../db";
+import {factsDb} from "../factsDb";
 
-const db = createDbRouter(dbClient);
-const auth = createAuthRouter(new ChromeAuth());
-export const backgroundRouter = createRouter({auth, db});
+export const backgroundRouter = createRouter({
+  db: createDbRouter(db),
+  auth: createChromeAuthRouter(new GoogleChromeAuth()),
+  backup: createBackupRouter(
+    createBackupService(factsDb, {
+      drive: {
+        scopes: [
+          "https://www.googleapis.com/auth/drive.appdata",
+          "https://www.googleapis.com/auth/drive.appfolder",
+        ],
+      },
+    }),
+  ),
+});

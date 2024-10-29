@@ -8,13 +8,16 @@ import {useSetAtom} from "jotai";
 import {compositionAtom} from "~/composition/stores/compositionAtom";
 import {useComposer} from "./hooks/useComposer";
 import {AuthContext} from "~/auth/AuthContext";
+import {BackupClient} from "@repo/facts-db-backup";
+import {BackupContext} from "~/context/BackupContext";
 
 type TProps = {
   db: DbClient;
   auth?: AuthClient;
+  backup?: BackupClient;
 };
 
-export function Composer({auth, db}: TProps) {
+export function Composer({auth, backup, db}: TProps) {
   const [isOpen, setIsOpen] = useComposer();
   const setComposition = useSetAtom(compositionAtom);
   useCompositionTrigger(() => {
@@ -24,9 +27,11 @@ export function Composer({auth, db}: TProps) {
   return (
     <AuthContext.Provider value={auth}>
       <FactsDbContext.Provider value={db}>
-        <MemoryRouter>
-          <ComposerModal open={isOpen} onOpenChange={setIsOpen} />
-        </MemoryRouter>
+        <BackupContext.Provider value={backup}>
+          <MemoryRouter>
+            <ComposerModal open={isOpen} onOpenChange={setIsOpen} />
+          </MemoryRouter>
+        </BackupContext.Provider>
       </FactsDbContext.Provider>
     </AuthContext.Provider>
   );

@@ -24,6 +24,7 @@ export default defineContentScript({
         createApp(root, {
           db: new DbClient(table => new TRPCService(table, client.db)),
           auth: client.auth,
+          backup: client.backup,
         });
       },
     });
