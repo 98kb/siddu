@@ -2,9 +2,7 @@ import {ExportImportService} from "./ExportImportService";
 import {IDriveService} from "../types/IDriveService";
 import {NaamkaranService} from "./NaamkaranService";
 
-/**
- * TODO: Add locking mechanism to prevent concurrent backups
- */
+// TODO: Add locking mechanism to prevent concurrent backups
 export class BackupService {
   constructor(
     private readonly drive: IDriveService,
