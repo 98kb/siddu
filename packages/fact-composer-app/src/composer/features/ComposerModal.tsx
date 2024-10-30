@@ -1,4 +1,9 @@
-import {Dialog, DialogContent, DialogDescription} from "~/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogDescription,
+} from "~/components/ui/dialog";
 import {ComposerNav} from "./ComposerNav";
 import {Route, Routes, useLocation, useNavigate} from "react-router-dom";
 import {Collection} from "~/collection/pages/Collection";
@@ -7,7 +12,6 @@ import {Header} from "../components/Header";
 import {Composition} from "~/composition/pages/Composition";
 import {useCompositionTrigger} from "../hooks/useCompositionTrigger";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
-import {DialogTitle} from "@radix-ui/react-dialog";
 import {useSetAtom} from "jotai";
 import {inputElAtom} from "../stores/inputElAtom";
 import {useAddFactTrigger} from "../hooks/useAddFactTrigger";
