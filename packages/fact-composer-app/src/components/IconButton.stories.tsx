@@ -5,7 +5,7 @@ import {IconButton} from "./IconButton";
 import {TagIcon} from "lucide-react";
 import {TooltipProvider} from "@radix-ui/react-tooltip";
 
-const meta = {
+const meta: Meta<typeof IconButton> = {
   title: "components/IconButton ",
   component: IconButton,
   args: {
@@ -18,7 +18,7 @@ const meta = {
       </TooltipProvider>
     ),
   ],
-} satisfies Meta<typeof IconButton>;
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;

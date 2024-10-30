@@ -34,7 +34,7 @@ const labels: Label[] = [
 const db = new DbClient(createMemoryAdapter);
 seedDb(db, labels);
 
-const meta = {
+const meta: Meta<typeof SelectLabels> = {
   title: "labels/components/SelectLabels",
   component: SelectLabels,
   args: {
@@ -48,7 +48,7 @@ const meta = {
       </FactsDbContext.Provider>
     ),
   ],
-} satisfies Meta<typeof SelectLabels>;
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;

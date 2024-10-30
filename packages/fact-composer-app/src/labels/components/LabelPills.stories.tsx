@@ -6,13 +6,13 @@ import {Label} from "@repo/facts-db";
 import {Button} from "~/components/ui/button";
 import {XIcon} from "lucide-react";
 
-const meta = {
+const meta: Meta<typeof LabelPills> = {
   title: "labels/components/LabelPills",
   component: LabelPills,
   args: {
     onClick: fn(),
   },
-} satisfies Meta<typeof LabelPills>;
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;

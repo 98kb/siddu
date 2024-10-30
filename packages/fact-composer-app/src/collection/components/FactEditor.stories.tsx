@@ -8,7 +8,7 @@ import {FactsDbContext} from "~/context/FactsDbContext";
 const db = new DbClient(createMemoryAdapter);
 seedDb(db);
 
-const meta = {
+const meta: Meta<typeof FactEditor> = {
   title: "collection/components/FactEditor",
   component: FactEditor,
   args: {
@@ -21,7 +21,7 @@ const meta = {
       </FactsDbContext.Provider>
     ),
   ],
-} satisfies Meta<typeof FactEditor>;
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;

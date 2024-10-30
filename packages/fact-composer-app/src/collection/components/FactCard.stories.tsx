@@ -5,13 +5,13 @@ import {FactCard} from "./FactCard";
 import {Fact} from "@repo/facts-db";
 import {FactCardActions} from "./FactCardActions";
 
-const meta = {
+const meta: Meta<typeof FactCard> = {
   title: "collection/components/FactCard",
   component: FactCard,
   args: {
     onClick: fn(),
   },
-} satisfies Meta<typeof FactCard>;
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;

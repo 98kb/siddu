@@ -7,14 +7,14 @@ import {fn} from "@storybook/test";
 const db = new DbClient(createMemoryAdapter);
 seedDb(db);
 
-const meta = {
+const meta: Meta<typeof FactsGrid> = {
   title: "collection/features/FactsGrid",
   component: FactsGrid,
   parameters: {
     layout: "fullscreen",
   },
   args: {onClick: fn()},
-} satisfies Meta<typeof FactsGrid>;
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;

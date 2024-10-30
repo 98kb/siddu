@@ -10,7 +10,7 @@ import {fn} from "@storybook/test";
 const db = new DbClient(createMemoryAdapter);
 seedDb(db);
 
-const meta = {
+const meta: Meta<typeof ComposerModal> = {
   title: "composer/features/ComposerModal",
   component: ComposerModal,
   args: {
@@ -23,7 +23,7 @@ const meta = {
       </RouterDecorator>
     ),
   ],
-} satisfies Meta<typeof ComposerModal>;
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;

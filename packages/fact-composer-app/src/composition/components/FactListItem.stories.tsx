@@ -7,13 +7,13 @@ import {fn} from "@storybook/test";
 const db = new DbClient(createMemoryAdapter);
 seedDb(db);
 
-const meta = {
+const meta: Meta<typeof FactListItem> = {
   title: "composition/components/FactListItem",
   component: FactListItem,
   args: {
     onClick: fn(),
   },
-} satisfies Meta<typeof FactListItem>;
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;

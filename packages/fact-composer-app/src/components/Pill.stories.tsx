@@ -5,14 +5,14 @@ import {Pill} from "./Pill";
 import {Button} from "./ui/button";
 import {XIcon} from "lucide-react";
 
-const meta = {
+const meta: Meta<typeof Pill> = {
   title: "components/Pill",
   component: Pill,
   args: {
     onClick: fn(),
     variant: "outline",
   },
-} satisfies Meta<typeof Pill>;
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;

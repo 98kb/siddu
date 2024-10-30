@@ -4,13 +4,13 @@ import {fn} from "@storybook/test";
 import {LabelsEditor} from "./LabelsEditor";
 import {Label} from "@repo/facts-db";
 
-const meta = {
+const meta: Meta<typeof LabelsEditor> = {
   title: "labels/components/LabelsEditor",
   component: LabelsEditor,
   args: {
     onChange: fn(),
   },
-} satisfies Meta<typeof LabelsEditor>;
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;

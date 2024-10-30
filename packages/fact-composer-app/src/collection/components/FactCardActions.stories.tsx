@@ -2,13 +2,13 @@ import type {Meta, StoryObj} from "@storybook/react";
 import {FactCardActions} from "./FactCardActions";
 import {fn} from "@storybook/test";
 
-const meta = {
+const meta: Meta<typeof FactCardActions> = {
   title: "collection/components/FactCardActions",
   component: FactCardActions,
   args: {
     onArchive: fn(),
   },
-} satisfies Meta<typeof FactCardActions>;
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;

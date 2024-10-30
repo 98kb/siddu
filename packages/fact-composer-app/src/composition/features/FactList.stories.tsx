@@ -10,7 +10,7 @@ import {fn} from "@storybook/test";
 const db = new DbClient(createMemoryAdapter);
 seedDb(db);
 
-const meta = {
+const meta: Meta<typeof FactList> = {
   title: "composition/features/FactList",
   component: FactList,
   args: {
@@ -25,7 +25,7 @@ const meta = {
       </FactsDbContext.Provider>
     ),
   ],
-} satisfies Meta<typeof FactList>;
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;
