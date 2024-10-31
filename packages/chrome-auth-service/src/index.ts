@@ -2,6 +2,8 @@ export * from "./AuthClient";
 export * from "./ChromeAuthRouter";
 export * from "./createChromeAuthRouter";
 export * from "./dto/AccessTokenRequest";
+export * from "./dto/ClearAccessTokenRequest";
+export * from "./lib/AuthClientStub";
 export * from "./lib/createContextInner";
 export * from "./lib/FilterSchema";
 export * from "./lib/transformer";
