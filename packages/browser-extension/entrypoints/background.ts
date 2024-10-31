@@ -1,10 +1,9 @@
 import {addContextMenus} from "@/lib/background/addContextMenus";
 import {createRuntimeServer} from "@/lib/background/createRuntimeServer";
-import {db} from "@/lib/db";
 
 const init = () => {
   addContextMenus();
-  createRuntimeServer(db);
+  createRuntimeServer();
 };
 
 export default defineBackground(() => {
