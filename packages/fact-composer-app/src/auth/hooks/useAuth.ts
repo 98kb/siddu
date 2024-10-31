@@ -1,19 +1,26 @@
 import {useCallback, useContext} from "react";
 import {AuthContext} from "../AuthContext";
-import {useSetAtom} from "jotai";
+import {useAtom} from "jotai";
 import {accessTokenAtom} from "../store/accessTokenAtom";
 
 export function useAuth() {
-  const setAccessToken = useSetAtom(accessTokenAtom);
+  const [token, setAccessToken] = useAtom(accessTokenAtom);
   const auth = useContext(AuthContext);
   if (!auth) {
     throw new Error("AuthClient not found in context");
   }
 
   const signIn = useCallback(async () => {
-    const token = await auth.getAccessToken.query({scopes: ["email"]});
+    const token = await auth.getAccessToken({scopes: ["email"]});
     setAccessToken(token);
   }, [auth, setAccessToken]);
 
-  return {auth, signIn};
+  const signOut = useCallback(async () => {
+    if (token) {
+      await auth.clearAccessToken({token});
+      setAccessToken(undefined);
+    }
+  }, [auth, setAccessToken, token]);
+
+  return {auth, signIn, signOut};
 }

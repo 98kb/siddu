@@ -1,5 +1,5 @@
 import {DbClient} from "@repo/facts-db";
-import {AuthClient} from "@repo/chrome-auth-service";
+import {IAuthService} from "@repo/chrome-auth-service";
 import {MemoryRouter} from "react-router-dom";
 import {FactsDbContext} from "~/context/FactsDbContext";
 import {ComposerModal} from "./features/ComposerModal";
@@ -13,7 +13,7 @@ import {BackupContext} from "~/context/BackupContext";
 
 type TProps = {
   db: DbClient;
-  auth?: AuthClient;
+  auth?: IAuthService;
   backup?: BackupClient;
 };
 

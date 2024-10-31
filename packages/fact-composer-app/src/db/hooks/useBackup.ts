@@ -6,33 +6,33 @@ import {isRestoringAtom} from "../stores/isRestoringAtom";
 
 export function useBackup() {
   const client = useContext(BackupContext);
-  const [isBackingUp, setIsBackingUp] = useAtom(isBackingUpAtom);
-  const [isRestoring, setIsRestoring] = useAtom(isRestoringAtom);
-  const isBusy = isBackingUp || isRestoring;
+  const [isBackupBusy, setIsBackupBusy] = useAtom(isBackingUpAtom);
+  const [isRestoreBusy, setIsRestoreBusy] = useAtom(isRestoringAtom);
+  const isBusy = isBackupBusy || isRestoreBusy;
 
   const backup = useCallback(async () => {
     if (isBusy) {
       return;
     }
-    setIsBackingUp(true);
+    setIsBackupBusy(true);
     try {
       await client?.backup.mutate();
     } finally {
-      setIsBackingUp(false);
+      setIsBackupBusy(false);
     }
-  }, [client, isBusy, setIsBackingUp]);
+  }, [client, isBusy, setIsBackupBusy]);
 
   const restore = useCallback(async () => {
     if (isBusy) {
       return;
     }
-    setIsRestoring(true);
+    setIsRestoreBusy(true);
     try {
       await client?.restore.mutate();
     } finally {
-      setIsRestoring(false);
+      setIsRestoreBusy(false);
     }
-  }, [client, isBusy, setIsRestoring]);
+  }, [client, isBusy, setIsRestoreBusy]);
 
-  return {isBusy, backup, restore};
+  return {isBackupBusy, isRestoreBusy, backup, restore};
 }
