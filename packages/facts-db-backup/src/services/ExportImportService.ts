@@ -12,6 +12,8 @@ export class ExportImportService {
   }
 
   async import(data: Blob) {
-    return importInto(this.db, data);
+    return importInto(this.db, data, {
+      overwriteValues: true,
+    });
   }
 }
