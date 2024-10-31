@@ -1,12 +1,16 @@
-export function LabelIcon() {
+import {ComponentProps} from "react";
+
+type TProps = ComponentProps<"svg">;
+
+export function LabelIcon(svgProps: TProps) {
   return (
     <svg
       width="25px"
       height="25px"
       viewBox="0 0 24 24"
-      className="min-w-[25px] max-w-[25px] min-h-[25px] max-h-[25px]"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      {...svgProps}
     >
       <g id="Interface / Label">
         <path
