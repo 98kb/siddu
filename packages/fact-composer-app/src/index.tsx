@@ -2,7 +2,7 @@ import "normalize.css";
 import {ComponentProps, StrictMode} from "react";
 import {createRoot} from "react-dom/client";
 import "./index.css";
-import {Composer} from "./composer/Composer.tsx";
+import {Composer} from "./pages/app/Composer";
 
 export const createApp = (
   container: HTMLElement,
