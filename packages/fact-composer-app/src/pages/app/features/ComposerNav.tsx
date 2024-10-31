@@ -3,7 +3,7 @@ import {
   // HomeIcon,
   NotebookIcon,
   PencilRulerIcon,
-  UserCircleIcon,
+  SettingsIcon,
   // ShoppingBagIcon,
   // UserCircleIcon,
 } from "lucide-react";
@@ -66,8 +66,8 @@ const bottomTabs: NavTab[] = [
     Icon: HelpCircleIcon,
   },
   {
-    name: "Account",
-    route: "/account",
-    Icon: UserCircleIcon,
+    name: "Settings & Preferences",
+    route: "/settings",
+    Icon: SettingsIcon,
   },
 ];
