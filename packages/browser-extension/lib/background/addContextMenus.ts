@@ -1,4 +1,4 @@
-import { sendMessage } from "./sendMessage";
+import {sendMessage} from "./sendMessage";
 
 export const addContextMenus = () => {
   const id = "add-to-facts";
@@ -16,9 +16,9 @@ export const addContextMenus = () => {
     },
   );
 
-  chrome.contextMenus.onClicked.addListener(async (info) => {
+  chrome.contextMenus.onClicked.addListener(async info => {
     if (info.menuItemId === id && info.selectionText) {
-      sendMessage({ type: "addFact", payload: info.selectionText });
+      sendMessage({type: "addFact", payload: info.selectionText});
     }
   });
 };
