@@ -1,9 +1,9 @@
-import {DriveAuth} from "./DriveAuth";
+import {type IAuthService} from "@repo/chrome-auth-service";
 
 export class DriveClient {
   readonly apiUrl = "https://www.googleapis.com/drive/v3";
 
-  constructor(private auth: DriveAuth) {}
+  constructor(private auth: IAuthService) {}
 
   async fetch<T = any>(endpoint: string, options: RequestInit): Promise<T> {
     const response = await this.request(endpoint, options);
@@ -19,7 +19,7 @@ export class DriveClient {
       ...options,
       headers: {
         ...options.headers,
-        Authorization: `Bearer ${await this.auth.toAccessToken()}`,
+        Authorization: `Bearer ${await this.auth.getAccessToken()}`,
       },
     });
     if (!response.ok) {

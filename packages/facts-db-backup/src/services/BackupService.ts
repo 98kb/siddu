@@ -1,28 +1,34 @@
 import {ExportImportService} from "./ExportImportService";
+import {type FileSchema} from "../dto/FileSchema";
 import {IDriveService} from "../types/IDriveService";
 import {NaamkaranService} from "./NaamkaranService";
 
 // TODO: Add locking mechanism to prevent concurrent backups
 export class BackupService {
+  private readonly backupPrefix = "facts-db-backup";
+
   constructor(
     private readonly drive: IDriveService,
     private readonly dbExportService: ExportImportService,
-    private readonly nameService: NaamkaranService,
+    private readonly naamkaran: NaamkaranService,
   ) {}
 
-  async backup() {
+  async backup(): Promise<void> {
     const dbBlob = await this.dbExportService.export();
-    const backupName = this.nameService.getName();
+    const backupName = this.naamkaran.getName(this.backupPrefix);
     await this.drive.uploadFile({name: backupName, content: dbBlob});
   }
 
-  async restore() {
-    const backupName = this.nameService.getName();
-    const backupId = await this.drive.toFileId(backupName);
-    if (backupId) {
-      const dbBlob = await this.drive.downloadFile(backupId);
-      return this.dbExportService.import(dbBlob);
-    }
-    throw new Error("No backup found");
+  async listBackups(): Promise<FileSchema[]> {
+    return this.drive.listFiles({query: this.backupPrefix});
+  }
+
+  async restore(backup: FileSchema): Promise<void> {
+    const dbBlob = await this.drive.downloadFile(backup.id);
+    return this.dbExportService.import(dbBlob);
+  }
+
+  async deleteBackup(backup: FileSchema): Promise<void> {
+    return this.drive.deleteFile(backup.id);
   }
 }

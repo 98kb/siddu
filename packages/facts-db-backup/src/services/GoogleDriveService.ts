@@ -1,7 +1,8 @@
 import {DriveClient} from "./DriveClient";
+import {DriveUploader} from "./DriveUploader";
+import {type FileSchema} from "../dto/FileSchema";
 import {IDriveService} from "../types/IDriveService";
 import {UploadFileRequest} from "../types/UploadFileRequest";
-import {DriveUploader} from "./DriveUploader";
 
 export class GoogleDriveService implements IDriveService {
   constructor(
@@ -9,12 +10,19 @@ export class GoogleDriveService implements IDriveService {
     private readonly uploader: DriveUploader,
   ) {}
 
-  async toFileId(fileName: string): Promise<string | undefined> {
+  async deleteFile(fileId: string): Promise<void> {
+    await this.drive.request(`/files/${fileId}`, {
+      method: "DELETE",
+    });
+  }
+
+  async listFiles({query}: {query?: string}): Promise<FileSchema[]> {
+    const fullQuery = query ? `name contains '${query}' and ` : "";
     const response = await this.drive.fetch(
-      `/files?q=name='${fileName}'+and+'appDataFolder'+in+parents&spaces=appDataFolder`,
+      `/files?q=${fullQuery}+'appDataFolder'+in+parents&spaces=appDataFolder`,
       {method: "GET"},
     );
-    return response.files?.[0]?.id;
+    return response.files ?? [];
   }
 
   async uploadFile(request: UploadFileRequest): Promise<void> {
