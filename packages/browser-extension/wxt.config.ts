@@ -12,8 +12,8 @@ export default defineConfig({
       client_id: env.WXT_OAUTH_CLIENT_ID,
       scopes: [
         "email",
-        // "https://www.googleapis.com/auth/drive.appdata",
-        // "https://www.googleapis.com/auth/drive.appfolder",
+        "https://www.googleapis.com/auth/drive.appdata",
+        "https://www.googleapis.com/auth/drive.appfolder",
       ],
     },
   },

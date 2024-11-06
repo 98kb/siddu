@@ -8,17 +8,10 @@ import {router as createRouter} from "../trpc";
 import {db} from "../db";
 import {factsDb} from "../factsDb";
 
+const auth = new GoogleChromeAuth();
+
 export const backgroundRouter = createRouter({
   db: createDbRouter(db),
-  auth: createChromeAuthRouter(new GoogleChromeAuth()),
-  backup: createBackupRouter(
-    createBackupService(factsDb, {
-      drive: {
-        scopes: [
-          "https://www.googleapis.com/auth/drive.appdata",
-          "https://www.googleapis.com/auth/drive.appfolder",
-        ],
-      },
-    }),
-  ),
+  auth: createChromeAuthRouter(auth),
+  backup: createBackupRouter(createBackupService(factsDb, auth)),
 });
