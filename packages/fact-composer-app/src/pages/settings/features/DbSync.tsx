@@ -1,25 +1,36 @@
 import {useBackup} from "~/db/hooks/useBackup";
-import {BackupRestoreButtons} from "../components/BackupRestoreButtons";
+import {useRestore} from "~/db/hooks/useRestore";
+import {useEffect} from "react";
+import {BackupAction} from "../components/BackupAction";
+import {RestoreAction} from "../components/RestoreAction";
 
 // TODO: implement conflict resolution
 export function DbSync() {
-  const {isBackupBusy, isRestoreBusy, backup, restore} = useBackup();
+  const {isBackupBusy, backup, listBackups, backupFiles, deleteBackup} =
+    useBackup();
+  const {isRestoreBusy, restore} = useRestore();
+
+  useEffect(() => {
+    listBackups();
+  }, [listBackups]);
+
   return (
-    <div className="flex items-center w-full justify-around">
-      <div className="inline-flex flex-col">
-        Backup/Restore your data
-        <small className="text-gray-500">
-          Your data will be store in your own Google Drive
-        </small>
-      </div>
-      <div className="flex gap-2">
-        <BackupRestoreButtons
-          isBackupBusy={isBackupBusy}
-          isRestoreBusy={isRestoreBusy}
-          onBackup={backup}
+    <div className="flex flex-col gap-2">
+      <BackupAction
+        loading={isBackupBusy}
+        disabled={isRestoreBusy}
+        onBackup={backup}
+      />
+      {backupFiles.map(file => (
+        <RestoreAction
+          key={file.id}
+          file={file}
+          loading={isRestoreBusy}
+          disabled={isBackupBusy}
           onRestore={restore}
+          onDelete={deleteBackup}
         />
-      </div>
+      ))}
     </div>
   );
 }
