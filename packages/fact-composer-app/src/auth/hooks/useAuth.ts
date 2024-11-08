@@ -11,7 +11,7 @@ export function useAuth() {
   }
 
   const signIn = useCallback(async () => {
-    const token = await auth.getAccessToken({scopes: ["email"]});
+    const token = await auth.getAccessToken();
     setAccessToken(token);
   }, [auth, setAccessToken]);
 
