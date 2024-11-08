@@ -27,7 +27,7 @@ export class MemoryAdapter<T extends keyof Tables> extends AbstractAdapter<T> {
   ): Promise<z.infer<TableSchemas[T]["schema"]>> {
     const id = Object.keys(this.objects).length + 1;
     this.objects[id] = {...obj, id} as z.infer<TableSchemas[T]["schema"]>;
-    this.objects[id].updatedAt = new Date();
+    this.objects[id].updatedAt = Date.now();
     return this.objects[id];
   }
 
@@ -46,7 +46,7 @@ export class MemoryAdapter<T extends keyof Tables> extends AbstractAdapter<T> {
     this.objects[payload.id as number] = payload as z.infer<
       TableSchemas[T]["schema"]
     >;
-    this.objects[payload.id as number].updatedAt = new Date();
+    this.objects[payload.id as number].updatedAt = Date.now();
   }
 
   async deleteItem(id: number): Promise<void> {

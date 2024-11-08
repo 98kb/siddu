@@ -10,7 +10,8 @@ export const describeTimestamps = <T extends keyof Tables>(
     const payload = toPayload(adapter);
     const {id} = await adapter.add(payload);
     const retrievedItem = await adapter.get(id);
-    expect(retrievedItem?.updatedAt).toBeInstanceOf(Date);
+    expect(retrievedItem?.updatedAt).toBeDefined();
+    expect(retrievedItem?.updatedAt).toBeGreaterThan(0);
   });
 
   it("updates the updatedAt timestamp on modification", async () => {
@@ -19,10 +20,7 @@ export const describeTimestamps = <T extends keyof Tables>(
     await sleep(1);
     await adapter.put(id, payload as any);
     const modifiedItem = await adapter.get(id);
-    expect(modifiedItem?.updatedAt).toBeInstanceOf(Date);
-    expect(modifiedItem!.updatedAt?.getTime()).toBeGreaterThan(
-      updatedAt!.getTime(),
-    );
+    expect(modifiedItem!.updatedAt).toBeGreaterThan(updatedAt!);
   });
 };
 

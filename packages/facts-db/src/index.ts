@@ -17,6 +17,7 @@ export * from "./schema/collection/Collection";
 export * from "./schema/collection/CollectionSchema";
 export * from "./schema/collection/InsertCollection";
 export * from "./schema/collection/InsertCollectionSchema";
+export * from "./schema/core/TimeStampSchemas";
 export * from "./schema/dbSchema";
 export * from "./schema/fact/Fact";
 export * from "./schema/fact/FactSchema";

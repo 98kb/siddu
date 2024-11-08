@@ -14,12 +14,12 @@ export function createFactsDB(name: string): FactsDB {
 function addUpdatedAtHook(db: FactsDB) {
   for (const table of [db.facts, db.labels, db.collections]) {
     table.hook("creating", function (_, obj) {
-      obj.updatedAt = new Date();
+      obj.updatedAt = Date.now();
     });
     table.hook(
       "updating",
       function (modifications: z.infer<typeof TimeStampSchema>) {
-        modifications.updatedAt = new Date();
+        modifications.updatedAt = Date.now();
         return modifications;
       },
     );
