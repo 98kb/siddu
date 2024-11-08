@@ -513,6 +513,9 @@ importers:
       '@repo/chrome-auth-service':
         specifier: workspace:*
         version: link:../chrome-auth-service
+      '@repo/facts-db':
+        specifier: workspace:*
+        version: link:../facts-db
       '@trpc/client':
         specifier: ^10.0.0
         version: 10.45.2(@trpc/server@10.45.2)

@@ -37,6 +37,7 @@
   "dependencies": {
     "@googleapis/drive": "^8.14.0",
     "@repo/chrome-auth-service": "workspace:*",
+    "@repo/facts-db": "workspace:*",
     "@trpc/client": "^10.0.0",
     "@trpc/server": "^10.0.0",
     "dexie": "^4.0.8",
