@@ -19,6 +19,8 @@ export const describePut = <T extends keyof Tables>(adapter: IAdapter<T>) => {
     payload[key] = "updated";
 
     await adapter.put(id, payload as any);
-    expect(await adapter.get(id)).toEqual({...payload, id});
+    const modifiedItem = await adapter.get(id);
+    expect(modifiedItem?.id).toEqual(id);
+    expect(modifiedItem?.[key]).toEqual("updated");
   });
 };

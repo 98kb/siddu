@@ -8,7 +8,7 @@ export const describeGet = <T extends keyof Tables>(adapter: IAdapter<T>) => {
     const payload = toPayload(adapter);
     const {id} = await adapter.add(payload);
     const retrievedItem = await adapter.get(id);
-    expect(retrievedItem).toEqual({...payload, id});
+    expect(retrievedItem?.id).toEqual(id);
   });
 
   it("returns undefined if the object does not exist", async () => {

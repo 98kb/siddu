@@ -30,7 +30,7 @@ export function describeImport(manager: FactsManager) {
     expect(facts[1].labels[1].name).toBe("canine");
   });
 
-  it.only("creates labels if they don't exist", async () => {
+  it("creates labels if they don't exist", async () => {
     expect((await manager.db.labels.getAll()).length).toBe(0);
     await manager.import(importData);
     expect((await manager.db.labels.getAll()).length).toBe(2);

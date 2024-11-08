@@ -9,8 +9,11 @@ import {describeGet} from "./features/describeGet";
 import {describeGetAll} from "./features/describeGetAll";
 import {describeOnMutation} from "./features/describeOnMutation";
 import {describePut} from "./features/describePut";
+import {describeTimestamps} from "./features/describeTimestamps";
 
-type Features = keyof IAdapter<keyof Tables>;
+type Features = keyof IAdapter<keyof Tables> & "timestamps";
+
+// TODO: simplify unit tests of adapters
 
 export const describeAdapter = <T extends keyof Tables>(
   adapter: IAdapter<T>,
@@ -30,9 +33,10 @@ export const describeAdapter = <T extends keyof Tables>(
         expect(adapter.options.insertSchema).toBeDefined();
       });
     },
+    timestamps: describeTimestamps,
   };
 
   for (const [feature, test] of Object.entries(features)) {
-    describe(feature, () => test(adapter));
+    describe(feature, () => (test as Reader<IAdapter<T>, void>)(adapter));
   }
 };
