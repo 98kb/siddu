@@ -1,9 +1,8 @@
+import {BaseSchema} from "../core/BaseSchemas";
 import {InsertLabelSchema} from "./InsertLabelSchema";
-import {TimeStampSchema} from "../core/TimeStampSchemas";
 import {z} from "zod";
 
 export const LabelSchema = z.object({
-  id: z.number(),
-  ...TimeStampSchema.shape,
+  ...BaseSchema.shape,
   ...InsertLabelSchema.shape,
 });

@@ -1,5 +1,5 @@
+import {BaseSchema} from "./schema/core/BaseSchemas";
 import {FactsDB} from "./FactsDb";
-import {TimeStampSchema} from "./schema/core/TimeStampSchemas";
 import {dbSchema} from "./schema/dbSchema";
 import {z} from "zod";
 import Dexie from "dexie";
@@ -16,12 +16,9 @@ function addUpdatedAtHook(db: FactsDB) {
     table.hook("creating", function (_, obj) {
       obj.updatedAt = Date.now();
     });
-    table.hook(
-      "updating",
-      function (modifications: z.infer<typeof TimeStampSchema>) {
-        modifications.updatedAt = Date.now();
-        return modifications;
-      },
-    );
+    table.hook("updating", function (modifications) {
+      (modifications as z.infer<typeof BaseSchema>).updatedAt = Date.now();
+      return modifications;
+    });
   }
 }

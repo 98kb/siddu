@@ -1,12 +1,12 @@
 import {FilterSchema} from "../lib/FilterSchema";
-import {IAdapter} from "../../adapters/IAdapter";
 import {InsertLabelSchema} from "../../schema/label/InsertLabelSchema";
 import {LabelSchema} from "../../schema/label/LabelSchema";
+import {LabelsManager} from "../../entities/LabelsManager";
 import {getItem} from "../middlewares/getItem";
 import {observable} from "@trpc/server/observable";
 import {publicProcedure, router} from "../lib/trpc";
 
-export const createLabelsRouter = (labels: IAdapter<"labels">) =>
+export const createLabelsRouter = (labels: LabelsManager) =>
   router({
     onMutation$: publicProcedure.subscription(function () {
       return observable(observer => {
@@ -45,6 +45,11 @@ export const createLabelsRouter = (labels: IAdapter<"labels">) =>
       .output(LabelSchema.array())
       .query(async () => {
         return labels.getAll();
+      }),
+    softDelete: publicProcedure
+      .input(LabelSchema.pick({id: true}))
+      .mutation(async ({input}) => {
+        await labels.softDelete(input.id);
       }),
     delete: publicProcedure
       .input(LabelSchema.pick({id: true}))

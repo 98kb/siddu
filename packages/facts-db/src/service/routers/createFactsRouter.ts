@@ -1,14 +1,14 @@
 /* eslint-disable max-nested-callbacks */
 /* eslint-disable max-nested-callbacks */
 import {FactSchema} from "../../schema/fact/FactSchema";
+import {FactsManager} from "../../entities/FactsManager";
 import {FilterSchema} from "../lib/FilterSchema";
-import {IAdapter} from "../../adapters/IAdapter";
 import {InsertFactSchema} from "../../schema/fact/InsertFactSchema";
 import {getItem} from "../middlewares/getItem";
 import {observable} from "@trpc/server/observable";
 import {publicProcedure, router} from "../lib/trpc";
 
-export const createFactsRouter = (facts: IAdapter<"facts">) =>
+export const createFactsRouter = (facts: FactsManager) =>
   router({
     onMutation$: publicProcedure.subscription(function () {
       return observable(observer => {
@@ -46,6 +46,11 @@ export const createFactsRouter = (facts: IAdapter<"facts">) =>
       .output(FactSchema.array())
       .query(async () => {
         return facts.getAll();
+      }),
+    softDelete: publicProcedure
+      .input(FactSchema.pick({id: true}))
+      .mutation(async ({input}) => {
+        await facts.softDelete(input.id);
       }),
     delete: publicProcedure
       .input(FactSchema.pick({id: true}))

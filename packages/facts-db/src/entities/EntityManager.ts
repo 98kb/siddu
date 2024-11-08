@@ -36,6 +36,10 @@ export class EntityManager<T extends keyof Tables> implements IAdapter<T> {
     return this.crud.addMany(payload);
   }
 
+  softDelete(id: number): Promise<void> {
+    return this.crud.put(id, {isDeleted: true, deletedAt: Date.now()} as any);
+  }
+
   delete(id: number): Promise<void> {
     return this.crud.delete(id);
   }
