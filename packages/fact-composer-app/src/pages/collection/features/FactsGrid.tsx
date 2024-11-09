@@ -27,7 +27,7 @@ export function FactsGrid({facts, highlightedFacts, onClick}: TProps) {
               key={fact.id}
               onArchive={async event => {
                 event.stopPropagation();
-                await db?.facts.delete(fact.id);
+                await db?.facts.softDelete(fact.id);
                 onClick(undefined);
               }}
             />
