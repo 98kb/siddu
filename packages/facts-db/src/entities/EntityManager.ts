@@ -40,6 +40,10 @@ export class EntityManager<T extends keyof Tables> implements IAdapter<T> {
     return this.crud.put(id, {isDeleted: true, deletedAt: Date.now()} as any);
   }
 
+  restore(id: number): Promise<void> {
+    return this.crud.put(id, {isDeleted: false} as any);
+  }
+
   delete(id: number): Promise<void> {
     return this.crud.delete(id);
   }
