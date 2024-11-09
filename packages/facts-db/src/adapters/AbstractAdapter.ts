@@ -39,7 +39,8 @@ export abstract class AbstractAdapter<T extends keyof Tables>
     id: number,
     payload: Partial<z.infer<TableSchemas[T]["schema"]>>,
   ): Promise<void> {
-    await this.putItem({...payload, id});
+    const item = (await this.get(id)) ?? {};
+    await this.putItem({...item, ...payload, id});
     this.notifyMutation();
   }
 
