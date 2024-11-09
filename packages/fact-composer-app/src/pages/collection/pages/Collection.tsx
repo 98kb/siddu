@@ -64,17 +64,25 @@ function useFilterByLabel() {
   return useCallback(
     (fact: Fact) => {
       return labelQuery
-        ? fact.labels.map(({id}) => id).includes(+labelQuery)
-        : true;
+        ? !fact.isDeleted && fact.labels.map(({id}) => id).includes(+labelQuery)
+        : !fact.isDeleted;
     },
     [labelQuery],
   );
 }
 
 function useFactsByQuery(db?: DbClient) {
+  const location = useLocation();
   const filterByLabel = useFilterByLabel();
   const fetchFacts = useCallback(async () => {
     return db?.facts.getAll(filterByLabel);
   }, [db, filterByLabel]);
-  return useLiveQuery("facts", fetchFacts);
+  const fetchArchivedFacts = useCallback(async () => {
+    return db?.facts.getAll(fact => Boolean(fact.isDeleted));
+  }, [db]);
+  const fetchFactsByQuery = useMemo(() => {
+    const isArchived = new URLSearchParams(location.search).get("archive");
+    return isArchived ? fetchArchivedFacts : fetchFacts;
+  }, [location.search, fetchFacts, fetchArchivedFacts]);
+  return useLiveQuery("facts", fetchFactsByQuery);
 }
