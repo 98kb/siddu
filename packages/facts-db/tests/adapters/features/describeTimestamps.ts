@@ -17,7 +17,7 @@ export const describeTimestamps = <T extends keyof Tables>(
   it("updates the updatedAt timestamp on modification", async () => {
     const payload = toPayload(adapter);
     const {id, updatedAt} = await adapter.add(payload);
-    await sleep(1);
+    await sleep(100);
     await adapter.put(id, payload as any);
     const modifiedItem = await adapter.get(id);
     expect(modifiedItem!.updatedAt).toBeGreaterThan(updatedAt!);
