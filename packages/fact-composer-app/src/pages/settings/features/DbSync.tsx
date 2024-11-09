@@ -1,36 +1,55 @@
 import {useBackup} from "~/db/hooks/useBackup";
 import {useRestore} from "~/db/hooks/useRestore";
-import {useEffect} from "react";
-import {BackupAction} from "../components/BackupAction";
-import {RestoreAction} from "../components/RestoreAction";
+import {useEffect, useState} from "react";
+import {FileSchema} from "@repo/facts-db-backup";
+import {DbSyncAction} from "../components/DbSyncAction";
 
-// TODO: implement conflict resolution
 export function DbSync() {
-  const {isBackupBusy, backup, listBackups, backupFiles, deleteBackup} =
-    useBackup();
-  const {isRestoreBusy, restore} = useRestore();
+  const {fetchBackupFiles} = useBackup();
+  const [backupFilesPromise, setBackupFilesPromise] =
+    useState<Promise<FileSchema[]>>();
+  // const [backupFiles, setBackupFiles] = useState<FileSchema[]>([]);
 
   useEffect(() => {
-    listBackups();
-  }, [listBackups]);
+    setBackupFilesPromise(fetchBackupFiles());
+  }, [fetchBackupFiles]);
+
+  // useEffect(() => {
+  //   backupFilesPromise?.then(setBackupFiles);
+  // }, [backupFilesPromise]);
+
+  // const handleDelete = async (backup: FileSchema) => {
+  //   setBackupFiles($backupFiles =>
+  //     $backupFiles.filter(file => file.id !== backup.id),
+  //   );
+  //   await deleteBackup(backup);
+  // };
 
   return (
-    <div className="flex flex-col gap-2">
-      <BackupAction
-        loading={isBackupBusy}
-        disabled={isRestoreBusy}
-        onBackup={backup}
-      />
-      {backupFiles.map(file => (
-        <RestoreAction
-          key={file.id}
-          file={file}
-          loading={isRestoreBusy}
-          disabled={isBackupBusy}
-          onRestore={restore}
-          onDelete={deleteBackup}
-        />
-      ))}
+    <div className="flex flex-col gap-4">
+      <SyncAction backupFilesPromise={backupFilesPromise} />
+      {/* {backupFiles.map(file => (
+        <RestoreAction key={file.id} file={file} onDelete={handleDelete} />
+      ))} */}
     </div>
+  );
+}
+
+function SyncAction({
+  backupFilesPromise,
+}: {
+  backupFilesPromise?: Promise<FileSchema[]>;
+}) {
+  const {isBackupBusy, backup} = useBackup();
+  const {isRestoreBusy, restore} = useRestore();
+  const syncDb = async () => {
+    const maybeBackupFiles = await backupFilesPromise;
+    if (maybeBackupFiles?.length) {
+      await restore(maybeBackupFiles[0]);
+    }
+    backup();
+  };
+  return (
+    <DbSyncAction loading={isBackupBusy || isRestoreBusy} onSync={syncDb} />
   );
 }
