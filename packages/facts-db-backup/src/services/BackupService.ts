@@ -2,6 +2,7 @@ import {ExportImportService} from "./ExportImportService";
 import {type FileSchema} from "../dto/FileSchema";
 import {IDriveService} from "../types/IDriveService";
 import {NaamkaranService} from "./NaamkaranService";
+import {UploadFileRequest} from "../types/UploadFileRequest";
 
 // TODO: Add locking mechanism to prevent concurrent backups
 export class BackupService {
@@ -15,11 +16,14 @@ export class BackupService {
 
   async backup(): Promise<void> {
     const dbBlob = await this.dbExportService.export();
-    const backupName = this.naamkaran.getName(this.backupPrefix);
-    await this.drive.uploadFile({name: backupName, content: dbBlob});
+    const uploadRequest = this.toUploadRequest(dbBlob);
+    const [backupFile] = await this.fetchBackupFiles();
+    backupFile
+      ? await this.drive.modifyFile(backupFile.id, uploadRequest)
+      : await this.drive.uploadFile(uploadRequest);
   }
 
-  async listBackups(): Promise<FileSchema[]> {
+  fetchBackupFiles(): Promise<FileSchema[]> {
     return this.drive.listFiles({query: this.backupPrefix});
   }
 
@@ -30,5 +34,12 @@ export class BackupService {
 
   async deleteBackup(backup: FileSchema): Promise<void> {
     return this.drive.deleteFile(backup.id);
+  }
+
+  private toUploadRequest(dbBlob: Blob): UploadFileRequest {
+    return {
+      name: this.naamkaran.getName(this.backupPrefix),
+      content: dbBlob,
+    };
   }
 }

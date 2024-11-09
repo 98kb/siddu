@@ -25,8 +25,12 @@ export class GoogleDriveService implements IDriveService {
     return response.files ?? [];
   }
 
+  async modifyFile(fileId: string, request: UploadFileRequest): Promise<void> {
+    await this.uploader.modify(fileId, request);
+  }
+
   async uploadFile(request: UploadFileRequest): Promise<void> {
-    await this.uploader.upload("/files?uploadType=multipart", request);
+    await this.uploader.upload(request);
   }
 
   async downloadFile(fileId: string): Promise<Blob> {
