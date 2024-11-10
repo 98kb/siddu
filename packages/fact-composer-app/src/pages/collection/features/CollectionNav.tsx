@@ -1,26 +1,23 @@
-import {useLocation, useNavigate} from "react-router-dom";
 import {ArchiveXIcon, BookOpenTextIcon, TagIcon} from "lucide-react";
 import {LabelIcon} from "../components/LabelIcon";
 import {NavTab} from "~/lib/NavTab";
 import {useCallback, useMemo} from "react";
 import {useFactsDb} from "~/db/hooks/useFactsDb";
 import {useLiveQuery} from "~/db/hooks/useLiveQuery";
-import {toEndpoint} from "~/lib/location/toEndpoint";
 import {CollectionNavTab} from "../components/CollectionNavTab";
+import {useFactFilters} from "../hooks/useFactFilters";
 
 export function CollectionNav() {
-  const location = useLocation();
-  const navigate = useNavigate();
   const tabs = useCollectionNav();
 
   return (
     <aside className="flex flex-col pr-10 py-5 min-w-[14vw]">
-      {tabs.map(({name, route, Icon}) => (
+      {tabs.map(({name, Icon, action, isActive}) => (
         <CollectionNavTab
           key={name}
           name={name}
-          isActive={route === toEndpoint(location)}
-          onClick={() => navigate(route)}
+          isActive={isActive()}
+          onClick={action}
         >
           <Icon key={name} className="w-4 h-4" />
         </CollectionNavTab>
@@ -31,6 +28,7 @@ export function CollectionNav() {
 
 function useCollectionNav(): NavTab[] {
   const db = useFactsDb();
+  const {filters, resetFilters, setArchivedOnly, setLabel} = useFactFilters();
   const fetchLabels = useCallback(async () => db?.labels.getAll(), [db]);
   const labels = useLiveQuery("labels", fetchLabels);
   return useMemo(() => {
@@ -38,23 +36,27 @@ function useCollectionNav(): NavTab[] {
       {
         Icon: BookOpenTextIcon,
         name: "Facts",
-        route: "/collection",
+        action: resetFilters,
+        isActive: () => Boolean(filters.label || filters.archived) === false,
       },
       ...labels.map(label => ({
         Icon: LabelIcon,
         name: label.name,
-        route: `/collection?label=${label.id}`,
+        action: () => setLabel(label),
+        isActive: () => filters.label?.id === label.id,
       })),
       {
         Icon: ArchiveXIcon,
         name: "Archive",
-        route: "/collection?archive=true",
+        action: () => setArchivedOnly(true),
+        isActive: () => Boolean(filters.archived),
       },
       {
         Icon: TagIcon,
         name: "Labels",
-        route: "/collection/labels",
+        action: () => {},
+        isActive: () => false,
       },
     ];
-  }, [labels]);
+  }, [filters, labels, resetFilters, setArchivedOnly, setLabel]);
 }

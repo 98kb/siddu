@@ -1,21 +1,15 @@
 import {CollectionNav} from "../features/CollectionNav";
 import {FactsGrid} from "../features/FactsGrid";
-import {useCallback, useMemo} from "react";
-import {DbClient, Fact} from "@repo/facts-db";
-import {useLocation} from "react-router-dom";
-import {useLiveQuery} from "~/db/hooks/useLiveQuery";
-import {useFactsDb} from "~/db/hooks/useFactsDb";
 import {SaveFact} from "../features/SaveFact";
 import {useAtom} from "jotai";
 import {selectedFactAtom} from "../stores/selectedFactAtom";
 import {AddFactButton} from "../features/AddFactButton";
 import {FactsGridPlaceholder} from "../components/FactsGridPlaceholder";
+import {useFacts} from "../hooks/useFacts";
 
 // eslint-disable-next-line complexity
 export function Collection() {
-  const db = useFactsDb();
-  const facts = useFactsByQuery(db);
-
+  const facts = useFacts();
   const [selectedFact, setSelectedFact] = useAtom(selectedFactAtom);
   const highlightedFacts =
     selectedFact && "id" in selectedFact ? [selectedFact] : [];
@@ -52,37 +46,4 @@ export function Collection() {
       )}
     </div>
   );
-}
-
-function useFilterByLabel() {
-  const location = useLocation();
-  const labelQuery = useMemo(
-    () => new URLSearchParams(location.search).get("label"),
-    [location.search],
-  );
-
-  return useCallback(
-    (fact: Fact) => {
-      return labelQuery
-        ? !fact.isDeleted && fact.labels.map(({id}) => id).includes(+labelQuery)
-        : !fact.isDeleted;
-    },
-    [labelQuery],
-  );
-}
-
-function useFactsByQuery(db?: DbClient) {
-  const location = useLocation();
-  const filterByLabel = useFilterByLabel();
-  const fetchFacts = useCallback(async () => {
-    return db?.facts.getAll(filterByLabel);
-  }, [db, filterByLabel]);
-  const fetchArchivedFacts = useCallback(async () => {
-    return db?.facts.getAll(fact => Boolean(fact.isDeleted));
-  }, [db]);
-  const fetchFactsByQuery = useMemo(() => {
-    const isArchived = new URLSearchParams(location.search).get("archive");
-    return isArchived ? fetchArchivedFacts : fetchFacts;
-  }, [location.search, fetchFacts, fetchArchivedFacts]);
-  return useLiveQuery("facts", fetchFactsByQuery);
 }
