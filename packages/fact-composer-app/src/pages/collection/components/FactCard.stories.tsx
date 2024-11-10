@@ -3,7 +3,7 @@ import {fn} from "@storybook/test";
 
 import {FactCard} from "./FactCard";
 import {Fact} from "@repo/facts-db";
-import {FactCardActions} from "./FactCardActions";
+import {FactCardActions} from "../features/FactCardActions";
 
 const meta: Meta<typeof FactCard> = {
   title: "collection/components/FactCard",

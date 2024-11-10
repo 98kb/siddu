@@ -1,8 +1,7 @@
 import {Fact} from "@repo/facts-db";
 import {FactCard} from "../components/FactCard";
 import {Reader} from "fp-ts/lib/Reader";
-import {useFactsDb} from "~/db/hooks/useFactsDb";
-import {FactCardActions} from "../components/FactCardActions";
+import {FactCardActions} from "./FactCardActions";
 
 type TProps = {
   facts: Fact[];
@@ -11,7 +10,6 @@ type TProps = {
 };
 
 export function FactsGrid({facts, highlightedFacts, onClick}: TProps) {
-  const db = useFactsDb();
   return (
     <div className="w-full h-full @container">
       <div className="columns-1 @sm:columns-2 @lg:columns-3 @xl:columns-4">
@@ -25,9 +23,9 @@ export function FactsGrid({facts, highlightedFacts, onClick}: TProps) {
           >
             <FactCardActions
               key={fact.id}
-              onArchive={async event => {
+              fact={fact}
+              onClickPropagation={async event => {
                 event.stopPropagation();
-                await db?.facts.softDelete(fact.id);
                 onClick(undefined);
               }}
             />
