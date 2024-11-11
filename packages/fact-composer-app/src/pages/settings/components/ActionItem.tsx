@@ -12,7 +12,7 @@ export function ActionItem({className, children, label, subtext}: TProps) {
     <div
       className={cn(
         className,
-        "flex items-center w-full justify-around hover:bg-gray-50 px-4 py-2",
+        "flex items-center w-full justify-between hover:bg-gray-50 px-4 py-2",
       )}
     >
       <div className="inline-flex flex-col">

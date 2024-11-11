@@ -1,73 +1,71 @@
 import {
   HelpCircleIcon,
-  // HomeIcon,
   NotebookIcon,
   PencilRulerIcon,
   SettingsIcon,
-  // ShoppingBagIcon,
-  // UserCircleIcon,
 } from "lucide-react";
 import {useLocation, useNavigate} from "react-router-dom";
-import {ComposerNavTabs} from "../components/ComposerNavTabs";
 import {NavTab} from "../../../lib/NavTab";
-import {TooltipProvider} from "~/components/ui/tooltip";
 import {AppLogoIcon} from "~/components/AppLogoIcon";
+import {ComposerNavTab} from "../components/ComposerNavTab";
 
 export function ComposerNav() {
-  const location = useLocation();
-  const navigate = useNavigate();
+  const {tabs, bottomTabs} = useComposerNav();
   return (
-    <TooltipProvider>
-      <div className="flex flex-col min-w-14 max-h-[598px] box-border h-full shadow items-center py-2 gap-4">
-        <AppLogoIcon className="w-10 h-10" />
-        <ComposerNavTabs
-          tabs={tabs}
-          activeRoute={location.pathname}
-          onClick={navigate}
-        />
-        <div className="grow" />
-        <ComposerNavTabs
-          tabs={bottomTabs}
-          activeRoute={location.pathname}
-          onClick={navigate}
-        />
-      </div>
-    </TooltipProvider>
+    <div className="flex flex-col min-w-14 max-h-[598px] box-border h-full shadow items-center py-2 gap-4">
+      <AppLogoIcon className="w-10 h-10" />
+      <ComposerNavTabs tabs={tabs} />
+      <div className="grow" />
+      <ComposerNavTabs tabs={bottomTabs} />
+    </div>
   );
 }
 
-const tabs: NavTab[] = [
-  // {
-  //   name: "home",
-  //   route: "/",
-  //   Icon: HomeIcon,
-  // },
-  {
-    name: "composition",
-    route: "/composition",
-    Icon: PencilRulerIcon,
-  },
-  {
-    name: "collection",
-    route: "/collection",
-    Icon: NotebookIcon,
-  },
-  // {
-  //   name: "marketplace",
-  //   route: "/marketplace",
-  //   Icon: ShoppingBagIcon,
-  // },
-];
+function ComposerNavTabs({tabs}: {tabs: NavTab[]}) {
+  return tabs.map(({name, isActive, Icon, action}) => (
+    <ComposerNavTab
+      key={name}
+      tabName={name}
+      isActive={isActive()}
+      onClick={action}
+    >
+      <Icon />
+    </ComposerNavTab>
+  ));
+}
 
-const bottomTabs: NavTab[] = [
-  {
-    name: "Guides",
-    route: "/help",
-    Icon: HelpCircleIcon,
-  },
-  {
-    name: "Settings & Preferences",
-    route: "/settings",
-    Icon: SettingsIcon,
-  },
-];
+function useComposerNav() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const tabs: NavTab[] = [
+    {
+      name: "composition",
+      isActive: () => location.pathname.startsWith("/composition"),
+      action: () => navigate("/composition"),
+      Icon: PencilRulerIcon,
+    },
+    {
+      name: "collection",
+      isActive: () => location.pathname.startsWith("/collection"),
+      action: () => navigate("/collection"),
+      Icon: NotebookIcon,
+    },
+  ];
+
+  const bottomTabs: NavTab[] = [
+    {
+      name: "Guides",
+      action: () => navigate("/help"),
+      isActive: () => location.pathname.startsWith("/help"),
+      Icon: HelpCircleIcon,
+    },
+    {
+      name: "Settings & Preferences",
+      isActive: () => location.pathname.startsWith("/settings"),
+      action: () => navigate("/settings"),
+      Icon: SettingsIcon,
+    },
+  ];
+
+  return {tabs, bottomTabs};
+}

@@ -3,53 +3,54 @@ import {useRestore} from "~/db/hooks/useRestore";
 import {useEffect, useState} from "react";
 import {FileSchema} from "@repo/facts-db-backup";
 import {DbSyncAction} from "../components/DbSyncAction";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@radix-ui/react-collapsible";
+import {cn} from "~/lib/utils";
+import {ChevronsUpDownIcon} from "lucide-react";
+import {DeleteBackupAction} from "../organisms/DeleteBackupAction";
 
 export function DbSync() {
-  const {fetchBackupFiles} = useBackup();
-  const [backupFilesPromise, setBackupFilesPromise] =
-    useState<Promise<FileSchema[]>>();
-  // const [backupFiles, setBackupFiles] = useState<FileSchema[]>([]);
-
-  useEffect(() => {
-    setBackupFilesPromise(fetchBackupFiles());
-  }, [fetchBackupFiles]);
-
-  // useEffect(() => {
-  //   backupFilesPromise?.then(setBackupFiles);
-  // }, [backupFilesPromise]);
-
-  // const handleDelete = async (backup: FileSchema) => {
-  //   setBackupFiles($backupFiles =>
-  //     $backupFiles.filter(file => file.id !== backup.id),
-  //   );
-  //   await deleteBackup(backup);
-  // };
-
-  return (
-    <div className="flex flex-col gap-4">
-      <SyncAction backupFilesPromise={backupFilesPromise} />
-      {/* {backupFiles.map(file => (
-        <RestoreAction key={file.id} file={file} onDelete={handleDelete} />
-      ))} */}
-    </div>
-  );
-}
-
-function SyncAction({
-  backupFilesPromise,
-}: {
-  backupFilesPromise?: Promise<FileSchema[]>;
-}) {
-  const {isBackupBusy, backup} = useBackup();
+  const {isBackupBusy, backup, deleteBackup, fetchBackupFiles} = useBackup();
+  const [backupFiles, setBackupFiles] = useState<FileSchema[]>([]);
   const {isRestoreBusy, restore} = useRestore();
   const syncDb = async () => {
-    const maybeBackupFiles = await backupFilesPromise;
-    if (maybeBackupFiles?.length) {
-      await restore(maybeBackupFiles[0]);
+    if (backupFiles.length) {
+      await restore(backupFiles[0]);
     }
     backup();
   };
+
+  useEffect(() => {
+    fetchBackupFiles()?.then(setBackupFiles);
+  }, [fetchBackupFiles]);
+
   return (
-    <DbSyncAction loading={isBackupBusy || isRestoreBusy} onSync={syncDb} />
+    <div className="flex flex-col gap-4">
+      <DbSyncAction loading={isBackupBusy || isRestoreBusy} onSync={syncDb} />
+      {backupFiles.length > 0 && (
+        <Collapsible>
+          <CollapsibleTrigger asChild>
+            <div
+              className={cn(
+                "flex items-center w-full justify-between",
+                "hover:bg-gray-50 px-4 py-2",
+                "cursor-pointer",
+              )}
+            >
+              <small>Advanced</small>
+              <ChevronsUpDownIcon className="w-5" />
+            </div>
+          </CollapsibleTrigger>
+          <CollapsibleContent>
+            <DeleteBackupAction
+              onDelete={async () => deleteBackup(backupFiles[0])}
+            />
+          </CollapsibleContent>
+        </Collapsible>
+      )}
+    </div>
   );
 }

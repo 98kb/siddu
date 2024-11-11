@@ -60,6 +60,6 @@ export const WithHighlightedLabels: Story = {
 export const WithChildren: Story = {
   args: {
     fact,
-    children: <FactCardActions />,
+    children: <FactCardActions fact={fact} />,
   },
 };

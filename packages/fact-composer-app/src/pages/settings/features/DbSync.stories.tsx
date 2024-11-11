@@ -1,17 +1,14 @@
 import type {Meta, StoryObj} from "@storybook/react";
 import {DbSync} from "./DbSync";
-import {TooltipProvider} from "~/components/ui/tooltip";
 
 const meta = {
   title: "settings/features/DbSync",
   component: DbSync,
   decorators: [
     Story => (
-      <TooltipProvider>
-        <div className="w-full min-w-1/2">
-          <Story />
-        </div>
-      </TooltipProvider>
+      <div className="w-full min-w-[500px]">
+        <Story />
+      </div>
     ),
   ],
 } satisfies Meta<typeof DbSync>;

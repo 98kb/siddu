@@ -10,6 +10,7 @@ import {useComposer} from "./hooks/useComposer";
 import {AuthContext} from "~/auth/AuthContext";
 import {BackupClient} from "@repo/facts-db-backup";
 import {BackupContext} from "~/db/context/BackupContext";
+import {TooltipProvider} from "~/components/ui/tooltip";
 
 type TProps = {
   db: DbClient;
@@ -28,9 +29,11 @@ export function Composer({auth, backup, db}: TProps) {
     <AuthContext.Provider value={auth}>
       <FactsDbContext.Provider value={db}>
         <BackupContext.Provider value={backup}>
-          <MemoryRouter>
-            <ComposerModal open={isOpen} onOpenChange={setIsOpen} />
-          </MemoryRouter>
+          <TooltipProvider>
+            <MemoryRouter>
+              <ComposerModal open={isOpen} onOpenChange={setIsOpen} />
+            </MemoryRouter>
+          </TooltipProvider>
         </BackupContext.Provider>
       </FactsDbContext.Provider>
     </AuthContext.Provider>

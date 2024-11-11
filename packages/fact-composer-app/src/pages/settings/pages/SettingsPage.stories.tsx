@@ -4,6 +4,13 @@ import {SettingsPage} from "./SettingsPage";
 const meta = {
   title: "settings/pages/SettingsPage",
   component: SettingsPage,
+  decorators: [
+    Story => (
+      <div className="w-full min-w-[500px]">
+        <Story />
+      </div>
+    ),
+  ],
 } satisfies Meta<typeof SettingsPage>;
 
 export default meta;
