@@ -19,7 +19,7 @@ export function FactsGrid({facts, highlightedFacts, onClick}: TProps) {
             fact={fact}
             isHighlighted={isHighlighted(fact, highlightedFacts)}
             className="break-inside-avoid mb-4 animate-fade-in"
-            onClick={() => !fact.isDeleted && onClick(fact)}
+            onClick={() => onClick(fact)}
           >
             <FactCardActions
               key={fact.id}
