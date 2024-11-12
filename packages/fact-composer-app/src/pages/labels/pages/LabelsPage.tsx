@@ -10,5 +10,13 @@ export function LabelsPage() {
     db?.labels.getAll().then(setLabels);
   }, [db]);
 
-  return <LabelsTable labels={labels} />;
+  return (
+    <LabelsTable
+      labels={labels}
+      onDelete={async labelId => {
+        await db?.labels.delete(labelId);
+        await db?.labels.getAll().then(setLabels);
+      }}
+    />
+  );
 }

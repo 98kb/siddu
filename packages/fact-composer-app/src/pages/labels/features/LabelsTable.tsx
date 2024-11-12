@@ -14,9 +14,10 @@ import {
 
 type TProps = {
   labels: Label[];
+  onDelete: (labelId: number) => Promise<void>;
 };
 
-export function LabelsTable({labels}: TProps) {
+export function LabelsTable({labels, onDelete}: TProps) {
   return (
     <Table className="min-w-[500px] w-full">
       <TableCaption>A list of labels.</TableCaption>
@@ -34,7 +35,7 @@ export function LabelsTable({labels}: TProps) {
               <Pill name={label.name} variant="outline" />
             </TableCell>
             <TableCell align="right">
-              <IconButton tooltip="Delete">
+              <IconButton tooltip="Delete" onClick={() => onDelete(label.id)}>
                 <TrashIcon className="w-4" />
               </IconButton>
             </TableCell>
