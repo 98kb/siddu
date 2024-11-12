@@ -46,7 +46,9 @@ function useComposerNav() {
     },
     {
       name: "collection",
-      isActive: () => location.pathname.startsWith("/collection"),
+      isActive: () =>
+        location.pathname.startsWith("/collection") ||
+        location.pathname.startsWith("/labels"),
       action: () => navigate("/collection"),
       Icon: NotebookIcon,
     },

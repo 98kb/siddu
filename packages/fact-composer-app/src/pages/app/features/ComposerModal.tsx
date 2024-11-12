@@ -18,6 +18,7 @@ import {useAddFactTrigger} from "../hooks/useAddFactTrigger";
 import {MarketplacePage} from "~/pages/marketplace/page/Marketplace";
 import {ComponentProps} from "react";
 import {SettingsPage} from "~/pages/settings/pages/SettingsPage";
+import {LabelsPage} from "~/pages/labels/pages/LabelsPage";
 
 type TProps = ComponentProps<typeof Dialog>;
 
@@ -46,7 +47,7 @@ export function ComposerModal(props: TProps) {
           <Routes>
             <Route path="/collection" element={<Collection />} />
             <Route path="/composition" element={<Composition />} />
-            <Route path="/composition/labels" element={<div>Labels</div>} />
+            <Route path="/labels" element={<LabelsPage />} />
             <Route path="/marketplace" element={<MarketplacePage />} />
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="*" element={<div>Not Found</div>} />

@@ -6,6 +6,7 @@ import {useFactsDb} from "~/db/hooks/useFactsDb";
 import {useLiveQuery} from "~/db/hooks/useLiveQuery";
 import {CollectionNavTab} from "../components/CollectionNavTab";
 import {useFactFilters} from "../hooks/useFactFilters";
+import {useNavigate} from "react-router-dom";
 
 export function CollectionNav() {
   const tabs = useCollectionNav();
@@ -28,6 +29,7 @@ export function CollectionNav() {
 
 function useCollectionNav(): NavTab[] {
   const db = useFactsDb();
+  const navigate = useNavigate();
   const {filters, resetFilters, setArchivedOnly, setLabel} = useFactFilters();
   const fetchLabels = useCallback(async () => db?.labels.getAll(), [db]);
   const labels = useLiveQuery("labels", fetchLabels);
@@ -54,9 +56,9 @@ function useCollectionNav(): NavTab[] {
       {
         Icon: TagIcon,
         name: "Labels",
-        action: () => {},
+        action: () => navigate("/labels"),
         isActive: () => false,
       },
     ];
-  }, [filters, labels, resetFilters, setArchivedOnly, setLabel]);
+  }, [filters, labels, resetFilters, setArchivedOnly, setLabel, navigate]);
 }
