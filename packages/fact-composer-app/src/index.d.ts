@@ -1,4 +1,4 @@
-import {Composer} from "./composer/Composer.tsx";
+import {Composer} from "./pages/app/Composer";
 import {ComponentProps} from "react";
 
 declare module "@repo/fact-composer-app" {

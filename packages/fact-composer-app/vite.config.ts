@@ -5,6 +5,9 @@ import react from "@vitejs/plugin-react";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  define: {
+    __BUILD_TAG__: JSON.stringify(Date.now()),
+  },
   build: {
     lib: {
       entry: "src/index.tsx",
