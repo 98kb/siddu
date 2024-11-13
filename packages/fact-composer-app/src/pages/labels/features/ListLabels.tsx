@@ -1,9 +1,9 @@
 import {Label} from "@repo/facts-db";
 import {useEffect, useState} from "react";
 import {useFactsDb} from "~/db/hooks/useFactsDb";
-import {LabelsTable} from "../features/LabelsTable";
+import {LabelsTable} from "../organism/LabelsTable";
 
-export function LabelsPage() {
+export function ListLabels() {
   const db = useFactsDb();
   const [labels, setLabels] = useState<Label[]>([]);
   useEffect(() => {

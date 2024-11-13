@@ -1,4 +1,3 @@
-import {CollectionNav} from "../features/CollectionNav";
 import {FactsGrid} from "../features/FactsGrid";
 import {SaveFact} from "../features/SaveFact";
 import {useAtom} from "jotai";
@@ -8,15 +7,13 @@ import {FactsGridPlaceholder} from "../components/FactsGridPlaceholder";
 import {useFacts} from "../hooks/useFacts";
 
 // eslint-disable-next-line complexity
-export function Collection() {
+export function FactsPage() {
   const facts = useFacts();
   const [selectedFact, setSelectedFact] = useAtom(selectedFactAtom);
   const highlightedFacts =
     selectedFact && "id" in selectedFact ? [selectedFact] : [];
-
   return (
-    <div className="flex w-full h-full">
-      <CollectionNav />
+    <>
       <div className="flex flex-col gap-2 w-full h-full py-5 px-8 overflow-y-scroll max-h-[540px] pb-14">
         {facts.length ? (
           <>
@@ -44,6 +41,6 @@ export function Collection() {
           />
         </div>
       )}
-    </div>
+    </>
   );
 }

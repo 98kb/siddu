@@ -1,10 +1,10 @@
 import type {Meta, StoryObj} from "@storybook/react";
-import {Collection} from "./Collection";
+import {CollectionPage} from "./CollectionPage";
 import {RouterDecorator} from "~/lib/location/storybook/decorators/RouterDecorator";
 
 const meta = {
-  title: "collection/pages/Collection",
-  component: Collection,
+  title: "collection/pages/CollectionPage",
+  component: CollectionPage,
   decorators: [
     Story => (
       <RouterDecorator>
@@ -12,7 +12,7 @@ const meta = {
       </RouterDecorator>
     ),
   ],
-} satisfies Meta<typeof Collection>;
+} satisfies Meta<typeof CollectionPage>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
