@@ -18,7 +18,9 @@ export function FactListItem({fact, ...props}: TProps) {
         "hover:border-gray-400",
       )}
     >
-      <span className="text-sm cursor-default">{fact.content}</span>
+      <span className="text-sm cursor-default line-clamp-5">
+        {fact.content}
+      </span>
       <div className="flex gap-1">
         <LabelPills labels={fact.labels} />
       </div>
