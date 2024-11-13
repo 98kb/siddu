@@ -4,10 +4,10 @@ import {
   PencilRulerIcon,
   SettingsIcon,
 } from "lucide-react";
-import {useLocation, useNavigate} from "react-router-dom";
 import {NavTab} from "../../../lib/NavTab";
 import {AppLogoIcon} from "~/components/AppLogoIcon";
 import {ComposerNavTab} from "../components/ComposerNavTab";
+import {useLocation, useNavigate} from "react-router-dom";
 
 export function ComposerNav() {
   const {tabs, bottomTabs} = useComposerNav();
@@ -22,12 +22,14 @@ export function ComposerNav() {
 }
 
 function ComposerNavTabs({tabs}: {tabs: NavTab[]}) {
-  return tabs.map(({name, isActive, Icon, action}) => (
+  const location = useLocation();
+  const navigate = useNavigate();
+  return tabs.map(({name, Icon, route}) => (
     <ComposerNavTab
       key={name}
       tabName={name}
-      isActive={isActive()}
-      onClick={action}
+      isActive={location.pathname.startsWith(route)}
+      onClick={() => navigate(route)}
     >
       <Icon />
     </ComposerNavTab>
@@ -35,37 +37,29 @@ function ComposerNavTabs({tabs}: {tabs: NavTab[]}) {
 }
 
 function useComposerNav() {
-  const location = useLocation();
-  const navigate = useNavigate();
   const tabs: NavTab[] = [
     {
       name: "composition",
-      isActive: () => location.pathname.startsWith("/composition"),
-      action: () => navigate("/composition"),
       Icon: PencilRulerIcon,
+      route: "/composition",
     },
     {
       name: "collection",
-      isActive: () =>
-        location.pathname.startsWith("/collection") ||
-        location.pathname.startsWith("/labels"),
-      action: () => navigate("/collection"),
       Icon: NotebookIcon,
+      route: "/collection",
     },
   ];
 
   const bottomTabs: NavTab[] = [
     {
       name: "Guides",
-      action: () => navigate("/help"),
-      isActive: () => location.pathname.startsWith("/help"),
       Icon: HelpCircleIcon,
+      route: "/help",
     },
     {
       name: "Settings & Preferences",
-      isActive: () => location.pathname.startsWith("/settings"),
-      action: () => navigate("/settings"),
       Icon: SettingsIcon,
+      route: "/settings",
     },
   ];
 
