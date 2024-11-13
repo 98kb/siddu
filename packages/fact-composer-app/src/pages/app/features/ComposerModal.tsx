@@ -6,7 +6,7 @@ import {
 } from "~/components/ui/dialog";
 import {ComposerNav} from "./ComposerNav";
 import {Route, Routes, useLocation, useNavigate} from "react-router-dom";
-import {Collection} from "~/pages/collection/pages/Collection";
+import {CollectionPage} from "~/pages/collection/pages/CollectionPage";
 import {cn} from "~/lib/utils";
 import {Header} from "../components/Header";
 import {Composition} from "~/pages/composition/pages/Composition";
@@ -18,7 +18,8 @@ import {useAddFactTrigger} from "../hooks/useAddFactTrigger";
 import {MarketplacePage} from "~/pages/marketplace/page/Marketplace";
 import {ComponentProps} from "react";
 import {SettingsPage} from "~/pages/settings/pages/SettingsPage";
-import {LabelsPage} from "~/pages/labels/pages/LabelsPage";
+import {FactsPage} from "~/pages/collection/pages/FactsPage";
+import {ListLabels} from "~/pages/labels/features/ListLabels";
 
 type TProps = ComponentProps<typeof Dialog>;
 
@@ -45,9 +46,11 @@ export function ComposerModal(props: TProps) {
             <Header location={location} />
           </h1>
           <Routes>
-            <Route path="/collection" element={<Collection />} />
+            <Route path="/collection" element={<CollectionPage />}>
+              <Route index element={<FactsPage />} />
+              <Route path="labels" element={<ListLabels />} />
+            </Route>
             <Route path="/composition" element={<Composition />} />
-            <Route path="/labels" element={<LabelsPage />} />
             <Route path="/marketplace" element={<MarketplacePage />} />
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="*" element={<div>Not Found</div>} />

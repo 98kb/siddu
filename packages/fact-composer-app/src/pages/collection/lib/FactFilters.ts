@@ -1,6 +1,6 @@
 import {Label} from "@repo/facts-db";
 
 export type FactFilters = {
-  label?: Label;
+  labelId?: Label["id"];
   archived?: boolean;
 };

@@ -7,15 +7,15 @@ export function useFactFilters() {
   const [filters, setFilters] = useAtom(factFiltersAtom);
 
   const setLabel = useCallback(
-    (label: Label) => {
-      setFilters({archived: false, label});
+    (labelId?: Label["id"]) => {
+      setFilters($filters => ({...$filters, labelId}));
     },
     [setFilters],
   );
 
   const setArchivedOnly = useCallback(
     (archived: boolean) => {
-      setFilters({archived});
+      setFilters($filters => ({...$filters, archived}));
     },
     [setFilters],
   );

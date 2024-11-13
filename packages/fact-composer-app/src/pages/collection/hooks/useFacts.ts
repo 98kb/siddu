@@ -5,15 +5,15 @@ import {useCallback} from "react";
 import {Fact, Label} from "@repo/facts-db";
 import {FactFilters} from "../lib/FactFilters";
 
-const filterByLabel = (label: Label) => (fact: Fact) =>
-  fact.labels.map(({id}) => id).includes(label.id);
+const filterByLabel = (labelId: Label["id"]) => (fact: Fact) =>
+  fact.labels.some(({id}) => id === labelId);
 
 const createFactsQuery = (filters: FactFilters) => {
   const predicates = [
     (fact: Fact) => Boolean(fact.isDeleted) === Boolean(filters.archived),
   ];
-  if (filters.label) {
-    predicates.push(filterByLabel(filters.label));
+  if (filters.labelId) {
+    predicates.push(filterByLabel(filters.labelId));
   }
   return (fact: Fact) => predicates.every(f => f(fact));
 };
