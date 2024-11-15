@@ -1,5 +1,6 @@
 import {Label} from "@repo/facts-db";
 import {TrashIcon} from "lucide-react";
+import {WithConfirmation} from "~/components/HOC/WithConfirmation";
 import {IconButton} from "~/components/IconButton";
 import {Pill} from "~/components/Pill";
 import {
@@ -35,13 +36,22 @@ export function LabelsTable({labels, onDelete}: TProps) {
               <Pill name={label.name} variant="outline" />
             </TableCell>
             <TableCell align="right">
-              <IconButton tooltip="Delete" onClick={() => onDelete(label.id)}>
-                <TrashIcon className="w-4" />
-              </IconButton>
+              <WithConfirmation
+                For={DeleteButton}
+                onConfirm={() => onDelete(label.id)}
+              />
             </TableCell>
           </TableRow>
         ))}
       </TableBody>
     </Table>
+  );
+}
+
+function DeleteButton(props: {onClick: () => void}) {
+  return (
+    <IconButton tooltip="Delete" {...props}>
+      <TrashIcon className="w-4" />
+    </IconButton>
   );
 }
