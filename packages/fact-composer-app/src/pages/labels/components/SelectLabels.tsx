@@ -1,7 +1,7 @@
-import {InsertLabel, Label} from "@repo/facts-db";
+import {Label} from "@repo/facts-db";
 import {Reader} from "fp-ts/lib/Reader";
 import {Check} from "lucide-react";
-import {useCallback, useState} from "react";
+import {useState} from "react";
 import {Button} from "~/components/ui/button";
 import {
   Command,
@@ -12,9 +12,8 @@ import {
   CommandList,
 } from "~/components/ui/command";
 import {Popover, PopoverContent, PopoverTrigger} from "~/components/ui/popover";
-import {useFactsDb} from "~/db/hooks/useFactsDb";
-import {useLiveQuery} from "~/db/hooks/useLiveQuery";
 import {cn} from "~/lib/utils";
+import {useLabels} from "../hooks/useLabels";
 
 type TProps = {
   children: Reader<{open: boolean}, React.ReactNode>;
@@ -24,7 +23,8 @@ type TProps = {
 
 export function SelectLabels({children, selected, onSelect}: TProps) {
   const [open, setOpen] = useState(false);
-  const {labels, query, addLabel, setQuery} = useSelectLabels();
+  const {labels, addLabel} = useLabels();
+  const {query, setQuery} = useSelectLabels();
   const isSelected = (label: Label) => selected.some(l => l.id === label.id);
   const handleSelect = (label: Label) => {
     onSelect(label);
@@ -82,15 +82,10 @@ export function SelectLabels({children, selected, onSelect}: TProps) {
 }
 
 function useSelectLabels() {
-  const db = useFactsDb();
   const [query, setQuery] = useState("");
-  const fetchLabels = useCallback(async () => db?.labels.getAll(), [db]);
-  const labels = useLiveQuery("labels", fetchLabels);
 
   return {
-    labels,
     query,
     setQuery,
-    addLabel: (label: InsertLabel) => db?.labels.add(label),
   };
 }

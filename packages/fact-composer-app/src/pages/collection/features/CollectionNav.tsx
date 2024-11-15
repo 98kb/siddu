@@ -1,12 +1,11 @@
 import {ArchiveXIcon, BookOpenTextIcon, TagIcon} from "lucide-react";
 import {LabelIcon} from "../components/LabelIcon";
 import {NavTab} from "~/lib/NavTab";
-import {useCallback, useEffect, useMemo} from "react";
-import {useFactsDb} from "~/db/hooks/useFactsDb";
-import {useLiveQuery} from "~/db/hooks/useLiveQuery";
+import {useEffect, useMemo} from "react";
 import {CollectionNavTab} from "../components/CollectionNavTab";
 import {useFactFilters} from "../hooks/useFactFilters";
 import {useLocation, useNavigate} from "react-router-dom";
+import {useLabels} from "~/pages/labels/hooks/useLabels";
 
 export function CollectionNav() {
   const tabs = useCollectionNav();
@@ -37,9 +36,7 @@ export function CollectionNav() {
 }
 
 function useCollectionNav(): NavTab[] {
-  const db = useFactsDb();
-  const fetchLabels = useCallback(async () => db?.labels.getAll(), [db]);
-  const labels = useLiveQuery("labels", fetchLabels);
+  const {labels} = useLabels();
   return useMemo<NavTab[]>(() => {
     return [
       {
