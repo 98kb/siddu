@@ -1,15 +1,15 @@
-import {IQuery} from "./IQuery";
-import {IdType} from "./IdType";
+import type {IdTypeSchema} from "../schema/IdTypeSchema";
+import type {QuerySchema} from "../schema/QuerySchema";
 
 export interface IRepository<
-  Entity extends IdType,
+  Entity extends IdTypeSchema,
   CreateRequest,
   UpdateRequest,
-  QueryRequest extends IQuery,
+  QueryRequest extends QuerySchema,
 > {
   create(request: CreateRequest): Promise<Entity>;
-  get(request: IdType["_id"]): Promise<Entity | undefined>;
-  update(id: IdType["_id"], request: UpdateRequest): Promise<Entity>;
-  delete(id: IdType["_id"]): Promise<void>;
+  get(request: IdTypeSchema["_id"]): Promise<Entity | undefined>;
+  update(id: IdTypeSchema["_id"], request: UpdateRequest): Promise<Entity>;
+  delete(id: IdTypeSchema["_id"]): Promise<void>;
   list(request: QueryRequest): Promise<Entity[]>;
 }
