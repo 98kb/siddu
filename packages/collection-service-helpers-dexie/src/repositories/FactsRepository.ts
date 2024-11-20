@@ -2,7 +2,7 @@ import {DexieRepository} from "./DexieRepository";
 import {Reader} from "fp-ts/lib/Reader";
 import type {
   FactSchema,
-  IFactsQuery,
+  FactsQuerySchema,
   IFactsRepository,
   InsertFactSchema,
 } from "@repo/collection-service-defs";
@@ -13,7 +13,7 @@ export class FactsRepository
     FactSchema,
     InsertFactSchema,
     Partial<InsertFactSchema>,
-    IFactsQuery
+    FactsQuerySchema
   >
   implements IFactsRepository
 {
@@ -21,7 +21,7 @@ export class FactsRepository
     labelIds,
     query,
     isDeleted,
-  }: IFactsQuery): Reader<FactSchema, boolean>[] {
+  }: FactsQuerySchema): Reader<FactSchema, boolean>[] {
     const predicates = [
       (fact: FactSchema) => Boolean(fact.isDeleted) === Boolean(isDeleted),
     ];

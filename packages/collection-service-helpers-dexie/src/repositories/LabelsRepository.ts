@@ -1,9 +1,9 @@
 import {DexieRepository} from "./DexieRepository";
 import {Reader} from "fp-ts/lib/Reader";
 import type {
-  ILabelsQuery,
   InsertLabelSchema,
   LabelSchema,
+  LabelsQuerySchema,
 } from "@repo/collection-service-defs";
 
 export class LabelsRepository extends DexieRepository<
@@ -11,16 +11,15 @@ export class LabelsRepository extends DexieRepository<
   LabelSchema,
   InsertLabelSchema,
   Partial<InsertLabelSchema>,
-  ILabelsQuery
+  LabelsQuerySchema
 > {
   toQueryPredicates({
     query,
     isDeleted,
-  }: ILabelsQuery): Reader<LabelSchema, boolean>[] {
+  }: LabelsQuerySchema): Reader<LabelSchema, boolean>[] {
     const predicates = [
       (label: LabelSchema) => Boolean(label.isDeleted) === Boolean(isDeleted),
     ];
-
     if (query) {
       predicates.push((label: LabelSchema) => label.name.includes(query));
     }
