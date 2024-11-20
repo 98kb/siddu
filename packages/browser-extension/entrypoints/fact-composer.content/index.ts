@@ -23,6 +23,7 @@ export default defineContentScript({
 
         const client = createRuntimeClient();
         createApp(root, {
+          collection: client.collection,
           db: new DbClient(table => new TRPCService(table, client.db)),
           auth: new AuthClient(client.auth),
           backup: client.backup,

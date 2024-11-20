@@ -11,14 +11,17 @@ import {AuthContext} from "~/auth/AuthContext";
 import {BackupClient} from "@repo/facts-db-backup";
 import {BackupContext} from "~/db/context/BackupContext";
 import {TooltipProvider} from "~/components/ui/tooltip";
+import {CollectionClient} from "@repo/collection-service-trpc-factory";
+import {CollectionContext} from "../collection/context/CollectionContext";
 
 type TProps = {
   db: DbClient;
   auth?: IAuthService;
   backup?: BackupClient;
+  collection?: CollectionClient;
 };
 
-export function Composer({auth, backup, db}: TProps) {
+export function Composer({auth, backup, collection, db}: TProps) {
   const [isOpen, setIsOpen] = useComposer();
   const setComposition = useSetAtom(compositionAtom);
   useCompositionTrigger(() => {
@@ -29,11 +32,13 @@ export function Composer({auth, backup, db}: TProps) {
     <AuthContext.Provider value={auth}>
       <FactsDbContext.Provider value={db}>
         <BackupContext.Provider value={backup}>
-          <TooltipProvider>
-            <MemoryRouter>
-              <ComposerModal open={isOpen} onOpenChange={setIsOpen} />
-            </MemoryRouter>
-          </TooltipProvider>
+          <CollectionContext.Provider value={collection}>
+            <TooltipProvider>
+              <MemoryRouter>
+                <ComposerModal open={isOpen} onOpenChange={setIsOpen} />
+              </MemoryRouter>
+            </TooltipProvider>
+          </CollectionContext.Provider>
         </BackupContext.Provider>
       </FactsDbContext.Provider>
     </AuthContext.Provider>
