@@ -6,6 +6,6 @@ import type {LabelsQuerySchema} from "../schemas/LabelsQuerySchema";
 export type ILabelsRepository = IRepository<
   LabelSchema,
   InsertLabelSchema,
-  Omit<Partial<InsertLabelSchema>, "_id">,
+  Omit<Partial<LabelSchema>, "_id">,
   LabelsQuerySchema
 >;
