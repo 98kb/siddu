@@ -38,6 +38,7 @@
     "@repo/collection-service-defs": "workspace:*",
     "dexie": "^4.0.8",
     "fp-ts": "^2.16.9",
+    "uuid": "^11.0.3",
     "zod": "^3.23.8"
   }
 }
