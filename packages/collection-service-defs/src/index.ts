@@ -6,6 +6,7 @@ export * from "./facts/types/IFactsRepository";
 export * from "./facts/schemas/FactSchema";
 export * from "./facts/schemas/FactsQuerySchema";
 export * from "./facts/schemas/InsertFactSchema";
+export * from "./facts/schemas/UpdateFactSchema";
 export * from "./common/types/IRepository";
 export * from "./common/schema/BaseSchemas";
 export * from "./common/schema/IdTypeSchema";
