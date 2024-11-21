@@ -3,31 +3,30 @@ import {
   FactsQuerySchema,
   type IFactsRepository,
   InsertFactSchema,
+  UpdateFactSchema,
 } from "@repo/collection-service-defs";
 import {getItem} from "../middleware/getItem";
 import {publicProcedure, router} from "../lib/trpc";
-import {z} from "zod";
 
 export const createFactsRouter = (facts: IFactsRepository) =>
   router({
     create: publicProcedure
       .input(InsertFactSchema)
       .output(FactSchema)
-      .mutation(({input}) => facts.create(input)),
+      .mutation(async ({input}) => facts.create(input)),
     get: publicProcedure
       .input(FactSchema.pick({_id: true}))
       .output(FactSchema)
       .use(getItem(facts))
       .query(({ctx}) => ctx.item as FactSchema),
     update: publicProcedure
-      .input(
-        z.object({
-          ...FactSchema.partial().shape,
-          ...FactSchema.pick({_id: true}).shape,
-        }),
-      )
+      .input(UpdateFactSchema)
       .output(FactSchema)
-      .mutation(({input: {_id, ...changes}}) => facts.update(_id, changes)),
+      .mutation(async ({input: {_id, ...changes}}) => {
+        const a = await facts.update(_id, changes);
+        console.log("up", a);
+        return a;
+      }),
     delete: publicProcedure
       .input(FactSchema.pick({_id: true}))
       .mutation(({input}) => facts.delete(input._id)),
@@ -35,4 +34,12 @@ export const createFactsRouter = (facts: IFactsRepository) =>
       .input(FactsQuerySchema)
       .output(FactSchema.array())
       .query(({input}) => facts.list(input)),
+    softDelete: publicProcedure
+      .input(FactSchema.pick({_id: true}))
+      .mutation(({input}) =>
+        facts.update(input._id, {deletedAt: Date.now(), isDeleted: true}),
+      ),
+    restore: publicProcedure
+      .input(FactSchema.pick({_id: true}))
+      .mutation(({input}) => facts.update(input._id, {isDeleted: false})),
   });
