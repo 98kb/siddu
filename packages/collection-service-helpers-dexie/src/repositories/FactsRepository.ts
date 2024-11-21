@@ -30,7 +30,7 @@ export class FactsRepository
       predicates.push((fact: FactSchema) => fact.content.includes(query));
     }
 
-    if (labelIds) {
+    if (labelIds?.length) {
       predicates.push((fact: FactSchema) =>
         fact.labels.some(label => labelIds.includes(label._id)),
       );
