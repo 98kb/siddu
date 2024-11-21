@@ -35,4 +35,12 @@ export const createLabelsRouter = (labels: ILabelsRepository) =>
       .input(LabelsQuerySchema)
       .output(LabelSchema.array())
       .query(({input}) => labels.list(input)),
+    softDelete: publicProcedure
+      .input(LabelSchema.pick({_id: true}))
+      .mutation(({input}) =>
+        labels.update(input._id, {deletedAt: Date.now(), isDeleted: true}),
+      ),
+    restore: publicProcedure
+      .input(LabelSchema.pick({_id: true}))
+      .mutation(({input}) => labels.update(input._id, {isDeleted: false})),
   });
