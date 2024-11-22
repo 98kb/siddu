@@ -1,0 +1,51 @@
+{
+  "name": "@repo/collection-service-dexie-backup",
+  "version": "0.0.0",
+  "description": "",
+  "author": "",
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "dev": "vitest dev",
+    "lint": "eslint --cache --ext .ts,.js,.mjs,.cjs . && prettier -c src tests",
+    "lint:fix": "eslint --cache --ext .ts,.js,.mjs,.cjs . --fix && prettier -c src test -w",
+    "test": "pnpm lint && pnpm test:types && vitest run --coverage --dir tests",
+    "test:types": "tsc --noEmit --skipLibCheck"
+  },
+  "devDependencies": {
+    "@types/node": "^20.5.4",
+    "@vitest/coverage-v8": "^2.0.5",
+    "eslint": "^8.47.0",
+    "eslint-config-dsfx3d": "^0.1.2",
+    "prettier": "^3.0.2",
+    "typescript": "^5.1.6",
+    "unbuild": "^2.0.0",
+    "vitest": "^2.0.5"
+  },
+  "dependencies": {
+    "@googleapis/drive": "^8.14.0",
+    "@repo/chrome-auth-service": "workspace:*",
+    "@repo/facts-db": "workspace:*",
+    "@repo/collection-service-defs": "workspace:*",
+    "@repo/collection-service-helpers-dexie": "workspace:*",
+    "@trpc/client": "^10.0.0",
+    "@trpc/server": "^10.0.0",
+    "dexie": "^4.0.8",
+    "dexie-export-import": "^4.1.2",
+    "fp-ts": "^2.16.9",
+    "superjson": "^2.2.1",
+    "zod": "^3.23.8"
+  }
+}
