@@ -2,7 +2,6 @@ import "@repo/fact-composer-app/dist/style.css";
 // eslint-disable-next-line sort-imports-es6-autofix/sort-imports-es6
 import "./style.css";
 import {AuthClient} from "@repo/chrome-auth-service";
-import {DbClient, TRPCService} from "@repo/facts-db";
 import {createApp} from "@repo/fact-composer-app";
 import {createRuntimeClient} from "@/lib/background/createRuntimeClient";
 
@@ -24,7 +23,6 @@ export default defineContentScript({
         const client = createRuntimeClient();
         createApp(root, {
           collection: client.collection,
-          db: new DbClient(table => new TRPCService(table, client.db)),
           auth: new AuthClient(client.auth),
           backup: client.backup,
         });

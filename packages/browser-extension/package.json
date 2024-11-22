@@ -16,11 +16,11 @@
   },
   "dependencies": {
     "@repo/chrome-auth-service": "workspace:*",
+    "@repo/collection-service-dexie-backup": "workspace:*",
     "@repo/collection-service-helpers-dexie": "workspace:*",
     "@repo/collection-service-trpc-factory": "workspace:*",
     "@repo/fact-composer-app": "workspace:*",
     "@repo/facts-db": "workspace:*",
-    "@repo/facts-db-backup": "workspace:*",
     "@trpc/client": "^10.0.0",
     "@trpc/react-query": "^10.45.2",
     "@trpc/server": "^10.0.0",
