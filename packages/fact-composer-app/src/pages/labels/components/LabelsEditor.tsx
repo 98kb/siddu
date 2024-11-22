@@ -1,17 +1,22 @@
-import {Label} from "@repo/facts-db";
 import {XIcon} from "lucide-react";
 import {Button} from "~/components/ui/button";
 import {LabelPills} from "./LabelPills";
+import type {LabelSchema} from "@repo/collection-service-defs";
+import {Reader} from "fp-ts/lib/Reader";
+import {useCallback} from "react";
 
 type TProps = {
-  labels: Label[];
-  onChange: (labels: Label[]) => void;
+  labels: LabelSchema[];
+  onChange: Reader<LabelSchema[], void>;
 };
 
 export function LabelsEditor({labels, onChange}: TProps) {
-  const removeLabel = (id: number) => {
-    onChange(labels.filter(label => label.id !== id));
-  };
+  const removeLabel = useCallback(
+    (id: LabelSchema["_id"]) => {
+      onChange(labels.filter(label => label._id !== id));
+    },
+    [labels, onChange],
+  );
 
   return (
     <LabelPills labels={labels}>
@@ -20,7 +25,7 @@ export function LabelsEditor({labels, onChange}: TProps) {
           size="icon-sm"
           variant="ghost"
           className="rounded-full"
-          onClick={() => removeLabel(label.id)}
+          onClick={() => removeLabel(label._id)}
         >
           <XIcon className="w-3 h-3" />
         </Button>

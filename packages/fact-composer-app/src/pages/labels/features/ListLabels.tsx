@@ -1,17 +1,10 @@
-import {useFactsDb} from "~/db/hooks/useFactsDb";
 import {LabelsTable} from "../organism/LabelsTable";
-import {useLabels} from "../hooks/useLabels";
+import {useLabelsQuery} from "../hooks/useLabelsQuery";
+import {useLabelActions} from "../hooks/useLabelActions";
 
 export function ListLabels() {
-  const db = useFactsDb();
-  const {labels} = useLabels();
+  const {softDeleteLabel} = useLabelActions();
+  const {labels} = useLabelsQuery();
 
-  return (
-    <LabelsTable
-      labels={labels}
-      onDelete={async labelId => {
-        await db?.labels.softDelete(labelId);
-      }}
-    />
-  );
+  return <LabelsTable labels={labels} onDelete={softDeleteLabel} />;
 }

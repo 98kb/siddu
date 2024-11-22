@@ -2,9 +2,9 @@ import type {Meta, StoryObj} from "@storybook/react";
 import {fn} from "@storybook/test";
 
 import {LabelPills} from "./LabelPills";
-import {Label} from "@repo/facts-db";
 import {Button} from "~/components/ui/button";
 import {XIcon} from "lucide-react";
+import {LabelSchema} from "@repo/collection-service-defs";
 
 const meta: Meta<typeof LabelPills> = {
   title: "labels/components/LabelPills",
@@ -17,25 +17,25 @@ const meta: Meta<typeof LabelPills> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const labels: Label[] = [
+const labels: LabelSchema[] = [
   {
-    id: 0,
+    _id: "0",
     name: "ChatGPT",
   },
   {
-    id: 1,
+    _id: "1",
     name: "GPT-3",
   },
   {
-    id: 2,
+    _id: "2",
     name: "GoT",
   },
   {
-    id: 3,
+    _id: "3",
     name: "WorkExp",
   },
   {
-    id: 4,
+    _id: "4",
     name: "Personal Life Experiences of a Software Engineer",
   },
 ];

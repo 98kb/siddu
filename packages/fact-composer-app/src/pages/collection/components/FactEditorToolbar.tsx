@@ -1,14 +1,20 @@
-import {Fact, InsertFact, Label} from "@repo/facts-db";
+import type {
+  FactSchema,
+  InsertFactSchema,
+  LabelSchema,
+} from "@repo/collection-service-defs";
+import {IO} from "fp-ts/lib/IO";
+import {Reader} from "fp-ts/lib/Reader";
 import {ArchiveXIcon, TagIcon} from "lucide-react";
 import {IconButton} from "~/components/IconButton";
 import {Button} from "~/components/ui/button";
 import {SelectLabels} from "~/pages/labels/components/SelectLabels";
 
 type TProps = {
-  fact: Fact | InsertFact;
-  onChange: (fact: Fact | InsertFact) => void;
-  onArchive: (factId: Fact["id"]) => void;
-  onClose: () => void;
+  fact: FactSchema | InsertFactSchema;
+  onChange: Reader<FactSchema | InsertFactSchema, void>;
+  onArchive: Reader<FactSchema["_id"], void>;
+  onClose: IO<void>;
 };
 
 export function FactEditorToolbar({
@@ -17,14 +23,12 @@ export function FactEditorToolbar({
   onChange,
   onClose,
 }: TProps) {
-  const updateLabels = (labels: Label[]) => onChange({...fact, labels});
+  const updateLabels = (label: LabelSchema) =>
+    onChange({...fact, labels: [...fact.labels, label]});
   return (
     <div className="flex w-full">
       <div className="flex">
-        <SelectLabels
-          selected={fact.labels}
-          onSelect={label => updateLabels([...fact.labels, label])}
-        >
+        <SelectLabels selected={fact.labels} onSelect={updateLabels}>
           {({open}) => (
             <IconButton
               tooltip="Add Label"
@@ -35,11 +39,11 @@ export function FactEditorToolbar({
             </IconButton>
           )}
         </SelectLabels>
-        {"id" in fact && (
+        {"_id" in fact && (
           <IconButton
             tooltip="Archive"
             onClick={async () => {
-              await onArchive(fact.id);
+              await onArchive(fact._id);
               onClose();
             }}
           >

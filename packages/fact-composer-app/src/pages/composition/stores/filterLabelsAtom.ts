@@ -1,4 +1,4 @@
-import {Label} from "@repo/facts-db";
+import {LabelSchema} from "@repo/collection-service-defs";
 import {atom} from "jotai";
 
-export const filterLabelsAtom = atom<Label[]>([]);
+export const filterLabelsAtom = atom<LabelSchema[]>([]);

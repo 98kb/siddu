@@ -1,14 +1,9 @@
 import type {Meta, StoryObj} from "@storybook/react";
-
 import {FactList} from "./FactList";
-import {createMemoryAdapter, DbClient} from "@repo/facts-db";
-import {seedDb} from "~/db/_mock/seedDb";
 import {RouterDecorator} from "~/lib/location/storybook/decorators/RouterDecorator";
-import {FactsDbContext} from "~/db/context/FactsDbContext";
 import {fn} from "@storybook/test";
-
-const db = new DbClient(createMemoryAdapter);
-seedDb(db);
+import {dummyCollection} from ".storybook/trpc";
+import {CollectionContext} from "~/pages/collection/context/CollectionContext";
 
 const meta: Meta<typeof FactList> = {
   title: "composition/features/FactList",
@@ -18,11 +13,11 @@ const meta: Meta<typeof FactList> = {
   },
   decorators: [
     Story => (
-      <FactsDbContext.Provider value={db}>
+      <CollectionContext.Provider value={dummyCollection}>
         <RouterDecorator>
           <Story />
         </RouterDecorator>
-      </FactsDbContext.Provider>
+      </CollectionContext.Provider>
     ),
   ],
 };

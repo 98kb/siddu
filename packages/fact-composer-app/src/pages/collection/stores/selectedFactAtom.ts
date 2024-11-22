@@ -1,4 +1,6 @@
-import {Fact, InsertFact} from "@repo/facts-db";
+import type {FactSchema, InsertFactSchema} from "@repo/collection-service-defs";
 import {atom} from "jotai";
 
-export const selectedFactAtom = atom<Fact | InsertFact | undefined>(undefined);
+export const selectedFactAtom = atom<FactSchema | InsertFactSchema | undefined>(
+  undefined,
+);

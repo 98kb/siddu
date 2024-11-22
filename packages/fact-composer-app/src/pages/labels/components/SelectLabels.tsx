@@ -1,7 +1,6 @@
-import {Label} from "@repo/facts-db";
 import {Reader} from "fp-ts/lib/Reader";
 import {Check} from "lucide-react";
-import {useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {Button} from "~/components/ui/button";
 import {
   Command,
@@ -13,29 +12,33 @@ import {
 } from "~/components/ui/command";
 import {Popover, PopoverContent, PopoverTrigger} from "~/components/ui/popover";
 import {cn} from "~/lib/utils";
-import {useLabels} from "../hooks/useLabels";
+import {LabelSchema} from "@repo/collection-service-defs";
+import {useCollection} from "~/pages/collection/hooks/useCollection";
+import {useLabelActions} from "../hooks/useLabelActions";
 
 type TProps = {
   children: Reader<{open: boolean}, React.ReactNode>;
-  selected: Label[];
-  onSelect: Reader<Label, void>;
+  selected: LabelSchema[];
+  onSelect: Reader<LabelSchema, void>;
 };
 
 export function SelectLabels({children, selected, onSelect}: TProps) {
   const [open, setOpen] = useState(false);
-  const {labels, addLabel} = useLabels();
-  const {query, setQuery} = useSelectLabels();
-  const isSelected = (label: Label) => selected.some(l => l.id === label.id);
-  const handleSelect = (label: Label) => {
-    onSelect(label);
-    setOpen(false);
-  };
-  const addAndSelect = async () => {
+  const {addLabel} = useLabelActions();
+  const {labels, query, setQuery} = useSelectLabelsQuery();
+  const selectLabel = useCallback<Reader<LabelSchema, void>>(
+    label => {
+      onSelect(label);
+      setOpen(false);
+    },
+    [onSelect],
+  );
+  const addAndSelect = useCallback(async () => {
     const addedLabel = await addLabel({name: query});
     if (addedLabel) {
-      handleSelect(addedLabel);
+      selectLabel(addedLabel);
     }
-  };
+  }, [addLabel, selectLabel, query]);
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>{children?.({open})}</PopoverTrigger>
@@ -60,14 +63,15 @@ export function SelectLabels({children, selected, onSelect}: TProps) {
             <CommandGroup>
               {labels?.map(label => (
                 <CommandItem
-                  key={label.id}
+                  key={label._id}
                   value={label.name}
-                  onSelect={() => handleSelect(label)}
+                  onSelect={() => selectLabel(label)}
                 >
                   <Check
                     className={cn(
                       "mr-2 h-4 w-4",
-                      !isSelected(label) && "text-transparent",
+                      !selected.some(l => l._id === label._id) &&
+                        "text-transparent",
                     )}
                   />
                   {label.name}
@@ -81,10 +85,26 @@ export function SelectLabels({children, selected, onSelect}: TProps) {
   );
 }
 
-function useSelectLabels() {
+function useSelectLabelsQuery() {
   const [query, setQuery] = useState("");
+  const collection = useCollection();
+  const [labels, setLabels] = useState<LabelSchema[]>([]);
+  const fetchLabels = useCallback(() => {
+    collection?.labels.list
+      .query({
+        pagination: {limit: 10, offset: 0},
+        isDeleted: false,
+        query,
+      })
+      .then(setLabels);
+  }, [collection, query]);
+  useEffect(() => {
+    fetchLabels();
+  }, [fetchLabels]);
 
   return {
+    labels,
+    fetchLabels,
     query,
     setQuery,
   };

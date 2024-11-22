@@ -1,6 +1,6 @@
-import {Label} from "@repo/facts-db";
+import {LabelSchema} from "@repo/collection-service-defs";
 
 export type FactFilters = {
-  labelId?: Label["id"];
+  labelId?: LabelSchema["_id"];
   archived?: boolean;
 };

@@ -21,23 +21,23 @@ export const Default: Story = {
   args: {
     labels: [
       {
-        id: 0,
+        _id: "0",
         name: "ChatGPT",
       },
       {
-        id: 1,
+        _id: "1",
         name: "GPT-3",
       },
       {
-        id: 2,
+        _id: "2",
         name: "GoT",
       },
       {
-        id: 3,
+        _id: "3",
         name: "WorkExp",
       },
       {
-        id: 4,
+        _id: "4",
         name: "Personal Life Experiences of a Software Engineer",
       },
     ],

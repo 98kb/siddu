@@ -1,10 +1,10 @@
 import {test, expect} from "@playwright/experimental-ct-react";
 import {FactEditor} from "./FactEditor";
-import {Fact} from "@repo/facts-db";
 import {sleep} from "~/lib/sleep";
+import {FactSchema} from "@repo/collection-service-defs";
 
-const createFact = (): Fact => ({
-  id: 0,
+const createFact = (): FactSchema => ({
+  _id: "0",
   content: "This sample content",
   labels: [],
 });

@@ -1,13 +1,13 @@
-import {Label} from "@repo/facts-db";
 import {Pill} from "~/components/Pill";
 import {Reader} from "fp-ts/Reader";
 import _isequal from "lodash.isequal";
+import type {LabelSchema} from "@repo/collection-service-defs";
 
 type TProps = {
-  labels: Label[];
-  highlightedLabels?: Label[];
-  onClick?: Reader<Label, void>;
-  children?: Reader<Label, React.ReactNode>;
+  labels: LabelSchema[];
+  highlightedLabels?: LabelSchema[];
+  onClick?: Reader<LabelSchema, void>;
+  children?: Reader<LabelSchema, React.ReactNode>;
   className?: string;
 };
 
@@ -21,7 +21,7 @@ export function LabelPills({
   return labels
     .map(label => (
       <Pill
-        key={label.id}
+        key={label._id}
         name={label.name}
         className={className}
         variant={toVariant(label, highlightedLabels)}
@@ -41,7 +41,7 @@ export function LabelPills({
     });
 }
 
-function toVariant(label: Label, highlightedLabels?: Label[]) {
+function toVariant(label: LabelSchema, highlightedLabels?: LabelSchema[]) {
   return highlightedLabels?.some($label => _isequal($label, label))
     ? "default"
     : "outline";

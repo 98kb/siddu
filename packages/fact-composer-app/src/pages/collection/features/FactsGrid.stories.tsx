@@ -1,11 +1,7 @@
 import type {Meta, StoryObj} from "@storybook/react";
 import {FactsGrid} from "./FactsGrid";
-import {createMemoryAdapter, DbClient} from "@repo/facts-db";
-import {factsData, seedDb} from "~/db/_mock/seedDb";
 import {fn} from "@storybook/test";
-
-const db = new DbClient(createMemoryAdapter);
-seedDb(db);
+import {factsData} from ".storybook/seedDb";
 
 const meta: Meta<typeof FactsGrid> = {
   title: "collection/features/FactsGrid",
@@ -19,7 +15,7 @@ const meta: Meta<typeof FactsGrid> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const facts = factsData.map((fact, id) => ({id, ...fact}));
+const facts = factsData.map((fact, _id) => ({_id: `${_id}`, ...fact}));
 
 export const Default: Story = {
   args: {

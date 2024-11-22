@@ -1,12 +1,12 @@
-import {Fact, Label} from "@repo/facts-db";
+import type {LabelSchema, FactSchema} from "@repo/collection-service-defs";
 import {Card, CardContent, CardFooter} from "~/components/ui/card";
 import {cn} from "~/lib/utils";
 import {LabelPills} from "~/pages/labels/components/LabelPills";
 
 type TProps = {
-  fact: Fact;
+  fact: FactSchema;
   isHighlighted?: boolean;
-  highlightedLabels?: Label[];
+  highlightedLabels?: LabelSchema[];
   onClick?: () => void;
   children?: React.ReactNode;
   className?: string;

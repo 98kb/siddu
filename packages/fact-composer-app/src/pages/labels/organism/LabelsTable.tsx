@@ -1,4 +1,5 @@
-import {Label} from "@repo/facts-db";
+import {LabelSchema} from "@repo/collection-service-defs";
+import {Reader} from "fp-ts/lib/Reader";
 import {TrashIcon} from "lucide-react";
 import {WithConfirmation} from "~/components/HOC/WithConfirmation";
 import {IconButton} from "~/components/IconButton";
@@ -14,8 +15,8 @@ import {
 } from "~/components/ui/table";
 
 type TProps = {
-  labels: Label[];
-  onDelete: (labelId: number) => Promise<void>;
+  labels: LabelSchema[];
+  onDelete: Reader<LabelSchema["_id"], Promise<void>>;
 };
 
 export function LabelsTable({labels, onDelete}: TProps) {
@@ -31,14 +32,14 @@ export function LabelsTable({labels, onDelete}: TProps) {
       </TableHeader>
       <TableBody>
         {labels.map(label => (
-          <TableRow key={label.id}>
+          <TableRow key={label._id}>
             <TableCell className="font-medium">
               <Pill name={label.name} variant="outline" />
             </TableCell>
             <TableCell align="right">
               <WithConfirmation
                 For={DeleteButton}
-                onConfirm={() => onDelete(label.id)}
+                onConfirm={() => onDelete(label._id)}
               />
             </TableCell>
           </TableRow>

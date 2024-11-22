@@ -1,20 +1,16 @@
 import type {Meta, StoryObj} from "@storybook/react";
 import {Composition} from "./Composition";
-import {createMemoryAdapter, DbClient} from "@repo/facts-db";
-import {seedDb} from "~/db/_mock/seedDb";
-import {FactsDbContext} from "~/db/context/FactsDbContext";
-
-const db = new DbClient(createMemoryAdapter);
-seedDb(db);
+import {CollectionContext} from "~/pages/collection/context/CollectionContext";
+import {dummyCollection} from ".storybook/trpc";
 
 const meta = {
   title: "composition/pages/Composition",
   component: Composition,
   decorators: [
     Story => (
-      <FactsDbContext.Provider value={db}>
+      <CollectionContext.Provider value={dummyCollection}>
         <Story />
-      </FactsDbContext.Provider>
+      </CollectionContext.Provider>
     ),
   ],
 } satisfies Meta<typeof Composition>;

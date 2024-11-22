@@ -1,10 +1,10 @@
-import {Fact} from "@repo/facts-db";
 import {ComponentProps} from "react";
 import {LabelPills} from "~/pages/labels/components/LabelPills";
 import {cn} from "~/lib/utils";
+import {FactSchema} from "@repo/collection-service-defs";
 
 type TProps = ComponentProps<"div"> & {
-  fact: Fact;
+  fact: FactSchema;
 };
 
 export function FactListItem({fact, ...props}: TProps) {

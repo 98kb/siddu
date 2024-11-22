@@ -12,8 +12,8 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     labels: [
-      {id: 1, name: "WorkExp"},
-      {id: 2, name: "Education"},
+      {_id: "1", name: "WorkExp"},
+      {_id: "2", name: "Education"},
     ],
   },
 };

@@ -4,21 +4,21 @@ import {useNavigate} from "react-router-dom";
 import {selectedFactAtom} from "~/pages/collection/stores/selectedFactAtom";
 import {useReceiver} from "~/lib/messaging/hooks/useReceiver";
 import {isModalOpenAtom} from "./useComposer";
-import {useFactsDb} from "~/db/hooks/useFactsDb";
+import {useCollection} from "~/pages/collection/hooks/useCollection";
 
 export function useAddFactTrigger() {
   const navigate = useNavigate();
   const setFact = useSetAtom(selectedFactAtom);
   const setIsModalOpen = useSetAtom(isModalOpenAtom);
-  const db = useFactsDb();
+  const collection = useCollection();
   const handleAddFactRequest = useCallback(
     async (content: string) => {
-      const fact = await db?.facts.add({content, labels: []});
+      const fact = await collection?.facts.create.mutate({content, labels: []});
       setFact(fact);
       setIsModalOpen(true);
       navigate("/collection");
     },
-    [navigate, setFact, setIsModalOpen, db],
+    [collection, navigate, setFact, setIsModalOpen],
   );
   useReceiver("addFact", handleAddFactRequest);
 }

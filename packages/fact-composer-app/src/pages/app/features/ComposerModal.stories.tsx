@@ -1,14 +1,10 @@
 import type {Meta, StoryObj} from "@storybook/react";
 
 import {ComposerModal} from "./ComposerModal";
-import {createMemoryAdapter, DbClient} from "@repo/facts-db";
-import {seedDb} from "~/db/_mock/seedDb";
+import {dummyCollection} from "~/../.storybook/trpc";
 import {RouterDecorator} from "~/lib/location/storybook/decorators/RouterDecorator";
-import {FactsDbContext} from "~/db/context/FactsDbContext";
 import {fn} from "@storybook/test";
-
-const db = new DbClient(createMemoryAdapter);
-seedDb(db);
+import {CollectionContext} from "~/pages/collection/context/CollectionContext";
 
 const meta: Meta<typeof ComposerModal> = {
   title: "composer/features/ComposerModal",
@@ -34,9 +30,9 @@ export const Primary: Story = {
   },
   decorators: [
     Story => (
-      <FactsDbContext.Provider value={db}>
+      <CollectionContext.Provider value={dummyCollection}>
         <Story />
-      </FactsDbContext.Provider>
+      </CollectionContext.Provider>
     ),
   ],
 };
@@ -47,12 +43,7 @@ export const BlankDb: Story = {
   },
   decorators: [
     Story => {
-      const blankDb = new DbClient(createMemoryAdapter);
-      return (
-        <FactsDbContext.Provider value={blankDb}>
-          <Story />
-        </FactsDbContext.Provider>
-      );
+      return <Story />;
     },
   ],
 };

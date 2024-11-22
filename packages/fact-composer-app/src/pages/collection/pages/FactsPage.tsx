@@ -4,14 +4,19 @@ import {useAtom} from "jotai";
 import {selectedFactAtom} from "../stores/selectedFactAtom";
 import {AddFactButton} from "../features/AddFactButton";
 import {FactsGridPlaceholder} from "../components/FactsGridPlaceholder";
-import {useFacts} from "../hooks/useFacts";
+import {useFactsQuery} from "../hooks/useFactsQuery";
+import {useCallback} from "react";
 
 // eslint-disable-next-line complexity
 export function FactsPage() {
-  const facts = useFacts();
+  const {facts} = useFactsQuery();
   const [selectedFact, setSelectedFact] = useAtom(selectedFactAtom);
   const highlightedFacts =
-    selectedFact && "id" in selectedFact ? [selectedFact] : [];
+    selectedFact && "_id" in selectedFact ? [selectedFact] : [];
+  const clearSelectedFact = useCallback(
+    () => setSelectedFact(undefined),
+    [setSelectedFact],
+  );
   return (
     <>
       <div className="flex flex-col gap-2 w-full h-full py-5 px-8 overflow-y-scroll max-h-[540px] pb-14">
@@ -36,7 +41,7 @@ export function FactsPage() {
         <div className="max-w-[25vw] min-w-[25vw] border-l p-3 pb-0">
           <SaveFact
             fact={selectedFact}
-            onClose={() => setSelectedFact(undefined)}
+            onClose={clearSelectedFact}
             onChange={setSelectedFact}
           />
         </div>

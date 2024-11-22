@@ -5,7 +5,7 @@ import {useEffect, useMemo} from "react";
 import {CollectionNavTab} from "../components/CollectionNavTab";
 import {useFactFilters} from "../hooks/useFactFilters";
 import {useLocation, useNavigate} from "react-router-dom";
-import {useLabels} from "~/pages/labels/hooks/useLabels";
+import {useLabelsQuery} from "~/pages/labels/hooks/useLabelsQuery";
 
 export function CollectionNav() {
   const tabs = useCollectionNav();
@@ -16,7 +16,7 @@ export function CollectionNav() {
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     setArchivedOnly(searchParams.has("archived"));
-    setLabel(+searchParams.get("label")!);
+    setLabel(searchParams.get("label")!);
   }, [location, setArchivedOnly, setLabel]);
 
   return (
@@ -36,7 +36,7 @@ export function CollectionNav() {
 }
 
 function useCollectionNav(): NavTab[] {
-  const {labels} = useLabels();
+  const {labels} = useLabelsQuery();
   return useMemo<NavTab[]>(() => {
     return [
       {
@@ -47,7 +47,7 @@ function useCollectionNav(): NavTab[] {
       ...labels.map<NavTab>(label => ({
         Icon: LabelIcon,
         name: label.name,
-        route: `/collection?label=${label.id}`,
+        route: `/collection?label=${label._id}`,
       })),
       {
         Icon: ArchiveXIcon,

@@ -1,7 +1,5 @@
-import {DbClient} from "@repo/facts-db";
 import {IAuthService} from "@repo/chrome-auth-service";
 import {MemoryRouter} from "react-router-dom";
-import {FactsDbContext} from "~/db/context/FactsDbContext";
 import {ComposerModal} from "./features/ComposerModal";
 import {useCompositionTrigger} from "./hooks/useCompositionTrigger";
 import {useSetAtom} from "jotai";
@@ -15,13 +13,12 @@ import {CollectionClient} from "@repo/collection-service-trpc-factory";
 import {CollectionContext} from "../collection/context/CollectionContext";
 
 type TProps = {
-  db: DbClient;
   auth?: IAuthService;
   backup?: BackupClient;
   collection?: CollectionClient;
 };
 
-export function Composer({auth, backup, collection, db}: TProps) {
+export function Composer({auth, backup, collection}: TProps) {
   const [isOpen, setIsOpen] = useComposer();
   const setComposition = useSetAtom(compositionAtom);
   useCompositionTrigger(() => {
@@ -30,17 +27,15 @@ export function Composer({auth, backup, collection, db}: TProps) {
   });
   return (
     <AuthContext.Provider value={auth}>
-      <FactsDbContext.Provider value={db}>
-        <BackupContext.Provider value={backup}>
-          <CollectionContext.Provider value={collection}>
-            <TooltipProvider>
-              <MemoryRouter>
-                <ComposerModal open={isOpen} onOpenChange={setIsOpen} />
-              </MemoryRouter>
-            </TooltipProvider>
-          </CollectionContext.Provider>
-        </BackupContext.Provider>
-      </FactsDbContext.Provider>
+      <BackupContext.Provider value={backup}>
+        <CollectionContext.Provider value={collection}>
+          <TooltipProvider>
+            <MemoryRouter>
+              <ComposerModal open={isOpen} onOpenChange={setIsOpen} />
+            </MemoryRouter>
+          </TooltipProvider>
+        </CollectionContext.Provider>
+      </BackupContext.Provider>
     </AuthContext.Provider>
   );
 }

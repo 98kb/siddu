@@ -1,4 +1,3 @@
-import {Fact} from "@repo/facts-db";
 import {Button} from "~/components/ui/button";
 import {FactList} from "../features/FactList";
 import {Textarea} from "~/components/ui/textarea";
@@ -8,6 +7,7 @@ import {useCallback} from "react";
 import {inputElAtom} from "~/pages/app/stores/inputElAtom";
 import {appendToInput} from "~/pages/app/appendToInput";
 import {useComposer} from "~/pages/app/hooks/useComposer";
+import {FactSchema} from "@repo/collection-service-defs";
 
 export function Composition() {
   const {composition, setComposition, appendComposition} = useComposition();
@@ -36,7 +36,7 @@ export function Composition() {
 function useComposition() {
   const [composition, setComposition] = useAtom(compositionAtom);
   const appendComposition = useCallback(
-    ({content}: Fact) =>
+    ({content}: FactSchema) =>
       setComposition($composition =>
         [$composition, content].filter(Boolean).join("\n"),
       ),

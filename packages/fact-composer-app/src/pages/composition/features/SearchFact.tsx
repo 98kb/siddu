@@ -6,8 +6,9 @@ import {SelectLabels} from "~/pages/labels/components/SelectLabels";
 import {queryAtom} from "../stores/queryAtom";
 import {filterLabelsAtom} from "../stores/filterLabelsAtom";
 import {Reader} from "fp-ts/lib/Reader";
-import {Label} from "@repo/facts-db";
 import {Input} from "~/components/ui/input";
+import {LabelSchema} from "@repo/collection-service-defs";
+import {useCallback} from "react";
 
 export function SearchFact() {
   const [query, setQuery] = useAtom(queryAtom);
@@ -52,14 +53,18 @@ export function SearchFact() {
 
 function useFilterLabels() {
   const [filterLabels, setFilterLabels] = useAtom(filterLabelsAtom);
-  const toggleFilterLabel: Reader<Label, void> = label => {
-    setFilterLabels(currentLabels => {
-      if (currentLabels.includes(label)) {
-        return currentLabels.filter(l => l !== label);
-      } else {
-        return [...currentLabels, label];
-      }
-    });
-  };
+  const toggleFilterLabel: Reader<LabelSchema, void> = useCallback(
+    label => {
+      setFilterLabels(currentLabels => {
+        if (currentLabels.includes(label)) {
+          // eslint-disable-next-line max-nested-callbacks
+          return currentLabels.filter(l => l !== label);
+        } else {
+          return [...currentLabels, label];
+        }
+      });
+    },
+    [setFilterLabels],
+  );
   return [filterLabels, setFilterLabels, toggleFilterLabel] as const;
 }

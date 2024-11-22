@@ -1,38 +1,34 @@
 import type {Meta, StoryObj} from "@storybook/react";
 import {fn} from "@storybook/test";
-
-import {createMemoryAdapter, DbClient, Label} from "@repo/facts-db";
 import {SelectLabels} from "./SelectLabels";
-import {seedDb} from "~/db/_mock/seedDb";
 import {Button} from "~/components/ui/button";
 import {TagIcon} from "lucide-react";
-import {FactsDbContext} from "~/db/context/FactsDbContext";
+import {LabelSchema} from "@repo/collection-service-defs";
+import {dummyCollection} from ".storybook/trpc";
+import {CollectionContext} from "~/pages/collection/context/CollectionContext";
 
-const labels: Label[] = [
+const labels: LabelSchema[] = [
   {
-    id: 1,
+    _id: "1",
     name: "ChatGPT",
   },
   {
-    id: 2,
+    _id: "2",
     name: "GPT-3",
   },
   {
-    id: 3,
+    _id: "3",
     name: "GoT",
   },
   {
-    id: 4,
+    _id: "4",
     name: "WorkExp",
   },
   {
-    id: 5,
+    _id: "5",
     name: "Personal Life Experiences of a Software Engineer",
   },
 ];
-
-const db = new DbClient(createMemoryAdapter);
-seedDb(db, labels);
 
 const meta: Meta<typeof SelectLabels> = {
   title: "labels/components/SelectLabels",
@@ -43,9 +39,9 @@ const meta: Meta<typeof SelectLabels> = {
 
   decorators: [
     Story => (
-      <FactsDbContext.Provider value={db}>
+      <CollectionContext.Provider value={dummyCollection}>
         <Story />
-      </FactsDbContext.Provider>
+      </CollectionContext.Provider>
     ),
   ],
 };
