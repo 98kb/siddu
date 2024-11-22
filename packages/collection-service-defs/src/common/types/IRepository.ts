@@ -9,7 +9,10 @@ export interface IRepository<
 > {
   create(request: CreateRequest): Promise<Entity>;
   get(request: IdTypeSchema["_id"]): Promise<Entity | undefined>;
-  update(id: IdTypeSchema["_id"], request: UpdateRequest): Promise<Entity>;
+  update(
+    id: IdTypeSchema["_id"],
+    request: UpdateRequest,
+  ): Promise<Entity | undefined>;
   delete(id: IdTypeSchema["_id"]): Promise<void>;
   list(request: QueryRequest): Promise<Entity[]>;
 }
