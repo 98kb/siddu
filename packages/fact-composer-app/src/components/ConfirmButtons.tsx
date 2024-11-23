@@ -4,8 +4,8 @@ import {ComponentProps} from "react";
 
 type TProps = {
   size?: ComponentProps<typeof IconButton>["size"];
-  onConfirm: () => void;
-  onCancel: () => void;
+  onConfirm: ComponentProps<"button">["onClick"];
+  onCancel: ComponentProps<"button">["onClick"];
 };
 
 export function ConfirmButtons({size, onCancel, onConfirm}: TProps) {
