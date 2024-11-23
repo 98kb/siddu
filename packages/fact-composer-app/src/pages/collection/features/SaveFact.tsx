@@ -1,48 +1,32 @@
 import {FactEditor} from "../components/FactEditor";
-import {useCallback, useEffect, useState} from "react";
-import {FactEditorToolbar} from "../components/FactEditorToolbar";
-import {IO} from "fp-ts/lib/IO";
-import {Reader} from "fp-ts/lib/Reader";
-import {useFactActions} from "../hooks/useFactActions";
+import {useCallback} from "react";
+import {FactEditorToolbar} from "./FactEditorToolbar";
 import type {FactSchema, InsertFactSchema} from "@repo/collection-service-defs";
+import {useFactActions} from "../hooks/useFactActions";
+import {useSelectedFact} from "../hooks/useSelectedFacts";
 
-type TProps = {
-  fact: FactSchema | InsertFactSchema;
-  onChange: Reader<FactSchema | InsertFactSchema, void>;
-  onClose: IO<void>;
-};
-
-export function SaveFact({fact: factProp, onChange, onClose}: TProps) {
-  const {createFact, updateFact, archiveFact} = useFactActions();
-  const [fact, setFact] = useState(factProp);
-  useEffect(() => {
-    setFact(factProp);
-  }, [factProp]);
-
-  const saveOrUpdateFact = useCallback(
+export function SaveFact() {
+  const {saveOrUpdateFact} = useFactActions();
+  const {selectedFact, clearSelectedFact, setSelectedFact} = useSelectedFact();
+  const onSave = useCallback(
     async (fact: FactSchema | InsertFactSchema) => {
-      if ("_id" in fact) {
-        await updateFact(fact);
-        onChange(fact);
-      } else {
-        const insertedFact = await createFact(fact);
-        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-        insertedFact && onChange(insertedFact);
-      }
-      setFact(fact);
+      const savedFact = await saveOrUpdateFact(fact);
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      savedFact && setSelectedFact(savedFact);
     },
-    [onChange, createFact, updateFact],
+    [setSelectedFact, saveOrUpdateFact],
   );
 
   return (
-    <div className="flex flex-col h-full">
-      <FactEditorToolbar
-        fact={fact}
-        onArchive={archiveFact}
-        onClose={onClose}
-        onChange={saveOrUpdateFact}
-      />
-      <FactEditor fact={fact} onChange={saveOrUpdateFact} />
-    </div>
+    selectedFact && (
+      <div className="flex flex-col h-full max-w-[25vw] min-w-[25vw] border-l p-3 pb-0">
+        <FactEditorToolbar
+          fact={selectedFact}
+          onClose={clearSelectedFact}
+          onChange={onSave}
+        />
+        <FactEditor fact={selectedFact} onChange={onSave} />
+      </div>
+    )
   );
 }
