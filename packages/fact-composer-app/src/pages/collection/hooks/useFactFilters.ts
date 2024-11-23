@@ -1,7 +1,8 @@
 import {useAtom} from "jotai";
 import {factFiltersAtom} from "../stores/factFiltersAtom";
 import {useCallback} from "react";
-import {LabelSchema} from "@repo/collection-service-defs";
+import {FactSchema, LabelSchema} from "@repo/collection-service-defs";
+import {Reader} from "fp-ts/lib/Reader";
 
 export function useFactFilters() {
   const [filters, setFilters] = useAtom(factFiltersAtom);
@@ -24,7 +25,22 @@ export function useFactFilters() {
     setFilters({});
   }, [setFilters]);
 
+  const applyFilters = useCallback(
+    (facts: FactSchema[]) => {
+      const predicates: Reader<FactSchema, boolean>[] = [
+        fact => Boolean(fact.isDeleted) === Boolean(filters.archived),
+        fact =>
+          filters.labelId
+            ? fact.labels.some(label => label._id === filters.labelId)
+            : true,
+      ];
+      return facts.filter(fact => predicates.every(test => test(fact)));
+    },
+    [filters],
+  );
+
   return {
+    applyFilters,
     filters,
     setLabel,
     resetFilters,
