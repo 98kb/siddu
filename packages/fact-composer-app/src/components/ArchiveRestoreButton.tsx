@@ -1,12 +1,13 @@
 import {ArchiveRestoreIcon, ArchiveXIcon} from "lucide-react";
 import {IconButton} from "./IconButton";
-import {ComponentProps} from "react";
+import {ComponentProps, useMemo} from "react";
+import {WithConfirmation} from "./HOC/WithConfirmation";
 
 type TProps = {
   restore: boolean;
   size?: ComponentProps<typeof IconButton>["size"];
-  onArchive: ComponentProps<"button">["onClick"];
-  onRestore: ComponentProps<"button">["onClick"];
+  onArchive: ComponentProps<typeof WithConfirmation>["onConfirm"];
+  onRestore: ComponentProps<typeof WithConfirmation>["onConfirm"];
 };
 
 export function ArchiveRestoreButton({
@@ -16,23 +17,36 @@ export function ArchiveRestoreButton({
   onRestore,
 }: TProps) {
   const btnSize = size ?? "icon";
-  return restore ? (
-    <IconButton
-      tooltip="Restore"
-      size={btnSize}
-      openDelay={50}
-      onClick={onRestore}
-    >
+  const onConfirm = useMemo(
+    () => (restore ? onRestore : onArchive),
+    [restore, onRestore, onArchive],
+  );
+  const Icon = useMemo(() => {
+    return restore ? (
       <ArchiveRestoreIcon className="h-4 w-4" />
-    </IconButton>
-  ) : (
-    <IconButton
-      tooltip="Archive"
-      size={btnSize}
-      openDelay={50}
-      onClick={onArchive}
-    >
+    ) : (
       <ArchiveXIcon className="h-4 w-4" />
-    </IconButton>
+    );
+  }, [restore]);
+  const btnProps = useMemo<ComponentProps<typeof IconButton>>(() => {
+    return {
+      tooltip: restore ? "Restore" : "Archive",
+      size: btnSize,
+      openDelay: 50,
+      children: Icon,
+    };
+  }, [restore, btnSize, Icon]);
+  const label = useMemo(
+    () => <span className="text-sm">{restore ? "Restore?" : "Archive?"}</span>,
+    [restore],
+  );
+  return (
+    <WithConfirmation
+      label={label}
+      For={IconButton}
+      onConfirm={onConfirm}
+      onCancel={event => event.stopPropagation()}
+      {...btnProps}
+    />
   );
 }
