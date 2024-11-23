@@ -1,6 +1,7 @@
 import {LabelSchema} from "@repo/collection-service-defs";
 import {Reader} from "fp-ts/lib/Reader";
 import {TrashIcon} from "lucide-react";
+import {ComponentProps} from "react";
 import {WithConfirmation} from "~/components/HOC/WithConfirmation";
 import {IconButton} from "~/components/IconButton";
 import {Pill} from "~/components/Pill";
@@ -49,7 +50,9 @@ export function LabelsTable({labels, onDelete}: TProps) {
   );
 }
 
-function DeleteButton(props: {onClick: () => void}) {
+function DeleteButton(
+  props: Pick<ComponentProps<typeof IconButton>, "onClick">,
+) {
   return (
     <IconButton tooltip="Delete" {...props}>
       <TrashIcon className="w-4" />
