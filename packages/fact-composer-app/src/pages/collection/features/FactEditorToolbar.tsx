@@ -5,12 +5,12 @@ import type {
 } from "@repo/collection-service-defs";
 import {IO} from "fp-ts/lib/IO";
 import {Reader} from "fp-ts/lib/Reader";
-import {TagIcon} from "lucide-react";
+import {ArchiveXIcon, TagIcon} from "lucide-react";
 import {useCallback} from "react";
 import {IconButton} from "~/components/IconButton";
 import {Button} from "~/components/ui/button";
 import {SelectLabels} from "~/pages/labels/components/SelectLabels";
-import {ArchiveRestoreFact} from "./ArchiveRestoreFact";
+import {useFactActions} from "../hooks/useFactActions";
 
 type TProps = {
   fact: FactSchema | InsertFactSchema;
@@ -19,11 +19,17 @@ type TProps = {
 };
 
 export function FactEditorToolbar({fact, onChange, onClose}: TProps) {
+  const {archiveFact} = useFactActions();
   const updateLabels = useCallback(
     (label: LabelSchema) =>
       onChange({...fact, labels: [...fact.labels, label]}),
     [onChange, fact],
   );
+  const archive = useCallback(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    "_id" in fact && archiveFact(fact as FactSchema);
+    onClose();
+  }, [fact, archiveFact, onClose]);
 
   return (
     <div className="flex w-full">
@@ -39,7 +45,11 @@ export function FactEditorToolbar({fact, onChange, onClose}: TProps) {
             </IconButton>
           )}
         </SelectLabels>
-        {"_id" in fact && <ArchiveRestoreFact fact={fact} onChange={onClose} />}
+        {"_id" in fact && (
+          <IconButton tooltip="Archive" onClick={archive}>
+            <ArchiveXIcon className="w-4 h-4" />
+          </IconButton>
+        )}
       </div>
       <div className="grow"></div>
       <Button variant="link" onClick={onClose}>
