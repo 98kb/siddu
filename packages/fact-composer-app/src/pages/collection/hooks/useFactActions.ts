@@ -1,36 +1,58 @@
+import {FactSchema, InsertFactSchema} from "@repo/collection-service-defs";
 import {useCallback} from "react";
-import {useCollection} from "./useCollection";
-import {
-  type UpdateFactSchema,
-  type InsertFactSchema,
-  type FactSchema,
-} from "@repo/collection-service-defs";
+import {useFactApi} from "./useFactApi";
+import {useFacts} from "./useFacts";
 
 export function useFactActions() {
-  const collection = useCollection();
+  const {
+    createFact: create,
+    updateFact,
+    archiveFact: archive,
+    restoreFact: restore,
+  } = useFactApi();
+  const {mergeFact} = useFacts();
   const createFact = useCallback(
-    (factData: InsertFactSchema) => collection?.facts.create.mutate(factData),
-    [collection],
+    async (fact: InsertFactSchema) => {
+      const insertedFact = await create(fact);
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      insertedFact && mergeFact(insertedFact);
+      return insertedFact;
+    },
+    [create, mergeFact],
   );
-  const updateFact = useCallback(
-    (fact: UpdateFactSchema) => collection?.facts.update.mutate(fact),
-    [collection],
+  const saveOrUpdateFact = useCallback(
+    async (fact: FactSchema | InsertFactSchema) => {
+      if ("_id" in fact) {
+        const updatedFact = await updateFact(fact);
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+        updatedFact && mergeFact(updatedFact);
+        return updatedFact;
+      } else {
+        return createFact(fact);
+      }
+    },
+    [mergeFact, createFact, updateFact],
   );
   const archiveFact = useCallback(
-    (factId: FactSchema["_id"]) =>
-      collection?.facts.softDelete.mutate({_id: factId}),
-    [collection],
-  );
-  const restoreFact = useCallback(
-    (factId: FactSchema["_id"]) =>
-      collection?.facts.restore.mutate({_id: factId}),
-    [collection],
+    async (fact: FactSchema) => {
+      const archivedFact = await archive(fact._id);
+      if (archivedFact) {
+        mergeFact(archivedFact);
+      }
+      return archivedFact;
+    },
+    [mergeFact, archive],
   );
 
-  return {
-    createFact,
-    updateFact,
-    archiveFact,
-    restoreFact,
-  };
+  const restoreFact = useCallback(
+    async (fact: FactSchema) => {
+      const restoredFact = await restore(fact._id);
+      if (restoredFact) {
+        mergeFact(restoredFact);
+      }
+      return restoredFact;
+    },
+    [mergeFact, restore],
+  );
+  return {saveOrUpdateFact, archiveFact, restoreFact};
 }
