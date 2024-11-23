@@ -1,4 +1,6 @@
 import type {LabelSchema, FactSchema} from "@repo/collection-service-defs";
+import {Reader} from "fp-ts/lib/Reader";
+import {useCallback} from "react";
 import {Card, CardContent, CardFooter} from "~/components/ui/card";
 import {cn} from "~/lib/utils";
 import {LabelPills} from "~/pages/labels/components/LabelPills";
@@ -7,7 +9,7 @@ type TProps = {
   fact: FactSchema;
   isHighlighted?: boolean;
   highlightedLabels?: LabelSchema[];
-  onClick?: () => void;
+  onClick?: Reader<FactSchema, void>;
   children?: React.ReactNode;
   className?: string;
 };
@@ -20,6 +22,9 @@ export function FactCard({
   className,
   onClick,
 }: TProps) {
+  const handleClick = useCallback(() => {
+    onClick?.(fact);
+  }, [onClick, fact]);
   return (
     <Card
       className={cn([
@@ -30,7 +35,7 @@ export function FactCard({
         {"border-black hover:border-black": isHighlighted},
         className,
       ])}
-      onClick={onClick}
+      onClick={handleClick}
     >
       <CardContent>
         <div className="w-full">
