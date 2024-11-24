@@ -28,9 +28,11 @@
   },
   "dependencies": {
     "@repo/collection-service-defs": "workspace:*",
-    "fp-ts": "^2.16.9"
+    "fp-ts": "^2.16.9",
+    "lodash.sortby": "^4.7.0"
   },
   "devDependencies": {
+    "@types/lodash.sortby": "^4.7.9",
     "@types/node": "^20.5.4",
     "@vitest/coverage-v8": "^2.0.5",
     "changelogen": "^0.5.5",

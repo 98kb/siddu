@@ -1,4 +1,5 @@
 import {Reader} from "fp-ts/lib/Reader";
+import sortBy from "lodash.sortby";
 import type {
   IRepository,
   IdTypeSchema,
@@ -50,7 +51,11 @@ export abstract class MemoryRepo<
   async list(query: Query): Promise<EntitySchema[]> {
     const predicates = this.toQueryPredicates(query);
     const data = Object.values(this.data[this.entity] || {});
-    return data.filter(record => predicates.every(test => test(record)));
+    let result = data.filter(record => predicates.every(test => test(record)));
+    if (query.orderBy) {
+      result = sortBy(result, [query.orderBy.key]);
+    }
+    return result.slice(query.pagination.offset, query.pagination.limit);
   }
 
   abstract toQueryPredicates(query: Query): Reader<EntitySchema, boolean>[];

@@ -49,11 +49,11 @@ export abstract class DexieRepository<
 
   list(query: Query): Promise<EntitySchema[]> {
     const predicates = this.toQueryPredicates(query);
-    return this.db[this.entity]
+    const result = this.db[this.entity]
       .filter(record => predicates.every(test => test(record)))
       .limit(query.pagination.limit)
-      .offset(query.pagination.offset)
-      .toArray();
+      .offset(query.pagination.offset);
+    return query.orderBy ? result.sortBy(query.orderBy.key) : result.toArray();
   }
 
   abstract toQueryPredicates(query: Query): Reader<EntitySchema, boolean>[];
