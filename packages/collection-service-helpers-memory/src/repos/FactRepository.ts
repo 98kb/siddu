@@ -27,7 +27,9 @@ export class FactsRepository
     ];
 
     if (query) {
-      predicates.push((fact: FactSchema) => fact.content.includes(query));
+      predicates.push((fact: FactSchema) =>
+        fact.content.toLowerCase().includes(query.toLowerCase()),
+      );
     }
 
     if (labelIds?.length) {

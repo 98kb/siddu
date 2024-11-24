@@ -21,7 +21,9 @@ export class LabelsRepository extends MemoryRepo<
       (label: LabelSchema) => Boolean(label.isDeleted) === Boolean(isDeleted),
     ];
     if (query) {
-      predicates.push((label: LabelSchema) => label.name.includes(query));
+      predicates.push((label: LabelSchema) =>
+        label.name.toLowerCase().includes(query.toLowerCase()),
+      );
     }
     return predicates;
   }
