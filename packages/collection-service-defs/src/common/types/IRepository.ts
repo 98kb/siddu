@@ -16,6 +16,6 @@ export interface IRepository<
   ): Promise<Entity | undefined>;
   delete(id: IdTypeSchema["_id"]): Promise<void>;
   list(request: QueryRequest): Promise<Entity[]>;
-  paginatedLst(request: QueryRequest): PaginatedListSchema<Entity>;
+  paginatedLst(request: QueryRequest): Promise<PaginatedListSchema<Entity>>;
   count(): Promise<number>;
 }
