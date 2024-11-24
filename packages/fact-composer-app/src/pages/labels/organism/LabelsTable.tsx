@@ -17,7 +17,7 @@ import {
 
 type TProps = {
   labels: LabelSchema[];
-  onDelete: Reader<LabelSchema["_id"], Promise<void>>;
+  onDelete: Reader<LabelSchema["_id"], unknown>;
 };
 
 export function LabelsTable({labels, onDelete}: TProps) {
