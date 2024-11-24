@@ -94,7 +94,7 @@ function useSelectLabelsQuery(selected: LabelSchema[]) {
   const fetchLabels = useCallback(() => {
     collection?.labels.list
       .query({
-        pagination: {limit: 5, offset: 0},
+        pagination: {limit: 7, offset: 0},
         isDeleted: false,
         query,
         exclude: selected.map(({_id}) => _id),
