@@ -33,11 +33,14 @@ export function LabelsTable({labels, onDelete}: TProps) {
       </TableHeader>
       <TableBody>
         {labels.map(label => (
-          <TableRow key={label._id}>
+          <TableRow key={label._id} className="group">
             <TableCell className="font-medium">
               <Pill name={label.name} variant="outline" />
             </TableCell>
-            <TableCell align="right">
+            <TableCell
+              align="right"
+              className="group-hover:opacity-100 opacity-0 transition-opacity"
+            >
               <WithConfirmation
                 For={DeleteButton}
                 onConfirm={() => onDelete(label._id)}
