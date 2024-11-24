@@ -4,6 +4,7 @@ import {Reader} from "fp-ts/lib/Reader";
 import type {
   IRepository,
   IdTypeSchema,
+  PaginatedListSchema,
   QuerySchema,
 } from "@repo/collection-service-defs";
 
@@ -54,6 +55,20 @@ export abstract class DexieRepository<
       .limit(query.pagination.limit)
       .offset(query.pagination.offset);
     return query.orderBy ? result.sortBy(query.orderBy.key) : result.toArray();
+  }
+
+  async paginatedList(
+    request: Query,
+  ): Promise<PaginatedListSchema<EntitySchema>> {
+    return {
+      ...request.pagination,
+      total: await this.count(),
+      list: await this.list(request),
+    };
+  }
+
+  count(): Promise<number> {
+    return this.db[this.entity].count();
   }
 
   abstract toQueryPredicates(query: Query): Reader<EntitySchema, boolean>[];
