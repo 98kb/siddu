@@ -1,29 +1,45 @@
 import {LabelsTable} from "../organism/LabelsTable";
 import {useLabelActions} from "../hooks/useLabelActions";
 import {useCallback, useEffect, useState} from "react";
-import {LabelSchema} from "@repo/collection-service-defs";
+import {LabelSchema, PaginationSchema} from "@repo/collection-service-defs";
 import {useLabelsApi} from "../hooks/useLabelsApi";
+import {EasyPagination} from "~/components/EasyPagination";
+import {usePagination} from "~/lib/hooks/usePagination";
 
 export function ListLabels() {
   const {softDeleteLabel} = useLabelActions();
-  const {labels} = useListLabels();
+  const {labels, nextPage, prevPage, limit, offset, total} = useListLabels({
+    offset: 0,
+    limit: 8,
+  });
 
-  return <LabelsTable labels={labels} onDelete={softDeleteLabel} />;
+  return (
+    <div className="flex flex-col w-full h-full gap-2">
+      <LabelsTable labels={labels} onDelete={softDeleteLabel} />
+      <EasyPagination
+        className="w-full justify-between items-center px-4 box-border"
+        limit={limit}
+        offset={offset}
+        total={total}
+        onNext={nextPage}
+        onPrevious={prevPage}
+      />
+    </div>
+  );
 }
 
-// eslint-disable-next-line max-statements
-function useListLabels() {
+function useListLabels(pagination: PaginationSchema) {
   const {toPaginatedLabels} = useLabelsApi();
-  const limit = 2;
-  const [total, setTotal] = useState(0);
-  const [offset, setOffset] = useState(0);
+  const {offset, limit, jump, total, setTotal} = usePagination(pagination);
   const [labels, setLabels] = useState<LabelSchema[]>([]);
-  const nextPage = useCallback(() => {
-    setOffset($offset => $offset + 1);
-  }, []);
-  const prevPage = useCallback(() => {
-    setOffset($offset => $offset - 1);
-  }, []);
+  const nextPage = useCallback(
+    () => jump(pagination.limit),
+    [jump, pagination.limit],
+  );
+  const prevPage = useCallback(
+    () => jump(-pagination.limit),
+    [jump, pagination.limit],
+  );
   useEffect(() => {
     toPaginatedLabels({
       pagination: {limit, offset},
@@ -31,10 +47,12 @@ function useListLabels() {
       // eslint-disable-next-line complexity
     }).then(result => {
       setLabels(result?.list ?? []);
-      setTotal(result?.total ?? 0);
+      setTotal(Number(result?.total));
     });
-  }, [offset, toPaginatedLabels]);
+  }, [offset, toPaginatedLabels, limit, setTotal]);
   return {
+    limit,
+    offset,
     total,
     labels,
     nextPage,
