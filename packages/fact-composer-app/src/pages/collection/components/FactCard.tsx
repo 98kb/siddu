@@ -31,7 +31,7 @@ export function FactCard({
         "group w-full",
         "select-none",
         "shadow-none hover:shadow hover:border-gray-400",
-        "transition-shadow duration-100 ease-in-out",
+        "transition-all duration-200 ease-in-out",
         {"border-black hover:border-black": isHighlighted},
         className,
       ])}
