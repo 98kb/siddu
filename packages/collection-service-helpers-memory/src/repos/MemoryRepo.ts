@@ -3,6 +3,7 @@ import sortBy from "lodash.sortby";
 import type {
   IRepository,
   IdTypeSchema,
+  PaginatedListSchema,
   QuerySchema,
 } from "@repo/collection-service-defs";
 
@@ -56,6 +57,20 @@ export abstract class MemoryRepo<
       result = sortBy(result, [query.orderBy.key]);
     }
     return result.slice(query.pagination.offset, query.pagination.limit);
+  }
+
+  async paginatedList(
+    request: Query,
+  ): Promise<PaginatedListSchema<EntitySchema>> {
+    return {
+      ...request.pagination,
+      total: await this.count(),
+      list: await this.list(request),
+    };
+  }
+
+  async count(): Promise<number> {
+    return Object.keys(this.data[this.entity]).length;
   }
 
   abstract toQueryPredicates(query: Query): Reader<EntitySchema, boolean>[];
