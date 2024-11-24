@@ -39,6 +39,8 @@ export function SelectLabels({children, selected, onSelect}: TProps) {
       selectLabel(addedLabel);
     }
   }, [addLabel, selectLabel, query]);
+
+  useEffect(() => setQuery(""), [setQuery, open]);
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>{children?.({open})}</PopoverTrigger>
@@ -92,12 +94,13 @@ function useSelectLabelsQuery() {
   const fetchLabels = useCallback(() => {
     collection?.labels.list
       .query({
-        pagination: {limit: 10, offset: 0},
+        pagination: {limit: 5, offset: 0},
         isDeleted: false,
         query,
       })
       .then(setLabels);
   }, [collection, query]);
+
   useEffect(() => {
     fetchLabels();
   }, [fetchLabels]);
