@@ -22,11 +22,9 @@ export const createFactsRouter = (facts: IFactsRepository) =>
     update: publicProcedure
       .input(UpdateFactSchema)
       .output(FactSchema)
-      .mutation(async ({input: {_id, ...changes}}) => {
-        const a = await facts.update(_id, changes);
-        console.log("up", a);
-        return a;
-      }),
+      .mutation(async ({input: {_id, ...changes}}) =>
+        facts.update(_id, changes),
+      ),
     delete: publicProcedure
       .input(FactSchema.pick({_id: true}))
       .mutation(({input}) => facts.delete(input._id)),
