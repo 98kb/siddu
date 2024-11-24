@@ -25,7 +25,7 @@ type TProps = {
 export function SelectLabels({children, selected, onSelect}: TProps) {
   const [open, setOpen] = useState(false);
   const {addLabel} = useLabelActions();
-  const {labels, query, setQuery} = useSelectLabelsQuery();
+  const {labels, query, setQuery} = useSelectLabelsQuery(selected);
   const selectLabel = useCallback<Reader<LabelSchema, void>>(
     label => {
       onSelect(label);
@@ -87,7 +87,7 @@ export function SelectLabels({children, selected, onSelect}: TProps) {
   );
 }
 
-function useSelectLabelsQuery() {
+function useSelectLabelsQuery(selected: LabelSchema[]) {
   const [query, setQuery] = useState("");
   const collection = useCollection();
   const [labels, setLabels] = useState<LabelSchema[]>([]);
@@ -97,9 +97,10 @@ function useSelectLabelsQuery() {
         pagination: {limit: 5, offset: 0},
         isDeleted: false,
         query,
+        exclude: selected.map(({_id}) => _id),
       })
       .then(setLabels);
-  }, [collection, query]);
+  }, [collection, query, selected]);
 
   useEffect(() => {
     fetchLabels();
