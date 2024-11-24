@@ -3,6 +3,7 @@ import {
   InsertLabelSchema,
   LabelSchema,
   LabelsQuerySchema,
+  PaginatedLabels,
 } from "@repo/collection-service-defs";
 import {getItem} from "../middleware/getItem";
 import {publicProcedure, router} from "../lib/trpc";
@@ -35,6 +36,11 @@ export const createLabelsRouter = (labels: ILabelsRepository) =>
       .input(LabelsQuerySchema)
       .output(LabelSchema.array())
       .query(({input}) => labels.list(input)),
+    paginatedList: publicProcedure
+      .input(LabelsQuerySchema)
+      .output(PaginatedLabels)
+      .query(({input}) => labels.paginatedList(input)),
+    count: publicProcedure.output(z.number()).query(() => labels.count()),
     softDelete: publicProcedure
       .input(LabelSchema.pick({_id: true}))
       .mutation(({input}) =>
