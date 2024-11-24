@@ -1,4 +1,5 @@
-import type {IdTypeSchema} from "../schema/IdTypeSchema";
+import {IdTypeSchema} from "../schema/IdTypeSchema";
+import {PaginatedListSchema} from "../schema/PaginatedListSchema";
 import type {QuerySchema} from "../schema/QuerySchema";
 
 export interface IRepository<
@@ -15,4 +16,5 @@ export interface IRepository<
   ): Promise<Entity | undefined>;
   delete(id: IdTypeSchema["_id"]): Promise<void>;
   list(request: QueryRequest): Promise<Entity[]>;
+  paginatedLst(request: QueryRequest): PaginatedListSchema<Entity>;
 }
