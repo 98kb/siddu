@@ -12,9 +12,10 @@ import {
 } from "~/components/ui/command";
 import {Popover, PopoverContent, PopoverTrigger} from "~/components/ui/popover";
 import {cn} from "~/lib/utils";
-import {LabelSchema, LabelsQuerySchema} from "@repo/collection-service-defs";
+import {LabelSchema} from "@repo/collection-service-defs";
 import {useLabelActions} from "../hooks/useLabelActions";
-import {useLabelsApi} from "../hooks/useLabelsApi";
+import {useAtomValue} from "jotai";
+import {queryLabelsAtom} from "../store/queryLabelsAtom";
 
 type TProps = {
   children: Reader<{open: boolean}, React.ReactNode>;
@@ -23,16 +24,12 @@ type TProps = {
 };
 
 export function SelectLabels({children, selected, onSelect}: TProps) {
-  const {labels, fetchLabels} = useFetchLabels();
-  const {search, setSearch, query} = useSelectLabelsQuery(selected);
+  const {search, setSearch, labels} = useSelectLabelsQuery(selected);
   const {selectLabel, addAndSelect, open, setOpen} = useSelectLabels(
     search,
     onSelect,
   );
   useEffect(() => setSearch(""), [setSearch, open]);
-  useEffect(() => {
-    fetchLabels(query);
-  }, [fetchLabels, query]);
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>{children?.({open})}</PopoverTrigger>
@@ -99,28 +96,22 @@ function useSelectLabels(search: string, onSelect: TProps["onSelect"]) {
   return {selectLabel, open, setOpen, addAndSelect};
 }
 
-function useFetchLabels() {
-  const {listLabels} = useLabelsApi();
-  const [labels, setLabels] = useState<LabelSchema[]>([]);
-  const fetchLabels = useCallback(
-    (q: LabelsQuerySchema) => {
-      listLabels(q).then($labels => $labels && setLabels($labels));
-    },
-    [listLabels, setLabels],
-  );
-  return {labels, fetchLabels};
-}
-
 function useSelectLabelsQuery(excludedLabels: LabelSchema[]) {
   const [search, setSearch] = useState("");
-  const query = useMemo(
-    () => ({
-      pagination: {limit: 7, offset: 0},
-      isDeleted: false,
-      query: search,
-      exclude: excludedLabels.map(({_id}) => _id),
-    }),
-    [search, excludedLabels],
+  const allLabels = useAtomValue(queryLabelsAtom);
+  const excludedLabelIds = useMemo(
+    () => excludedLabels.map(label => label._id),
+    [excludedLabels],
   );
-  return {search, setSearch, query};
+  const labels = useMemo(
+    () =>
+      allLabels
+        .filter(label => !excludedLabelIds.includes(label._id))
+        .filter(label =>
+          label.name.toLowerCase().includes(search.toLowerCase()),
+        )
+        .slice(0, 7),
+    [excludedLabelIds, search, allLabels],
+  );
+  return {search, setSearch, labels};
 }
