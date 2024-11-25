@@ -3,6 +3,7 @@ import {
   FactsQuerySchema,
   type IFactsRepository,
   InsertFactSchema,
+  PaginatedFacts,
   UpdateFactSchema,
 } from "@repo/collection-service-defs";
 import {getItem} from "../middleware/getItem";
@@ -32,6 +33,10 @@ export const createFactsRouter = (facts: IFactsRepository) =>
       .input(FactsQuerySchema)
       .output(FactSchema.array())
       .query(({input}) => facts.list(input)),
+    paginatedList: publicProcedure
+      .input(FactsQuerySchema)
+      .output(PaginatedFacts)
+      .query(({input}) => facts.paginatedList(input)),
     softDelete: publicProcedure
       .input(FactSchema.pick({_id: true}))
       .mutation(({input}) =>
