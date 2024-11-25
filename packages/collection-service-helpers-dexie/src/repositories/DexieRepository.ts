@@ -1,7 +1,8 @@
 // eslint-disable-next-line import/named
-import {Dexie, EntityTable} from "dexie";
+import {Collection, Dexie, EntityTable, IDType} from "dexie";
 import {Reader} from "fp-ts/lib/Reader";
 import type {
+  BaseSchema,
   IRepository,
   IdTypeSchema,
   PaginatedListSchema,
@@ -16,7 +17,7 @@ type Db<
 
 export abstract class DexieRepository<
   Entity extends string,
-  EntitySchema extends IdTypeSchema,
+  EntitySchema extends BaseSchema,
   CreateRequest,
   UpdateRequest,
   Query extends QuerySchema,
@@ -49,21 +50,19 @@ export abstract class DexieRepository<
   }
 
   list(query: Query): Promise<EntitySchema[]> {
-    const predicates = this.toQueryPredicates(query);
-    const result = this.db[this.entity]
-      .filter(record => predicates.every(test => test(record)))
-      .limit(query.pagination.limit)
-      .offset(query.pagination.offset);
-    return query.orderBy ? result.sortBy(query.orderBy.key) : result.toArray();
+    return this.toArray(query, this.paginate(query, this.filter(query)));
   }
 
   async paginatedList(
     request: Query,
   ): Promise<PaginatedListSchema<EntitySchema>> {
+    const filtered = this.filter(request);
+    const total = await filtered.count();
+    const list = await this.toArray(request, this.paginate(request, filtered));
     return {
       ...request.pagination,
-      total: await this.count(),
-      list: await this.list(request),
+      total,
+      list,
     };
   }
 
@@ -72,4 +71,27 @@ export abstract class DexieRepository<
   }
 
   abstract toQueryPredicates(query: Query): Reader<EntitySchema, boolean>[];
+
+  private filter(
+    query: Query,
+  ): Collection<EntitySchema, IDType<EntitySchema, "_id">, CreateRequest> {
+    const predicates = this.toQueryPredicates(query);
+    return this.db[this.entity].filter(record =>
+      predicates.every(test => test(record)),
+    );
+  }
+
+  private paginate(
+    query: Query,
+    result: Collection<EntitySchema, any, any>,
+  ): Collection<EntitySchema, IDType<EntitySchema, "_id">, CreateRequest> {
+    return result.limit(query.pagination.limit).offset(query.pagination.offset);
+  }
+
+  private toArray(
+    query: Query,
+    result: Collection<EntitySchema, any, any>,
+  ): Promise<EntitySchema[]> {
+    return query.orderBy ? result.sortBy(query.orderBy.key) : result.toArray();
+  }
 }

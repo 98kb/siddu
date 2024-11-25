@@ -50,22 +50,18 @@ export abstract class MemoryRepo<
   }
 
   async list(query: Query): Promise<EntitySchema[]> {
-    const predicates = this.toQueryPredicates(query);
-    const data = Object.values(this.data[this.entity] || {});
-    let result = data.filter(record => predicates.every(test => test(record)));
-    if (query.orderBy) {
-      result = sortBy(result, [query.orderBy.key]);
-    }
-    return result.slice(query.pagination.offset, query.pagination.limit);
+    return this.paginate(query, this.sort(query, this.filter(query)));
   }
 
   async paginatedList(
     request: Query,
   ): Promise<PaginatedListSchema<EntitySchema>> {
+    const total = this.filter(request).length;
+    const list = await this.list(request);
     return {
       ...request.pagination,
-      total: await this.count(),
-      list: await this.list(request),
+      total,
+      list,
     };
   }
 
@@ -83,5 +79,22 @@ export abstract class MemoryRepo<
       result += chars.charAt(Math.floor(Math.random() * chars.length));
     }
     return result;
+  }
+
+  private filter(request: Query): EntitySchema[] {
+    const predicates = this.toQueryPredicates(request);
+    const data = Object.values(this.data[this.entity] || {});
+    return data.filter(record => predicates.every(test => test(record)));
+  }
+
+  private sort(request: Query, result: EntitySchema[]): EntitySchema[] {
+    if (request.orderBy) {
+      return sortBy(result, [request.orderBy.key]);
+    }
+    return result;
+  }
+
+  private paginate(request: Query, result: EntitySchema[]): EntitySchema[] {
+    return result.slice(request.pagination.offset, request.pagination.limit);
   }
 }
