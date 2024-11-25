@@ -11,11 +11,11 @@ export function useFacts() {
     (fact: FactSchema) => {
       setFacts($facts => {
         // eslint-disable-next-line max-nested-callbacks
-        let factIndex = $facts.findIndex($fact => $fact._id === fact._id);
+        const factIndex = $facts.findIndex($fact => $fact._id === fact._id);
         const found = factIndex !== -1;
-        factIndex = found ? factIndex : 0;
-        const deleteCount = found ? 1 : 0;
-        $facts.splice(factIndex, deleteCount, fact);
+        if (found) {
+          $facts.splice(factIndex, 1, fact);
+        }
         return applyFilters($facts);
       });
     },
