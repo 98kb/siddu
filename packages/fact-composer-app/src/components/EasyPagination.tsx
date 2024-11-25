@@ -28,22 +28,25 @@ export function EasyPagination({
   const end = Math.min(limit, total);
   return (
     <div className={cn("flex", className)}>
-      <span>
+      <small className="select-none">
         {start} - {end} of {total}
-      </span>
+      </small>
       <Pagination className="inline-flex w-fit mx-0">
         <PaginationContent>
           {start > 1 && (
             <PaginationItem>
               <PaginationPrevious
-                className="cursor-pointer"
+                className="cursor-pointer text-xs select-none"
                 onClick={onPrevious}
               />
             </PaginationItem>
           )}
           {end !== total && (
             <PaginationItem>
-              <PaginationNext className="cursor-pointer" onClick={onNext} />
+              <PaginationNext
+                className="cursor-pointer text-xs select-none"
+                onClick={onNext}
+              />
             </PaginationItem>
           )}
         </PaginationContent>
