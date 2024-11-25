@@ -11,7 +11,7 @@ import {
   LabelsEditor,
   TChangePayload,
 } from "~/pages/labels/components/LabelsEditor";
-import {useLabelsApi} from "~/pages/labels/hooks/useLabelsApi";
+import {useLabelActions} from "~/pages/labels/hooks/useLabelActions";
 
 export function SaveFact() {
   const {selectedFact, clearSelectedFact} = useSelectedFact();
@@ -55,17 +55,17 @@ function useSaveFact() {
 }
 
 function useUpdateFactLabels() {
-  const {deleteIfOrphan} = useLabelsApi();
+  const {removeIfOrphan} = useLabelActions();
   const {selectedFact} = useSelectedFact();
   const {saveFact} = useSaveFact();
   const updateLabels = useCallback(
     async ({labels, removed}: TChangePayload) => {
       if (selectedFact) {
         await saveFact({labels});
-        await deleteIfOrphan(removed);
+        await removeIfOrphan(removed);
       }
     },
-    [saveFact, selectedFact, deleteIfOrphan],
+    [saveFact, selectedFact, removeIfOrphan],
   );
   return {updateLabels};
 }
