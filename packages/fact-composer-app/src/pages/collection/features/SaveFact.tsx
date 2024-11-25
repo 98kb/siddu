@@ -41,7 +41,7 @@ export function SaveFact() {
 }
 
 function useSaveFact() {
-  const {selectedFact, setSelectedFact} = useSelectedFact();
+  const {selectedFact, selectFact: setSelectedFact} = useSelectedFact();
   const {saveOrUpdateFact} = useFactActions();
   const saveFact = useCallback(
     async (fact: Partial<FactSchema | InsertFactSchema>) =>

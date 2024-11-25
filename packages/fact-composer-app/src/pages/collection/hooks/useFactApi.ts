@@ -4,6 +4,7 @@ import {
   type UpdateFactSchema,
   type InsertFactSchema,
   type FactSchema,
+  FactsQuerySchema,
 } from "@repo/collection-service-defs";
 
 export function useFactApi() {
@@ -26,11 +27,16 @@ export function useFactApi() {
       collection?.facts.restore.mutate({_id: factId}),
     [collection],
   );
+  const listPaginatedFacts = useCallback(
+    (query: FactsQuerySchema) => collection?.facts.paginatedList.query(query),
+    [collection],
+  );
 
   return {
     createFact,
     updateFact,
     archiveFact,
     restoreFact,
+    listPaginatedFacts,
   };
 }

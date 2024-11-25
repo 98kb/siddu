@@ -1,5 +1,5 @@
 import {FactCard} from "../components/FactCard";
-import {type FactSchema} from "@repo/collection-service-defs";
+import {PaginationSchema, type FactSchema} from "@repo/collection-service-defs";
 import {FactsGridPlaceholder} from "../components/FactsGridPlaceholder";
 import {AddFactButton} from "./AddFactButton";
 import {useFacts} from "../hooks/useFacts";
@@ -7,26 +7,30 @@ import {FactCardActions} from "./FactCardActions";
 import {useSelectedFact} from "../hooks/useSelectedFacts";
 import {useHighlightedFacts} from "../hooks/useHighlightedFacts";
 import {useFactsQuery} from "../hooks/useFactsQuery";
-import {useCallback} from "react";
+import {useCallback, useEffect} from "react";
+import {EasyPagination} from "~/components/EasyPagination";
+import {usePagination} from "~/lib/hooks/usePagination";
 
 export function FactsGrid() {
   useFactsQuery();
-  const {facts} = useFacts();
-  const {setSelectedFact} = useSelectedFact();
+  const {facts, refreshFacts, limit, offset, total, nextPage, prevPage} =
+    useFactsGrid({limit: 10, offset: 0});
+  const {selectFact} = useSelectedFact();
   const highlightedFacts = useHighlightedFacts();
-  const selectFact = useCallback(
-    (fact: FactSchema) => {
-      if (!fact.isDeleted) {
-        setSelectedFact(fact);
-      }
-    },
-    [setSelectedFact],
-  );
+  useEffect(() => {
+    refreshFacts();
+  }, [refreshFacts]);
+
   return facts.length ? (
     <div className="flex flex-col gap-2 w-full h-full py-5 px-8 overflow-y-scroll max-h-[540px] pb-14">
-      <div className="flex w-full">
-        <AddFactButton variant="ghost" size="sm" />
-      </div>
+      <EasyPagination
+        className="flex w-full items-center justify-between"
+        limit={limit}
+        offset={offset}
+        total={total}
+        onNext={nextPage}
+        onPrevious={prevPage}
+      />
       <div className="w-full h-full @container">
         <div className="columns-1 @sm:columns-2 @lg:columns-3 @xl:columns-4">
           {facts.map(fact => (
@@ -52,4 +56,36 @@ export function FactsGrid() {
 
 function isHighlighted(fact: FactSchema, highlightedFacts?: FactSchema[]) {
   return highlightedFacts?.some(f => f._id === fact._id);
+}
+
+function useFactsGrid(pagination: PaginationSchema) {
+  const {offset, limit, jump, total, setTotal} = usePagination(pagination);
+  const {fetchFacts} = useFactsQuery();
+  const {facts, setFacts} = useFacts();
+  const refreshFacts = useCallback(
+    () =>
+      // eslint-disable-next-line complexity
+      fetchFacts({limit, offset})?.then(result => {
+        setFacts(result?.list ?? []);
+        setTotal(Number(result?.total));
+      }),
+    [fetchFacts, setFacts, setTotal, limit, offset],
+  );
+  const nextPage = useCallback(
+    () => jump(pagination.limit),
+    [jump, pagination.limit],
+  );
+  const prevPage = useCallback(
+    () => jump(-pagination.limit),
+    [jump, pagination.limit],
+  );
+  return {
+    facts,
+    offset,
+    limit,
+    prevPage,
+    nextPage,
+    total,
+    refreshFacts,
+  };
 }

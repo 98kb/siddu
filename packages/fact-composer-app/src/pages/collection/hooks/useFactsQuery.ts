@@ -1,30 +1,19 @@
-import {useCallback, useEffect} from "react";
-import {useCollection} from "./useCollection";
+import {useCallback} from "react";
 import {useFactFilters} from "./useFactFilters";
-import {useFacts} from "./useFacts";
+import {useFactApi} from "./useFactApi";
+import {PaginationSchema} from "@repo/collection-service-defs";
 
 export function useFactsQuery() {
-  const collection = useCollection();
   const {filters} = useFactFilters();
-  const {setFacts} = useFacts();
-  const refreshFacts = useCallback(
-    () =>
-      collection?.facts.list
-        .query({
-          pagination: {limit: 99, offset: 0},
-          isDeleted: filters.archived,
-          labelIds: [filters.labelId].filter(Boolean).map(String),
-        })
-        ?.then(setFacts),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [collection, filters],
+  const {listPaginatedFacts} = useFactApi();
+  const fetchFacts = useCallback(
+    (pagination: PaginationSchema) =>
+      listPaginatedFacts({
+        pagination,
+        isDeleted: filters.archived,
+        labelIds: [filters.labelId].filter(Boolean).map(String),
+      }),
+    [listPaginatedFacts, filters],
   );
-
-  useEffect(() => {
-    refreshFacts();
-  }, [refreshFacts]);
-
-  return {
-    refreshFacts,
-  };
+  return {fetchFacts};
 }
