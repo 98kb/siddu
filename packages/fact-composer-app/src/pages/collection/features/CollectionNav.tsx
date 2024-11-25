@@ -7,11 +7,17 @@ import {useFactFilters} from "../hooks/useFactFilters";
 import {useLocation, useNavigate} from "react-router-dom";
 import {useLabelsQuery} from "~/pages/labels/hooks/useLabelsQuery";
 
+// eslint-disable-next-line max-statements
 export function CollectionNav() {
   const tabs = useCollectionNav();
   const navigate = useNavigate();
   const location = useLocation();
+  const {fetchLabels} = useLabelsQuery();
   const {setArchivedOnly, setLabel} = useFactFilters();
+
+  useEffect(() => {
+    fetchLabels();
+  }, [fetchLabels]);
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -22,6 +28,7 @@ export function CollectionNav() {
   return (
     <aside className="flex flex-col pr-10 py-5 min-w-[14vw]">
       {tabs.map(({name, Icon, route}) => (
+        // TODO: convert this component to a feature
         <CollectionNavTab
           key={name}
           name={name}

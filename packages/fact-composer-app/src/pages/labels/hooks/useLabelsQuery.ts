@@ -1,5 +1,5 @@
 import {useAtom} from "jotai";
-import {useCallback, useEffect} from "react";
+import {useCallback} from "react";
 import {useLabelsApi} from "./useLabelsApi";
 import {queryLabelsAtom} from "../store/queryLabelsAtom";
 
@@ -14,11 +14,8 @@ export function useLabelsQuery() {
       }).then($labels => $labels && setLabels($labels)),
     [listLabels, setLabels],
   );
-  useEffect(() => {
-    fetchLabels();
-  }, [fetchLabels]);
-
   return {
     labels,
+    fetchLabels,
   };
 }
