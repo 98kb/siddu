@@ -10,7 +10,7 @@ export function useFactActions() {
     archiveFact: archive,
     restoreFact: restore,
   } = useFactApi();
-  const {mergeFact} = useFacts();
+  const {mergeFact, evictFact} = useFacts();
   const createFact = useCallback(
     async (fact: InsertFactSchema) => {
       const insertedFact = await create(fact);
@@ -37,11 +37,11 @@ export function useFactActions() {
     async (fact: FactSchema) => {
       const archivedFact = await archive(fact._id);
       if (archivedFact) {
-        mergeFact(archivedFact);
+        evictFact(archivedFact);
       }
       return archivedFact;
     },
-    [mergeFact, archive],
+    [evictFact, archive],
   );
 
   const restoreFact = useCallback(

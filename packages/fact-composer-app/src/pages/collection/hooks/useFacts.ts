@@ -21,5 +21,14 @@ export function useFacts() {
     },
     [setFacts, applyFilters],
   );
-  return {facts, setFacts, mergeFact};
+  const evictFact = useCallback(
+    (fact: FactSchema) => {
+      setFacts($facts => {
+        // eslint-disable-next-line max-nested-callbacks
+        return $facts.filter($fact => $fact._id !== fact._id);
+      });
+    },
+    [setFacts],
+  );
+  return {facts, setFacts, mergeFact, evictFact};
 }
