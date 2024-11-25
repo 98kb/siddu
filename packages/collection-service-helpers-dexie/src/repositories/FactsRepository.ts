@@ -17,6 +17,18 @@ export class FactsRepository
   >
   implements IFactsRepository
 {
+  constructor(
+    readonly db: DexieRepository<
+      "facts",
+      FactSchema,
+      InsertFactSchema,
+      Partial<InsertFactSchema>,
+      FactsQuerySchema
+    >["db"],
+  ) {
+    super(db, "facts");
+  }
+
   toQueryPredicates({
     labelIds,
     query,

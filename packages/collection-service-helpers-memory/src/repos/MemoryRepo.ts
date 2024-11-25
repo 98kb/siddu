@@ -8,7 +8,7 @@ import type {
 } from "@repo/collection-service-defs";
 
 export abstract class MemoryRepo<
-  Entity extends string,
+  Entity extends "facts" | "labels",
   EntitySchema extends IdTypeSchema,
   CreateRequest,
   UpdateRequest,
@@ -17,7 +17,7 @@ export abstract class MemoryRepo<
 {
   constructor(
     private entity: Entity,
-    private data: Record<string, Record<IdTypeSchema["_id"], EntitySchema>>,
+    protected data: Record<string, Record<IdTypeSchema["_id"], EntitySchema>>,
   ) {}
 
   async create(entity: CreateRequest): Promise<EntitySchema> {

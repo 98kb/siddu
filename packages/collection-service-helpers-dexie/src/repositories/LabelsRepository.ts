@@ -1,18 +1,51 @@
 import {DexieRepository} from "./DexieRepository";
+import {FactsRepository} from "./FactsRepository";
 import {Reader} from "fp-ts/lib/Reader";
 import type {
+  ILabelsRepository,
   InsertLabelSchema,
   LabelSchema,
   LabelsQuerySchema,
 } from "@repo/collection-service-defs";
 
-export class LabelsRepository extends DexieRepository<
-  "labels",
-  LabelSchema,
-  InsertLabelSchema,
-  Partial<InsertLabelSchema>,
-  LabelsQuerySchema
-> {
+export class LabelsRepository
+  extends DexieRepository<
+    "labels",
+    LabelSchema,
+    InsertLabelSchema,
+    Partial<LabelSchema>,
+    LabelsQuerySchema
+  >
+  implements ILabelsRepository
+{
+  constructor(
+    readonly db: DexieRepository<
+      "labels",
+      LabelSchema,
+      InsertLabelSchema,
+      Partial<InsertLabelSchema>,
+      LabelsQuerySchema
+    >["db"],
+    private facts: FactsRepository,
+  ) {
+    super(db, "labels");
+  }
+
+  async softDeleteIfOrphan(id: LabelSchema["_id"]): Promise<void> {
+    if (await this.isOrphan(id)) {
+      await this.update(id, {isDeleted: true, deletedAt: Date.now()});
+    }
+  }
+
+  async isOrphan(id: LabelSchema["_id"]): Promise<boolean> {
+    const parents = await this.facts.list({
+      pagination: {offset: 0, limit: 1},
+      isDeleted: false,
+      labelIds: [id],
+    });
+    return parents.length === 0;
+  }
+
   toQueryPredicates({
     query,
     isDeleted,
