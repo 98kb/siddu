@@ -29,7 +29,7 @@ export function ListLabels() {
 }
 
 function useListLabels(pagination: PaginationSchema) {
-  const {toPaginatedLabels} = useLabelsApi();
+  const {listPaginatedLabels: toPaginatedLabels} = useLabelsApi();
   const {offset, limit, jump, total, setTotal} = usePagination(pagination);
   const [labels, setLabels] = useState<LabelSchema[]>([]);
   const nextPage = useCallback(

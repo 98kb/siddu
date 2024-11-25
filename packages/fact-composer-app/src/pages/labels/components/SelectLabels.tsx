@@ -100,13 +100,13 @@ function useSelectLabels(search: string, onSelect: TProps["onSelect"]) {
 }
 
 function useFetchLabels() {
-  const {toLabels} = useLabelsApi();
+  const {listLabels} = useLabelsApi();
   const [labels, setLabels] = useState<LabelSchema[]>([]);
   const fetchLabels = useCallback(
     (q: LabelsQuerySchema) => {
-      toLabels(q).then($labels => $labels && setLabels($labels));
+      listLabels(q).then($labels => $labels && setLabels($labels));
     },
-    [toLabels, setLabels],
+    [listLabels, setLabels],
   );
   return {labels, fetchLabels};
 }

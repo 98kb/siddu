@@ -1,10 +1,14 @@
-import {LabelSchema, LabelsQuerySchema} from "@repo/collection-service-defs";
+import {
+  InsertLabelSchema,
+  LabelSchema,
+  LabelsQuerySchema,
+} from "@repo/collection-service-defs";
 import {useCallback} from "react";
 import {useCollection} from "~/pages/collection/hooks/useCollection";
 
 export function useLabelsApi() {
   const collection = useCollection();
-  const toPaginatedLabels = useCallback(
+  const listPaginatedLabels = useCallback(
     async (query: LabelsQuerySchema) =>
       collection?.labels.paginatedList.query(query),
     [collection],
@@ -16,9 +20,23 @@ export function useLabelsApi() {
     [collection],
   );
 
-  const toLabels = useCallback(
+  const listLabels = useCallback(
     async (query: LabelsQuerySchema) => collection?.labels.list.query(query),
     [collection],
   );
-  return {toPaginatedLabels, deleteIfOrphan, toLabels};
+  const createLabel = useCallback(
+    (label: InsertLabelSchema) => collection?.labels.create.mutate(label),
+    [collection],
+  );
+  const softDeleteLabel = useCallback(
+    (_id: LabelSchema["_id"]) => collection?.labels.softDelete.mutate({_id}),
+    [collection],
+  );
+  return {
+    listPaginatedLabels,
+    deleteIfOrphan,
+    listLabels,
+    softDeleteLabel,
+    createLabel,
+  };
 }
