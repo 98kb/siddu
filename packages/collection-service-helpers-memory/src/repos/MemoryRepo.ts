@@ -1,6 +1,7 @@
 import {Reader} from "fp-ts/lib/Reader";
 import sortBy from "lodash.sortby";
 import type {
+  BaseSchema,
   IRepository,
   IdTypeSchema,
   PaginatedListSchema,
@@ -9,7 +10,7 @@ import type {
 
 export abstract class MemoryRepo<
   Entity extends "facts" | "labels",
-  EntitySchema extends IdTypeSchema,
+  EntitySchema extends BaseSchema,
   CreateRequest,
   UpdateRequest,
   Query extends QuerySchema,
@@ -23,7 +24,12 @@ export abstract class MemoryRepo<
   async create(entity: CreateRequest): Promise<EntitySchema> {
     const _id = this.generateRandomAlphanumeric();
     this.data[this.entity] = this.data[this.entity] || {};
-    this.data[this.entity][_id] = {_id, ...entity} as unknown as EntitySchema;
+    this.data[this.entity][_id] = {
+      _id,
+      ...entity,
+      createAt: Date.now(),
+      updatedAt: Date.now(),
+    } as unknown as EntitySchema;
     return this.data[this.entity][_id];
   }
 
@@ -37,6 +43,7 @@ export abstract class MemoryRepo<
     this.data[this.entity][id] = {
       ...this.data[this.entity][id],
       ...updateRequest,
+      updatedAt: Date.now(),
     } as EntitySchema;
     return this.data[this.entity][id];
   }

@@ -17,6 +17,7 @@ function addUpdatedAtHook(db: CollectionDB) {
   for (const table of [db.facts, db.labels]) {
     table.hook("creating", function (_, obj) {
       obj.updatedAt = Date.now();
+      obj.createdAt = Date.now();
       obj._id = v4();
     });
     table.hook("updating", function (modifications) {

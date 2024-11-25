@@ -5,6 +5,7 @@ export const BaseSchema = z.object({
   isDeleted: z.boolean().optional(),
   deletedAt: z.number().optional(),
   updatedAt: z.number().optional(),
+  createdAt: z.number().optional(),
 });
 
 export type BaseSchema = z.infer<typeof BaseSchema>;

@@ -10,6 +10,9 @@ export function useFactsQuery() {
     (pagination: PaginationSchema) =>
       listPaginatedFacts({
         pagination,
+        orderBy: {
+          key: "createdAt",
+        },
         isDeleted: filters.archived,
         labelIds: [filters.labelId].filter(Boolean).map(String),
       }),
