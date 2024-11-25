@@ -1,7 +1,7 @@
 import type {Meta, StoryObj} from "@storybook/react";
 import {FactEditor} from "./FactEditor";
 import {fn} from "@storybook/test";
-import {dummyCollection} from ".storybook/trpc";
+import {dummyCollection} from "../../../../.storybook/trpc";
 import {CollectionContext} from "../context/CollectionContext";
 
 const meta: Meta<typeof FactEditor> = {
