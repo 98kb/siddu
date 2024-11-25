@@ -1,6 +1,6 @@
 import {Reader} from "fp-ts/lib/Reader";
 import {Check} from "lucide-react";
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useMemo, useState} from "react";
 import {Button} from "~/components/ui/button";
 import {
   Command,
@@ -12,9 +12,9 @@ import {
 } from "~/components/ui/command";
 import {Popover, PopoverContent, PopoverTrigger} from "~/components/ui/popover";
 import {cn} from "~/lib/utils";
-import {LabelSchema} from "@repo/collection-service-defs";
-import {useCollection} from "~/pages/collection/hooks/useCollection";
+import {LabelSchema, LabelsQuerySchema} from "@repo/collection-service-defs";
 import {useLabelActions} from "../hooks/useLabelActions";
+import {useLabelsApi} from "../hooks/useLabelsApi";
 
 type TProps = {
   children: Reader<{open: boolean}, React.ReactNode>;
@@ -23,24 +23,16 @@ type TProps = {
 };
 
 export function SelectLabels({children, selected, onSelect}: TProps) {
-  const [open, setOpen] = useState(false);
-  const {addLabel} = useLabelActions();
-  const {labels, query, setQuery} = useSelectLabelsQuery(selected);
-  const selectLabel = useCallback<Reader<LabelSchema, void>>(
-    label => {
-      onSelect(label);
-      setOpen(false);
-    },
-    [onSelect],
+  const {labels, fetchLabels} = useFetchLabels();
+  const {search, setSearch, query} = useSelectLabelsQuery(selected);
+  const {selectLabel, addAndSelect, open, setOpen} = useSelectLabels(
+    search,
+    onSelect,
   );
-  const addAndSelect = useCallback(async () => {
-    const addedLabel = await addLabel({name: query});
-    if (addedLabel) {
-      selectLabel(addedLabel);
-    }
-  }, [addLabel, selectLabel, query]);
-
-  useEffect(() => setQuery(""), [setQuery, open]);
+  useEffect(() => setSearch(""), [setSearch, open]);
+  useEffect(() => {
+    fetchLabels(query);
+  }, [fetchLabels, query]);
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>{children?.({open})}</PopoverTrigger>
@@ -48,7 +40,7 @@ export function SelectLabels({children, selected, onSelect}: TProps) {
         <Command>
           <CommandInput
             className="h-9"
-            onInput={e => setQuery(e.currentTarget.value)}
+            onInput={e => setSearch(e.currentTarget.value)}
             placeholder="Search labels..."
           />
           <CommandList>
@@ -59,7 +51,7 @@ export function SelectLabels({children, selected, onSelect}: TProps) {
                 className="w-full justify-start"
                 onClick={addAndSelect}
               >
-                Add "{query}"
+                Add "{search}"
               </Button>
             </CommandEmpty>
             <CommandGroup>
@@ -87,29 +79,48 @@ export function SelectLabels({children, selected, onSelect}: TProps) {
   );
 }
 
-function useSelectLabelsQuery(selected: LabelSchema[]) {
-  const [query, setQuery] = useState("");
-  const collection = useCollection();
+function useSelectLabels(search: string, onSelect: TProps["onSelect"]) {
+  const [open, setOpen] = useState(false);
+  const {addLabel} = useLabelActions();
+  const selectLabel = useCallback<Reader<LabelSchema, void>>(
+    label => {
+      onSelect(label);
+      setOpen(false);
+    },
+    [onSelect],
+  );
+  const addAndSelect = useCallback(async () => {
+    const addedLabel = await addLabel({name: search});
+    if (addedLabel) {
+      selectLabel(addedLabel);
+    }
+  }, [addLabel, selectLabel, search]);
+
+  return {selectLabel, open, setOpen, addAndSelect};
+}
+
+function useFetchLabels() {
+  const {toLabels} = useLabelsApi();
   const [labels, setLabels] = useState<LabelSchema[]>([]);
-  const fetchLabels = useCallback(() => {
-    collection?.labels.list
-      .query({
-        pagination: {limit: 7, offset: 0},
-        isDeleted: false,
-        query,
-        exclude: selected.map(({_id}) => _id),
-      })
-      .then(setLabels);
-  }, [collection, query, selected]);
+  const fetchLabels = useCallback(
+    (q: LabelsQuerySchema) => {
+      toLabels(q).then($labels => $labels && setLabels($labels));
+    },
+    [toLabels, setLabels],
+  );
+  return {labels, fetchLabels};
+}
 
-  useEffect(() => {
-    fetchLabels();
-  }, [fetchLabels]);
-
-  return {
-    labels,
-    fetchLabels,
-    query,
-    setQuery,
-  };
+function useSelectLabelsQuery(excludedLabels: LabelSchema[]) {
+  const [search, setSearch] = useState("");
+  const query = useMemo(
+    () => ({
+      pagination: {limit: 7, offset: 0},
+      isDeleted: false,
+      query: search,
+      exclude: excludedLabels.map(({_id}) => _id),
+    }),
+    [search, excludedLabels],
+  );
+  return {search, setSearch, query};
 }

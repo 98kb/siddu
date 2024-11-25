@@ -1,21 +1,22 @@
 import {FactEditor} from "../components/FactEditor";
 import {useCallback} from "react";
 import {FactEditorToolbar} from "./FactEditorToolbar";
-import type {FactSchema, InsertFactSchema} from "@repo/collection-service-defs";
+import {
+  type FactSchema,
+  type InsertFactSchema,
+} from "@repo/collection-service-defs";
 import {useFactActions} from "../hooks/useFactActions";
 import {useSelectedFact} from "../hooks/useSelectedFacts";
+import {
+  LabelsEditor,
+  TChangePayload,
+} from "~/pages/labels/components/LabelsEditor";
+import {useLabelsApi} from "~/pages/labels/hooks/useLabelsApi";
 
 export function SaveFact() {
-  const {saveOrUpdateFact} = useFactActions();
-  const {selectedFact, clearSelectedFact, setSelectedFact} = useSelectedFact();
-  const onSave = useCallback(
-    async (fact: FactSchema | InsertFactSchema) => {
-      const savedFact = await saveOrUpdateFact(fact);
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-      savedFact && setSelectedFact(savedFact);
-    },
-    [setSelectedFact, saveOrUpdateFact],
-  );
+  const {selectedFact, clearSelectedFact} = useSelectedFact();
+  const {saveFact} = useSaveFact();
+  const {updateLabels} = useUpdateFactLabels();
 
   return (
     selectedFact && (
@@ -23,10 +24,48 @@ export function SaveFact() {
         <FactEditorToolbar
           fact={selectedFact}
           onClose={clearSelectedFact}
-          onChange={onSave}
+          onChange={saveFact}
         />
-        <FactEditor fact={selectedFact} onChange={onSave} />
+        <div className="flex flex-col w-full grow gap-4">
+          <div className="flex gap-2 flex-wrap pt-2">
+            <LabelsEditor
+              labels={selectedFact.labels}
+              onChange={updateLabels}
+            />
+          </div>
+          <FactEditor fact={selectedFact} onChange={saveFact} />
+        </div>
       </div>
     )
   );
+}
+
+function useSaveFact() {
+  const {selectedFact, setSelectedFact} = useSelectedFact();
+  const {saveOrUpdateFact} = useFactActions();
+  const saveFact = useCallback(
+    async (fact: Partial<FactSchema | InsertFactSchema>) =>
+      selectedFact &&
+      setSelectedFact(await saveOrUpdateFact({...selectedFact, ...fact})),
+    [selectedFact, setSelectedFact, saveOrUpdateFact],
+  );
+  return {
+    saveFact,
+  };
+}
+
+function useUpdateFactLabels() {
+  const {deleteIfOrphan} = useLabelsApi();
+  const {selectedFact} = useSelectedFact();
+  const {saveFact} = useSaveFact();
+  const updateLabels = useCallback(
+    async ({labels, removed}: TChangePayload) => {
+      if (selectedFact) {
+        await saveFact({labels});
+        await deleteIfOrphan(removed);
+      }
+    },
+    [saveFact, selectedFact, deleteIfOrphan],
+  );
+  return {updateLabels};
 }
