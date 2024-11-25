@@ -15,5 +15,9 @@ export function usePagination(initial: TOpts) {
     },
     [total],
   );
-  return {limit, offset, jump, total, setTotal};
+  const reset = useCallback(() => {
+    setLimit(initial.limit);
+    setOffset(initial.offset);
+  }, [initial.limit, initial.offset]);
+  return {limit, offset, jump, total, setTotal, reset};
 }

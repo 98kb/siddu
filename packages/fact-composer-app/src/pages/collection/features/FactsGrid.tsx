@@ -10,13 +10,29 @@ import {useFactsQuery} from "../hooks/useFactsQuery";
 import {useCallback, useEffect} from "react";
 import {EasyPagination} from "~/components/EasyPagination";
 import {usePagination} from "~/lib/hooks/usePagination";
+import {useLocation} from "react-router-dom";
 
+// eslint-disable-next-line max-statements
 export function FactsGrid() {
   useFactsQuery();
-  const {facts, refreshFacts, limit, offset, total, nextPage, prevPage} =
-    useFactsGrid({limit: 10, offset: 0});
+  const location = useLocation();
+  const {
+    facts,
+    refreshFacts,
+    limit,
+    offset,
+    total,
+    nextPage,
+    prevPage,
+    resetPagination,
+  } = useFactsGrid({limit: 10, offset: 0});
   const {selectFact} = useSelectedFact();
   const highlightedFacts = useHighlightedFacts();
+
+  useEffect(() => {
+    resetPagination();
+  }, [location, resetPagination]);
+
   useEffect(() => {
     refreshFacts();
   }, [refreshFacts]);
@@ -59,7 +75,8 @@ function isHighlighted(fact: FactSchema, highlightedFacts?: FactSchema[]) {
 }
 
 function useFactsGrid(pagination: PaginationSchema) {
-  const {offset, limit, jump, total, setTotal} = usePagination(pagination);
+  const {offset, limit, jump, total, setTotal, reset} =
+    usePagination(pagination);
   const {fetchFacts} = useFactsQuery();
   const {facts, setFacts} = useFacts();
   const refreshFacts = useCallback(
@@ -87,5 +104,6 @@ function useFactsGrid(pagination: PaginationSchema) {
     nextPage,
     total,
     refreshFacts,
+    resetPagination: reset,
   };
 }
