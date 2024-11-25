@@ -24,22 +24,28 @@ export function EasyPagination({
   onNext,
   onPrevious,
 }: TProps) {
+  const start = offset + 1;
+  const end = Math.min(limit, total);
   return (
     <div className={cn("flex", className)}>
       <span>
-        {offset + 1} - {Math.min(limit, total)} of {total}
+        {start} - {end} of {total}
       </span>
       <Pagination className="inline-flex w-fit mx-0">
         <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious
-              className="cursor-pointer"
-              onClick={onPrevious}
-            />
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationNext className="cursor-pointer" onClick={onNext} />
-          </PaginationItem>
+          {start > 1 && (
+            <PaginationItem>
+              <PaginationPrevious
+                className="cursor-pointer"
+                onClick={onPrevious}
+              />
+            </PaginationItem>
+          )}
+          {end !== total && (
+            <PaginationItem>
+              <PaginationNext className="cursor-pointer" onClick={onNext} />
+            </PaginationItem>
+          )}
         </PaginationContent>
       </Pagination>
     </div>
