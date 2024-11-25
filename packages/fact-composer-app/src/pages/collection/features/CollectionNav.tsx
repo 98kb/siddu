@@ -6,6 +6,7 @@ import {CollectionNavTab} from "../components/CollectionNavTab";
 import {useFactFilters} from "../hooks/useFactFilters";
 import {useLocation, useNavigate} from "react-router-dom";
 import {useLabelsQuery} from "~/pages/labels/hooks/useLabelsQuery";
+import {AddFactButton} from "./AddFactButton";
 
 // eslint-disable-next-line max-statements
 export function CollectionNav() {
@@ -26,7 +27,14 @@ export function CollectionNav() {
   }, [location, setArchivedOnly, setLabel]);
 
   return (
-    <aside className="flex flex-col pr-10 py-5 min-w-[14vw]">
+    <aside className="flex flex-col pb-5 min-w-[12vw]">
+      <div className="p-4">
+        <AddFactButton
+          variant="outline"
+          size="lg"
+          className="p-4 pr-6 rounded-full"
+        />
+      </div>
       {tabs.map(({name, Icon, route}) => (
         // TODO: convert this component to a feature
         <CollectionNavTab

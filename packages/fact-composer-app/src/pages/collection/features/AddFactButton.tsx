@@ -13,8 +13,8 @@ export function AddFactButton(props: TProps) {
       onClick={() => setSelectedFact({content: "", labels: []})}
       {...props}
     >
-      <div className="inline-flex gap-1 items-center justify-center">
-        <PlusIcon size="15" />
+      <div className="inline-flex gap-4 justify-center">
+        <PlusIcon size="18" />
         <span>Add Fact</span>
       </div>
     </Button>
