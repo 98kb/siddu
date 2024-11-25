@@ -30,12 +30,11 @@ export function ArchiveRestoreButton({
   }, [restore]);
   const btnProps = useMemo<ComponentProps<typeof IconButton>>(() => {
     return {
-      tooltip: restore ? "Restore" : "Archive",
       size: btnSize,
       openDelay: 50,
       children: Icon,
     };
-  }, [restore, btnSize, Icon]);
+  }, [btnSize, Icon]);
   const label = useMemo(
     () => <span className="text-sm">{restore ? "Restore?" : "Archive?"}</span>,
     [restore],
