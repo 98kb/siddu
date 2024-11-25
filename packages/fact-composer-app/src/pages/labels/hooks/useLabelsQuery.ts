@@ -1,19 +1,18 @@
-import {LabelSchema} from "@repo/collection-service-defs";
-import {useCallback, useEffect, useState} from "react";
-import {useCollection} from "~/pages/collection/hooks/useCollection";
+import {useAtom} from "jotai";
+import {useCallback, useEffect} from "react";
+import {useLabelsApi} from "./useLabelsApi";
+import {queryLabelsAtom} from "../store/queryLabelsAtom";
 
 export function useLabelsQuery() {
-  const collection = useCollection();
-  const [labels, setLabels] = useState<LabelSchema[]>([]);
+  const {toLabels} = useLabelsApi();
+  const [labels, setLabels] = useAtom(queryLabelsAtom);
   const fetchLabels = useCallback(
     async () =>
-      collection?.labels.list
-        .query({
-          pagination: {limit: 99, offset: 0},
-          isDeleted: false,
-        })
-        .then(setLabels),
-    [collection],
+      toLabels({
+        pagination: {limit: 99, offset: 0},
+        isDeleted: false,
+      }).then($labels => $labels && setLabels($labels)),
+    [toLabels, setLabels],
   );
   useEffect(() => {
     fetchLabels();
