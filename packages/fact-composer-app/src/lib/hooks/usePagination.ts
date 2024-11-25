@@ -10,7 +10,7 @@ export function usePagination(initial: TOpts) {
   const [offset, setOffset] = useState(initial.offset);
   const jump = useCallback(
     (delta: number) => {
-      setOffset($offset => minmax($offset + delta, 0, total - delta));
+      setOffset($offset => minmax($offset + delta, 0, total));
       setLimit($limit => minmax($limit + delta, Math.abs(delta), total));
     },
     [total],
