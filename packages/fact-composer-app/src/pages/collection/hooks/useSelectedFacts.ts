@@ -1,7 +1,7 @@
 import {useAtom} from "jotai";
 import {selectedFactAtom} from "../stores/selectedFactAtom";
 import {useCallback} from "react";
-import {FactSchema} from "@repo/collection-service-defs";
+import {FactSchema, InsertFactSchema} from "@repo/collection-service-defs";
 
 export function useSelectedFact() {
   const [selectedFact, setSelectedFact] = useAtom(selectedFactAtom);
@@ -10,8 +10,12 @@ export function useSelectedFact() {
     [setSelectedFact],
   );
   const selectFact = useCallback(
-    (fact: FactSchema) => {
-      if (!fact.isDeleted) {
+    // eslint-disable-next-line complexity
+    (fact: FactSchema | undefined | InsertFactSchema) => {
+      const isValidFact = fact && "_id" in fact && !fact?.isDeleted;
+      const isInsert = fact && !("_id" in fact);
+      const isUndefined = fact === undefined;
+      if (isValidFact || isInsert || isUndefined) {
         setSelectedFact(fact);
       }
     },
