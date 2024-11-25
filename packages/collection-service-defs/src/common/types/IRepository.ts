@@ -2,6 +2,7 @@ import {IdTypeSchema} from "../schema/IdTypeSchema";
 import {PaginatedListSchema} from "../schema/PaginatedListSchema";
 import type {QuerySchema} from "../schema/QuerySchema";
 
+// TODO: add soft delete method
 export interface IRepository<
   Entity extends IdTypeSchema,
   CreateRequest,
