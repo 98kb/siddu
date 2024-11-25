@@ -19,10 +19,12 @@ export class LabelsRepository
   >
   implements ILabelsRepository
 {
-  async softDeleteIfOrphan(id: LabelSchema["_id"]): Promise<void> {
-    if (await this.isOrphan(id)) {
-      this.update(id, {isDeleted: true, deletedAt: Date.now()});
+  async softDeleteIfOrphan(id: LabelSchema["_id"]): Promise<boolean> {
+    const isOrphan = await this.isOrphan(id);
+    if (isOrphan) {
+      await this.update(id, {isDeleted: true, deletedAt: Date.now()});
     }
+    return isOrphan;
   }
 
   async isOrphan(id: LabelSchema["_id"]): Promise<boolean> {

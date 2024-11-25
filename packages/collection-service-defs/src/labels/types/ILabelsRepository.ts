@@ -10,5 +10,5 @@ export type ILabelsRepository = IRepository<
   LabelsQuerySchema
 > & {
   isOrphan(id: LabelSchema["_id"]): Promise<boolean>;
-  softDeleteIfOrphan(id: LabelSchema["_id"]): Promise<void>;
+  softDeleteIfOrphan(id: LabelSchema["_id"]): Promise<boolean>;
 };
