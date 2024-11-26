@@ -1,13 +1,18 @@
+import {useCallback} from "react";
+import {useLocation, useNavigate} from "react-router-dom";
+import {NavTab} from "~/lib/NavTab";
 import {cn} from "~/lib/utils";
 
 type TProps = {
-  children: React.ReactNode;
-  isActive: boolean;
-  name: string;
-  onClick: () => void;
+  tab: NavTab;
+  className?: string;
 };
 
-export function CollectionNavTab({children, isActive, name, onClick}: TProps) {
+export function CollectionNavTab({className, tab}: TProps) {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const isActive = `${location.pathname}${location.search}` === tab.route;
+  const go = useCallback(() => navigate(tab.route!), [navigate, tab.route]);
   return (
     <span
       className={cn(
@@ -18,11 +23,12 @@ export function CollectionNavTab({children, isActive, name, onClick}: TProps) {
         "cursor-pointer rounded-r-full text-sm",
         "hover:bg-gray-50",
         isActive && "bg-gray-50",
+        className,
       )}
-      onClick={onClick}
+      onClick={go}
     >
-      {children}
-      <div className="truncate">{name}</div>
+      <tab.Icon className="w-4 h-4" />
+      <div className="truncate">{tab.name}</div>
     </span>
   );
 }
