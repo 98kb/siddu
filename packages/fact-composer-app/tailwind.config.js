@@ -56,9 +56,15 @@ export default {
           "0%": {opacity: "0"},
           "100%": {opacity: "1"},
         },
+        shake: {
+          "25%": {transform: "translateX(-0.2rem)"},
+          "50%": {transform: "translateX(0.2rem)"},
+          "75%": {transform: "translateX(-0.2rem)"},
+        },
       },
       animation: {
         "fade-in": "fadeIn 1s ease-in-out",
+        shake: "shake .5s ease-in",
       },
     },
   },
