@@ -8,23 +8,15 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {useLabelsQuery} from "~/pages/labels/hooks/useLabelsQuery";
 import {AddFactButton} from "./AddFactButton";
 
-// eslint-disable-next-line max-statements
 export function CollectionNav() {
   const tabs = useCollectionNav();
   const navigate = useNavigate();
   const location = useLocation();
   const {fetchLabels} = useLabelsQuery();
-  const {setArchivedOnly, setLabel} = useFactFilters();
 
   useEffect(() => {
     fetchLabels();
   }, [fetchLabels]);
-
-  useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    setArchivedOnly(searchParams.has("archived"));
-    setLabel(searchParams.get("label")!);
-  }, [location, setArchivedOnly, setLabel]);
 
   return (
     <aside className="flex flex-col pb-5 pr-2 min-w-[200px] max-h-[5248px] overflow-y-scroll overflow-x-hidden">
@@ -52,6 +44,7 @@ export function CollectionNav() {
 
 function useCollectionNav(): NavTab[] {
   const {labels} = useLabelsQuery();
+  const {toFiltersSearch} = useFactFilters();
   return useMemo<NavTab[]>(() => {
     return [
       {
@@ -62,13 +55,13 @@ function useCollectionNav(): NavTab[] {
       ...labels.map<NavTab>(label => ({
         Icon: LabelIcon,
         name: label.name,
-        route: `/collection?label=${label._id}`,
+        route: `/collection?${toFiltersSearch({labelId: label._id})}`,
       })),
       {
         Icon: BookDownIcon,
         name: "Archive",
-        route: "/collection?archived=true",
+        route: `/collection?${toFiltersSearch({isDeleted: true})}`,
       },
     ];
-  }, [labels]);
+  }, [labels, toFiltersSearch]);
 }
