@@ -28,7 +28,7 @@ export function FactCard({
   return (
     <Card
       className={cn([
-        "group w-full",
+        "group w-full max-w-[220px] min-w-[195px]",
         "select-none",
         "shadow-none hover:shadow hover:border-gray-400",
         "transition-all duration-200 ease-in-out",
@@ -51,7 +51,7 @@ export function FactCard({
         </div>
       </CardContent>
       {children && (
-        <CardFooter className="opacity-0 pb-4 group-hover:opacity-100">
+        <CardFooter className="opacity-0 px-3 pb-4 group-hover:opacity-100">
           {children}
         </CardFooter>
       )}
