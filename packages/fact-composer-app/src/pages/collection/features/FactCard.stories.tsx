@@ -1,15 +1,11 @@
 import type {Meta, StoryObj} from "@storybook/react";
-import {fn} from "@storybook/test";
 import {FactCard} from "./FactCard";
-import {FactCardActions} from "../features/FactCardActions";
 import {FactSchema} from "@repo/collection-service-defs";
 
 const meta: Meta<typeof FactCard> = {
-  title: "collection/components/FactCard",
+  title: "collection/features/FactCard",
   component: FactCard,
-  args: {
-    onClick: fn(),
-  },
+  args: {},
 };
 
 export default meta;
@@ -42,23 +38,17 @@ const fact: FactSchema = {
 export const Default: Story = {
   args: {
     fact,
-    isHighlighted: false,
   },
 };
 
 export const WithHighlightedLabels: Story = {
   args: {
     fact,
-    highlightedLabels: [
-      {_id: "0", name: "ChatGPT"},
-      {_id: "2", name: "GoT"},
-    ],
   },
 };
 
 export const WithChildren: Story = {
   args: {
     fact,
-    children: <FactCardActions fact={fact} />,
   },
 };
