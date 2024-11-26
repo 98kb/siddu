@@ -18,8 +18,6 @@ import {useAddFactTrigger} from "../hooks/useAddFactTrigger";
 import {MarketplacePage} from "~/pages/marketplace/page/Marketplace";
 import {ComponentProps} from "react";
 import {SettingsPage} from "~/pages/settings/pages/SettingsPage";
-import {FactsPage} from "~/pages/collection/pages/FactsPage";
-import {ListLabels} from "~/pages/labels/features/ListLabels";
 
 type TProps = ComponentProps<typeof Dialog>;
 
@@ -42,14 +40,11 @@ export function ComposerModal(props: TProps) {
         </VisuallyHidden.Root>
         <ComposerNav />
         <div className="flex flex-col w-full h-full">
-          <h1 className="p-4 capitalize border-b">
+          <h1 className="p-4 px-8 capitalize border-b">
             <Header location={location} />
           </h1>
           <Routes>
-            <Route path="/collection" element={<CollectionPage />}>
-              <Route index element={<FactsPage />} />
-              <Route path="labels" element={<ListLabels />} />
-            </Route>
+            <Route path="/collection" element={<CollectionPage />} />
             <Route path="/composition" element={<Composition />} />
             <Route path="/marketplace" element={<MarketplacePage />} />
             <Route path="/settings" element={<SettingsPage />} />
