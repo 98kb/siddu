@@ -23,7 +23,11 @@ export function useArchiveFact() {
     },
     [restore],
   );
-  return {archiveFact, restoreFact};
+  const toggleArchive = useCallback(
+    (fact: FactSchema) => (fact.isDeleted ? restoreFact : archiveFact)(fact),
+    [archiveFact, restoreFact],
+  );
+  return {archiveFact, restoreFact, toggleArchive};
 }
 
 function useApi() {
