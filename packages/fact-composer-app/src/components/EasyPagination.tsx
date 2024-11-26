@@ -28,7 +28,7 @@ export function EasyPagination({
   const end = Math.min(limit, total);
   return (
     <div className={cn("flex", className)}>
-      <small className="select-none py-2">
+      <small className="select-none py-2 pl-2.5">
         {start} - {end} of {total}
       </small>
       <Pagination className="inline-flex w-fit mx-0">

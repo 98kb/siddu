@@ -36,7 +36,7 @@ export function SaveFact() {
 
   return (
     selectedFact && (
-      <div className="flex flex-col h-full max-w-[25vw] min-w-[25vw] border-l p-3 pb-0">
+      <div className="flex flex-col h-full max-w-[30vw] min-w-[30vw] border-l p-3 pb-0">
         <FactEditorToolbar
           fact={selectedFact}
           onClose={clearSelectedFact}
