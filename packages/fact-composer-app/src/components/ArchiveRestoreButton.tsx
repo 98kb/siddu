@@ -21,31 +21,10 @@ export function ArchiveRestoreButton({
     () => (restore ? onRestore : onArchive),
     [restore, onRestore, onArchive],
   );
-  const Icon = useMemo(() => {
-    return restore ? (
-      <BookUpIcon className="h-4 w-4" />
-    ) : (
-      <BookDownIcon className="h-4 w-4" />
-    );
-  }, [restore]);
-  const btnProps = useMemo<ComponentProps<typeof IconButton>>(() => {
-    return {
-      size: btnSize,
-      openDelay: 50,
-      children: Icon,
-    };
-  }, [btnSize, Icon]);
-  const label = useMemo(
-    () => <span className="text-sm">{restore ? "Restore?" : "Archive?"}</span>,
-    [restore],
-  );
+  const Icon = useMemo(() => (restore ? BookUpIcon : BookDownIcon), [restore]);
   return (
-    <WithConfirmation
-      label={label}
-      For={IconButton}
-      onConfirm={onConfirm}
-      onCancel={event => event.stopPropagation()}
-      {...btnProps}
-    />
+    <IconButton size={btnSize} onClick={onConfirm}>
+      <Icon className="h-4 w-4" />
+    </IconButton>
   );
 }
