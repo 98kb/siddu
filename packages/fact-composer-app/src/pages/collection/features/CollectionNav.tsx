@@ -1,4 +1,4 @@
-import {ArchiveXIcon, BookOpenTextIcon, TagIcon} from "lucide-react";
+import {BookDownIcon, BookOpenTextIcon} from "lucide-react";
 import {LabelIcon} from "../components/LabelIcon";
 import {NavTab} from "~/lib/NavTab";
 import {useEffect, useMemo} from "react";
@@ -27,7 +27,7 @@ export function CollectionNav() {
   }, [location, setArchivedOnly, setLabel]);
 
   return (
-    <aside className="flex flex-col pb-5 min-w-[12vw]">
+    <aside className="flex flex-col pb-5 pr-2 min-w-[200px] max-h-[5248px] overflow-y-scroll overflow-x-hidden">
       <div className="p-4">
         <AddFactButton
           variant="outline"
@@ -65,14 +65,9 @@ function useCollectionNav(): NavTab[] {
         route: `/collection?label=${label._id}`,
       })),
       {
-        Icon: ArchiveXIcon,
+        Icon: BookDownIcon,
         name: "Archive",
         route: "/collection?archived=true",
-      },
-      {
-        Icon: TagIcon,
-        name: "Labels",
-        route: "/collection/labels",
       },
     ];
   }, [labels]);

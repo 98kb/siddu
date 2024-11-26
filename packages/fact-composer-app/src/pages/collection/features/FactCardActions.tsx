@@ -12,7 +12,7 @@ export function FactCardActions({fact}: TProps) {
     <div className="flex gap-2">
       <ArchiveRestoreFact
         fact={fact}
-        size="icon-sm"
+        size="icon"
         onChange={clearSelectedFact}
       />
     </div>

@@ -1,8 +1,10 @@
-import {useAtom} from "jotai";
-import {factFiltersAtom} from "../stores/factFiltersAtom";
+import {atom, useAtom} from "jotai";
 import {useCallback} from "react";
 import {FactSchema, LabelSchema} from "@repo/collection-service-defs";
 import {Reader} from "fp-ts/lib/Reader";
+import {FactFilters} from "../lib/FactFilters";
+
+const factFiltersAtom = atom<FactFilters>({});
 
 export function useFactFilters() {
   const [filters, setFilters] = useAtom(factFiltersAtom);

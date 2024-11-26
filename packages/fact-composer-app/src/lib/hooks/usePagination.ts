@@ -21,3 +21,10 @@ export function usePagination(initial: TOpts) {
   }, [initial.limit, initial.offset]);
   return {limit, offset, jump, total, setTotal, reset};
 }
+
+/**
+ * - collection facts
+ * - pagination
+ * - query filters
+ * - signals
+ */
