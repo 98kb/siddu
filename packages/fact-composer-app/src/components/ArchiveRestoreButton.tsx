@@ -23,7 +23,11 @@ export function ArchiveRestoreButton({
   );
   const Icon = useMemo(() => (restore ? BookUpIcon : BookDownIcon), [restore]);
   return (
-    <IconButton size={btnSize} onClick={onConfirm}>
+    <IconButton
+      size={btnSize}
+      onClick={onConfirm}
+      tooltip={restore ? "Restore" : "Archive"}
+    >
       <Icon className="h-4 w-4" />
     </IconButton>
   );
