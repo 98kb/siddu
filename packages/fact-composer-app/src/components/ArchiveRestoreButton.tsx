@@ -1,4 +1,4 @@
-import {ArchiveRestoreIcon, ArchiveXIcon} from "lucide-react";
+import {BookDownIcon, BookUpIcon} from "lucide-react";
 import {IconButton} from "./IconButton";
 import {ComponentProps, useMemo} from "react";
 import {WithConfirmation} from "./HOC/WithConfirmation";
@@ -23,9 +23,9 @@ export function ArchiveRestoreButton({
   );
   const Icon = useMemo(() => {
     return restore ? (
-      <ArchiveRestoreIcon className="h-4 w-4" />
+      <BookUpIcon className="h-4 w-4" />
     ) : (
-      <ArchiveXIcon className="h-4 w-4" />
+      <BookDownIcon className="h-4 w-4" />
     );
   }, [restore]);
   const btnProps = useMemo<ComponentProps<typeof IconButton>>(() => {
