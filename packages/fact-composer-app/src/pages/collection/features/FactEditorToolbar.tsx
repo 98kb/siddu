@@ -10,7 +10,7 @@ import {useCallback} from "react";
 import {IconButton} from "~/components/IconButton";
 import {Button} from "~/components/ui/button";
 import {SelectLabels} from "~/pages/labels/components/SelectLabels";
-import {useFactActions} from "../hooks/useFactActions";
+import {useArchiveFact} from "../hooks/useArchiveFact";
 
 type TProps = {
   fact: FactSchema | InsertFactSchema;
@@ -19,7 +19,7 @@ type TProps = {
 };
 
 export function FactEditorToolbar({fact, onChange, onClose}: TProps) {
-  const {archiveFact} = useFactActions();
+  const {archiveFact} = useArchiveFact();
   const updateLabels = useCallback(
     (label: LabelSchema) =>
       onChange({...fact, labels: [...fact.labels, label]}),

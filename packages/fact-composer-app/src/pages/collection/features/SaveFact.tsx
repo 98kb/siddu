@@ -5,18 +5,34 @@ import {
   type FactSchema,
   type InsertFactSchema,
 } from "@repo/collection-service-defs";
-import {useFactActions} from "../hooks/useFactActions";
 import {useSelectedFact} from "../hooks/useSelectedFacts";
 import {
   LabelsEditor,
   TChangePayload,
 } from "~/pages/labels/components/LabelsEditor";
-import {useLabelActions} from "~/pages/labels/hooks/useLabelActions";
+import {useSaveOrUpdateFact} from "../hooks/useSaveOrUpdateFact";
+import {useLabelsApi} from "~/pages/labels/hooks/useLabelsApi";
 
 export function SaveFact() {
-  const {selectedFact, clearSelectedFact} = useSelectedFact();
-  const {saveFact} = useSaveFact();
-  const {updateLabels} = useUpdateFactLabels();
+  const {deleteIfOrphan} = useLabelsApi();
+  const {selectedFact, selectFact, clearSelectedFact} = useSelectedFact();
+  const {saveOrUpdateFact} = useSaveOrUpdateFact();
+  const saveFact = useCallback(
+    async (fact: Partial<FactSchema | InsertFactSchema>) =>
+      selectedFact &&
+      selectFact(await saveOrUpdateFact({...selectedFact, ...fact})),
+    [selectedFact, selectFact, saveOrUpdateFact],
+  );
+  const updateLabels = useCallback(
+    async ({labels, removed}: TChangePayload) => {
+      if (selectedFact) {
+        await saveFact({labels});
+        await deleteIfOrphan(removed);
+        // TODO: emit signal
+      }
+    },
+    [saveFact, selectedFact, deleteIfOrphan],
+  );
 
   return (
     selectedFact && (
@@ -38,34 +54,4 @@ export function SaveFact() {
       </div>
     )
   );
-}
-
-function useSaveFact() {
-  const {selectedFact, selectFact: setSelectedFact} = useSelectedFact();
-  const {saveOrUpdateFact} = useFactActions();
-  const saveFact = useCallback(
-    async (fact: Partial<FactSchema | InsertFactSchema>) =>
-      selectedFact &&
-      setSelectedFact(await saveOrUpdateFact({...selectedFact, ...fact})),
-    [selectedFact, setSelectedFact, saveOrUpdateFact],
-  );
-  return {
-    saveFact,
-  };
-}
-
-function useUpdateFactLabels() {
-  const {removeIfOrphan} = useLabelActions();
-  const {selectedFact} = useSelectedFact();
-  const {saveFact} = useSaveFact();
-  const updateLabels = useCallback(
-    async ({labels, removed}: TChangePayload) => {
-      if (selectedFact) {
-        await saveFact({labels});
-        await removeIfOrphan(removed);
-      }
-    },
-    [saveFact, selectedFact, removeIfOrphan],
-  );
-  return {updateLabels};
 }
