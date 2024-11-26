@@ -96,7 +96,8 @@ export abstract class MemoryRepo<
 
   private sort(request: Query, result: EntitySchema[]): EntitySchema[] {
     if (request.orderBy) {
-      return sortBy(result, [request.orderBy.key]);
+      const sorted = sortBy(result, [request.orderBy.key]);
+      return request.orderBy.desc ? sorted.reverse() : sorted;
     }
     return result;
   }

@@ -92,6 +92,12 @@ export abstract class DexieRepository<
     query: Query,
     result: Collection<EntitySchema, any, any>,
   ): Promise<EntitySchema[]> {
-    return query.orderBy ? result.sortBy(query.orderBy.key) : result.toArray();
+    if (query.orderBy) {
+      const isDescending = query.orderBy?.desc;
+      return isDescending
+        ? result.reverse().sortBy(query.orderBy.key)
+        : result.sortBy(query.orderBy.key);
+    }
+    return result.toArray();
   }
 }
