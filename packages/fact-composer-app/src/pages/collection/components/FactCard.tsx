@@ -51,7 +51,7 @@ export function FactCard({
         </div>
       </CardContent>
       {children && (
-        <CardFooter className="opacity-0 px-3 pb-4 group-hover:opacity-100">
+        <CardFooter className="opacity-0 px-3 pb-2 group-hover:opacity-100">
           {children}
         </CardFooter>
       )}
