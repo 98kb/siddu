@@ -21,19 +21,18 @@ export function useFactsQuery() {
 function useFetchFacts() {
   const {paginatedList} = useApi();
   const {filters} = useFactFilters();
-  const {offset, limit} = useFactsPagination();
-  const query = useMemo(
-    () => ({
-      pagination: {offset, limit},
+  const {pagination} = useFactsPagination();
+  const query = useMemo<FactsQuerySchema>(() => {
+    return {
+      pagination,
       orderBy: {
         key: "createdAt",
         desc: true,
       },
-      isDeleted: filters.archived,
-      labelIds: [filters.labelId].filter(Boolean).map(String),
-    }),
-    [offset, limit, filters],
-  );
+      isDeleted: filters.isDeleted,
+      labelIds: [filters.labelId].filter(Boolean) as string[],
+    };
+  }, [pagination, filters]);
   const fetchFacts = useCallback(async () => {
     const result = await paginatedList(query);
     return (
@@ -49,7 +48,9 @@ function useFetchFacts() {
 function useApi() {
   const collection = useCollection();
   const paginatedList = useCallback(
-    (query: FactsQuerySchema) => collection?.facts.paginatedList.query(query),
+    (query: FactsQuerySchema) => {
+      return collection?.facts.paginatedList.query(query);
+    },
     [collection],
   );
 

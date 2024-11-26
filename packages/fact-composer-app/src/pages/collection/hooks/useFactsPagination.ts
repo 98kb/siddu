@@ -1,35 +1,39 @@
+import {PaginationSchema} from "@repo/collection-service-defs";
 import {atom, useAtom, useAtomValue, useSetAtom} from "jotai";
-import {useCallback} from "react";
+import {useCallback, useMemo} from "react";
 import {minmax} from "~/lib/minmax";
 
-const totalAtom = atom(10);
-const limitAtom = atom(10);
-const offsetAtom = atom(0);
+const pageSize = 10;
+const totalAtom = atom(pageSize);
+const pageAtom = atom(0);
+const totalPagesAtom = atom(get => Math.ceil(get(totalAtom) / pageSize));
 
 export function useFactsPagination() {
+  const page = useAtomValue(pageAtom);
   const [total, setTotal] = useAtom(totalAtom);
-  const limit = useAtomValue(limitAtom);
-  const offset = useAtomValue(offsetAtom);
   const {reset, jump} = useFactsPaginationControls();
-  const nextPage = useCallback(() => jump(10), [jump]);
-  const prevPage = useCallback(() => jump(-10), [jump]);
-  return {limit, offset, nextPage, prevPage, total, setTotal, reset};
+  const nextPage = useCallback(() => jump(1), [jump]);
+  const prevPage = useCallback(() => jump(-1), [jump]);
+  const pagination = useMemo<PaginationSchema>(
+    () => ({
+      offset: toOffset(page),
+      limit: toLimit(toOffset(page)),
+    }),
+    [page],
+  );
+  return {pagination, nextPage, prevPage, total, setTotal, reset};
 }
 
 function useFactsPaginationControls() {
-  const setOffset = useSetAtom(offsetAtom);
-  const setLimit = useSetAtom(limitAtom);
-  const total = useAtomValue(totalAtom);
+  const setPage = useSetAtom(pageAtom);
+  const totalPages = useAtomValue(totalPagesAtom);
   const jump = useCallback(
-    (delta: number) => {
-      setOffset($offset => minmax($offset + delta, 0, total));
-      setLimit($limit => minmax($limit + delta, Math.abs(delta), total));
-    },
-    [total, setOffset, setLimit],
+    (delta: number) => setPage(page => minmax(page + delta, 0, totalPages)),
+    [setPage, totalPages],
   );
-  const reset = useCallback(() => {
-    setLimit(10);
-    setOffset(0);
-  }, [setLimit, setOffset]);
+  const reset = useCallback(() => setPage(0), [setPage]);
   return {jump, reset};
 }
+
+const toOffset = (page: number) => page * pageSize;
+const toLimit = (offset: number) => offset + pageSize;

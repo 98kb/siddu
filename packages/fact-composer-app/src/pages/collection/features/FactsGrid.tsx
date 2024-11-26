@@ -10,15 +10,15 @@ import {factsAtom} from "../stores/factsAtom";
 
 export function FactsGrid() {
   const facts = useAtomValue(factsAtom);
-  const {limit, offset, total, nextPage, prevPage} = useFactsPagination();
+  const {pagination, total, nextPage, prevPage} = useFactsPagination();
   const {selectFact, isSelected} = useSelectedFact();
 
   return facts.length ? (
     <div className="flex flex-col gap-2 w-full h-full max-h-[548px] box-border py-5 px-6 overflow-y-scroll">
       <EasyPagination
         className="flex w-full items-center justify-between"
-        limit={limit}
-        offset={offset}
+        limit={pagination.limit}
+        offset={pagination.offset}
         total={total}
         onNext={nextPage}
         onPrevious={prevPage}

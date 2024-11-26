@@ -2,5 +2,5 @@ import {LabelSchema} from "@repo/collection-service-defs";
 
 export type FactFilters = {
   labelId?: LabelSchema["_id"];
-  archived?: boolean;
+  isDeleted?: boolean;
 };
