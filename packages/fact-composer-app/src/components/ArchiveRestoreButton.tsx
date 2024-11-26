@@ -1,31 +1,19 @@
 import {BookDownIcon, BookUpIcon} from "lucide-react";
 import {IconButton} from "./IconButton";
-import {ComponentProps, useMemo} from "react";
-import {WithConfirmation} from "./HOC/WithConfirmation";
+import {ComponentProps} from "react";
 
 type TProps = {
   restore: boolean;
   size?: ComponentProps<typeof IconButton>["size"];
-  onArchive: ComponentProps<typeof WithConfirmation>["onConfirm"];
-  onRestore: ComponentProps<typeof WithConfirmation>["onConfirm"];
+  onClick?: ComponentProps<typeof IconButton>["onClick"];
 };
 
-export function ArchiveRestoreButton({
-  size,
-  restore,
-  onArchive,
-  onRestore,
-}: TProps) {
-  const btnSize = size ?? "icon";
-  const onConfirm = useMemo(
-    () => (restore ? onRestore : onArchive),
-    [restore, onRestore, onArchive],
-  );
-  const Icon = useMemo(() => (restore ? BookUpIcon : BookDownIcon), [restore]);
+export function ArchiveRestoreButton({restore, onClick, ...props}: TProps) {
+  const Icon = restore ? BookUpIcon : BookDownIcon;
   return (
     <IconButton
-      size={btnSize}
-      onClick={onConfirm}
+      {...props}
+      onClick={onClick}
       tooltip={restore ? "Restore" : "Archive"}
     >
       <Icon className="h-4 w-4" />
