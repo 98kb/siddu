@@ -10,20 +10,30 @@ export function useSelectedFact() {
     [setSelectedFact],
   );
   const selectFact = useCallback(
-    // eslint-disable-next-line complexity
-    (fact: FactSchema | undefined | InsertFactSchema) => {
-      const isValidFact = fact && "_id" in fact && !fact?.isDeleted;
-      const isInsert = fact && !("_id" in fact);
-      const isUndefined = fact === undefined;
-      if (isValidFact || isInsert || isUndefined) {
-        setSelectedFact(fact);
-      }
-    },
+    (fact?: FactSchema | InsertFactSchema) =>
+      canSelect(fact) && setSelectedFact(fact),
     [setSelectedFact],
+  );
+  const isSelected = useCallback(
+    (fact: FactSchema) => {
+      if (!selectedFact || !("_id" in selectedFact)) return false;
+      return fact._id === selectedFact._id;
+    },
+    [selectedFact],
   );
   return {
     selectedFact,
     clearSelectedFact,
     selectFact,
+    isSelected,
   };
 }
+
+function canSelect(fact?: FactSchema | InsertFactSchema): boolean {
+  if (!fact) return true;
+  return isNotDeleted(fact) || isInsertSchema(fact);
+}
+const isNotDeleted = (fact: FactSchema | InsertFactSchema) =>
+  "_id" in fact && !fact?.isDeleted;
+const isInsertSchema = (fact: FactSchema | InsertFactSchema) =>
+  !("_id" in fact);
