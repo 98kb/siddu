@@ -11,7 +11,7 @@ export function FactsGrid() {
   const {pagination, total, nextPage, prevPage} = useFactsPagination();
 
   return facts.length ? (
-    <div className="flex flex-col gap-2 w-full h-full max-h-[548px] box-border py-5 px-6 overflow-y-scroll">
+    <div className="flex flex-col gap-2 w-full h-full max-h-[548px] box-border py-5 px-6 overflow-y-auto">
       <EasyPagination
         className="flex w-full items-center justify-between"
         limit={pagination.limit}

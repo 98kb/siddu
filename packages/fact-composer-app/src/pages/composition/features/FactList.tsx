@@ -17,7 +17,7 @@ export function FactList({onClick}: TProps) {
   return (
     <>
       <SearchFact />
-      <div className="flex flex-col gap-2 w-full max-h-[485px] pb-10 overflow-y-scroll">
+      <div className="flex flex-col gap-2 w-full max-h-[485px] pb-10 overflow-y-auto">
         {filteredFacts.map(fact => (
           <FactListItem
             key={fact._id}

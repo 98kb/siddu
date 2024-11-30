@@ -18,7 +18,7 @@ export function CollectionNav() {
   }, [fetchLabels]);
 
   return (
-    <aside className="flex flex-col pb-5 pr-2 min-w-[200px] max-h-[5248px] overflow-y-scroll overflow-x-hidden">
+    <aside className="flex flex-col pb-5 pr-2 min-w-[200px] max-h-[5248px] overflow-y-auto overflow-x-hidden">
       <div className="p-4">
         <AddFactButton
           variant="outline"
