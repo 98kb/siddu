@@ -19,7 +19,7 @@ export function ArchiveRestoreFact({fact, size, onClick}: TProps) {
       onClick?.(fact);
       // TODO: resolve coupling
       // setting a timeout to allow the animation to complete
-      setTimeout(() => toggleArchive(fact), 150);
+      setTimeout(() => toggleArchive(fact), 90);
     },
     [onClick, toggleArchive, fact],
   );
