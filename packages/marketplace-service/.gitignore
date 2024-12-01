@@ -1,3 +1,0 @@
-.adminjs
-# ignore test container volume data
-tests/setup/data
