@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "types": "src/index.ts",
   "files": [
     "dist",
     "src"
@@ -29,6 +29,7 @@
     "@radix-ui/react-visually-hidden": "^1.1.0",
     "@react-rxjs/core": "^0.10.7",
     "@react-rxjs/utils": "^0.9.7",
+    "@repo/eslint": "workspace:*",
     "@repo/chrome-auth-service": "workspace:*",
     "@repo/collection-service-defs": "workspace:*",
     "@repo/collection-service-helpers-memory": "workspace:*",
