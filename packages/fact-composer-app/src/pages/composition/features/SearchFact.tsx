@@ -43,7 +43,7 @@ export function SearchFact() {
         <div className="flex gap-2 flex-wrap">
           <LabelsEditor
             labels={filterLabels}
-            onChange={setFilterLabels}
+            onChange={labels => setFilterLabels(labels.labels)}
           ></LabelsEditor>
         </div>
       )}
