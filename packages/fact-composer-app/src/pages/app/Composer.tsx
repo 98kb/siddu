@@ -6,7 +6,7 @@ import {useSetAtom} from "jotai";
 import {compositionAtom} from "~/pages/composition/stores/compositionAtom";
 import {useComposer} from "./hooks/useComposer";
 import {AuthContext} from "~/auth/AuthContext";
-import {BackupClient} from "@repo/facts-db-backup";
+import {BackupClient} from "@repo/collection-service-dexie-backup";
 import {BackupContext} from "~/db/context/BackupContext";
 import {TooltipProvider} from "~/components/ui/tooltip";
 import {CollectionClient} from "@repo/collection-service-trpc-factory";

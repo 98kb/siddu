@@ -1,7 +1,7 @@
 import {useBackup} from "~/db/hooks/useBackup";
 import {useRestore} from "~/db/hooks/useRestore";
 import {useEffect, useState} from "react";
-import {FileSchema} from "@repo/facts-db-backup";
+import {FileSchema} from "@repo/collection-service-dexie-backup";
 import {DbSyncAction} from "../components/DbSyncAction";
 import {
   Collapsible,

@@ -3,7 +3,7 @@ import {useCallback, useContext} from "react";
 import {BackupContext} from "~/db/context/BackupContext";
 import {isBackingUpAtom} from "../stores/isBackingUpAtom";
 import {isRestoringAtom} from "../stores/isRestoringAtom";
-import {FileSchema} from "@repo/facts-db-backup";
+import {FileSchema} from "@repo/collection-service-dexie-backup";
 
 // eslint-disable-next-line max-statements
 export function useBackup() {
