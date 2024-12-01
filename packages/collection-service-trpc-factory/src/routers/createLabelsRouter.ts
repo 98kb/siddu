@@ -28,7 +28,9 @@ export const createLabelsRouter = (labels: ILabelsRepository) =>
         }),
       )
       .output(LabelSchema)
-      .mutation(({input: {_id, ...changes}}) => labels.update(_id, changes)),
+      .mutation(
+        ({input: {_id, ...changes}}) => labels.update(_id, changes) as any,
+      ),
     delete: publicProcedure
       .input(LabelSchema.pick({_id: true}))
       .mutation(({input}) => labels.delete(input._id)),
