@@ -1,1 +1,1 @@
-export * from "./style-guide";
+export * from "./style-guide.js";

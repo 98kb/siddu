@@ -1,9 +1,11 @@
 import tseslint from "typescript-eslint";
-import importEslint from "eslint-plugin-import";
+import {flatConfigs as importEslint} from "eslint-plugin-import";
 import jsxA11yEslint from "eslint-plugin-jsx-a11y";
 import promiseEslint from "eslint-plugin-promise";
 import reactEslint from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
+import stylistic from "@stylistic/eslint-plugin";
+import nodePlugin from "eslint-plugin-n";
 
 /**
  * @type {import("typescript-eslint").ConfigWithExtends}
@@ -11,22 +13,25 @@ import reactHooks from "eslint-plugin-react-hooks";
 export const styleGuide = {
   extends: [
     ...tseslint.configs.recommended,
-    ...importEslint.flatConfigs.errors,
-    ...jsxA11yEslint.flatConfigs.recommended,
-    ...promiseEslint.configs["flat/recommended"],
-    ...reactEslint.configs.flat.recommended,
+    importEslint.errors,
+    jsxA11yEslint.flatConfigs.recommended,
+    promiseEslint.configs["flat/recommended"],
+    reactEslint.configs.flat.recommended,
   ],
   files: ["**/*.{ts,tsx}"],
   name: "style-guide",
   plugins: {
     "react-hooks": reactHooks,
+    "@stylistic": stylistic,
+    n: nodePlugin,
   },
   rules: {
+    "@stylistic/indent": "warn",
     "block-scoped-var": "error",
     curly: "error",
     eqeqeq: ["error", "smart"],
     "guard-for-in": "error",
-    "handle-callback-err": "error",
+    "n/handle-callback-err": "error",
     "no-alert": "error",
     "no-await-in-loop": "error",
     "no-caller": "error",
@@ -38,7 +43,7 @@ export const styleGuide = {
     "no-extend-native": "error",
     "no-extra-bind": "error",
     "no-extra-label": "error",
-    "no-floating-decimal": "error",
+    "@stylistic/js/no-floating-decimal": "error",
     "no-implied-eval": "error",
     "no-iterator": "error",
     "no-labels": "error",
@@ -47,11 +52,11 @@ export const styleGuide = {
     "no-new": "error",
     "no-new-func": "error",
     "no-new-wrappers": "error",
+    " no-new-native-nonconstructor": "error",
     "no-promise-executor-return": "error",
     "no-proto": "error",
     "no-restricted-properties": "error",
     "no-return-assign": "error",
-    "no-return-await": "error",
     "no-self-compare": "error",
     "no-sequences": "error",
     "no-template-curly-in-string": "error",
@@ -65,16 +70,15 @@ export const styleGuide = {
     "no-void": "error",
     radix: "error",
     "require-atomic-updates": "error",
-    "wrap-iife": "error",
+    "@stylistic/js/wrap-iife": "error",
     yoda: "error",
 
     // stylistic
     camelcase: "warn",
     "consistent-this": ["warn", "that"],
-    "eol-last": "warn",
     "func-name-matching": "error",
     "func-style": ["error", "declaration", {allowArrowFunctions: true}],
-    "lines-between-class-members": [
+    "@stylistic/js/lines-between-class-members": [
       "error",
       "always",
       {exceptAfterSingleLine: true},
@@ -82,12 +86,12 @@ export const styleGuide = {
     "no-else-return": "warn",
     "no-lonely-if": "error",
     "no-multi-assign": "warn",
-    "no-new-object": "warn",
+    "no-object-constructor": "warn",
     "no-underscore-dangle": "warn",
     "no-unneeded-ternary": "warn",
     "one-var": ["warn", "never"],
     "operator-assignment": "warn",
-    "padding-line-between-statements": [
+    "@stylistic/js/padding-line-between-statements": [
       "error",
       {blankLine: "always", prev: "*", next: ["class", "function"]},
       {blankLine: "always", prev: ["class", "function"], next: "*"},
@@ -105,7 +109,7 @@ export const styleGuide = {
     // override @typescript-eslint/eslint-recommended
     "no-unused-vars": "off",
     "no-array-constructor": "off",
-    "no-extra-semi": "off",
+    "@stylistic/js/no-extra-semi": "off",
     "prefer-rest-params": "warn",
     "prefer-spread": "warn",
 
@@ -228,7 +232,7 @@ export const styleGuide = {
     complexity: ["error", 3],
     "max-params": ["error", 4],
     "max-statements": ["error", 7],
-    "max-statements-per-line": [
+    "@stylistic/js/max-statements-per-line": [
       "error",
       {
         max: 1,
