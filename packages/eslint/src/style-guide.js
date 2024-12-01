@@ -27,7 +27,7 @@ export const styleGuide = {
   },
   rules: {
     ...reactHooks.configs.recommended.rules,
-    "@stylistic/js/indent": "warn",
+    "@stylistic/js/indent": "off",
     "block-scoped-var": "error",
     curly: "error",
     eqeqeq: ["error", "smart"],
