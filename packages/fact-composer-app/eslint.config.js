@@ -3,6 +3,7 @@ import globals from "globals";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 import tseslint from "typescript-eslint";
+import {styleGuide} from "@repo/eslint";
 
 export default tseslint.config(
   {ignores: ["dist"]},
@@ -25,28 +26,5 @@ export default tseslint.config(
       ],
     },
   },
-  {
-    rules: {
-      "object-curly-spacing": "off",
-      complexity: ["error", 3],
-      "max-params": ["error", 4],
-      "max-statements": ["error", 7],
-      "max-statements-per-line": [
-        "error",
-        {
-          max: 1,
-        },
-      ],
-      "max-nested-callbacks": ["error", 2],
-      "max-depth": [
-        "error",
-        {
-          max: 3,
-        },
-      ],
-      "no-useless-constructor": "off",
-      "import/order": "off",
-      "require-await": "off",
-    },
-  },
+  styleGuide,
 );
