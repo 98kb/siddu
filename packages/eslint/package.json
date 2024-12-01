@@ -2,19 +2,21 @@
   "name": "@repo/eslint",
   "version": "0.0.0",
   "type": "module",
-  "main": "src/index.js",
-  "types": "src/index.d.ts",
+  "main": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "files": [
-    "src"
+    "dist"
   ],
   "scripts": {
+    "build": "unbuild",
     "inspect": "eslint --inspect-config"
   },
   "devDependencies": {
     "@stylistic/eslint-plugin": "^2.11.0",
     "@typescript-eslint/utils": "^8.16.0",
     "eslint": "^9.16.0",
-    "eslint-plugin-n": "^17.14.0"
+    "eslint-plugin-n": "^17.14.0",
+    "unbuild": "^2.0.0"
   },
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^8.16.0",
