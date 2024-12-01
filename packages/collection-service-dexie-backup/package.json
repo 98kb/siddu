@@ -31,7 +31,6 @@
   "dependencies": {
     "@googleapis/drive": "^8.14.0",
     "@repo/chrome-auth-service": "workspace:*",
-    "@repo/facts-db": "workspace:*",
     "@repo/collection-service-defs": "workspace:*",
     "@repo/collection-service-helpers-dexie": "workspace:*",
     "@trpc/client": "^10.0.0",
