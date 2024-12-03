@@ -1,6 +1,6 @@
 import type {Meta, StoryObj} from "@storybook/react";
 import {SearchFact} from "./SearchFact";
-import {dummyCollection} from ".storybook/trpc";
+import {dummyCollection} from "~/../.storybook/trpc";
 import {CollectionContext} from "~/pages/collection/context/CollectionContext";
 
 const meta = {

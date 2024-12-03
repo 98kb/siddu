@@ -1,7 +1,7 @@
 import type {Meta, StoryObj} from "@storybook/react";
 import {Composition} from "./Composition";
 import {CollectionContext} from "~/pages/collection/context/CollectionContext";
-import {dummyCollection} from ".storybook/trpc";
+import {dummyCollection} from "~/../.storybook/trpc";
 
 const meta = {
   title: "composition/pages/Composition",

@@ -1,8 +1,8 @@
 import {resolve, dirname} from "path";
 import {fileURLToPath} from "url";
+import {defineConfig, devices} from "@playwright/experimental-ct-react";
 
 const basePath = dirname(fileURLToPath(import.meta.url));
-import {defineConfig, devices} from "@playwright/experimental-ct-react";
 
 /**
  * See https://playwright.dev/docs/test-configuration.

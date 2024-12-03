@@ -26,7 +26,7 @@ export function useLabelActions() {
   const removeIfOrphan = useCallback(
     async (id: LabelSchema["_id"]) => {
       const isOrphan = await deleteIfOrphan(id);
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions, max-nested-callbacks
+      // eslint-disable-next-line max-nested-callbacks
       isOrphan && setLabels(labels => labels.filter(label => label._id !== id));
     },
     [deleteIfOrphan, setLabels],

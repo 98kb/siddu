@@ -11,10 +11,10 @@ type TProps = ComponentProps<typeof Button> & {
 };
 
 export const IconButton = forwardRef<HTMLButtonElement, TProps>(
-  function ToolbarButton(
+  (
     {children, tooltip, openDelay, side, sideOffset, className, ...buttonProps},
     ref,
-  ) {
+  ) => {
     const Btn = (
       <Button
         ref={ref}

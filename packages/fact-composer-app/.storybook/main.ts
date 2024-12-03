@@ -15,7 +15,7 @@ const config: StorybookConfig = {
     options: {},
   },
   viteFinal: config => {
-    // modify the Vite config here
+    // eslint-disable-next-line no-console
     console.log("dummy collection server started @", startCollectionServer());
     seedDb();
     return config;

@@ -7,14 +7,15 @@ import {
   DotsHorizontalIcon,
 } from "@radix-ui/react-icons";
 
-const Pagination = ({className, ...props}: React.ComponentProps<"nav">) => (
-  <nav
+function Pagination({className, ...props}: React.ComponentProps<"nav">) {
+  return <nav
     role="navigation"
     aria-label="pagination"
     className={cn("mx-auto flex w-full justify-center", className)}
     {...props}
   />
-);
+}
+
 Pagination.displayName = "Pagination";
 
 const PaginationContent = React.forwardRef<
@@ -43,13 +44,13 @@ type PaginationLinkProps = {
   React.ComponentProps<"a">;
 
 // eslint-disable-next-line complexity
-const PaginationLink = ({
+function PaginationLink({
   className,
   isActive,
   size = "icon",
   ...props
-}: PaginationLinkProps) => (
-  <a
+}: PaginationLinkProps) {
+  return <a
     aria-current={isActive ? "page" : undefined}
     className={cn(
       buttonVariants({
@@ -60,14 +61,15 @@ const PaginationLink = ({
     )}
     {...props}
   />
-);
+}
+
 PaginationLink.displayName = "PaginationLink";
 
-const PaginationPrevious = ({
+function PaginationPrevious({
   className,
   ...props
-}: React.ComponentProps<typeof PaginationLink>) => (
-  <PaginationLink
+}: React.ComponentProps<typeof PaginationLink>) {
+  return <PaginationLink
     aria-label="Go to previous page"
     size="default"
     className={cn("pl-2.5", className)}
@@ -76,14 +78,15 @@ const PaginationPrevious = ({
     <ChevronLeftIcon className="h-4 w-4" />
     <span>Previous</span>
   </PaginationLink>
-);
+}
+
 PaginationPrevious.displayName = "PaginationPrevious";
 
-const PaginationNext = ({
+function PaginationNext({
   className,
   ...props
-}: React.ComponentProps<typeof PaginationLink>) => (
-  <PaginationLink
+}: React.ComponentProps<typeof PaginationLink>) {
+  return <PaginationLink
     aria-label="Go to next page"
     size="default"
     className={cn("pr-2.5", className)}
@@ -92,14 +95,15 @@ const PaginationNext = ({
     <span>Next</span>
     <ChevronRightIcon className="h-4 w-4" />
   </PaginationLink>
-);
+}
+
 PaginationNext.displayName = "PaginationNext";
 
-const PaginationEllipsis = ({
+function PaginationEllipsis({
   className,
   ...props
-}: React.ComponentProps<"span">) => (
-  <span
+}: React.ComponentProps<"span">) {
+  return <span
     aria-hidden
     className={cn("flex h-9 w-9 items-center justify-center", className)}
     {...props}
@@ -107,7 +111,8 @@ const PaginationEllipsis = ({
     <DotsHorizontalIcon className="h-4 w-4" />
     <span className="sr-only">More pages</span>
   </span>
-);
+}
+
 PaginationEllipsis.displayName = "PaginationEllipsis";
 
 export {

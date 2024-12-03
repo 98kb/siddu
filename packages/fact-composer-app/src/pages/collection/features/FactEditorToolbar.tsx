@@ -26,7 +26,7 @@ export function FactEditorToolbar({fact, onChange, onClose}: TProps) {
     [onChange, fact],
   );
   const archive = useCallback(() => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+     
     "_id" in fact && archiveFact(fact as FactSchema);
     onClose();
   }, [fact, archiveFact, onClose]);
@@ -51,7 +51,7 @@ export function FactEditorToolbar({fact, onChange, onClose}: TProps) {
           </IconButton>
         )}
       </div>
-      <div className="grow"></div>
+      <div className="grow" />
       <Button variant="link" onClick={onClose}>
         Close
       </Button>

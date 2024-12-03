@@ -1,4 +1,4 @@
-import {dummyCollection} from "../../browser-extension/node_modules/@repo/fact-composer-app/.storybook/trpc";
+import {dummyCollection} from "./trpc";
 import {
   InsertFactSchema,
   InsertLabelSchema,

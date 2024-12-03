@@ -1,5 +1,4 @@
-import {useAtom} from "jotai";
-import {atom} from "jotai";
+import {useAtom,atom} from "jotai";
 
 export const isModalOpenAtom = atom(false);
 

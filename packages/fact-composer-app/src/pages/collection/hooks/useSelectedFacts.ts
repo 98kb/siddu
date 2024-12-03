@@ -16,7 +16,9 @@ export function useSelectedFact() {
   );
   const isSelected = useCallback(
     (fact: FactSchema) => {
-      if (!selectedFact || !("_id" in selectedFact)) return false;
+      if (!selectedFact || !("_id" in selectedFact)) {
+        return false;
+      }
       return fact._id === selectedFact._id;
     },
     [selectedFact],
@@ -30,9 +32,12 @@ export function useSelectedFact() {
 }
 
 function canSelect(fact?: FactSchema | InsertFactSchema): boolean {
-  if (!fact) return true;
+  if (!fact) {
+    return true;
+  }
   return isNotDeleted(fact) || isInsertSchema(fact);
 }
+
 const isNotDeleted = (fact: FactSchema | InsertFactSchema) =>
   "_id" in fact && !fact?.isDeleted;
 const isInsertSchema = (fact: FactSchema | InsertFactSchema) =>

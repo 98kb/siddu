@@ -41,14 +41,16 @@ function useListLabels(pagination: PaginationSchema) {
     [jump, pagination.limit],
   );
   useEffect(() => {
+    // eslint-disable-next-line promise/catch-or-return
     toPaginatedLabels({
       pagination: {limit, offset},
       isDeleted: false,
+    })
       // eslint-disable-next-line complexity
-    }).then(result => {
-      setLabels(result?.list ?? []);
-      setTotal(Number(result?.total));
-    });
+      .then(result => {
+        setLabels(result?.list ?? []);
+        setTotal(Number(result?.total));
+      });
   }, [offset, toPaginatedLabels, limit, setTotal]);
   return {
     limit,

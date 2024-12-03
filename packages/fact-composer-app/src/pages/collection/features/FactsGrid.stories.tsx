@@ -1,7 +1,7 @@
 import type {Meta, StoryObj} from "@storybook/react";
 import {FactsGrid} from "./FactsGrid";
 import {fn} from "@storybook/test";
-import {factsData} from ".storybook/seedDb";
+import {factsData} from "./.storybook/seedDb";
 
 const meta: Meta<typeof FactsGrid> = {
   title: "collection/features/FactsGrid",

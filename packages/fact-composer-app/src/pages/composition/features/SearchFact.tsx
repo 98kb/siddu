@@ -44,7 +44,7 @@ export function SearchFact() {
           <LabelsEditor
             labels={filterLabels}
             onChange={labels => setFilterLabels(labels.labels)}
-          ></LabelsEditor>
+          />
         </div>
       )}
     </div>

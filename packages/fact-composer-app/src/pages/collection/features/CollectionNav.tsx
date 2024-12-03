@@ -35,6 +35,7 @@ export function CollectionNav() {
 }
 
 const [useArchivedFact] = bind(factArchived$, undefined);
+
 function ArchiveNavTab(props: ComponentProps<typeof CollectionNavTab>) {
   const archivedFact = useArchivedFact();
   const [className, setClassName] = useState("");

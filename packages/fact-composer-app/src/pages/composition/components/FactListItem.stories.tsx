@@ -1,7 +1,7 @@
 import type {Meta, StoryObj} from "@storybook/react";
 import {FactListItem} from "./FactListItem";
 import {fn} from "@storybook/test";
-import {labels} from ".storybook/seedDb";
+import {labels} from "~/../.storybook/seedDb";
 
 const meta: Meta<typeof FactListItem> = {
   title: "composition/components/FactListItem",

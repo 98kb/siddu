@@ -11,7 +11,7 @@ type TProps = {
 };
 
 export function FactCard({fact}: TProps) {
-  const [className, setClasses] = useState("");
+  const [classes, setClasses] = useState("");
   const {selectFact, isSelected, clearSelectedFact} = useSelectedFact();
   const $selectFact = useCallback(() => selectFact(fact), [selectFact, fact]);
   const onArchiveToggle = useCallback(
@@ -32,7 +32,7 @@ export function FactCard({fact}: TProps) {
         "break-inside-avoid mb-4 animate-fade-in mx-auto",
         "transition-all duration-100 ease-in",
         {"border-black hover:border-black": isSelected(fact)},
-        className,
+        classes,
       )}
       onClick={$selectFact}
     >
