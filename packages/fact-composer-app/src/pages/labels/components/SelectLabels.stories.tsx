@@ -4,7 +4,7 @@ import {SelectLabels} from "./SelectLabels";
 import {Button} from "~/components/ui/button";
 import {TagIcon} from "lucide-react";
 import {LabelSchema} from "@repo/collection-service-defs";
-import {dummyCollection} from "./.storybook/trpc";
+import {dummyCollection} from "~/../.storybook/trpc";
 import {CollectionContext} from "~/pages/collection/context/CollectionContext";
 
 const labels: LabelSchema[] = [
