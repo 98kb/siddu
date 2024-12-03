@@ -9,5 +9,11 @@
     "test": "pnpm run -r test",
     "pree2e": "pnpm --filter web-extension build",
     "e2e": "pnpm --filter web-extension-e2e e2e:ui"
-  }
+  },
+  "devDependencies": {
+    "@nx/storybook": "20.1.4",
+    "@nx/vite": "20.1.4",
+    "nx": "20.1.4"
+  },
+  "dependencies": {}
 }
