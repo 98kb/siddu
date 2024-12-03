@@ -14,6 +14,9 @@
     },
     {
       "path": "./packages/collection-service-helpers-dexie"
+    },
+    {
+      "path": "./packages/collection-service-trpc-factory"
     }
   ]
 }

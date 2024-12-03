@@ -1,0 +1,16 @@
+{
+  "name": "@repo/collection-service-trpc-factory",
+  "version": "0.0.1",
+  "type": "commonjs",
+  "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
+  "private": true,
+  "dependencies": {
+    "@repo/collection-service-defs": "workspace:*",
+    "@trpc/client": "^10.0.0",
+    "@trpc/server": "^10.0.0",
+    "superjson": "^2.2.1",
+    "tslib": "^2.3.0",
+    "zod": "^3.23.8"
+  }
+}
