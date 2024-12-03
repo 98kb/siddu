@@ -109,6 +109,24 @@ importers:
         specifier: ^3.23.8
         version: 3.23.8
 
+  packages/collection-service-helpers-dexie:
+    dependencies:
+      '@repo/collection-service-defs':
+        specifier: workspace:*
+        version: link:../collection-service-defs
+      dexie:
+        specifier: ^4.0.8
+        version: 4.0.10
+      fp-ts:
+        specifier: ^2.16.9
+        version: 2.16.9
+      uuid:
+        specifier: ^11.0.3
+        version: 11.0.3
+      zod:
+        specifier: ^3.23.8
+        version: 3.23.8
+
   packages/eslint-config:
     dependencies:
       '@typescript-eslint/eslint-plugin':
@@ -1816,6 +1834,9 @@ packages:
     engines: {node: '>= 4.0.0'}
     hasBin: true
 
+  dexie@4.0.10:
+    resolution: {integrity: sha512-eM2RzuR3i+M046r2Q0Optl3pS31qTWf8aFuA7H9wnsHTwl8EPvroVLwvQene/6paAs39Tbk6fWZcn2aZaHkc/w==}
+
   diff-sequences@29.6.3:
     resolution: {integrity: sha512-EjePK1srD3P08o2j4f0ExnylqRs5B9tJjcp9t1krH2qRi8CCdsYfwe9JgSLurFBWwq4uOlipzfk5fHNvwFKr8Q==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
@@ -3327,6 +3348,10 @@ packages:
 
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
+
+  uuid@11.0.3:
+    resolution: {integrity: sha512-d0z310fCWv5dJwnX1Y/MncBAqGMKEzlBb1AOf7z9K8ALnd0utBX/msg/fA0+sbyN1ihbMsLhrBlnl1ak7Wa0rg==}
+    hasBin: true
 
   v8-compile-cache-lib@3.0.1:
     resolution: {integrity: sha512-wa7YjyUGfNZngI/vtK0UHAN+lgDCxBPCylVXGp0zu59Fz5aiGtNXaq3DhIov063MorB+VfufLh3JlF2KdTK3xg==}
@@ -5484,6 +5509,8 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  dexie@4.0.10: {}
+
   diff-sequences@29.6.3: {}
 
   diff@4.0.2: {}
@@ -7202,6 +7229,8 @@ snapshots:
   url-join@4.0.1: {}
 
   util-deprecate@1.0.2: {}
+
+  uuid@11.0.3: {}
 
   v8-compile-cache-lib@3.0.1: {}
 
