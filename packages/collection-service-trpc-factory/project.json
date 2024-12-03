@@ -1,9 +1,0 @@
-{
-  "name": "collection-service-trpc-factory",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/collection-service-trpc-factory/src",
-  "projectType": "library",
-  "tags": [""],
-  "// targets": "to see all targets run: nx show project collection-service-trpc-factory --web",
-  "targets": {}
-}

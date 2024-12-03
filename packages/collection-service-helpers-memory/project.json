@@ -1,9 +1,0 @@
-{
-  "name": "collection-service-helpers-memory",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/collection-service-helpers-memory/src",
-  "projectType": "library",
-  "tags": [""],
-  "// targets": "to see all targets run: nx show project collection-service-helpers-memory --web",
-  "targets": {}
-}
