@@ -17,6 +17,9 @@
     },
     {
       "path": "./packages/collection-service-trpc-factory"
+    },
+    {
+      "path": "./packages/chrome-auth-service"
     }
   ]
 }

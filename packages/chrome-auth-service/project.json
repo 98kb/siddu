@@ -1,0 +1,9 @@
+{
+  "name": "chrome-auth-service",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/chrome-auth-service/src",
+  "projectType": "library",
+  "tags": [""],
+  "// targets": "to see all targets run: nx show project chrome-auth-service --web",
+  "targets": {}
+}
