@@ -1,4 +1,3 @@
-
 # Logs
 logs
 *.log
@@ -164,3 +163,4 @@ web-ext.config.ts
 
 .nx/cache
 .nx/workspace-data
+vite.config.*.timestamp*
