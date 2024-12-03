@@ -1,12 +1,21 @@
 {
   "name": "@repo/collection-service-defs",
   "version": "0.0.1",
-  "dependencies": {
-    "tslib": "^2.3.0",
-    "zod": "^3.23.8"
-  },
-  "type": "commonjs",
+  "type": "module",
   "main": "./dist/index.js",
+  "module": "./dist/index.js",
   "typings": "./dist/index.d.ts",
-  "private": true
+  "private": true,
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "dependencies": {
+    "zod": "^3.23.8"
+  }
 }
