@@ -1,11 +1,22 @@
 const nx = require("@nx/eslint-plugin");
+const {styleGuide} = require("@repo/eslint-config");
 
 module.exports = [
   ...nx.configs["flat/base"],
   ...nx.configs["flat/typescript"],
   ...nx.configs["flat/javascript"],
+  ...styleGuide,
   {
-    ignores: ["**/dist"],
+    ignores: [
+      "**/dist",
+      "**/node_modules",
+      "**/coverage",
+      "**/playwright",
+      "**/playwright-report",
+      "**/test-results",
+      "**/.nx",
+      "**/.trunk",
+    ],
   },
   {
     files: ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],

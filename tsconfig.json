@@ -5,6 +5,9 @@
   "references": [
     {
       "path": "./packages/collection-service-defs"
+    },
+    {
+      "path": "./packages/eslint-config"
     }
   ]
 }

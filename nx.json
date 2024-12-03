@@ -21,7 +21,8 @@
           "targetName": "build",
           "configName": "tsconfig.lib.json"
         }
-      }
+      },
+      "exclude": ["packages/eslint-config/*"]
     },
     {
       "plugin": "@nx/eslint/plugin",
