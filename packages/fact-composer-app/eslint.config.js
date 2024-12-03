@@ -1,28 +1,21 @@
-import js from "@eslint/js";
-import globals from "globals";
-import reactHooks from "eslint-plugin-react-hooks";
-import reactRefresh from "eslint-plugin-react-refresh";
-import tseslint from "typescript-eslint";
-import {styleGuide} from "@repo/eslint";
+const nx = require("@nx/eslint-plugin");
+const baseConfig = require("../../eslint.config.js");
+const {reactStyleGuide} = require("@repo/eslint");
 
-export default tseslint.config(
-  styleGuide,
-  {ignores: ["dist"]},
+module.exports = [
+  ...baseConfig,
+  ...nx.configs["flat/react"],
+  ...reactStyleGuide,
   {
-    extends: [js.configs.recommended],
-    files: ["**/*.{ts,tsx}"],
-    languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
-    },
-    plugins: {
-      "react-refresh": reactRefresh,
-    },
-    rules: {
-      "react-refresh/only-export-components": [
-        "warn",
-        {allowConstantExport: true},
-      ],
-    },
+    files: ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
+    ignores: [
+      "**/dist",
+      "**/node_modules",
+      "**/coverage",
+      "**/playwright-report",
+      "**/test-results",
+    ],
+    // Override or add rules here
+    rules: {},
   },
-);
+];
