@@ -11,6 +11,9 @@
     },
     {
       "path": "./packages/collection-service-helpers-memory"
+    },
+    {
+      "path": "./packages/collection-service-helpers-dexie"
     }
   ]
 }
