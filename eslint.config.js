@@ -13,6 +13,8 @@ module.exports = [
       "**/playwright",
       "**/playwright-report",
       "**/test-results",
+      "**/.nx",
+      "**/.trunk",
     ],
   },
   {
