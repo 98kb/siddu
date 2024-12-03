@@ -1,0 +1,9 @@
+{
+  "name": "collection-service-defs",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/collection-service-defs/src",
+  "projectType": "library",
+  "tags": [""],
+  "// targets": "to see all targets run: nx show project collection-service-defs --web",
+  "targets": {}
+}
