@@ -1,0 +1,24 @@
+{
+  "name": "@repo/collection-service-helpers-dexie",
+  "version": "0.0.1",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
+  "private": true,
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "dependencies": {
+    "@repo/collection-service-defs": "workspace:*",
+    "dexie": "^4.0.8",
+    "fp-ts": "^2.16.9",
+    "uuid": "^11.0.3",
+    "zod": "^3.23.8"
+  }
+}
