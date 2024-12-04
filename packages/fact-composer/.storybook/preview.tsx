@@ -5,6 +5,7 @@ import {AuthClientStub} from "@repo/chrome-auth-service";
 import {AuthContext} from "../src/auth/AuthContext";
 import {TooltipProvider} from "../src/components/ui/tooltip";
 import "../src/index.css";
+import {RouterDecorator} from "~/lib/location/storybook/decorators/RouterDecorator";
 
 const preview: Preview = {
   tags: ["autodocs"],
@@ -21,7 +22,9 @@ const preview: Preview = {
     Story => (
       <AuthContext.Provider value={new AuthClientStub()}>
         <TooltipProvider>
-          <Story />
+          <RouterDecorator>
+            <Story />
+          </RouterDecorator>
         </TooltipProvider>
       </AuthContext.Provider>
     ),
