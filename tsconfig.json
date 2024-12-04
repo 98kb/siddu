@@ -26,6 +26,9 @@
     },
     {
       "path": "./packages/fact-composer"
+    },
+    {
+      "path": "./packages/chrome-extension"
     }
   ]
 }

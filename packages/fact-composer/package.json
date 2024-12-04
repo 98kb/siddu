@@ -6,6 +6,10 @@
   "module": "./dist/index.js",
   "typings": "./dist/index.d.ts",
   "private": true,
+  "files": [
+    "dist",
+    "dist/style.css"
+  ],
   "scripts": {
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
@@ -13,6 +17,7 @@
   },
   "exports": {
     "./package.json": "./package.json",
+    "./dist/style.css": "./dist/style.css",
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
