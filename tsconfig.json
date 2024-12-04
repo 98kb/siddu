@@ -20,6 +20,9 @@
     },
     {
       "path": "./packages/chrome-auth-service"
+    },
+    {
+      "path": "./packages/collection-service-dexie-backup"
     }
   ]
 }
