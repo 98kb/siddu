@@ -4,25 +4,25 @@
   "files": [],
   "references": [
     {
+      "path": "./packages/chrome-auth-service"
+    },
+    {
       "path": "./packages/collection-service-defs"
     },
     {
-      "path": "./packages/eslint-config"
-    },
-    {
-      "path": "./packages/collection-service-helpers-memory"
+      "path": "./packages/collection-service-dexie-backup"
     },
     {
       "path": "./packages/collection-service-helpers-dexie"
     },
     {
+      "path": "./packages/collection-service-helpers-memory"
+    },
+    {
       "path": "./packages/collection-service-trpc-factory"
     },
     {
-      "path": "./packages/chrome-auth-service"
-    },
-    {
-      "path": "./packages/collection-service-dexie-backup"
+      "path": "./packages/eslint-config"
     }
   ]
 }

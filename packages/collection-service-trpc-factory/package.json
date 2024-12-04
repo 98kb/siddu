@@ -1,0 +1,24 @@
+{
+  "name": "@repo/collection-service-trpc-factory",
+  "version": "0.0.1",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "typings": "./dist/index.d.ts",
+  "private": true,
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "default": "./dist/index.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "dependencies": {
+    "@repo/collection-service-defs": "workspace:*",
+    "@trpc/client": "^10.0.0",
+    "@trpc/server": "^10.0.0",
+    "superjson": "^2.2.1",
+    "zod": "^3.23.8"
+  }
+}
