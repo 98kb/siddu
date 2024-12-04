@@ -1,0 +1,25 @@
+{
+  "name": "@repo/collection-service-helpers-memory",
+  "version": "0.0.1",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "typings": "./dist/index.d.ts",
+  "private": true,
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "default": "./dist/index.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "dependencies": {
+    "@repo/collection-service-defs": "workspace:*",
+    "fp-ts": "^2.16.9",
+    "lodash.sortby": "^4.7.0"
+  },
+  "devDependencies": {
+    "@types/lodash.sortby": "^4.7.9"
+  }
+}
