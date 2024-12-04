@@ -6,8 +6,7 @@
     "outDir": "dist",
     "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo",
     "emitDeclarationOnly": false,
-    "moduleResolution": "nodenext",
-    "types": ["node", "vite/client"]
+    "types": ["node", "vite/client", "chrome"]
   },
   "include": ["src/**/*.ts"],
   "references": []
