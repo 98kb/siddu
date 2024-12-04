@@ -31,7 +31,7 @@ export function Composer({auth, backup, collection}: TProps) {
         <CollectionContext.Provider value={collection}>
           <TooltipProvider>
             <MemoryRouter>
-              <ComposerModal open={isOpen} onOpenChange={setIsOpen} />
+              <ComposerModal show={isOpen} />
             </MemoryRouter>
           </TooltipProvider>
         </CollectionContext.Provider>

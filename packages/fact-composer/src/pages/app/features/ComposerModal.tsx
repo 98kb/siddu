@@ -4,11 +4,9 @@ import {
   DialogTitle,
   DialogDescription,
 } from "~/components/ui/dialog";
-import {ComposerNav} from "./ComposerNav";
 import {Route, Routes, useLocation, useNavigate} from "react-router-dom";
 import {CollectionPage} from "~/pages/collection/pages/CollectionPage";
 import {cn} from "~/lib/utils";
-import {Header} from "../components/Header";
 import {Composition} from "~/pages/composition/pages/Composition";
 import {useCompositionTrigger} from "../hooks/useCompositionTrigger";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
@@ -16,43 +14,74 @@ import {useSetAtom} from "jotai";
 import {inputElAtom} from "../stores/inputElAtom";
 import {useAddFactTrigger} from "../hooks/useAddFactTrigger";
 import {MarketplacePage} from "~/pages/marketplace/page/Marketplace";
-import {ComponentProps} from "react";
+import {ComponentProps, useCallback} from "react";
 import {SettingsPage} from "~/pages/settings/pages/SettingsPage";
+import {Navbar} from "~/features/Navbar";
+import {Close} from "@radix-ui/react-dialog";
+import {Cross2Icon} from "@radix-ui/react-icons";
 
-type TProps = ComponentProps<typeof Dialog>;
+type TProps = ComponentProps<typeof Dialog> & {
+  show: boolean;
+};
 
-export function ComposerModal(props: TProps) {
+export function ComposerModal({show, ...props}: TProps) {
   const location = useLocation();
+  const navigate = useNavigate();
   useCompositionTriggerHandler();
   useAddFactTrigger();
+  const title = location.pathname.replace("/", "");
+  const close = useCallback(() => {
+    navigate("/");
+  }, [navigate]);
   return (
-    <Dialog modal {...props}>
-      <DialogContent
-        className={cn(
-          "flex gap-0 h-full rounded-lg p-0",
-          "overflow-hidden",
-          "min-w-[70vw] min-h-[600px] max-h-[600px] max-w-[70vw]",
-        )}
-      >
-        <VisuallyHidden.Root>
-          <DialogDescription>Composer</DialogDescription>
-          <DialogTitle>{location.pathname}</DialogTitle>
-        </VisuallyHidden.Root>
-        <ComposerNav />
-        <div className="flex flex-col w-full h-full">
-          <h1 className="p-4 px-8 capitalize border-b">
-            <Header location={location} />
-          </h1>
-          <Routes>
-            <Route path="/collection" element={<CollectionPage />} />
-            <Route path="/composition" element={<Composition />} />
-            <Route path="/marketplace" element={<MarketplacePage />} />
-            <Route path="/settings" element={<SettingsPage />} />
-            <Route path="*" element={<div>Not Found</div>} />
-          </Routes>
+    show && (
+      <>
+        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-2">
+          <Navbar />
         </div>
-      </DialogContent>
-    </Dialog>
+        <Dialog
+          {...props}
+          open={title.length > 0}
+          onOpenChange={isOpen => {
+            if (!isOpen) {
+              close();
+            }
+          }}
+        >
+          <DialogContent
+            className={cn(
+              "flex gap-0 h-full rounded-lg p-0",
+              "overflow-hidden",
+              "min-w-[70vw] min-h-[600px] max-h-[600px] max-w-[70vw]",
+            )}
+          >
+            <VisuallyHidden.Root>
+              <DialogDescription>Composer</DialogDescription>
+            </VisuallyHidden.Root>
+            {/* <ComposerNav /> */}
+            <div className="flex flex-col w-full h-full">
+              <h1 className="p-4 capitalize">
+                <DialogTitle>{location.pathname}</DialogTitle>
+              </h1>
+              <Routes>
+                <Route path="/collection" element={<CollectionPage />} />
+                <Route path="/composition" element={<Composition />} />
+                <Route path="/marketplace" element={<MarketplacePage />} />
+                <Route path="/settings" element={<SettingsPage />} />
+                <Route path="*" element={<div>Not Found</div>} />
+              </Routes>
+            </div>
+            <Close
+              className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground"
+              onClick={close}
+            >
+              <Cross2Icon className="h-4 w-4" />
+              <span className="sr-only">Close</span>
+            </Close>
+          </DialogContent>
+        </Dialog>
+      </>
+    )
   );
 }
 

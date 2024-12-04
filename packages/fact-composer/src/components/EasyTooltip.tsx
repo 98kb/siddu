@@ -1,11 +1,9 @@
 import {ComponentProps} from "react";
 import {Tooltip, TooltipContent, TooltipTrigger} from "~/components/ui/tooltip";
 
-type TProps = {
+type TProps = ComponentProps<typeof TooltipContent> & {
   children: React.ReactNode;
   openDelay?: number;
-  side: ComponentProps<typeof TooltipContent>["side"];
-  sideOffset?: number;
   tooltip: string;
 };
 
