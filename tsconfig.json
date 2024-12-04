@@ -25,7 +25,7 @@
       "path": "./packages/eslint-config"
     },
     {
-      "path": "./packages/collection-service-helpers-memory"
+      "path": "./packages/fact-composer"
     }
   ]
 }
