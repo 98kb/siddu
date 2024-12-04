@@ -4,12 +4,12 @@
   "license": "MIT",
   "scripts": {},
   "private": true,
-  "dependencies": {},
   "devDependencies": {
     "@eslint/js": "^9.8.0",
     "@nx/eslint": "20.1.4",
     "@nx/eslint-plugin": "20.1.4",
     "@nx/js": "20.1.4",
+    "@nx/storybook": "20.1.4",
     "@nx/vite": "20.1.4",
     "@nx/web": "20.1.4",
     "@repo/eslint-config": "workspace:*",

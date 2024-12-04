@@ -19,7 +19,7 @@ export class LabelsRepository
   implements ILabelsRepository
 {
   constructor(
-    readonly db: DexieRepository<
+    override readonly db: DexieRepository<
       "labels",
       LabelSchema,
       InsertLabelSchema,

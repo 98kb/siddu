@@ -18,7 +18,7 @@ export class FactsRepository
   implements IFactsRepository
 {
   constructor(
-    readonly db: DexieRepository<
+    override readonly db: DexieRepository<
       "facts",
       FactSchema,
       InsertFactSchema,

@@ -1,0 +1,9 @@
+{
+  "name": "fact-composer",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/fact-composer/src",
+  "projectType": "library",
+  "tags": [""],
+  "// targets": "to see all targets run: nx show project fact-composer --web",
+  "targets": {}
+}
