@@ -56,11 +56,6 @@ function useComposerNav() {
       Icon: HelpCircleIcon,
       route: "/help",
     },
-    {
-      name: "Settings & Preferences",
-      Icon: SettingsIcon,
-      route: "/settings",
-    },
   ];
 
   return {tabs, bottomTabs};

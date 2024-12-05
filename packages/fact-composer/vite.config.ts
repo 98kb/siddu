@@ -14,6 +14,9 @@ export default defineConfig({
       tsconfigPath: path.join(__dirname, "tsconfig.lib.json"),
     }),
   ],
+  define: {
+    __BUILD_TAG__: Date.now(),
+  },
   // Uncomment this if you are using workers.
   // worker: {
   //  plugins: [ nxViteTsPaths() ],

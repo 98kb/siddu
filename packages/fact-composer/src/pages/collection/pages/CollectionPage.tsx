@@ -1,10 +1,9 @@
 import {CollectionNav} from "../features/CollectionNav";
-import {useLocation} from "react-router-dom";
+import {Outlet, useLocation} from "react-router-dom";
 import {useFactMutationSignals} from "../hooks/useFactMutationSignals";
 import {useFactsPagination} from "../hooks/useFactsPagination";
 import {useEffect} from "react";
 import {useFactsQuery} from "../hooks/useFactsQuery";
-import {FactsGrid} from "../features/FactsGrid";
 import {SaveFact} from "../features/SaveFact";
 
 export function CollectionPage() {
@@ -22,7 +21,7 @@ export function CollectionPage() {
   return (
     <div className="flex w-full h-full">
       <CollectionNav />
-      <FactsGrid />
+      <Outlet />
       <SaveFact />
     </div>
   );

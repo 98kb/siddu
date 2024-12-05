@@ -1,4 +1,4 @@
-import {BookDownIcon, BookOpenTextIcon} from "lucide-react";
+import {BookDownIcon, BookOpenTextIcon, SettingsIcon} from "lucide-react";
 import {LabelIcon} from "../components/LabelIcon";
 import {NavTab} from "~/lib/NavTab";
 import {ComponentProps, useEffect, useMemo, useState} from "react";
@@ -70,6 +70,11 @@ function useCollectionNav(): NavTab[] {
         Icon: BookDownIcon,
         name: "Archive",
         route: `/collection?${toFiltersSearch({isDeleted: true})}`,
+      },
+      {
+        Icon: SettingsIcon,
+        name: "Settings",
+        route: "/collection/settings",
       },
     ];
   }, [labels, toFiltersSearch]);

@@ -16,6 +16,7 @@ import {Close} from "@radix-ui/react-dialog";
 import {Cross2Icon} from "@radix-ui/react-icons";
 import {useComposer} from "../hooks/useComposer";
 import {useEffect} from "react";
+import {FactsGrid} from "~/pages/collection/features/FactsGrid";
 
 export function ComposerModal() {
   const location = useLocation();
@@ -42,10 +43,12 @@ export function ComposerModal() {
               <DialogTitle>{location.pathname}</DialogTitle>
             </h1>
             <Routes>
-              <Route path="/collection" element={<CollectionPage />} />
+              <Route path="/collection" element={<CollectionPage />}>
+                <Route index element={<FactsGrid />} />
+                <Route path="settings" element={<SettingsPage />} />
+              </Route>
               <Route path="/composition" element={<Composition />} />
               <Route path="/marketplace" element={<MarketplacePage />} />
-              <Route path="/settings" element={<SettingsPage />} />
               <Route path="*" element={<div>Not Found</div>} />
             </Routes>
           </div>
