@@ -8,19 +8,24 @@ import {Link} from "react-router-dom";
 import {EasyTooltip} from "~/components/EasyTooltip";
 import {Button} from "~/components/ui/button";
 import {NavTab} from "~/lib/NavTab";
-import {cva} from "class-variance-authority";
+import {cn} from "~/lib/utils";
 
-type TProps = {
-  position: keyof typeof navbarPositions;
-};
-
-export function Navbar({position}: TProps) {
+export function Navbar() {
   return (
-    <nav className={toNavbar({position})}>
+    <nav
+      className={cn(
+        "fixed right-[20px] top-[50vh] -translate-y-1/2",
+        "flex flex-col bg-[rgba(0,0,0,0.8)] rounded-full p-2 shadow-2xl",
+        "scale-[.60] hover:scale-[.95]",
+        "delay-1000 hover:delay-0",
+        "opacity-95 hover:opacity-100",
+        "transition-all duration-500",
+      )}
+    >
       {tabs.map((tab, index) => (
         <Link key={index} to={tab.route}>
           <EasyTooltip
-            side="top"
+            side="left"
             tooltip={tab.name}
             sideOffset={15}
             className="text-md"
@@ -38,28 +43,6 @@ export function Navbar({position}: TProps) {
     </nav>
   );
 }
-
-const navbarPositions = {
-  bottom: "bottom-5 left-[50vw] -translate-x-1/2",
-  right: "right-5 top-[50vh] -translate-y-1/2",
-  left: "left-5 top-[50vh] -translate-y-1/2",
-  top: "top-5 left-[50vw] -translate-x-1/2",
-};
-
-const toNavbar = cva(
-  [
-    "z-2 absolute flex bg-[rgba(0,0,0,0.8)] rounded-full p-2",
-    "scale-[.60] hover:scale-[.95]",
-    "delay-1000 hover:delay-0",
-    "opacity-95 hover:opacity-100",
-    "transition-all duration-500",
-  ],
-  {
-    variants: {
-      position: navbarPositions,
-    },
-  },
-);
 
 const tabs: NavTab[] = [
   {

@@ -32,7 +32,7 @@ export function ComposerModal({show, ...props}: TProps) {
   return (
     show && (
       <>
-        <Navbar position="right" />
+        <Navbar />
         <Dialog
           {...props}
           open={title.length > 0}
