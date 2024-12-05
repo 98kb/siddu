@@ -69,4 +69,3 @@ const tabs: NavTab[] = [
     route: "/settings",
   },
 ];
-

@@ -2,6 +2,7 @@ import {Reader} from "fp-ts/lib/Reader";
 import {atom, useAtom} from "jotai";
 import {useCallback} from "react";
 import {useKeydown} from "~/lib/hooks/useKeydown";
+import {isInputable} from "~/lib/isInputable";
 
 const isVisibleAtom = atom(false);
 
@@ -12,13 +13,11 @@ export function useNavbar() {
     trigger: isToggleTrigger,
     callback: toggleVisibility,
   });
-  return {isVisible};
+  const show = useCallback(() => setIsVisible(true), []);
+  return {isVisible, show};
 }
 
 const isToggleTrigger: Reader<KeyboardEvent, boolean> = event =>
-  event.key === "." && event.ctrlKey && !isInputTarget(event);
-
-const isInputTarget: Reader<KeyboardEvent, boolean> = event =>
-  event.target instanceof HTMLInputElement ||
-  event.target instanceof HTMLTextAreaElement ||
-  (event.target as HTMLElement).contentEditable === "true";
+  event.key === "." &&
+  event.ctrlKey &&
+  !isInputable(event.target as HTMLElement);

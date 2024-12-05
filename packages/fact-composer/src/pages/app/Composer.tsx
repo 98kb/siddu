@@ -7,6 +7,7 @@ import {BackupContext} from "~/db/context/BackupContext";
 import {TooltipProvider} from "~/components/ui/tooltip";
 import {CollectionClient} from "@repo/collection-service-trpc-factory";
 import {CollectionContext} from "../collection/context/CollectionContext";
+import ShowNavbarOnInputFocus from "./features/ShowNavbarOnInputFocus";
 
 type TProps = {
   auth?: IAuthService;
@@ -21,7 +22,9 @@ export function Composer({auth, backup, collection}: TProps) {
         <CollectionContext.Provider value={collection}>
           <TooltipProvider>
             <MemoryRouter>
-              <ComposerModal />
+              <ShowNavbarOnInputFocus>
+                <ComposerModal />
+              </ShowNavbarOnInputFocus>
             </MemoryRouter>
           </TooltipProvider>
         </CollectionContext.Provider>

@@ -4,6 +4,8 @@ import {ComposerModal} from "./ComposerModal";
 import {dummyCollection} from "~/../.storybook/trpc";
 import {fn} from "@storybook/test";
 import {CollectionContext} from "~/pages/collection/context/CollectionContext";
+import {Textarea} from "~/components/ui/textarea";
+import ShowNavbarOnInputFocus from "./ShowNavbarOnInputFocus";
 
 const meta: Meta<typeof ComposerModal> = {
   title: "composer/features/ComposerModal",
@@ -21,7 +23,10 @@ export const Primary: Story = {
   decorators: [
     Story => (
       <CollectionContext.Provider value={dummyCollection}>
-        <Story />
+        <ShowNavbarOnInputFocus>
+          <Textarea />
+          <Story />
+        </ShowNavbarOnInputFocus>
       </CollectionContext.Provider>
     ),
   ],
