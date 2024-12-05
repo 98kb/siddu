@@ -1,10 +1,6 @@
 import {IAuthService} from "@repo/chrome-auth-service";
 import {MemoryRouter} from "react-router-dom";
 import {ComposerModal} from "./features/ComposerModal";
-import {useCompositionTrigger} from "./hooks/useCompositionTrigger";
-import {useSetAtom} from "jotai";
-import {compositionAtom} from "~/pages/composition/stores/compositionAtom";
-import {useComposer} from "./hooks/useComposer";
 import {AuthContext} from "~/auth/AuthContext";
 import {BackupClient} from "@repo/collection-service-dexie-backup";
 import {BackupContext} from "~/db/context/BackupContext";
@@ -19,19 +15,13 @@ type TProps = {
 };
 
 export function Composer({auth, backup, collection}: TProps) {
-  const [isOpen, setIsOpen] = useComposer();
-  const setComposition = useSetAtom(compositionAtom);
-  useCompositionTrigger(() => {
-    setComposition("");
-    setIsOpen(true);
-  });
   return (
     <AuthContext.Provider value={auth}>
       <BackupContext.Provider value={backup}>
         <CollectionContext.Provider value={collection}>
           <TooltipProvider>
             <MemoryRouter>
-              <ComposerModal show={isOpen} />
+              <ComposerModal />
             </MemoryRouter>
           </TooltipProvider>
         </CollectionContext.Provider>

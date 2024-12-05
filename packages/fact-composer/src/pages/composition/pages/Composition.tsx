@@ -6,7 +6,6 @@ import {compositionAtom} from "../stores/compositionAtom";
 import {useCallback} from "react";
 import {inputElAtom} from "~/pages/app/stores/inputElAtom";
 import {appendToInput} from "~/pages/app/appendToInput";
-import {useComposer} from "~/pages/app/hooks/useComposer";
 import {FactSchema} from "@repo/collection-service-defs";
 
 export function Composition() {
@@ -46,12 +45,10 @@ function useComposition() {
 }
 
 function useCompositionSubmit(composition: string) {
-  const [, setModalOpen] = useComposer();
   const inputEl = useAtomValue(inputElAtom);
   return () => {
     if (inputEl) {
       appendToInput(composition, inputEl);
-      setModalOpen(false);
     }
   };
 }

@@ -8,39 +8,25 @@ import {Route, Routes, useLocation} from "react-router-dom";
 import {CollectionPage} from "~/pages/collection/pages/CollectionPage";
 import {cn} from "~/lib/utils";
 import {Composition} from "~/pages/composition/pages/Composition";
-import {useCompositionTrigger} from "../hooks/useCompositionTrigger";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
-import {useSetAtom} from "jotai";
-import {inputElAtom} from "../stores/inputElAtom";
-import {useAddFactTrigger} from "../hooks/useAddFactTrigger";
 import {MarketplacePage} from "~/pages/marketplace/page/Marketplace";
-import {ComponentProps} from "react";
 import {SettingsPage} from "~/pages/settings/pages/SettingsPage";
 import {Navbar} from "~/pages/app/features/Navbar";
 import {Close} from "@radix-ui/react-dialog";
 import {Cross2Icon} from "@radix-ui/react-icons";
+import {useComposer} from "../hooks/useComposer";
+import {useEffect} from "react";
 
-type TProps = ComponentProps<typeof Dialog> & {
-  show: boolean;
-};
-
-export function ComposerModal(props: TProps) {
+export function ComposerModal() {
   const location = useLocation();
-  useCompositionTriggerHandler();
-  useAddFactTrigger();
-  const title = location.pathname.replace("/", "");
+  const {isOpen, setIsOpen} = useComposer();
+  useEffect(() => {
+    setIsOpen(location.pathname !== "/");
+  }, [location, setIsOpen]);
   return (
     <>
       <Navbar />
-      <Dialog
-        {...props}
-        open={title.length > 0}
-        onOpenChange={isOpen => {
-          if (!isOpen) {
-            close();
-          }
-        }}
-      >
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent
           className={cn(
             "flex gap-0 h-full rounded-lg p-0",
@@ -74,11 +60,4 @@ export function ComposerModal(props: TProps) {
       </Dialog>
     </>
   );
-}
-
-function useCompositionTriggerHandler() {
-  const setInputEl = useSetAtom(inputElAtom);
-  useCompositionTrigger(event => {
-    setInputEl(event.target as HTMLTextAreaElement);
-  });
 }
