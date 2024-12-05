@@ -9,17 +9,20 @@ import {EasyTooltip} from "~/components/EasyTooltip";
 import {Button} from "~/components/ui/button";
 import {NavTab} from "~/lib/NavTab";
 import {cn} from "~/lib/utils";
+import {useNavbar} from "../hooks/useNavbar";
 
 export function Navbar() {
+  const {isVisible} = useNavbar();
   return (
     <nav
       className={cn(
         "fixed right-[20px] top-[50vh] -translate-y-1/2",
-        "flex flex-col bg-[rgba(0,0,0,0.8)] rounded-full p-2 shadow-2xl",
+        "flex flex-col rounded-full p-2 shadow-2xl",
         "scale-[.60] hover:scale-[.95]",
         "delay-1000 hover:delay-0",
-        "opacity-95 hover:opacity-100",
-        "transition-all duration-500",
+        "bg-opacity-90 bg-[rgba(0,0,0,0.8)]",
+        "transition-all duration-300",
+        !isVisible && "hidden",
       )}
     >
       {tabs.map((tab, index) => (
@@ -66,3 +69,4 @@ const tabs: NavTab[] = [
     route: "/settings",
   },
 ];
+
