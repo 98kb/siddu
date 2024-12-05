@@ -4,7 +4,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from "~/components/ui/dialog";
-import {Route, Routes, useLocation, useNavigate} from "react-router-dom";
+import {Route, Routes, useLocation} from "react-router-dom";
 import {CollectionPage} from "~/pages/collection/pages/CollectionPage";
 import {cn} from "~/lib/utils";
 import {Composition} from "~/pages/composition/pages/Composition";
@@ -14,9 +14,9 @@ import {useSetAtom} from "jotai";
 import {inputElAtom} from "../stores/inputElAtom";
 import {useAddFactTrigger} from "../hooks/useAddFactTrigger";
 import {MarketplacePage} from "~/pages/marketplace/page/Marketplace";
-import {ComponentProps, useCallback} from "react";
+import {ComponentProps} from "react";
 import {SettingsPage} from "~/pages/settings/pages/SettingsPage";
-import {Navbar} from "~/features/Navbar";
+import {Navbar} from "~/pages/app/features/Navbar";
 import {Close} from "@radix-ui/react-dialog";
 import {Cross2Icon} from "@radix-ui/react-icons";
 
@@ -26,19 +26,13 @@ type TProps = ComponentProps<typeof Dialog> & {
 
 export function ComposerModal({show, ...props}: TProps) {
   const location = useLocation();
-  const navigate = useNavigate();
   useCompositionTriggerHandler();
   useAddFactTrigger();
   const title = location.pathname.replace("/", "");
-  const close = useCallback(() => {
-    navigate("/");
-  }, [navigate]);
   return (
     show && (
       <>
-        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-2">
-          <Navbar />
-        </div>
+        <Navbar position="right" />
         <Dialog
           {...props}
           open={title.length > 0}
@@ -58,7 +52,6 @@ export function ComposerModal({show, ...props}: TProps) {
             <VisuallyHidden.Root>
               <DialogDescription>Composer</DialogDescription>
             </VisuallyHidden.Root>
-            {/* <ComposerNav /> */}
             <div className="flex flex-col w-full h-full">
               <h1 className="p-4 capitalize">
                 <DialogTitle>{location.pathname}</DialogTitle>
@@ -86,10 +79,8 @@ export function ComposerModal({show, ...props}: TProps) {
 }
 
 function useCompositionTriggerHandler() {
-  const navigate = useNavigate();
   const setInputEl = useSetAtom(inputElAtom);
   useCompositionTrigger(event => {
     setInputEl(event.target as HTMLTextAreaElement);
-    navigate("/composition");
   });
 }
