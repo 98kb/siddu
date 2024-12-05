@@ -5,6 +5,7 @@ import {cn} from "~/lib/utils";
 import {LabelPills} from "~/pages/labels/components/LabelPills";
 import {ArchiveRestoreFact} from "./ArchiveRestoreFact";
 import {useSelectedFact} from "../hooks/useSelectedFacts";
+import {StartComposition} from "./StartComposition";
 
 type TProps = {
   fact: FactSchema;
@@ -47,6 +48,7 @@ export function FactCard({fact}: TProps) {
         </div>
       </CardContent>
       <CardFooter className="opacity-0 px-3 pb-2 group-hover:opacity-100">
+        <StartComposition fact={fact} />
         <ArchiveRestoreFact fact={fact} size="icon" onClick={onArchiveToggle} />
       </CardFooter>
     </Card>

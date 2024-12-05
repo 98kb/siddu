@@ -11,6 +11,7 @@ import {IconButton} from "~/components/IconButton";
 import {Button} from "~/components/ui/button";
 import {SelectLabels} from "~/pages/labels/components/SelectLabels";
 import {useArchiveFact} from "../hooks/useArchiveFact";
+import {StartComposition} from "./StartComposition";
 
 type TProps = {
   fact: FactSchema | InsertFactSchema;
@@ -26,7 +27,6 @@ export function FactEditorToolbar({fact, onChange, onClose}: TProps) {
     [onChange, fact],
   );
   const archive = useCallback(() => {
-     
     "_id" in fact && archiveFact(fact as FactSchema);
     onClose();
   }, [fact, archiveFact, onClose]);
@@ -34,6 +34,7 @@ export function FactEditorToolbar({fact, onChange, onClose}: TProps) {
   return (
     <div className="flex w-full">
       <div className="flex items-center">
+        {fact._id && <StartComposition fact={fact} />}
         <SelectLabels selected={fact.labels} onSelect={updateLabels}>
           {({open}) => (
             <IconButton

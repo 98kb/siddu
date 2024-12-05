@@ -1,12 +1,10 @@
 import {Button} from "~/components/ui/button";
 import {FactList} from "../features/FactList";
 import {Textarea} from "~/components/ui/textarea";
-import {useAtom, useAtomValue} from "jotai";
-import {compositionAtom} from "../stores/compositionAtom";
-import {useCallback} from "react";
+import {useAtomValue} from "jotai";
 import {inputElAtom} from "~/pages/app/stores/inputElAtom";
 import {appendToInput} from "~/pages/app/appendToInput";
-import {FactSchema} from "@repo/collection-service-defs";
+import {useComposition} from "../hooks/useComposition";
 
 export function Composition() {
   const {composition, setComposition, appendComposition} = useComposition();
@@ -30,18 +28,6 @@ export function Composition() {
       </div>
     </div>
   );
-}
-
-function useComposition() {
-  const [composition, setComposition] = useAtom(compositionAtom);
-  const appendComposition = useCallback(
-    ({content}: FactSchema) =>
-      setComposition($composition =>
-        [$composition, content].filter(Boolean).join("\n"),
-      ),
-    [setComposition],
-  );
-  return {composition, setComposition, appendComposition} as const;
 }
 
 function useCompositionSubmit(composition: string) {
