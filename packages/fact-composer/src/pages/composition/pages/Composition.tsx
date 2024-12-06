@@ -6,6 +6,7 @@ import {inputElAtom} from "~/pages/app/stores/inputElAtom";
 import {appendToInput} from "~/pages/app/appendToInput";
 import {useComposition} from "../hooks/useComposition";
 import {useComposer} from "~/pages/app/hooks/useComposer";
+import {InputLabel} from "../components/InputLabel";
 
 export function Composition() {
   const inputEl = useAtomValue(inputElAtom);
@@ -14,8 +15,13 @@ export function Composition() {
   return (
     <div className="flex h-full gap-4 @container px-4">
       <div className="flex flex-col w-full h-full">
-        <div className="flex justify-end">
-          {inputEl && <Button onClick={submit}>Paste</Button>}
+        <div className="flex justify-between">
+          {inputEl && (
+            <>
+              <InputLabel el={inputEl} className="text-sm text-gray-500" />
+              <Button onClick={submit}>Paste</Button>
+            </>
+          )}
         </div>
         <Textarea
           borderless
