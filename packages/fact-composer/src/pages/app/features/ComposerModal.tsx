@@ -24,6 +24,7 @@ export function ComposerModal() {
   useEffect(() => {
     setIsOpen(location.pathname !== "/");
   }, [location, setIsOpen]);
+
   return (
     <>
       <Navbar />

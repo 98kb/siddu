@@ -6,6 +6,7 @@ import {fn} from "@storybook/test";
 import {CollectionContext} from "~/pages/collection/context/CollectionContext";
 import {Textarea} from "~/components/ui/textarea";
 import ShowNavbarOnInputFocus from "./ShowNavbarOnInputFocus";
+import RootEl from "../components/RootEl";
 
 const meta: Meta<typeof ComposerModal> = {
   title: "composer/features/ComposerModal",
@@ -25,7 +26,9 @@ export const Primary: Story = {
       <CollectionContext.Provider value={dummyCollection}>
         <ShowNavbarOnInputFocus>
           <Textarea />
-          <Story />
+          <RootEl>
+            <Story />
+          </RootEl>
         </ShowNavbarOnInputFocus>
       </CollectionContext.Provider>
     ),

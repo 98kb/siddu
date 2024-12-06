@@ -5,15 +5,17 @@ import {useAtomValue} from "jotai";
 import {inputElAtom} from "~/pages/app/stores/inputElAtom";
 import {appendToInput} from "~/pages/app/appendToInput";
 import {useComposition} from "../hooks/useComposition";
+import {useComposer} from "~/pages/app/hooks/useComposer";
 
 export function Composition() {
+  const inputEl = useAtomValue(inputElAtom);
   const {composition, setComposition, appendComposition} = useComposition();
   const submit = useCompositionSubmit(composition);
   return (
     <div className="flex h-full gap-4 @container px-4">
       <div className="flex flex-col w-full h-full">
         <div className="flex justify-end">
-          <Button onClick={submit}>OK</Button>
+          {inputEl && <Button onClick={submit}>Paste</Button>}
         </div>
         <Textarea
           borderless
@@ -32,9 +34,11 @@ export function Composition() {
 
 function useCompositionSubmit(composition: string) {
   const inputEl = useAtomValue(inputElAtom);
+  const {closeComposer} = useComposer();
   return () => {
     if (inputEl) {
       appendToInput(composition, inputEl);
+      closeComposer();
     }
   };
 }

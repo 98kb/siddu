@@ -394,6 +394,9 @@ importers:
       motion:
         specifier: ^11.13.1
         version: 11.13.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      nanoid:
+        specifier: ^5.0.9
+        version: 5.0.9
       normalize.css:
         specifier: ^8.0.1
         version: 8.0.1
@@ -5961,6 +5964,11 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
+  nanoid@5.0.9:
+    resolution: {integrity: sha512-Aooyr6MXU6HpvvWXKoVoXwKMs/KyVakWwg7xQfv5/S/RIgJMy0Ifa45H9qqYy7pTCszrHzP21Uk4PZq2HpEM8Q==}
+    engines: {node: ^18 || >=20}
+    hasBin: true
+
   natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
 
@@ -9133,21 +9141,6 @@ snapshots:
     transitivePeerDependencies:
       - nx
 
-  '@nrwl/js@19.8.14(@babel/traverse@7.25.9)(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.15))(@swc/types@0.1.17)(typescript@5.5.4))(@swc/core@1.5.29(@swc/helpers@0.5.15))(@types/node@18.16.9)(nx@20.1.4(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.15))(@swc/types@0.1.17)(typescript@5.5.4))(@swc/core@1.5.29(@swc/helpers@0.5.15)))(typescript@5.4.5)':
-    dependencies:
-      '@nx/js': 19.8.14(@babel/traverse@7.25.9)(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.15))(@swc/types@0.1.17)(typescript@5.5.4))(@swc/core@1.5.29(@swc/helpers@0.5.15))(@types/node@18.16.9)(nx@20.1.4(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.15))(@swc/types@0.1.17)(typescript@5.5.4))(@swc/core@1.5.29(@swc/helpers@0.5.15)))(typescript@5.4.5)
-    transitivePeerDependencies:
-      - '@babel/traverse'
-      - '@swc-node/register'
-      - '@swc/core'
-      - '@swc/wasm'
-      - '@types/node'
-      - debug
-      - nx
-      - supports-color
-      - typescript
-      - verdaccio
-
   '@nrwl/js@19.8.14(@babel/traverse@7.25.9)(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.15))(@swc/types@0.1.17)(typescript@5.5.4))(@swc/core@1.5.29(@swc/helpers@0.5.15))(@types/node@18.16.9)(nx@20.1.4(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.15))(@swc/types@0.1.17)(typescript@5.5.4))(@swc/core@1.5.29(@swc/helpers@0.5.15)))(typescript@5.5.4)':
     dependencies:
       '@nx/js': 19.8.14(@babel/traverse@7.25.9)(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.15))(@swc/types@0.1.17)(typescript@5.5.4))(@swc/core@1.5.29(@swc/helpers@0.5.15))(@types/node@18.16.9)(nx@20.1.4(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.15))(@swc/types@0.1.17)(typescript@5.5.4))(@swc/core@1.5.29(@swc/helpers@0.5.15)))(typescript@5.5.4)
@@ -9358,7 +9351,7 @@ snapshots:
       '@babel/preset-env': 7.26.0(@babel/core@7.26.0)
       '@babel/preset-typescript': 7.26.0(@babel/core@7.26.0)
       '@babel/runtime': 7.26.0
-      '@nrwl/js': 19.8.14(@babel/traverse@7.25.9)(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.15))(@swc/types@0.1.17)(typescript@5.5.4))(@swc/core@1.5.29(@swc/helpers@0.5.15))(@types/node@18.16.9)(nx@20.1.4(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.15))(@swc/types@0.1.17)(typescript@5.5.4))(@swc/core@1.5.29(@swc/helpers@0.5.15)))(typescript@5.4.5)
+      '@nrwl/js': 19.8.14(@babel/traverse@7.25.9)(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.15))(@swc/types@0.1.17)(typescript@5.5.4))(@swc/core@1.5.29(@swc/helpers@0.5.15))(@types/node@18.16.9)(nx@20.1.4(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.15))(@swc/types@0.1.17)(typescript@5.5.4))(@swc/core@1.5.29(@swc/helpers@0.5.15)))(typescript@5.5.4)
       '@nx/devkit': 19.8.14(nx@20.1.4(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.15))(@swc/types@0.1.17)(typescript@5.5.4))(@swc/core@1.5.29(@swc/helpers@0.5.15)))
       '@nx/workspace': 19.8.14(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.15))(@swc/types@0.1.17)(typescript@5.5.4))(@swc/core@1.5.29(@swc/helpers@0.5.15))
       babel-plugin-const-enum: 1.2.0(@babel/core@7.26.0)
@@ -14284,6 +14277,8 @@ snapshots:
   nano-spawn@0.2.0: {}
 
   nanoid@3.3.8: {}
+
+  nanoid@5.0.9: {}
 
   natural-compare@1.4.0: {}
 

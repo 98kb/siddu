@@ -1,9 +1,4 @@
-import {
-  HelpCircleIcon,
-  NotebookIcon,
-  PencilRulerIcon,
-  SettingsIcon,
-} from "lucide-react";
+import {HelpCircleIcon, NotebookIcon, PencilRulerIcon} from "lucide-react";
 import {NavTab} from "../../../lib/NavTab";
 import {AppLogoIcon} from "~/components/AppLogoIcon";
 import {ComposerNavTab} from "../components/ComposerNavTab";
