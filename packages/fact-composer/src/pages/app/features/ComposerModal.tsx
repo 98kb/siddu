@@ -17,6 +17,8 @@ import {Cross2Icon} from "@radix-ui/react-icons";
 import {useComposer} from "../hooks/useComposer";
 import {useEffect} from "react";
 import {FactsGrid} from "~/pages/collection/features/FactsGrid";
+import {ErrorBoundary} from "react-error-boundary";
+import {GlobalErrorFallback} from "~/components/GlobalErrorFallback";
 
 export function ComposerModal() {
   const location = useLocation();
@@ -43,15 +45,17 @@ export function ComposerModal() {
             <h1 className="p-4 capitalize">
               <DialogTitle>{location.pathname}</DialogTitle>
             </h1>
-            <Routes>
-              <Route path="/collection" element={<CollectionPage />}>
-                <Route index element={<FactsGrid />} />
-                <Route path="settings" element={<SettingsPage />} />
-              </Route>
-              <Route path="/composition" element={<Composition />} />
-              <Route path="/marketplace" element={<MarketplacePage />} />
-              <Route path="*" element={<div>Not Found</div>} />
-            </Routes>
+            <ErrorBoundary FallbackComponent={GlobalErrorFallback}>
+              <Routes>
+                <Route path="/collection" element={<CollectionPage />}>
+                  <Route index element={<FactsGrid />} />
+                  <Route path="settings" element={<SettingsPage />} />
+                </Route>
+                <Route path="/composition" element={<Composition />} />
+                <Route path="/marketplace" element={<MarketplacePage />} />
+                <Route path="*" element={<div>Not Found</div>} />
+              </Routes>
+            </ErrorBoundary>
           </div>
           <Close
             className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground"

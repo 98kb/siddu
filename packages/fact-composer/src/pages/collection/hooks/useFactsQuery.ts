@@ -5,6 +5,7 @@ import {useSetAtom} from "jotai";
 import {factsAtom} from "../stores/factsAtom";
 import {FactsQuerySchema} from "@repo/collection-service-defs";
 import {useCollection} from "./useCollection";
+import {useSafeTask} from "~/lib/hooks/useSafeTask";
 
 export function useFactsQuery() {
   const setFacts = useSetAtom(factsAtom);
@@ -33,7 +34,7 @@ function useFetchFacts() {
       labelIds: [filters.labelId].filter(Boolean) as string[],
     };
   }, [pagination, filters]);
-  const fetchFacts = useCallback(async () => {
+  const fetchFacts = useSafeTask(async () => {
     const result = await paginatedList(query);
     return (
       result ?? {
