@@ -3,12 +3,24 @@ import {FactsGridPlaceholder} from "../components/FactsGridPlaceholder";
 import {AddFactButton} from "./AddFactButton";
 import {EasyPagination} from "~/components/EasyPagination";
 import {useFactsPagination} from "../hooks/useFactsPagination";
-import {useAtomValue} from "jotai";
-import {factsAtom} from "../stores/factsAtom";
+import {useFactsQuery} from "../hooks/useFactsQuery";
+import {useEffect} from "react";
+import {useErrorBoundary} from "react-error-boundary";
+import {useLocation} from "react-router-dom";
 
 export function FactsGrid() {
-  const facts = useAtomValue(factsAtom);
+  const {facts, revalidate} = useFactsQuery();
   const {pagination, total, nextPage, prevPage} = useFactsPagination();
+  const location = useLocation();
+  const {resetBoundary} = useErrorBoundary();
+
+  useEffect(() => {
+    resetBoundary();
+  }, [location, resetBoundary]);
+
+  useEffect(() => {
+    revalidate();
+  }, [revalidate]);
 
   return facts.length ? (
     <div className="flex flex-col gap-2 w-full h-full max-h-[548px] box-border py-5 px-6 overflow-y-auto">

@@ -1,14 +1,14 @@
 import {useCallback, useMemo} from "react";
 import {useFactFilters} from "./useFactFilters";
 import {useFactsPagination} from "./useFactsPagination";
-import {useSetAtom} from "jotai";
+import {useAtom} from "jotai";
 import {factsAtom} from "../stores/factsAtom";
 import {FactsQuerySchema} from "@repo/collection-service-defs";
 import {useCollection} from "./useCollection";
 import {useSafeTask} from "~/lib/hooks/useSafeTask";
 
 export function useFactsQuery() {
-  const setFacts = useSetAtom(factsAtom);
+  const [facts, setFacts] = useAtom(factsAtom);
   const {setTotal} = useFactsPagination();
   const {fetchFacts} = useFetchFacts();
   const revalidate = useCallback(async () => {
@@ -16,7 +16,7 @@ export function useFactsQuery() {
     setFacts(result.list);
     setTotal(result.total);
   }, [fetchFacts, setFacts, setTotal]);
-  return {revalidate};
+  return {facts, revalidate};
 }
 
 function useFetchFacts() {
