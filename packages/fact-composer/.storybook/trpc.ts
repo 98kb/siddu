@@ -1,7 +1,9 @@
+import {indexedDB, IDBKeyRange} from "fake-indexeddb";
 import {
+  createCollectionDB,
   FactsRepository,
   LabelsRepository,
-} from "@repo/collection-service-helpers-memory";
+} from "@repo/collection-service-helpers-dexie";
 import {
   createServiceRouter,
   transformer,
@@ -11,9 +13,9 @@ import {createTRPCProxyClient, httpBatchLink} from "@trpc/client";
 import cors from "cors";
 
 const createCollectionsRouter = () => {
-  const db = {};
-  const factsRepository = new FactsRepository("facts", db);
-  const labelsRepository = new LabelsRepository("labels", db);
+  const db = createCollectionDB("collections-sb", {indexedDB, IDBKeyRange});
+  const factsRepository = new FactsRepository(db);
+  const labelsRepository = new LabelsRepository(db, factsRepository);
   return createServiceRouter(factsRepository, labelsRepository);
 };
 

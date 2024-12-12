@@ -1,10 +1,13 @@
 import {CollectionDB} from "./CollectionDB";
 import {v4} from "uuid";
-import Dexie from "dexie";
+import Dexie, {DexieOptions} from "dexie";
 import type {BaseSchema} from "@repo/collection-service-defs";
 
-export function createCollectionDB(name: string): CollectionDB {
-  const db = new Dexie(name) as CollectionDB;
+export function createCollectionDB(
+  name: string,
+  options?: DexieOptions,
+): CollectionDB {
+  const db = new Dexie(name, options) as CollectionDB;
   db.version(1).stores({
     facts: "++_id, title, content, updatedAt",
     labels: "++_id, name, updatedAt",
