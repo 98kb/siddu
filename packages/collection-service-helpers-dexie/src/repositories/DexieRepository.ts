@@ -38,11 +38,11 @@ export abstract class DexieRepository<
   }
 
   async update(
-    id: IdTypeSchema["_id"],
+    _id: IdTypeSchema["_id"],
     request: UpdateRequest,
   ): Promise<EntitySchema> {
-    await this.db[this.entity].put({...request, _id: id} as CreateRequest);
-    return this.db[this.entity].get(id as any) as Promise<EntitySchema>;
+    await this.db[this.entity].update(_id as any, request as any);
+    return this.db[this.entity].get(_id as any) as Promise<EntitySchema>;
   }
 
   async delete(id: IdTypeSchema["_id"]): Promise<void> {
