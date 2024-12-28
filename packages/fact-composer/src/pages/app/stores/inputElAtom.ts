@@ -1,5 +1,4 @@
 import {atom} from "jotai";
+import {InputElement} from "~/types/InputElement";
 
-export const inputElAtom = atom<
-  null | HTMLTextAreaElement | HTMLInputElement | HTMLElement
->(null);
+export const inputElAtom = atom<InputElement>(null);
